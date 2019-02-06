@@ -44,7 +44,7 @@ body {
 .tab-container ul {
     text-align: center;
     padding: 20px;
-    opacity: 0.95;
+    /*opacity: 0.95;*/
 }
 
 .tab-container ul li {
@@ -62,13 +62,4 @@ body {
     padding: 16px;
     width: 100%;
     height: 100%;
-}
-
-
-.footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 80px;
 }
