@@ -31,6 +31,7 @@ h1 {
     position: relative;
 
     width: 33%;
+    min-width: 315px;
 
     margin: 10px;
     padding: 3px 12px;
@@ -82,17 +83,25 @@ h1 {
 }
 
 .item {
-    display: block;
+    display: flex;
 }
 
 .item-info {
-    width: 60%;
+    display: inline-block;
+    flex: 7 0 auto;
+    vertical-align: middle;
 }
 
 .quantity {
-    width: 15%;
+    display: inline-block;
+    flex: 1 0 auto;
+    vertical-align: middle;
+    text-align: right;
 }
 
 .price {
-    width: 25%;
+    display: inline-block;
+    flex: 2 0 auto;
+    vertical-align: middle;
+    text-align: right;
 }
