@@ -19,6 +19,12 @@
     padding: 0;
     margin: 0;
 }
+body {
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 h1 {
     font-family: "Avenir Next Bold", serif;
@@ -30,8 +36,7 @@ h1 {
 .order-container {
     position: relative;
 
-    width: 33%;
-    min-width: 315px;
+    min-width: 350px;
 
     margin: 10px;
     padding: 3px 12px;
@@ -65,8 +70,7 @@ h1 {
 }
 
 .content {
-    background-color: #00bf52;
-    margin-top: 30px;
+    margin-top: 32px;
 }
 
 .content ul {
@@ -88,20 +92,100 @@ h1 {
 
 .item-info {
     display: inline-block;
-    flex: 7 0 auto;
+    min-width: 220px;
     vertical-align: middle;
+    width: 60%;
+
+}
+
+.name {
+    word-wrap: break-word;
 }
 
 .quantity {
     display: inline-block;
-    flex: 1 0 auto;
     vertical-align: middle;
     text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    min-width: 20px;
+    width: 20%;
 }
 
 .price {
     display: inline-block;
-    flex: 2 0 auto;
-    vertical-align: middle;
     text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    min-width: 100px;
+    width: 20%;
+}
+
+
+.text {
+    display: inline-block;
+}
+
+
+/*Checkboxes styles*/
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #c1c1c1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+    border: 2px solid mediumspringgreen;
+    width: 6px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.order-container hr {
+    margin: 5px 0;
+    border: 0.5px solid #dedede;
+}
+
+.discount {
+    display: flex;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total span {
+    font-family: "Avenir Next Bold", serif;
 }
