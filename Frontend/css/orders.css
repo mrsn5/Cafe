@@ -30,6 +30,7 @@ h1 {
     font-family: "Avenir Next Bold", serif;
     font-weight: normal;
     color: #575757;
+    display: inline-block;
 }
 
 
@@ -68,6 +69,12 @@ h1 {
     color: darkgray;
     font-size: 14px;
 }
+
+.order-container img{
+    width: 24px;
+    height: 24px;
+}
+
 
 .content {
     margin-top: 32px;
