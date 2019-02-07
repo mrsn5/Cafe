@@ -25,7 +25,13 @@ h1 {
     font-weight: normal;
     color: #575757;
 }
+
+
 .order-container {
+    position: relative;
+
+    width: 33%;
+
     margin: 10px;
     padding: 3px 12px;
     display: inline-block;
@@ -33,5 +39,60 @@ h1 {
     border-width: 1px;
     border-radius: 8px;
     border-color: #c1c1c1;
-    
+}
+
+.order-num {
+    position: absolute;
+    left: 10px;
+    top: 0;
+}
+
+.table-num {
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+.order-time {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 10px;
+    font-family: "Avenir Next Bold", serif;
+    color: darkgray;
+    font-size: 14px;
+}
+
+.content {
+    background-color: #00bf52;
+    margin-top: 30px;
+}
+
+.content ul {
+    list-style-type: none;
+}
+
+.content ul li {
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+}
+
+.content div{
+    display: inline-block;
+}
+
+.item {
+    display: block;
+}
+
+.item-info {
+    width: 60%;
+}
+
+.quantity {
+    width: 15%;
+}
+
+.price {
+    width: 25%;
 }
