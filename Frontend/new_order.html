@@ -44,34 +44,135 @@
 
     <div class="order-content">
 
-        <li class="item">
-            <div class="item-info">
-                <span class="item-number">1.</span>
-                <div class="text">
-                    <span class="name">Борщ</span>
-                    <br/>
-                    <span class="comment">[Без петрушки]</span>
-                </div>
-            </div>
-            <input type="number"  min="1" class="quantity">
-            <span class="price">127,70 грн</span>
-        </li>
-
-
-        <li class="item add-new-item">
-            <div class="item-info">
-                <div class="add-block">
-                    <img src="images/add-icon.png" class="add-icon">
-                    <span class="add-new-item-text">Додати страву</span>
+        <ul>
+            <li class="item">
+                <div class="item-info">
+                    <span class="item-number">1.</span>
+                    <div class="text">
+                        <span class="name">Борщ</span>
+                        <br/>
+                        <span class="comment" id="comment_text"></span>
+                    </div>
+                    <div class="comment-icon">
+                        <a class="modal-show-btn" data-toggle="modal" href="" id="add_comment_btn"><img src="images/add-comment2.png" alt="AddComment"/></a>
+                    </div>
                 </div>
 
-            </div>
-            <a href="#"><span></span></a>
-        </li>
+                <input type="number"  min="1" class="quantity">
+                <span class="price">127,70 грн</span>
+
+                <div class="modal fade show-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title comment-modal-title" id="modal_comment_title">Коментар</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="comment-input-class" id="input_comment">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-style save-modal-btn" id="save_comment" data-dismiss="modal">SAVE</button>
+                                <button type="button" class="btn btn-style close-modal-btn" data-dismiss="modal">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="item">
+                <div class="item-info">
+                    <span class="item-number">2.</span>
+                    <div class="text">
+                        <span class="name">Картопля по-селянськи</span>
+                        <br/>
+                        <span class="comment">[Без часнику]</span>
+                    </div>
+                    <div class="comment-icon">
+                        <a class="modal-show-btn" data-toggle="modal" href=""><img src="images/add-comment2.png" alt="AddComment"/></a>
+                    </div>
+                </div>
+
+                <input type="number"  min="1" class="quantity">
+                <span class="price">127,70 грн</span>
+
+                <div class="modal fade show-modal"  tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title comment-modal-title">Коментар</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="comment-input-class">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-style save-modal-btn" data-dismiss="modal">SAVE</button>
+                                <button type="button" class="btn btn-style close-modal-btn" data-dismiss="modal">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="item">
+                <div class="item-info">
+                    <span class="item-number">3.</span>
+                    <div class="text">
+                        <span class="name">Салат</span>
+                        <br/>
+                        <span class="comment"></span>
+                    </div>
+                    <div class="comment-icon">
+                        <a class="modal-show-btn" data-toggle="modal"><img src="images/add-comment2.png" alt="AddComment"/></a>
+                    </div>
+                </div>
+
+                <input type="number"  min="1" class="quantity">
+                <span class="price">127,70 грн</span>
+
+                <div class="modal fade show-modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title comment-modal-title">Коментар</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="comment-input-class">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-style save-modal-btn" data-dismiss="modal">SAVE</button>
+                                <button type="button" class="btn btn-style close-modal-btn" data-dismiss="modal">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="item add-new-item">
+                <div class="item-info">
+                    <div class="add-block">
+                        <img src="images/add-icon.png" class="add-icon">
+                        <span class="add-new-item-text">Додати страву</span>
+                    </div>
+
+                </div>
+                <a href="#"><span></span></a>
+            </li>
+        </ul>
+
+
 
         <div class="control-buttons">
-            <button class="ok-button control-btn">OK</button>
-            <button class="cancel-button control-btn">CANCEL</button>
+            <button class="ok-button control-btn btn-style">OK</button>
+            <button class="cancel-button control-btn btn-style">CANCEL</button>
         </div>
     </div>
 </div>
@@ -81,6 +182,6 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
-<script type="text/javascript" src="js/table_dropdown_list.js"></script>
+<script type="text/javascript" src="js/new_order.js"></script>
 </body>
 </html>
