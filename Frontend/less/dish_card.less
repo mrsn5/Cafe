@@ -1,0 +1,178 @@
+@import "main";
+
+*{
+  box-sizing: border-box;
+}
+
+.container{
+  min-width: 350px;
+  background-color: @yellow_tone_1;
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid @gray_tone_3;
+  border-radius: 15px;
+  font-family: @main_font_family;
+}
+
+.top-panel{
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.img-cont{
+  width: 60%;
+}
+
+.image-wrap{
+  width: 100%;
+  position: relative;
+}
+
+.image-wrap:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.image-wrap {
+  img {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+    object-fit: cover;
+    border: 1px solid @gray_tone_3;
+    border-radius: 10px;
+  }
+}
+
+.inf-block{
+  width: 40%;
+}
+
+.inf-block{
+  .name{
+    margin: 0;
+    text-align: center;
+    color: @gray_tone_6;
+  }
+}
+
+.inf-block{
+  .availability {
+    display: inline-block;
+    width: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: small;
+    font-style: italic;
+    color:@red_tone_3;
+    text-align: center;
+    visibility: hidden;
+  }
+}
+
+.inf-block{
+  ul{
+    color: @gray_tone_5;
+    font-size: large;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+.inf-block{
+  li{
+    padding-top: 5px;
+    display: flex;
+  }
+}
+
+.inf-icon{
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.inf-block li {
+  span {
+    word-break: break-all;
+    display: inline-flex;
+    padding-left: 5px;
+    line-height: normal;
+    align-items: center;
+  }
+}
+
+.separator{
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.ing-list{
+  font-weight: normal;
+  font-size: large;
+  color:@gray_tone_5;
+  padding: 0;
+  margin: 0;
+}
+
+
+.ingredient{
+  border-bottom: 1px solid @gray_tone_3;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.ingredient{
+  .ing-name{
+    word-break: break-all;
+  }
+}
+
+
+.button-cont{
+  position: relative;
+  width: 100%;
+  height: 50px;
+  @btn_width:110px;
+  @btn_height:35px;
+  margin-bottom: 10px;
+
+  .ok-btn{
+    background-color: @green_tone_2;
+    color: @green_tone_4;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width: @btn_width;
+    height: @btn_height;
+    font-size: medium;
+    font-weight: normal;
+  }
+
+  .cancel-btn{
+    background-color: @red_tone_2;
+    color:@red_tone_4;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: @btn_width;
+    height: @btn_height;
+    font-size: medium;
+    font-weight: normal;
+  }
+}
