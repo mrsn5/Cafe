@@ -30,6 +30,8 @@
 @gray_tone_5:#575757;
 @gray_tone_6:#464646;
 
+@header_height:90px;
+
 @font-face {
   font-family: "Avenir Next Cyr";
   src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Regular.eot");
@@ -46,10 +48,11 @@
           url("../fonts/AvenirNextCyr/AvenirNextCyr-Bold.ttf") format("ttf")
 }
 
-@main_font_family:"Avenir Next Bold", serif;
+@main_font_family:"Avenir Next Cyr", serif;
+@main_font_family_bold:"Avenir Next Bold", serif;
 
 .btn-style{
-  font-family: @main_font_family;
+  font-family: @main_font_family_bold;
   font-weight: normal;
   border-radius: 7px;
   cursor: pointer;
@@ -61,4 +64,29 @@
 .btn-style:active{
   box-shadow: 0 5px @gray_tone_4;
   transform: translateY(4px);
+}
+
+.header {
+  height: @header_height;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+
+  ul{
+    text-align: right;
+    padding: 5px 20px;
+
+    li{
+      display : inline-block;
+      padding: 10px 0;
+      margin-left: 20px;
+
+      img{
+        padding: 0;
+        height: 75px;
+        margin-top: -25px;
+      }
+    }
+  }
 }
