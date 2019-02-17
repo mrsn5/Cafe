@@ -35,7 +35,7 @@ h1, h2 {
 }
 
 .order-header {
-  font-family: @main_font_family;
+  font-family: @main_font_family_bold;
   font-weight: normal;
   color: @gray_tone_5;
   display: inline-block;
@@ -67,6 +67,16 @@ li {
 .order-content {
   font-size: medium;
   height: 100%;
+
+  .total{
+    font-family: @main_font_family_bold;
+    font-weight: bold;
+    color: @gray_tone_5;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 18px;
+    border-bottom: 1px @gray_tone_3 solid;
+  }
 }
 
 .item {
