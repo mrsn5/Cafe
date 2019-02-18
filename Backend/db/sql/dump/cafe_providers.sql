@@ -1,0 +1,1 @@
+INSERT INTO cafe.providers (code, company_name, address, contact_person_name, contact_person_tel, email, sign_date, break_date, break_reason) VALUES ('09836456', 'ТОВ "ФармОрг"', 'с.Крюківщина, вул. Балукова 38', 'Фукс Бенедикт Ферапонтович', '0985678976', '', '2017-02-15', null, null);
