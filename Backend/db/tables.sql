@@ -1,224 +1,224 @@
 ALTER DATABASE cafe CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE cafe;
 
-create table workers
+CREATE TABLE workers
 (
-  tab_num char(3) not null,
-  surname char(20) not null,
-  first_name char(20) not null,
-  father_name char(20) null,
-  birth_date date not null,
-  address char(100) not null,
-  gender enum('Ч', 'Ж') not null,
-  position enum('власник', 'адміністратор', 'бухгалтер', 'шеф-кухар', 'кухар', 'офіціант', 'бармен', 'прибиральниця') not null,
-  salary decimal(16,2) UNSIGNED not null,
-  hire_date date not null,
-  fire_date date null,
-  primary key (tab_num),
-  CONSTRAINT CK_JUVENILE CHECK (year(current_timestamp) - year(birth_date) > 16) -- Not perfect
+  tab_num CHAR(3) NOT NULL,
+  surname CHAR(20) NOT NULL,
+  first_name CHAR(20) NOT NULL,
+  father_name CHAR(20) NULL,
+  birth_date DATE NOT NULL,
+  address CHAR(100) NOT NULL,
+  gender ENUM('Ч', 'Ж') NOT NULL,
+  position ENUM('власник', 'адміністратор', 'бухгалтер', 'шеф-кухар', 'кухар', 'офіціант', 'бармен', 'прибиральниця') NOT NULL,
+  salary DECIMAL(16,2) UNSIGNED NOT NULL,
+  hire_date DATE NOT NULL,
+  fire_date DATE NULL,
+  PRIMARY KEY (tab_num),
+  CONSTRAINT CK_JUVENILE CHECK (year(current_timestamp) - year(birth_date) > 16) -- NOT perfect
 );
 
-create table telephones
+CREATE TABLE telephones
 (
-  tel_num char(13) not null,
-  tab_num char(3) not null,
-  primary key (tel_num),
-  foreign key (tab_num) REFERENCES workers (tab_num)
-    on update no action
-    on delete cascade
+  tel_num CHAR(13) NOT NULL,
+  tab_num CHAR(3) NOT NULL,
+  PRIMARY KEY (tel_num),
+  FOREIGN KEY (tab_num) REFERENCES workers (tab_num)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
-create table orders
+CREATE TABLE orders
 (
   unique_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  order_time timestamp not null,
-  table_num smallint UNSIGNED not null,
-  is_paid bit(1) not null,
-  cost decimal(16,2) UNSIGNED not null,
-  n_people smallint UNSIGNED not null,
-  close_time timestamp null,
-  is_closed bit(1) not null,
-  tab_num char(3) not null,
-  primary key (unique_num),
-  foreign key (tab_num) REFERENCES workers (tab_num)
-    on update no action
-    on delete no action,
+  order_time timestamp NOT NULL,
+  table_num smallint UNSIGNED NOT NULL,
+  is_paid BIT(1) NOT NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  n_people smallint UNSIGNED NOT NULL,
+  close_time timestamp NULL,
+  is_closed BIT(1) NOT NULL,
+  tab_num CHAR(3) NOT NULL,
+  PRIMARY KEY (unique_num),
+  FOREIGN KEY (tab_num) REFERENCES workers (tab_num)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
   CONSTRAINT CK_ORDER_TIME CHECK (current_timestamp > order_time),
-  CONSTRAINT CK_ORDER_TIME_DIFF CHECK (close_time > order_time OR close_time = null)
+  CONSTRAINT CK_ORDER_TIME_DIFF CHECK (close_time > order_time OR close_time = NULL)
 );
 
-create table dishes
+CREATE TABLE dishes
 (
-  tech_card_num INT UNSIGNED not null,
-  calc_card_num INT UNSIGNED not null UNIQUE,
-  dish_name char(30) not null,
-  weight SMALLINT UNSIGNED not null,
-  price decimal(16,2) UNSIGNED not null,
-  is_in_menu bit(1) not null,
-  department enum('бар', 'кухня') not null,
-  is_ing_available bit(1) not null,
-  calories INT UNSIGNED not null,
-  cooking_time INT UNSIGNED not null,
-  primary key (tech_card_num)
+  tech_card_num INT UNSIGNED NOT NULL,
+  calc_card_num INT UNSIGNED NOT NULL UNIQUE,
+  dish_name CHAR(30) NOT NULL,
+  weight SMALLINT UNSIGNED NOT NULL,
+  price DECIMAL(16,2) UNSIGNED NOT NULL,
+  is_in_menu BIT(1) NOT NULL,
+  department ENUM('бар', 'кухня') NOT NULL,
+  is_ing_available BIT(1) NOT NULL,
+  calories INT UNSIGNED NOT NULL,
+  cooking_time INT UNSIGNED NOT NULL,
+  PRIMARY KEY (tech_card_num)
 );
 
-create table portions
+CREATE TABLE portions
 (
   unique_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  is_ready bit(1) not null,
-  is_served bit(1) not null,
-  price decimal(16,2) UNSIGNED not null,
-  special_wishes char(200) null,
-  discount decimal(3,2) UNSIGNED null,
-  order_num MEDIUMINT UNSIGNED not null,
-  tech_card_num INT UNSIGNED not null,
+  is_ready BIT(1) NOT NULL,
+  is_served BIT(1) NOT NULL,
+  price DECIMAL(16,2) UNSIGNED NOT NULL,
+  special_wishes CHAR(200) NULL,
+  discount DECIMAL(3,2) UNSIGNED NULL,
+  order_num MEDIUMINT UNSIGNED NOT NULL,
+  tech_card_num INT UNSIGNED NOT NULL,
 
-  primary key (unique_num),
+  PRIMARY KEY (unique_num),
   CONSTRAINT CK_DISCOUNT_FORMAT CHECK (discount >= 0 AND discount <= 1),
 
-  foreign key (order_num) REFERENCES orders (unique_num)
-    on update no action
-    on delete cascade,
+  FOREIGN KEY (order_num) REFERENCES orders (unique_num)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE,
 
-  foreign key (tech_card_num) REFERENCES dishes (tech_card_num)
-    on update no action
-    on delete cascade
+  FOREIGN KEY (tech_card_num) REFERENCES dishes (tech_card_num)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
-create table categories
+CREATE TABLE categories
 (
-  cat_name char(20) not null,
-  primary key (cat_name)
+  cat_name CHAR(20) NOT NULL,
+  PRIMARY KEY (cat_name)
 );
 
-create table dishes_categories
+CREATE TABLE dishes_categories
 (
-  tech_card_num INT UNSIGNED not null,
-  cat_name char(20) not null,
-  primary key (tech_card_num, cat_name),
-  foreign key (cat_name) REFERENCES categories (cat_name)
-    on update cascade
-    on delete no action,
+  tech_card_num INT UNSIGNED NOT NULL,
+  cat_name CHAR(20) NOT NULL,
+  PRIMARY KEY (tech_card_num, cat_name),
+  FOREIGN KEY (cat_name) REFERENCES categories (cat_name)
+    ON UPDATE CASCADE
+    ON DELETE NO ACTION,
 
-  foreign key (tech_card_num) REFERENCES dishes (tech_card_num)
-    on update no action
-    on delete cascade
+  FOREIGN KEY (tech_card_num) REFERENCES dishes (tech_card_num)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
-create table ingredients
+CREATE TABLE ingredients
 (
-  ing_name char(20) not null,
-  units char(5) not null,
-  curr_amount MEDIUMINT UNSIGNED not null,
-  primary key (ing_name)
+  ing_name CHAR(20) NOT NULL,
+  units CHAR(5) NOT NULL,
+  curr_amount MEDIUMINT UNSIGNED NOT NULL,
+  PRIMARY KEY (ing_name)
 );
 
 
-create table dishes_ingredients
+CREATE TABLE dishes_ingredients
 (
-  tech_card_num INT UNSIGNED not null,
-  ing_name char(20) not null,
-  amount MEDIUMINT UNSIGNED not null,
-  primary key (tech_card_num, ing_name),
-  foreign key (ing_name) REFERENCES ingredients (ing_name)
-    on update cascade
-    on delete no action,
+  tech_card_num INT UNSIGNED NOT NULL,
+  ing_name CHAR(20) NOT NULL,
+  amount MEDIUMINT UNSIGNED NOT NULL,
+  PRIMARY KEY (tech_card_num, ing_name),
+  FOREIGN KEY (ing_name) REFERENCES ingredients (ing_name)
+    ON UPDATE CASCADE
+    ON DELETE NO ACTION,
 
-  foreign key (tech_card_num) REFERENCES dishes (tech_card_num)
-    on update no action
-    on delete cascade
+  FOREIGN KEY (tech_card_num) REFERENCES dishes (tech_card_num)
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
-create table discarding
+CREATE TABLE discarding
 (
   unique_code MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  discard_date DATE not null,
-  cost decimal(16,2) UNSIGNED not null,
-  tab_num char(3) not null,
-  primary key (unique_code),
-  foreign key (tab_num) REFERENCES workers (tab_num)
-    on update no action
-    on delete no action,
+  discard_date DATE NOT NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  tab_num CHAR(3) NOT NULL,
+  PRIMARY KEY (unique_code),
+  FOREIGN KEY (tab_num) REFERENCES workers (tab_num)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
   CONSTRAINT CK_DISCARD_DATE CHECK (CURRENT_DATE = discard_date)
 );
 
-create table providers
+CREATE TABLE providers
 (
-  code char(8) not null,
-  company_name char(100) not null,
-  address char(100) not null,
-  contact_person_name char(50) not null,
-  contact_person_tel char(13) not null,
-  email char(30) null,
-  sign_date date not null,
-  break_date date null,
-  break_reason char(70) null,
-  primary key(code),
+  code CHAR(8) NOT NULL,
+  company_name CHAR(100) NOT NULL,
+  address CHAR(100) NOT NULL,
+  contact_person_name CHAR(50) NOT NULL,
+  contact_person_tel CHAR(13) NOT NULL,
+  email CHAR(30) NULL,
+  sign_date DATE NOT NULL,
+  break_date DATE NULL,
+  break_reason CHAR(70) NULL,
+  PRIMARY KEY(code),
   CONSTRAINT CK_DISCARD_DATE CHECK (break_date > sign_date)
 );
 
-create table deliveries
+CREATE TABLE deliveries
 (
   delivery_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  is_received bit(1) not null,
-  purchased bit(1) not null,
-  returned bit(1) not null,
-  invoice_num INT UNSIGNED null,
-  receiving_date date null,
-  pay_date date null,
-  cost decimal(16,2) UNSIGNED not null,
-  provider_code char(8) null,
-  primary key (delivery_num),
-  foreign key (provider_code) references providers(code)
-    on update no action
-    on delete no action,
+  is_received BIT(1) NOT NULL,
+  purchased BIT(1) NOT NULL,
+  returned BIT(1) NOT NULL,
+  invoice_num INT UNSIGNED NULL,
+  receiving_date DATE NULL,
+  pay_date DATE NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  provider_code CHAR(8) NULL,
+  PRIMARY KEY (delivery_num),
+  FOREIGN KEY (provider_code) REFERENCES providers(code)
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION,
   CONSTRAINT CK_DATE CHECK (receiving_date <= CURRENT_DATE)
 );
 
-create table units
+CREATE TABLE units
 (
-  unit_name char(2) not null,
-  graduation_rule float not null,
-  primary key(unit_name)
+  unit_name CHAR(2) NOT NULL,
+  graduation_rule float NOT NULL,
+  PRIMARY KEY(unit_name)
 );
 
-create table goods
+CREATE TABLE goods
 (
   unique_code MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  goods_name char(50) not null,
-  unit_price decimal(16,2) UNSIGNED not null,
-  cost decimal(16,2) UNSIGNED not null,
-  expected_amount float UNSIGNED not null, -- Not perfect
-  curr_amount float UNSIGNED not null, -- Not perfect
-  start_amount float UNSIGNED not null, -- Not perfect
-  production_date date null,
-  expiration_date date null,
-  inventarization_date date null,
-  ing_name char(20) not null,
+  goods_name CHAR(50) NOT NULL,
+  unit_price DECIMAL(16,2) UNSIGNED NOT NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  expected_amount float UNSIGNED NOT NULL, -- NOT perfect
+  curr_amount float UNSIGNED NOT NULL, -- NOT perfect
+  start_amount float UNSIGNED NOT NULL, -- NOT perfect
+  production_date DATE NULL,
+  expiration_date DATE NULL,
+  inventarization_date DATE NULL,
+  ing_name CHAR(20) NOT NULL,
   delivery_num MEDIUMINT UNSIGNED NOT NULL,
-  primary key (unique_code),
-  foreign key (ing_name) references ingredients (ing_name)
-    on delete no action
-    on update cascade,
-  foreign key (delivery_num) references deliveries (delivery_num)
-    on delete no action
-    on update no action,
+  PRIMARY KEY (unique_code),
+  FOREIGN KEY (ing_name) REFERENCES ingredients (ing_name)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  FOREIGN KEY (delivery_num) REFERENCES deliveries (delivery_num)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT CK_DATE CHECK (production_date <= expiration_date),
   CONSTRAINT CK_DATE_INVENT CHECK (inventarization_date = CURRENT_DATE)
 );
 
-create table discarding_goods
+CREATE TABLE discarding_goods
 (
   discard_code MEDIUMINT UNSIGNED NOT NULL,
   good_code MEDIUMINT UNSIGNED NOT NULL,
-  amount float UNSIGNED not null, -- Not perfect
-  reason char(100) not null,
-  cost  decimal(16,2) UNSIGNED not null,
-  primary key (discard_code, good_code),
-  foreign key (discard_code) references discarding (unique_code)
-    on delete no action
-    on update no action,
-  foreign key (good_code) references goods (unique_code)
-    on delete cascade
-    on update no action
+  amount float UNSIGNED NOT NULL, -- NOT perfect
+  reason CHAR(100) NOT NULL,
+  cost  DECIMAL(16,2) UNSIGNED NOT NULL,
+  PRIMARY KEY (discard_code, good_code),
+  FOREIGN KEY (discard_code) REFERENCES discarding (unique_code)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  FOREIGN KEY (good_code) REFERENCES goods (unique_code)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
 );
