@@ -178,7 +178,7 @@ CREATE TABLE deliveries
 CREATE TABLE units
 (
   unit_name CHAR(2) NOT NULL,
-  graduation_rule float NOT NULL,
+  graduation_rule FLOAT NOT NULL,
   PRIMARY KEY(unit_name)
 );
 
@@ -188,19 +188,23 @@ CREATE TABLE goods
   goods_name CHAR(50) NOT NULL,
   unit_price DECIMAL(16,2) UNSIGNED NOT NULL,
   cost DECIMAL(16,2) UNSIGNED NOT NULL,
-  expected_amount float UNSIGNED NOT NULL, -- NOT perfect
-  curr_amount float UNSIGNED NOT NULL, -- NOT perfect
-  start_amount float UNSIGNED NOT NULL, -- NOT perfect
+  expected_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
+  curr_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
+  start_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
   production_date DATE NULL,
   expiration_date DATE NULL,
   inventarization_date DATE NULL,
   ing_name CHAR(20) NOT NULL,
   delivery_num MEDIUMINT UNSIGNED NOT NULL,
+  unit_name CHAR(2) NOT NULL,
   PRIMARY KEY (unique_code),
   FOREIGN KEY (ing_name) REFERENCES ingredients (ing_name)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   FOREIGN KEY (delivery_num) REFERENCES deliveries (delivery_num)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  FOREIGN KEY (unit_name) REFERENCES units (unit_name)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT CK_DATE CHECK (production_date <= expiration_date),
@@ -211,7 +215,7 @@ CREATE TABLE discarding_goods
 (
   discard_code MEDIUMINT UNSIGNED NOT NULL,
   good_code MEDIUMINT UNSIGNED NOT NULL,
-  amount float UNSIGNED NOT NULL, -- NOT perfect
+  amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
   reason CHAR(100) NOT NULL,
   cost  DECIMAL(16,2) UNSIGNED NOT NULL,
   PRIMARY KEY (discard_code, good_code),
