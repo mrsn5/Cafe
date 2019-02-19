@@ -88,7 +88,7 @@ CREATE TABLE portions
 
 CREATE TABLE categories
 (
-  cat_name CHAR(20) NOT NULL,
+  cat_name CHAR(30) NOT NULL,
   PRIMARY KEY (cat_name)
 );
 
