@@ -1,0 +1,1 @@
+INSERT INTO cafe.ingredients (ing_name, units, curr_amount) VALUES ('картопля', 'г', 0);
