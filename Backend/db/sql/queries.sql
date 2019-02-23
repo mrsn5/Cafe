@@ -1,6 +1,6 @@
 USE cafe;
 -- Дізнатися, який офіціант оформив найбільше замовлень за конкретний період.
-SELECT tab_num, surname, first_name, COUNT(orders.unique_num) AS n_orders
+SELECT workers.tab_num, surname, first_name, COUNT(orders.unique_num) AS n_orders
 FROM workers INNER JOIN orders ON workers.tab_num = orders.tab_num
 WHERE position = 'офіціант'
       AND fire_date IS NULL
@@ -11,7 +11,7 @@ ORDER BY n_orders DESC
 LIMIT 1;
 
 -- Дізнатися, який офіціант приніс найбільше прибутку за конкретний період.
-SELECT tab_num, surname, first_name, SUM(cost) AS total
+SELECT workers.tab_num, surname, first_name, SUM(cost) AS total
 FROM workers INNER JOIN orders ON workers.tab_num = orders.tab_num
 WHERE     position = 'офіціант'
       AND fire_date IS NULL

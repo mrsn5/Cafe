@@ -10,9 +10,9 @@ CREATE TABLE workers
   father_name CHAR(20) NULL,
   birth_date DATE NOT NULL,
   address CHAR(100) NOT NULL,
-  gender ENUM('Ч', 'Ж') NOT NULL,
+  gender ENUM('Ч', 'Ж') NOT NULL DEFAULT 'Ч',
   position ENUM('власник', 'адміністратор', 'бухгалтер', 'шеф-кухар', 'кухар', 'офіціант', 'бармен', 'прибиральниця') NOT NULL,
-  salary DECIMAL(16,2) UNSIGNED NOT NULL,
+  salary DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT '6000',
   hire_date DATE NOT NULL,
   fire_date DATE NULL,
   PRIMARY KEY (tab_num),
@@ -32,13 +32,13 @@ CREATE TABLE telephones
 CREATE TABLE orders
 (
   unique_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  order_time timestamp NOT NULL,
+  order_time timestamp NOT NULL DEFAULT current_timestamp,
   table_num smallint UNSIGNED NOT NULL,
-  is_paid BIT(1) NOT NULL,
-  cost DECIMAL(16,2) UNSIGNED NOT NULL,
-  n_people smallint UNSIGNED NOT NULL,
+  is_paid BIT(1) NOT NULL DEFAULT 0b0,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
+  n_people smallint UNSIGNED NOT NULL DEFAULT 1,
   close_time timestamp NULL,
-  is_closed BIT(1) NOT NULL,
+  is_closed BIT(1) AS (IF(close_time IS NULL, 0b0,0b1)),
   tab_num CHAR(3) NOT NULL,
   PRIMARY KEY (unique_num),
   FOREIGN KEY (tab_num) REFERENCES workers (tab_num)
@@ -56,8 +56,8 @@ CREATE TABLE dishes
   weight SMALLINT UNSIGNED NOT NULL,
   price DECIMAL(16,2) UNSIGNED NOT NULL,
   is_in_menu BIT(1) NOT NULL,
-  department ENUM('бар', 'кухня') NOT NULL,
-  is_ing_available BIT(1) NOT NULL,
+  department ENUM('бар', 'кухня') NOT NULL DEFAULT 'кухня',
+  is_ing_available BIT(1) NOT NULL DEFAULT 0b1,
   calories INT UNSIGNED NOT NULL,
   cooking_time INT UNSIGNED NOT NULL,
   PRIMARY KEY (tech_card_num)
@@ -66,9 +66,9 @@ CREATE TABLE dishes
 CREATE TABLE portions
 (
   unique_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  is_ready BIT(1) NOT NULL,
-  is_served BIT(1) NOT NULL,
-  price DECIMAL(16,2) UNSIGNED NOT NULL,
+  is_ready BIT(1) NOT NULL DEFAULT 0b0,
+  is_served BIT(1) NOT NULL DEFAULT 0b0,
+  price DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
   special_wishes CHAR(200) NULL,
   discount DECIMAL(3,2) UNSIGNED NULL,
   order_num MEDIUMINT UNSIGNED NOT NULL,
@@ -108,9 +108,9 @@ CREATE TABLE dishes_categories
 
 CREATE TABLE ingredients
 (
-  ing_name CHAR(20) NOT NULL,
-  units CHAR(5) NOT NULL,
-  curr_amount MEDIUMINT UNSIGNED NOT NULL,
+  ing_name CHAR(40) NOT NULL,
+  units ENUM('г','мл','шт') NOT NULL DEFAULT 'г',
+  curr_amount MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (ing_name)
 );
 
@@ -134,7 +134,7 @@ CREATE TABLE discarding
 (
   unique_code MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   discard_date DATE NOT NULL,
-  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
   tab_num CHAR(3) NOT NULL,
   PRIMARY KEY (unique_code),
   FOREIGN KEY (tab_num) REFERENCES workers (tab_num)
@@ -161,13 +161,13 @@ CREATE TABLE providers
 CREATE TABLE deliveries
 (
   delivery_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  is_received BIT(1) NOT NULL,
-  purchased BIT(1) NOT NULL,
-  returned BIT(1) NOT NULL,
+  is_received BIT(1) NOT NULL DEFAULT 0b0,
+  purchased BIT(1) NOT NULL DEFAULT 0b0,
+  returned BIT(1) NOT NULL DEFAULT 0b0,
   invoice_num INT UNSIGNED NULL,
   receiving_date DATE NULL,
   pay_date DATE NULL,
-  cost DECIMAL(16,2) UNSIGNED NOT NULL,
+  cost DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
   provider_code CHAR(8) NULL,
   PRIMARY KEY (delivery_num),
   FOREIGN KEY (provider_code) REFERENCES providers(code)
@@ -188,9 +188,9 @@ CREATE TABLE goods
   unique_code MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   goods_name CHAR(50) NOT NULL,
   unit_price DECIMAL(16,2) UNSIGNED NOT NULL,
-  cost DECIMAL(16,2) UNSIGNED NOT NULL,
-  expected_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
-  curr_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
+  cost DECIMAL(16,2) UNSIGNED AS (start_amount * unit_price),
+  expected_amount FLOAT UNSIGNED NOT NULL DEFAULT 0, -- NOT perfect
+  curr_amount FLOAT UNSIGNED NOT NULL DEFAULT 0, -- NOT perfect
   start_amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
   production_date DATE NULL,
   expiration_date DATE NULL,
@@ -218,7 +218,7 @@ CREATE TABLE discarding_goods
   good_code MEDIUMINT UNSIGNED NOT NULL,
   amount FLOAT UNSIGNED NOT NULL, -- NOT perfect
   reason CHAR(100) NOT NULL,
-  cost  DECIMAL(16,2) UNSIGNED NOT NULL,
+  cost  DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (discard_code, good_code),
   FOREIGN KEY (discard_code) REFERENCES discarding (unique_code)
     ON DELETE NO ACTION

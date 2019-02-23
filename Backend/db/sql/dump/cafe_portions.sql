@@ -1,0 +1,2 @@
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (8, true, true, 13.30, null, 0.30, 2, 124720);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (7, true, true, 27.00, null, null, 1, 121088);
