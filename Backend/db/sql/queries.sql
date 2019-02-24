@@ -62,12 +62,12 @@ FROM orders
 where order_time = CURRENT_TIMESTAMP;
 
 -- Отримати відомості про наявність ігредієнтів на складі для конкретної страви.
-SELECT ing_name, IF(amount >= (SELECT SUM(curr_amount * graduation_rule)
+SELECT ing_name, IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
                                FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                               WHERE ing_name = X.ing_name),
+                               WHERE ing_name = X.ing_name), 0),
                  "YES", "NO") AS is_available
 FROM dishes_ingredients X
-WHERE tech_card_num = '100000';
+WHERE tech_card_num = 124720;
 
 
 -- Отримати відомості про наявність конкретного інгредієнту на складі.
