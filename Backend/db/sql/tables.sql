@@ -161,8 +161,8 @@ CREATE TABLE providers
 CREATE TABLE deliveries
 (
   delivery_num MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  is_received BIT(1) NOT NULL DEFAULT 0b0,
-  purchased BIT(1) NOT NULL DEFAULT 0b0,
+  is_received BIT(1) AS(IF(receiving_date IS NULL, 0b0, 0b1)),
+  purchased BIT(1) AS(IF(pay_date IS NULL, 0b0, 0b1)),
   returned BIT(1) NOT NULL DEFAULT 0b0,
   invoice_num INT UNSIGNED NULL,
   receiving_date DATE NULL,

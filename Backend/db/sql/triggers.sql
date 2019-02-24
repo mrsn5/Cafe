@@ -10,8 +10,6 @@ BEGIN
                    WHERE tech_card_num = NEW.tech_card_num);
 END;
 
-DROP TRIGGER cafe.bfr_ins_price;
-
 
 CREATE TRIGGER bfr_upd_price BEFORE UPDATE ON cafe.portions
 FOR EACH ROW
@@ -23,9 +21,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.bfr_upd_price;
-
-
 
 -- ОНОВЛЕННЯ СУМИ У ЗАМОВЛЕННЯХ ----------------------------------------------------------------------------------------
 CREATE TRIGGER create_order BEFORE INSERT ON cafe.orders
@@ -34,7 +29,6 @@ BEGIN
   SET NEW.cost = 0;
 END;
 
-DROP TRIGGER cafe.create_order;
 
 
 CREATE TRIGGER afr_ins_price AFTER INSERT ON cafe.portions
@@ -47,7 +41,6 @@ BEGIN
   WHERE unique_num = NEW.order_num;
 END;
 
-DROP TRIGGER cafe.afr_ins_price;
 
 
 CREATE TRIGGER afr_upd_price AFTER UPDATE ON cafe.portions
@@ -62,7 +55,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.afr_upd_price;
 
 CREATE TRIGGER afr_del_price AFTER DELETE ON cafe.portions
 FOR EACH ROW
@@ -74,7 +66,6 @@ BEGIN
   WHERE unique_num = OLD.order_num;
 END;
 
-DROP TRIGGER cafe.afr_del_price;
 
 
 -- ОНОВЛЕННЯ АТРИБУТУ "НАЯВНІСТЬ ІНГРІДІЄНТІВ" ДЛЯ СТРАВИ --------------------------------------------------------------
@@ -91,7 +82,6 @@ BEGIN
   WHERE tech_card_num = NEW.tech_card_num;
 END;
 
-DROP TRIGGER cafe.aft_ins_d_i;
 
 CREATE TRIGGER aft_del_d_i AFTER DELETE ON cafe.dishes_ingredients
 FOR EACH ROW
@@ -106,7 +96,6 @@ BEGIN
   WHERE tech_card_num = OLD.tech_card_num;
 END;
 
-DROP TRIGGER cafe.aft_del_d_i;
 
 CREATE TRIGGER aft_upd_d_i AFTER UPDATE ON cafe.dishes_ingredients
 FOR EACH ROW
@@ -121,7 +110,6 @@ BEGIN
   WHERE tech_card_num IN (NEW.tech_card_num, OLD.tech_card_num);
 END;
 
-DROP TRIGGER cafe.aft_upd_d_i;
 
 
 CREATE TRIGGER afr_upd_i AFTER UPDATE ON cafe.ingredients
@@ -139,7 +127,6 @@ BEGIN
                           WHERE ing_name IN (NEW.ing_name, OLD.ing_name));
 END;
 
-DROP TRIGGER cafe.afr_upd_i;
 
 CREATE TRIGGER afr_del_i AFTER DELETE ON cafe.ingredients
 FOR EACH ROW
@@ -156,7 +143,6 @@ BEGIN
                           WHERE OLD.ing_name = ing_name);
 END;
 
-DROP TRIGGER cafe.afr_del_i;
 
 
 -- ОНОВЛЕННЯ КІЛЬКОСТІ ІНГРІДІЄНТА -------------------------------------------------------------------------------------
@@ -166,47 +152,54 @@ BEGIN
   SET NEW.curr_amount = 0;
 END;
 
-DROP TRIGGER cafe.create_ing;
 
 
 CREATE TRIGGER afr_del_good AFTER DELETE ON cafe.goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount - OLD.curr_amount
+  SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+                                                      FROM units
+                                                      WHERE OLD.unit_name = unit_name))
   WHERE ing_name = OLD.ing_name;
 END;
 
-DROP TRIGGER cafe.afr_del_good;
 
 CREATE TRIGGER afr_upd_good AFTER UPDATE ON cafe.goods
 FOR EACH ROW
 BEGIN
   IF OLD.ing_name = NEW.ing_name THEN
       UPDATE ingredients
-      SET curr_amount = curr_amount - (OLD.curr_amount - NEW.curr_amount)
+      SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+                                                          FROM units
+                                                          WHERE OLD.unit_name = unit_name) - NEW.curr_amount * (SELECT SUM(graduation_rule)
+                                                                                                    FROM units
+                                                                                                    WHERE NEW.unit_name = unit_name))
       WHERE ing_name = OLD.ing_name;
   ELSE
       UPDATE ingredients
-      SET curr_amount = curr_amount - OLD.curr_amount
+      SET curr_amount = curr_amount - OLD.curr_amount * (SELECT SUM(graduation_rule)
+                                                         FROM units
+                                                         WHERE OLD.unit_name = unit_name)
       WHERE ing_name = OLD.ing_name;
       UPDATE ingredients
-      SET curr_amount = curr_amount + NEW.curr_amount
+      SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+                                                         FROM units
+                                                         WHERE NEW.unit_name = unit_name)
       WHERE ing_name = NEW.ing_name;
   END IF;
 END;
-
-DROP TRIGGER cafe.afr_upd_good;
 
 CREATE TRIGGER afr_ins_good AFTER INSERT ON cafe.goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount + NEW.curr_amount
+  SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+                                                     FROM units
+                                                     WHERE NEW.unit_name = unit_name)
   WHERE ing_name = NEW.ing_name;
 END;
 
-DROP TRIGGER cafe.afr_ins_good;
 
 
 -- ОНОВЛЕННЯ КІЛЬКОСТІ ПРОДУКТІВ ---------------------------------------------------------------------------------------
@@ -217,7 +210,6 @@ BEGIN
   SET NEW.expected_amount = NEW.start_amount;
 END;
 
-DROP TRIGGER cafe.bfr_ins_good;
 
 
 CREATE TRIGGER afr_ins_dis_good_amount AFTER INSERT ON cafe.discarding_goods
@@ -228,7 +220,6 @@ BEGIN
   WHERE unique_code = NEW.good_code;
 END;
 
-DROP TRIGGER cafe.afr_ins_dis_good_amount;
 
 CREATE TRIGGER afr_upd_dis_good_amount AFTER UPDATE ON cafe.discarding_goods
 FOR EACH ROW
@@ -249,7 +240,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.afr_upd_dis_good_amount;
 
 
 CREATE TRIGGER afr_del_dis_good_amount AFTER DELETE ON cafe.discarding_goods
@@ -260,7 +250,6 @@ BEGIN
   WHERE unique_code = OLD.good_code;
 END;
 
-DROP TRIGGER cafe.afr_del_dis_good_amount;
 
 -- ОНОВЛЕННЯ ЦІНИ ПОСТАВКИ ---------------------------------------------------------------------------------------------
 CREATE TRIGGER create_deliv BEFORE INSERT ON cafe.deliveries
@@ -269,7 +258,6 @@ BEGIN
   SET NEW.cost = 0;
 END;
 
-DROP TRIGGER cafe.create_deliv;
 
 
 CREATE TRIGGER afr_ins_good_price AFTER INSERT ON cafe.goods
@@ -280,7 +268,6 @@ BEGIN
   WHERE delivery_num = NEW.delivery_num;
 END;
 
-DROP TRIGGER cafe.afr_ins_good_price;
 
 
 CREATE TRIGGER afr_upd_good_price AFTER UPDATE ON cafe.goods
@@ -301,7 +288,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.afr_upd_good_price;
 
 
 CREATE TRIGGER afr_del_good_price AFTER DELETE ON cafe.goods
@@ -312,7 +298,6 @@ BEGIN
   WHERE delivery_num = OLD.delivery_num;
 END;
 
-DROP TRIGGER cafe.afr_del_good_price;
 
 
 
@@ -325,7 +310,6 @@ BEGIN
                                WHERE unique_code = NEW.good_code);
 END;
 
-DROP TRIGGER cafe.bfr_ins_dis_good;
 
 
 CREATE TRIGGER bfr_upd_dis_good BEFORE UPDATE ON cafe.discarding_goods
@@ -338,7 +322,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.bfr_upd_dis_good;
 
 
 -- ОНОВЛЕННЯ ЦІНИ В АКТІ СПИСАННЯ --------------------------------------------------------------------------------------
@@ -348,7 +331,6 @@ BEGIN
   SET NEW.cost = 0;
 END;
 
-DROP TRIGGER cafe.create_discard;
 
 CREATE TRIGGER afr_ins_dis_good AFTER INSERT ON cafe.discarding_goods
 FOR EACH ROW
@@ -360,7 +342,6 @@ BEGIN
   WHERE unique_code = NEW.discard_code;
 END;
 
-DROP TRIGGER cafe.afr_ins_dis_good;
 
 
 
@@ -384,7 +365,6 @@ BEGIN
   END IF;
 END;
 
-DROP TRIGGER cafe.afr_upd_dis_good;
 
 
 CREATE TRIGGER afr_del_dis_good AFTER DELETE ON cafe.discarding_goods
@@ -396,5 +376,3 @@ BEGIN
                         WHERE discard_code = OLD.discard_code), 0)
   WHERE unique_code = OLD.discard_code;
 END;
-
-DROP TRIGGER cafe.afr_del_dis_good;
