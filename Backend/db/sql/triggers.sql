@@ -383,7 +383,7 @@ BEGIN
 END;
 
 CREATE TRIGGER before_update_portion BEFORE UPDATE ON cafe.portions
-  FOR EACH ROW
+FOR EACH ROW
 BEGIN
   SET NEW.tech_card_num = IF(0b0 IN (SELECT is_ing_available
                                      FROM dishes
@@ -392,4 +392,8 @@ END;
 
 
 -- ОНОВЛЕННЯ КІЛЬКОСТІ ПРОДУКТУ ПІСЛЯ СТВОРЕННЯ ПОРЦІЙ -----------------------------------------------------------------
+CREATE TRIGGER after_create_portion AFTER INSERT ON cafe.portions
+FOR EACH ROW
+BEGIN
 
+END;
