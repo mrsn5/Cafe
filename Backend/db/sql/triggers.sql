@@ -371,3 +371,25 @@ BEGIN
                         WHERE discard_code = OLD.discard_code), 0)
   WHERE unique_code = OLD.discard_code;
 END;
+
+
+-- ПЕРЕВІРКА МОЖЛИВОСТІ ДОДАТИ ПОРЦІЮ ----------------------------------------------------------------------------------
+CREATE TRIGGER before_create_portion BEFORE INSERT ON cafe.portions
+FOR EACH ROW
+BEGIN
+  SET NEW.tech_card_num = IF(0b0 IN (SELECT is_ing_available
+                                     FROM dishes
+                                     WHERE dishes.tech_card_num = NEW.tech_card_num), NULL, NEW.tech_card_num);
+END;
+
+CREATE TRIGGER before_update_portion BEFORE UPDATE ON cafe.portions
+  FOR EACH ROW
+BEGIN
+  SET NEW.tech_card_num = IF(0b0 IN (SELECT is_ing_available
+                                     FROM dishes
+                                     WHERE dishes.tech_card_num = NEW.tech_card_num), NULL, NEW.tech_card_num);
+END;
+
+
+-- ОНОВЛЕННЯ КІЛЬКОСТІ ПРОДУКТУ ПІСЛЯ СТВОРЕННЯ ПОРЦІЙ -----------------------------------------------------------------
+
