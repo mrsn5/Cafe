@@ -1,2 +1,2 @@
-INSERT INTO cafe.dishes (tech_card_num, calc_card_num, dish_name, weight, price, is_in_menu, department, is_ing_available, calories, cooking_time) VALUES (121088, 121088, 'Борщ', 350, 27.00, true, 'кухня', true, 594, 60);
-INSERT INTO cafe.dishes (tech_card_num, calc_card_num, dish_name, weight, price, is_in_menu, department, is_ing_available, calories, cooking_time) VALUES (124720, 124720, 'Салат "Португальський"', 300, 19.00, true, 'кухня', true, 459, 15);
+INSERT INTO cafe.dishes (tech_card_num, calc_card_num, dish_name, weight, price, is_in_menu, department, is_ing_available, calories, cooking_time) VALUES (121088, 121088, 'Борщ', 350, 27.00, true, 'кухня', false, 594, 60);
+INSERT INTO cafe.dishes (tech_card_num, calc_card_num, dish_name, weight, price, is_in_menu, department, is_ing_available, calories, cooking_time) VALUES (124720, 124720, 'Салат "Португальський"', 300, 19.00, true, 'кухня', false, 459, 15);

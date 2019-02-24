@@ -1,0 +1,1 @@
+INSERT INTO cafe.discarding_goods (discard_code, good_code, amount, reason, cost) VALUES (1, 2, 0.5, '', 55.00);

@@ -226,7 +226,7 @@ FOR EACH ROW
 BEGIN
   IF NEW.amount <> OLD.amount THEN
       UPDATE goods
-      SET curr_amount = curr_amount + (NEW.amount - OLD.amount)
+      SET curr_amount = curr_amount - (NEW.amount - OLD.amount)
       WHERE unique_code = NEW.good_code;
   END IF;
 
@@ -239,8 +239,6 @@ BEGIN
       WHERE unique_code = NEW.good_code;
   END IF;
 END;
-
-
 
 CREATE TRIGGER afr_del_dis_good_amount AFTER DELETE ON cafe.discarding_goods
 FOR EACH ROW

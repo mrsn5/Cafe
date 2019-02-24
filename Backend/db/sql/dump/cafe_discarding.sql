@@ -1,0 +1,1 @@
+INSERT INTO cafe.discarding (unique_code, discard_date, cost, tab_num) VALUES (1, '2019-02-24', 55.00, '105');

@@ -195,7 +195,7 @@ CREATE TABLE goods
   production_date DATE NULL,
   expiration_date DATE NULL,
   inventarization_date DATE NULL,
-  ing_name CHAR(20) NOT NULL,
+  ing_name CHAR(40) NOT NULL,
   delivery_num MEDIUMINT UNSIGNED NOT NULL,
   unit_name CHAR(2) NOT NULL,
   PRIMARY KEY (unique_code),
