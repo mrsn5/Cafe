@@ -118,7 +118,7 @@ CREATE TABLE ingredients
 CREATE TABLE dishes_ingredients
 (
   tech_card_num INT UNSIGNED NOT NULL,
-  ing_name CHAR(20) NOT NULL,
+  ing_name CHAR(40) NOT NULL,
   amount MEDIUMINT UNSIGNED NOT NULL,
   PRIMARY KEY (tech_card_num, ing_name),
   FOREIGN KEY (ing_name) REFERENCES ingredients (ing_name)

@@ -1,2 +1,4 @@
-INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (1, '2019-02-23 18:35:54', 1, true, 27.00, 1, '2019-02-23 19:36:38', '506');
-INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (2, '2019-02-23 18:40:50', 2, true, 13.30, 2, '2019-02-23 19:19:00', '516');
+INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (1, '2019-02-24 18:35:54', 1, true, 30.00, 1, '2019-02-24 19:36:38', '506');
+INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (2, '2019-02-24 18:40:50', 2, true, 13.30, 1, '2019-02-24 19:19:00', '516');
+INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (3, '2019-02-24 12:03:51', 1, true, 19.00, 1, '2019-02-24 12:33:47', '516');
+INSERT INTO cafe.orders (unique_num, order_time, table_num, is_paid, cost, n_people, close_time, tab_num) VALUES (5, '2019-02-24 14:42:38', 3, false, 87.00, 3, null, '516');

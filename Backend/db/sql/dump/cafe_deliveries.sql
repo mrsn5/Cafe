@@ -5,4 +5,5 @@ INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date
 INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (5, false, 3234234, '2019-02-23', '2019-02-23', 3500.00, '23435453');
 INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (6, false, 453455324, '2019-02-23', '2019-02-23', 58.16, '87697842');
 INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (7, false, 66755, '2019-02-23', '2019-02-23', 47.50, '78974346');
-INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (8, false, 546322, '2019-02-23', '2019-02-23', 285.00, '87697842');
+INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (8, false, 546322, '2019-02-23', '2019-02-23', 289.00, '87697842');
+INSERT INTO cafe.deliveries (delivery_num, returned, invoice_num, receiving_date, pay_date, cost, provider_code) VALUES (9, false, null, null, null, 0.00, '87697842');

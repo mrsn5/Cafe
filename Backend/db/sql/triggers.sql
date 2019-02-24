@@ -73,24 +73,23 @@ CREATE TRIGGER aft_ins_d_i AFTER INSERT ON cafe.dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
-  SET is_ing_available = IF("NO" IN (SELECT IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
-                                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                                                              WHERE ing_name = X.ing_name), 0),
-                                            "YES", "NO")
+  SET is_ing_available = IF("NO" IN (SELECT IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                                   FROM ingredients
+                                                                   WHERE ing_name = X.ing_name), 0),
+                                               "YES", "NO")
                                      FROM dishes_ingredients X
                                      WHERE tech_card_num = Y.tech_card_num), 0b0, 0b1)
   WHERE tech_card_num = NEW.tech_card_num;
 END;
 
-
 CREATE TRIGGER aft_del_d_i AFTER DELETE ON cafe.dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
-  SET is_ing_available = IF("NO" IN (SELECT IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
-                                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                                                              WHERE ing_name = X.ing_name), 0),
-                                            "YES", "NO")
+  SET is_ing_available = IF("NO" IN (SELECT IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                                   FROM ingredients
+                                                                   WHERE ing_name = X.ing_name), 0),
+                                               "YES", "NO")
                                      FROM dishes_ingredients X
                                      WHERE tech_card_num = Y.tech_card_num), 0b0, 0b1)
   WHERE tech_card_num = OLD.tech_card_num;
@@ -101,25 +100,24 @@ CREATE TRIGGER aft_upd_d_i AFTER UPDATE ON cafe.dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
-  SET is_ing_available = IF("NO" IN (SELECT IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
-                                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                                                              WHERE ing_name = X.ing_name), 0),
-                                            "YES", "NO")
+  SET is_ing_available = IF("NO" IN (SELECT IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                                   FROM ingredients
+                                                                   WHERE ing_name = X.ing_name), 0),
+                                               "YES", "NO")
                                      FROM dishes_ingredients X
                                      WHERE tech_card_num = Y.tech_card_num), 0b0, 0b1)
   WHERE tech_card_num IN (NEW.tech_card_num, OLD.tech_card_num);
 END;
 
 
-
 CREATE TRIGGER afr_upd_i AFTER UPDATE ON cafe.ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
-  SET is_ing_available = IF("NO" IN (SELECT IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
-                                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                                                              WHERE ing_name = X.ing_name), 0),
-                                            "YES", "NO")
+  SET is_ing_available = IF("NO" IN (SELECT IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                                   FROM ingredients
+                                                                   WHERE ing_name = X.ing_name), 0),
+                                               "YES", "NO")
                                      FROM dishes_ingredients X
                                      WHERE tech_card_num = Y.tech_card_num), 0b0, 0b1)
   WHERE tech_card_num IN (SELECT tech_card_num
@@ -132,17 +130,16 @@ CREATE TRIGGER afr_del_i AFTER DELETE ON cafe.ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
-  SET is_ing_available = IF("NO" IN (SELECT IF(amount >= COALESCE((SELECT SUM(curr_amount * graduation_rule)
-                                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                                                              WHERE ing_name = X.ing_name), 0),
-                                            "YES", "NO")
+  SET is_ing_available = IF("NO" IN (SELECT IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                                   FROM ingredients
+                                                                   WHERE ing_name = X.ing_name), 0),
+                                               "YES", "NO")
                                      FROM dishes_ingredients X
                                      WHERE tech_card_num = Y.tech_card_num), 0b0, 0b1)
   WHERE tech_card_num IN (SELECT tech_card_num
                           FROM dishes_ingredients
                           WHERE OLD.ing_name = ing_name);
 END;
-
 
 
 -- ОНОВЛЕННЯ КІЛЬКОСТІ ІНГРІДІЄНТА -------------------------------------------------------------------------------------

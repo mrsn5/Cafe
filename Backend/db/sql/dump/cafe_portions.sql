@@ -1,2 +1,7 @@
 INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (8, true, true, 13.30, null, 0.30, 2, 124720);
-INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (7, true, true, 27.00, null, null, 1, 121088);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (13, false, false, 30.00, null, null, 5, 121088);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (7, true, true, 30.00, null, null, 1, 121088);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (12, true, true, 19.00, null, null, 3, 124720);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (14, false, false, 19.00, null, null, 5, 124720);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (15, true, false, 19.00, null, null, 5, 124720);
+INSERT INTO cafe.portions (unique_num, is_ready, is_served, price, special_wishes, discount, order_num, tech_card_num) VALUES (16, false, false, 19.00, 'Без нуту', null, 5, 124720);
