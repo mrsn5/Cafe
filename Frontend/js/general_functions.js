@@ -14,37 +14,39 @@ function update(currentElem) {
     value.hide();
     input.show();
 
-    updateInput(value, input);
+    var inputElem = input.find(".input");
+    var type = inputElem.attr("type");
+    updateInput(value, inputElem, type);
     input.focus();
 
     $(document).on("click", function (e) {
         if(!input.is(e.target) && input.has(e.target).length === 0){
-            updateValue(value, input);
+            updateValue(value, inputElem, type);
             value.show();
             input.hide();
         }
     });
 }
 
-function updateInput(value, input) {
-    var inputElem = input.find("input");
-    var type = inputElem.attr("type");
+function updateInput(value, inputElem, type) {
     switch (type) {
         case "checkbox":
         {
             inputElem.prop('checked', (value.text().charCodeAt(0) === 0x2713));
             break;
         }
-
+        case "number":
+        {
+            inputElem.val(parseInt(value.text(), 10));
+            break;
+        }
         default: {
-            input.val(value.text());
+            inputElem.val(value.text());
         }
     }
 }
 
-function updateValue(value, input) {
-    var inputElem = input.find("input");
-    var type = inputElem.attr("type");
+function updateValue(value, inputElem, type) {
     switch (type) {
         case "checkbox":
         {
@@ -55,7 +57,9 @@ function updateValue(value, input) {
             break;
         }
         default: {
-            value.text(input.val());
+            var newVal = inputElem.val();
+            if(newVal !== null )
+                value.text(inputElem.val());
         }
     }
 }

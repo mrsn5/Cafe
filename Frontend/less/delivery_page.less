@@ -4,6 +4,7 @@
 
 body{
   margin: 0;
+  margin-bottom: 50px;
 }
 
 //GENERAL STYLES
@@ -14,17 +15,24 @@ body{
   color: @gray_tone_5;
   font-family: @main_font_family;
 }
+
+.editable-cell{
+  cursor: pointer;
+  .input-data{
+    display: none;
+  }
+}
 //END
 
 .new-delivery-area{
   @main_font_size:22px;
 
   display: none;
-  max-width: 90%;
+  max-width: 80%;
   padding: 10px;
   border-bottom: 2px @yellow_tone_3 solid;
-  margin-right: 7%;
-  margin-left: 7%;
+  margin-right: 10%;
+  margin-left: 10%;
 
   .new-deliv-header{
     position: relative;
@@ -60,22 +68,23 @@ body{
   }
 
   .main-area{
-    display: flex;
-    justify-content: space-between;
-
     .general-inf{
       left: 0;
-      display: inline-block;
-      width: 35%;
       font-size: @main_font_size;
       font-family: @main_font_family;
       font-weight: bold;
       color:@gray_tone_5;
-      //padding-left: 20px;
+
+      form{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
 
       .date{
         padding: 5px;
         label{
+          text-align: center;
           display: block;
           margin: 0;
           padding: 5px 5px 5px 0px;
@@ -134,9 +143,8 @@ body{
 
     .products{
       position: relative;
-      display: inline-block;
-      width: 65%;
-      //min-width: 420px;
+      width: 100%;
+      padding-bottom: 40px;
       margin: auto;
       margin-top: 15px;
 
@@ -154,59 +162,58 @@ body{
         background-color: @gray_tone_1;
         padding: 10px;
         overflow-y : auto;
-        height: 300px;
+        height: 350px;
 
-        ul {
+        .products-table{
           font-size: (@main_font_size - 5);
-          font-weight: bold;
+          text-align: center;
+          color: @gray_tone_5;
 
-          li{
-            display: flex;
-            padding-bottom: 5px;
-            align-items: flex-end;
-
-            span{
-              padding-right: 5px;
+          thead{
+            border-bottom: 2px solid @gray_tone_3;
+            tr th{
+              padding-left: 5px;
+              text-align: center;
             }
+          }
 
-            form{
-              display: flex;
-              justify-content: space-between;
-              align-items: flex-end;
+          tr{
+            border: none;
+          }
 
-              .name-input, .price-input, .weight-input, .select-units{
-                height: 35px;
-              }
+          tbody{
+            tr{
+              border-bottom: 1px solid @gray_tone_3;
+              font-size: (@main_font_size - 3);
 
-              .name-input{
-                width: 25%;
-              }
-              .price-input{
-                width: 10%;
-              }
-              .weight-input{
-                width: 10%;
-              }
+              td{
+                border: 1px solid @gray_tone_3;
+                padding: 5px;
 
-              .select-units{
-                width: 7%;
-                color: @gray_tone_4;
-              }
+                .delete-icon{
+                  width: 30px;
+                  height: 30px;
+                  cursor: pointer;
+                }
 
-              .label-date{
-                width: 20%;
-                margin: 0;
-                .input-date{
-                  font-size: (@main_font_size - 5);
-                  width: 95%;
+                .input-style{
+                  //width: 100%;
+                  font-weight: normal;
+                  input{
+                    height: 30px;
+                  }
+                  input[type="text"]{
+                    max-width: 150px;
+                  }
+                  input[type="number"]{
+                    max-width: 100px;
+                  }
+                  input[type="date"]{
+                    max-width: 150px;
+                    font-weight: normal;
+                  }
                 }
               }
-            }
-
-            .delete-icon{
-              width: 30px;
-              height: 30px;
-              cursor: pointer;
             }
           }
         }
@@ -215,9 +222,7 @@ body{
       .total{
         font-size: @main_font_size;
         font-family: @main_font_family;
-        //font-weight: bold;
         color:@gray_tone_5;
-        margin-bottom: 50px;
         text-align: right;
         border-bottom: 1px @gray_tone_3 solid;
         display: flex;
@@ -238,6 +243,7 @@ body{
     }
   }
 }
+
 
 .table-area{
   table{
@@ -295,13 +301,6 @@ body{
             height: 20px;
           }
         }
-
-        .editable-cell{
-          cursor: pointer;
-          .input-data{
-            display: none;
-          }
-        }
       }
 
       .extra {
@@ -349,10 +348,7 @@ body{
                 .gen-price{
                   width: 10%;
                 }
-                .prod-date{
-                  width: 15%;
-                }
-                .exp-date{
+                .date{
                   width: 15%;
                 }
               }
@@ -368,60 +364,3 @@ body{
   }
 }
 
-@media screen and (max-width: 700px) {
-  .header{
-    font-size: 20px;
-    .add-btn{
-      width: 200px;
-      font-size: 20px;
-
-      .img-cont img{
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-
-  .new-delivery-area{
-    .new-deliv-header{
-      .name{
-        font-size: 15px;
-      }
-      .save-delivery-btn{
-        font-size: 15px;
-        width: 50%;
-        height: 30px;
-      }
-    }
-
-    .main-area{
-      display: block!important;
-
-      *{
-        font-size: 15px!important;
-      }
-
-      .general-inf{
-        width: 100%;
-        .provider-list{
-          .select-cont{
-            min-width: 200px;
-          }
-          .select-cont:after{
-            width: 20px;
-            height: 20px;
-          }
-        }
-      }
-
-      .products{
-        width: 95%;
-        .products-list{
-          padding-right: 5px;
-          padding-left: 5px;
-          font-size: 13px;
-        }
-      }
-    }
-  }
-}
