@@ -1,0 +1,58 @@
+@import "main";
+@import "header";
+@import "dish_card";
+
+.header{
+  color: @gray_tone_5;
+}
+
+.content{
+  margin-top: 20px;
+  margin-left: 15%;
+  margin-right: 15%;
+
+  .dishes-list{
+    ul{
+      text-align: center;
+      padding: 0;
+
+      .dish{
+        display: inline-block;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .dish + .dish {
+        padding-left: 15px;
+      }
+    }
+  }
+
+
+  .breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: @gray_tone_2;
+
+    li{
+      display: inline;
+      font-size: 28px;
+
+      a{
+        color: @blue_tone_3;
+        text-decoration: none;
+      }
+      a:hover {
+        color: @blue_tone_4;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .breadcrumb li+li:before {
+    padding: 8px;
+    color: @gray_tone_5;
+    content: "\0276F";
+  }
+}
