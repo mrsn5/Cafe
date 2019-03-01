@@ -1,0 +1,92 @@
+@primary_color_green:#59CD90;
+@primary_color_red:#EE6352;
+@primary_color_blue:#3FA7D6;
+@primary_color_gray:#ADADAD;
+@primary_color_yellow:#FAC05E;
+
+@green_tone_1:#B3E8CC;
+@green_tone_2:#86DAAE;
+@green_tone_3:#419669;
+@green_tone_4:#295E42;
+
+@red_tone_1:#F9B7A5;
+@red_tone_2:#F28D81;
+@red_tone_3:#AE493C;
+@red_tone_4:#6D2D26;
+
+@blue_tone_1:#A7D7EC;
+@blue_tone_2:#73BFE1;
+@blue_tone_3:#2E7A9C;
+@blue_tone_4:#1D4C62;
+
+@yellow_tone_1:#FEF3E1;
+@yellow_tone_2:#FCE2B5;
+@yellow_tone_3:#B68C45;
+
+@gray_tone_1:#F3F3F3;
+@gray_tone_2:#E6E6E6;
+@gray_tone_3:#C9C9C9;
+@gray_tone_4:#707070;
+@gray_tone_5:#575757;
+@gray_tone_6:#464646;
+
+@header_height:90px;
+
+@font-face {
+  font-family: "Avenir Next Cyr";
+  src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Regular.eot");
+  src:
+          url("../fonts/AvenirNextCyr/AvenirNextCyr-Regular.woff") format("woff"),
+          url("../fonts/AvenirNextCyr/AvenirNextCyr-Regular.ttf") format("ttf")
+}
+
+@font-face {
+  font-family: "Avenir Next Bold";
+  src: url("../fonts/AvenirNextCyr/AvenirNextCyr-Bold.eot");
+  src:
+          url("../fonts/AvenirNextCyr/AvenirNextCyr-Bold.woff") format("woff"),
+          url("../fonts/AvenirNextCyr/AvenirNextCyr-Bold.ttf") format("ttf")
+}
+
+@main_font_family:"Avenir Next Cyr", serif;
+@main_font_family_bold:"Avenir Next Bold", serif;
+
+.btn-style{
+  font-family: @main_font_family_bold;
+  font-weight: normal;
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  box-shadow: 0 4px @gray_tone_3;
+}
+
+.btn-style:active{
+  box-shadow: 0 5px @gray_tone_4;
+  transform: translateY(4px);
+}
+
+.header {
+  height: @header_height;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+
+  ul{
+    text-align: right;
+    padding: 5px 20px;
+
+    li{
+      display : inline-block;
+      padding: 10px 0;
+      margin-left: 20px;
+
+      img{
+        padding: 0;
+        height: 75px;
+        margin-top: -25px;
+      }
+    }
+  }
+}
