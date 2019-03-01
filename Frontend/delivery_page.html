@@ -12,7 +12,15 @@
 <body>
 
 <div class="header">
-    <div class="add-btn" id="add_area_btn">
+
+    <div class="search-area">
+        <input type="text" class="search" id="search_products" placeholder="Пошук">
+        <label for="search_products">
+            <img src="images/search.png" class="search-icon">
+        </label>
+    </div>
+
+    <div class="add-btn header-btn-style" id="add_area_btn">
         <span>Додати поставку</span>
         <!--<div class="img-cont">-->
         <img class="img-cont image-transition" src="images/drop_down_icon.png">
@@ -26,7 +34,6 @@
 </div>
 
 <div class="main">
-    <!--<div class="add-area">-->
     <div class="new-delivery-area">
         <div class="new-deliv-header">
             <div class="name">
@@ -41,7 +48,6 @@
         <div class="main-area">
 
             <div class="general-inf">
-
                 <form>
                     <div class="date">
                         <label for="order_date">Дата замовлення</label>
@@ -69,56 +75,224 @@
                         </div>
                     </div>
 
-                    <div class="checkbox-block">
-                        <input type="checkbox" id="is_paid" class="checkbox-style" />
-                        <label for="is_paid">Сплачено</label>
+                    <div>
+                        <div class="checkbox-block">
+                            <input type="checkbox" id="is_paid" class="checkbox-style" />
+                            <label for="is_paid">Сплачено</label>
+                        </div>
+
+                        <div class="checkbox-block">
+                            <input id="is_received" type="checkbox" class="checkbox-style"/>
+                            <label for="is_received">Отримано</label>
+                        </div>
                     </div>
 
-                    <div class="checkbox-block">
-                        <input id="is_received" type="checkbox" class="checkbox-style"/>
-                        <label for="is_received">Отримано</label>
-                    </div>
+
                 </form>
             </div>
 
             <div class="products">
                 <h3>Продукти</h3>
                 <div class="products-list custom-scrollbar">
-                    <ul class="ul-style">
-                        <li class="product-item">
-                            <span>1.</span>
-                            <form>
-                                <input type="text" class="name-input" placeholder="Найменування"/>
-                                <input type="number" class="price-input" placeholder="Ціна">
-                                <input type="number" class="weight-input" placeholder="Кількість">
+                    <table class="products-table">
+                        <thead>
+                        <tr>
+                            <th class="number-col"></th>
+                            <th class="name-col">назва</th>
+                            <th class="price-col">ціна за од.(грн)</th>
+                            <th class="amount-col">кількість</th>
+                            <th class="units-col">один. вим.</th>
+                            <th class="date-col">вжити з</th>
+                            <th class="date-col">вжити до</th>
+                            <th class="gen-price-col">заг. вартість (грн)</th>
+                            <th class="ingredient">інгредієнт</th>
+                            <th class="img-col"></th>
+                            <!--<th class="img-col"></th>-->
+                        </tr>
+                        </thead>
 
-                                <select class="select-units" name="units">
-                                    <option value="kg">кг</option>
-                                    <option value="l">л</option>
-                                    <option value="itm">шт</option>
-                                </select>
-                            </form>
-                            <img class="delete-icon" src="images/delete1.png">
-                        </li>
+                        <tbody>
+                        <tr class="product">
+                            <td>1</td>
+                            <td class="editable-cell">
+                                <span class="value">картопля</span>
+                                <label class="input-data input-style">
+                                    <input type="text" class="input"/>
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    20
+                                </span>
+                                <label class="input-data input-style">
+                                    <input type="number" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    30
+                                </span>
+                                <label class="input-data input-style">
+                                    <input type="number" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    кг
+                                </span>
+                                <label class="input-data input-style">
+                                    <select class="select-units input">
+                                        <option value="кг">кг</option>
+                                        <option value="л">л</option>
+                                        <option value="шт">шт</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">-</span>
 
-                        <li class="product-item">
-                            <span>1.</span>
-                            <form>
-                                <input type="text" class="name-input" placeholder="Найменування"/>
-                                <input type="number" class="price-input" placeholder="Ціна">
-                                <input type="number" class="weight-input" placeholder="Кількість">
+                                <label class="input-data input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">-</span>
+                                <label class="input-data input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td>134</td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    картопля
+                                </span>
+                                <label class="input-data input-style" >
+                                    <select class="select-ing input">
+                                        <option value="картопля">картопля</option>
+                                        <option value="помідор">помідор</option>
+                                        <option value="капуста">капуста</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td><img class=" delete-icon" src="images/delete1.png"></td>
+                        </tr>
+                        <tr class="product">
+                            <td>1</td>
+                            <td class="editable-cell">
+                                <span class="value">картопля</span>
+                                <label class="input-data input-style">
+                                    <input type="text" class="input"/>
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    20
+                                </span>
+                                <label class="input-data input-style">
+                                    <input type="number" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    30
+                                </span>
+                                <label class="input-data input-style">
+                                    <input type="number" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    кг
+                                </span>
+                                <label class="input-data input-style">
+                                    <select class="select-units input">
+                                        <option value="кг">кг</option>
+                                        <option value="л">л</option>
+                                        <option value="шт">шт</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">-</span>
 
-                                <!--<div class="select-cont">-->
-                                <select class="select-units" name="units">
-                                    <option value="kg">кг</option>
-                                    <option value="l">л</option>
-                                    <option value="itm">шт</option>
-                                </select>
-                                <!--</div>-->
-                            </form>
-                            <img class="delete-icon" src="images/delete1.png">
-                        </li>
-                    </ul>
+                                <label class="input-data input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td class="editable-cell">
+                                <span class="value">-</span>
+                                <label class="input-data input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td>134</td>
+                            <td class="editable-cell">
+                                <span class="value">
+                                    картопля
+                                </span>
+                                <label class="input-data input-style">
+                                    <select class="select-ing input">
+                                        <option value="картопля">картопля</option>
+                                        <option value="помідор">помідор</option>
+                                        <option value="капуста">капуста</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td><img class=" delete-icon" src="images/delete1.png"></td>
+                        </tr>
+
+                        <!--row for new product-->
+                        <tr class="product">
+                            <td>1</td>
+                            <td>
+                                <label class="input-style">
+                                    <input type="text" class="input" placeholder="назва"/>
+                                </label>
+                            </td>
+                            <td class="">
+                                <label class="input-style">
+                                    <input type="number" class="input" placeholder="ціна">
+                                </label>
+                            </td>
+                            <td class="">
+                                <label class="input-style">
+                                    <input type="number" class="input" placeholder="кількість">
+                                </label>
+                            </td>
+                            <td class="">
+                                <label class="input-style">
+                                    <select class="select-units input">
+                                        <option value="кг" selected>кг</option>
+                                        <option value="л">л</option>
+                                        <option value="шт">шт</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td class="">
+                                <label class="input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td class="">
+                                <label class="input-style">
+                                    <input type="date" class="input">
+                                </label>
+                            </td>
+                            <td>0</td>
+                            <td class="">
+                                <label class="input-style">
+                                    <select class="select-ing input">
+                                        <option value="картопля" selected>картопля</option>
+                                        <option value="помідор">помідор</option>
+                                        <option value="капуста">капуста</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td><img class=" delete-icon" src="images/delete1.png"></td>
+                            <td><img class=" delete-icon" src="images/save1.png"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="total">
                     <span>Всього</span>
@@ -128,9 +302,7 @@
             </div>
         </div>
     </div>
-    <!--</div>-->
 
-    <!--<hr class="separator">-->
 
     <div class="table-area">
         <table >
@@ -151,161 +323,337 @@
             <tbody>
             <tr>
                 <td>2311</td>
-                <td>20.03.2019</td>
-                <td class="editable-cell edit-date">20.03.2019</td>
-                <td class="editable-cell edit-date">20.03.2019</td>
+                <td>2019-10-03</td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data" >
+                        <input type="date" class="input">
+                    </label>
+                </td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data" >
+                        <input type="date" class="input">
+                    </label>
+                </td>
                 <td>4721</td>
                 <td>472 грн</td>
                 <td>постачальник 1</td>
-                <td class="editable-cell edit-checkbox">&#x2713</td>
-                <td class="editable-cell edit-checkbox">&#x2713</td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_paid_2311" class="checkbox-style input" />
+                        <label for="is_paid_2311"></label>
+                    </div>
+                </td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_received_2311" class="checkbox-style input" />
+                        <label for="is_received_2311"></label>
+                    </div>
+                </td>
                 <td class="show-products"><img class="image-transition" src="images/drop_down_icon.png"></td>
             </tr>
             <tr class="extra">
                 <td colspan="10">
                     <div class="delivery-products custom-scrollbar">
                         <ul class="ul-style">
-                            <li class="product">
-                                <div>
-                                    <span>1.</span>
-                                    <span>Картопля</span>
-                                </div>
-                                <div>
-                                    <span>20</span>
-                                    <span>кг</span>
-                                </div>
+                            <li class="product prod-header">
+                                <div class="number"></div>
+                                <div class="name">назва</div>
+                                <div class="unit-price">ціна за од.</div>
+                                <div class="curr-amount">поточна кількість</div>
+                                <div class="start-amount">поч. кількість</div>
+                                <div class="gen-price">заг. вартість</div>
+                                <div class="date">вжити з</div>
+                                <div class="date">вжити до</div>
                             </li>
                             <li class="product">
-                                <div>
-                                    <span>2.</span>
-                                    <span>Помідори</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>30</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
                             <li class="product">
-                                <div>
-                                    <span>3.</span>
-                                    <span>Цибуля</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>10</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
+                            </li>
+                            <li class="product">
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="curr-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
                         </ul>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>2311</td>
-                <td>20.03.2019</td>
-                <td class="editable-cell">20.03.2019</td>
-                <td class="editable-cell">20.03.2019</td>
+                <td>5432</td>
+                <td>2019-10-03</td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data">
+                        <input type="date" class="input">
+                    </label>
+                </td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data">
+                        <input type="date" class="input">
+                    </label>
+                </td>
                 <td>4721</td>
                 <td>472 грн</td>
                 <td>постачальник 1</td>
-                <td class="editable-cell">&#x2713</td>
-                <td class="editable-cell">&#x2713</td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_paid_5432" class="checkbox-style input" />
+                        <label for="is_paid_5432"></label>
+                    </div>
+                </td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_received_5432" class="checkbox-style input" />
+                        <label for="is_received_5432"></label>
+                    </div>
+                </td>
                 <td class="show-products"><img class="image-transition" src="images/drop_down_icon.png"></td>
             </tr>
             <tr class="extra">
                 <td colspan="10">
                     <div class="delivery-products custom-scrollbar">
                         <ul class="ul-style">
-                            <li class="product">
-                                <div>
-                                    <span>1.</span>
-                                    <span>Картопля</span>
-                                </div>
-                                <div>
-                                    <span>20</span>
-                                    <span>кг</span>
-                                </div>
+                            <li class="product prod-header">
+                                <div class="number"></div>
+                                <div class="name">назва</div>
+                                <div class="unit-price">ціна за од.</div>
+                                <div class="curr-amount">поточна кількість</div>
+                                <div class="start-amount">поч. кількість</div>
+                                <div class="gen-price">заг. вартість</div>
+                                <div class="date">вжити з</div>
+                                <div class="date">вжити до</div>
                             </li>
-
                             <li class="product">
-                                <div>
-                                    <span>2.</span>
-                                    <span>Помідори</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>30</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
-
                             <li class="product">
-                                <div>
-                                    <span>3.</span>
-                                    <span>Цибуля</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>10</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
+                            </li>
+                            <li class="product">
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="curr-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
                         </ul>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>2311</td>
-                <td>20.03.2019</td>
-                <td class="editable-cell">20.03.2019</td>
-                <td class="editable-cell">20.03.2019</td>
+                <td>1232</td>
+                <td>2019-10-03</td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data">
+                        <input type="date" class="input">
+                    </label>
+                </td>
+                <td class="editable-cell edit-date">
+                    <span class="value">2019-10-03</span>
+
+                    <label class="input-data">
+                        <input type="date" class="input">
+                    </label>
+                </td>
                 <td>4721</td>
                 <td>472 грн</td>
                 <td>постачальник 1</td>
-                <td class="editable-cell">&#x2713</td>
-                <td class="editable-cell">&#x2713</td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_paid_1232" class="checkbox-style input" />
+                        <label for="is_paid_1232"></label>
+                    </div>
+                </td>
+                <td class="editable-cell edit-checkbox">
+                    <span class="value">&#x2713</span>
+
+                    <div class="input-data checkbox-block">
+                        <input type="checkbox" id="is_received_1232" class="checkbox-style input" />
+                        <label for="is_received_1232"></label>
+                    </div>
+                </td>
                 <td class="show-products"><img class="image-transition" src="images/drop_down_icon.png"></td>
             </tr>
             <tr class="extra">
                 <td colspan="10">
                     <div class="delivery-products custom-scrollbar">
                         <ul class="ul-style">
-                            <li class="product">
-                                <div>
-                                    <span>1.</span>
-                                    <span>Картопля</span>
-                                </div>
-                                <div>
-                                    <span>20</span>
-                                    <span>кг</span>
-                                </div>
+                            <li class="product prod-header">
+                                <div class="number"></div>
+                                <div class="name">назва</div>
+                                <div class="unit-price">ціна за од.</div>
+                                <div class="curr-amount">поточна кількість</div>
+                                <div class="start-amount">поч. кількість</div>
+                                <div class="gen-price">заг. вартість</div>
+                                <div class="date">вжити з</div>
+                                <div class="date">вжити до</div>
                             </li>
-
                             <li class="product">
-                                <div>
-                                    <span>2.</span>
-                                    <span>Помідори</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>30</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
-
                             <li class="product">
-                                <div>
-                                    <span>3.</span>
-                                    <span>Цибуля</span>
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
                                 </div>
-                                <div>
-                                    <span>10</span>
+                                <div class="curr-amount">20
                                     <span>кг</span>
                                 </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
+                            </li>
+                            <li class="product">
+                                <div class="number">1.</div>
+                                <div class="name">Картопля</div>
+                                <div class="unit-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="curr-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="start-amount">20
+                                    <span>кг</span>
+                                </div>
+                                <div class="gen-price">50
+                                    <span>грн</span>
+                                </div>
+                                <div class="date">2019-07-01</div>
+                                <div class="date">2019-07-01</div>
                             </li>
                         </ul>
                     </div>
                 </td>
             </tr>
             </tbody>
-
         </table>
+
     </div>
 </div>
 
@@ -313,6 +661,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/delivery_page.js"></script>
+<script type="text/javascript" src="js/general_functions.js"></script>
 
 </body>
 </html>
