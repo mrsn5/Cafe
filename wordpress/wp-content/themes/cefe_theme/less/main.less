@@ -50,10 +50,14 @@
 
 @main_font_family:"Avenir Next Cyr", serif;
 @main_font_family_bold:"Avenir Next Bold", serif;
-
+@header_font:'Roboto Condensed', sans-serif;
 
 *{
   box-sizing: border-box;
+}
+
+ul{
+  list-style-type: none;
 }
 
 .btn-style{
@@ -74,10 +78,11 @@
 .header {
   height: @header_height;
   color: white;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: @header_font;
   font-size: 24px;
-  font-weight: 900;
+  //font-weight: bold;
   width: 100%;
+
   //position: fixed;
 
   ul{

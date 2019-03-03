@@ -3,8 +3,9 @@ define("PATH", get_template_directory_uri());
 ?>
 
 <div class="container">
-
+    <span class="announce label label-danger">Недоступна</span>
     <div class="top-panel">
+
         <div class="img-cont">
             <div class="image-wrap">
                 <img src="<?php echo PATH?>/images/food/borsch1.jpg">
@@ -14,7 +15,7 @@ define("PATH", get_template_directory_uri());
 
         <div class="inf-block">
             <h1 class="name">Борщ</h1>
-            <span class="availability">Недоступно</span>
+<!--            <span class="availability">Недоступно</span>-->
             <ul>
                 <li>
                     <img class="inf-icon weight" src="<?php echo PATH?>/images/icon-weight.png">

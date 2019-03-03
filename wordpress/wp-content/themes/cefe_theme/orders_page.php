@@ -1,0 +1,83 @@
+<?php
+/* Template Name: Orders */
+define("PATH", get_template_directory_uri());
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
+    <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/orders_page.less" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+    <title>Замовлення</title>
+
+</head>
+<body>
+
+<div class="header">
+<!---->
+<!--    <div class="search-area">-->
+<!--        <input type="text" class="search" id="search_products" placeholder="Пошук">-->
+<!--        <label for="search_products">-->
+<!--            <img src="--><?php //echo PATH?><!--/images/search.svg" class="search-icon">-->
+<!--        </label>-->
+<!--    </div>-->
+
+    <div class="add-btn header-btn-style" id="add_btn">
+        Додати замовлення
+    </div>
+
+    <ul>
+        <li>ІМ'Я КОРИСТУВАЧА</li>
+        <li>|</li>
+        <li><a href="main.html"><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
+    </ul>
+</div>
+
+    <div class="orders-main">
+        <div class="orders-container">
+            <h3 class="orders-label">Мої замовлення</h3>
+            <div class="temp-order-area">
+                <h3 class="order-list-label">Не збережені</h3>
+                <ul>
+                    <li class="order-item"><?php include('new_order.php');?></li>
+                    <li class="order-item"><?php include('new_order.php');?></li>
+                </ul>
+
+                <h3 class="order-list-label">Відкриті</h3>
+                <!--            <div class="open-orders order-block">-->
+                <!--                <h3 class="order-block-label">Відкриті замовлення</h3>-->
+                <ul>
+                    <li class="order-item"><?php include('orders.php');?></li>
+                    <li class="order-item"><?php include('orders.php');?></li>
+                    <li class="order-item"><?php include('orders.php');?></li>
+                    <li class="order-item"><?php include('orders.php');?></li>
+                    <li class="order-item"><?php include('orders.php');?></li>
+                </ul>
+                <h3 class="order-list-label">Закриті</h3>
+                <!--            </div>-->
+                <!--            <div class="closed-orders order-block">-->
+                <!--                <h3 class="order-block-label">Закриті замовлення</h3>-->
+                <!--                <ul>-->
+                <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+                <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+                <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+                <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+                <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+                <!--                </ul>-->
+                <!--            </div>-->
+            </div>
+        </div>
+
+    </div>
+<!--</div>-->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

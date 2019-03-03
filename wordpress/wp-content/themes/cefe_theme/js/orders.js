@@ -1,4 +1,10 @@
 $(function(){
+
+    $('#search_orders_btn').on('click', function(event) {
+        // toggleEvent($('.search-area'));
+        $('.search-area').animate({width: 'toggle'});
+    });
+
     $(".dropdown-menu li a").click(function(){
         $(".dropdown-btn-val .order-header").text($(this).text());
         $(".dropdown-btn-val .order-header").val($(this).text());

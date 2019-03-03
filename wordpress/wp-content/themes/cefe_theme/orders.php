@@ -1,5 +1,5 @@
 <?php
-    /* Template Name: Orders */
+/* Template Name: One Order */
     define("PATH", get_template_directory_uri());
 ?>
 
@@ -10,14 +10,12 @@
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/orders.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-
-
     <title>Поточні замовлення</title>
 
 </head>
 <body>
 
-<div class="orders-container">
+<!--<div class="orders-container">-->
     <!-- Order -->
     <div class="order-container">
 
@@ -34,6 +32,7 @@
 
         <div class="order-time">
             10:23
+<!--            - 11.30-->
         </div>
 
         <div class="content">
@@ -107,7 +106,7 @@
             </ul>
         </div>
     </div>
-</div>
+<!--</div>-->
 
 
 </body>

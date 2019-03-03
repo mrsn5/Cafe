@@ -1,7 +1,7 @@
 @import "main";
 
 * {
-  font-family: "Avenir Next Cyr", serif;
+  //font-family: "Avenir Next Cyr", serif;
   padding: 0;
   margin: 0;
 }
@@ -21,6 +21,7 @@ h1 {
 }
 
 .order-container {
+  font-family: @main_font_family;
   position: relative;
   min-width: 350px;
   margin: 10px;
@@ -30,12 +31,23 @@ h1 {
   border-width: 1px;
   border-radius: 8px;
   border-color: #c1c1c1;
+
+  //these ones to unset bootstrap styles
+  h1{
+    margin: 0;
+    padding: 0;
+  }
+  img{
+    vertical-align: unset;
+  }
+  ////////
 }
 
 .order-num {
   position: absolute;
   left: 10px;
   top: 0;
+
 }
 
 .table-num {
@@ -69,6 +81,9 @@ h1 {
 .content {
   ul{
     list-style-type: none;
+    li{
+      text-align: left;
+    }
   }
 }
 

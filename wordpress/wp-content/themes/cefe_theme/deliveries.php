@@ -91,8 +91,6 @@
                             <label for="is_received">Отримано</label>
                         </div>
                     </div>
-
-
                 </form>
             </div>
 
