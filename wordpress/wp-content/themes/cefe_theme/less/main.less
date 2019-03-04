@@ -165,11 +165,20 @@ input[type="date"] {
   font-family: @main_font_family;
   font-weight: bold;
   font-size: 20px;
-  border:1px solid @gray_tone_3;
-  padding:5px;
+  border: 0;
+  border-bottom: 1px solid @gray_tone_3;
+  //border:1px solid @gray_tone_3;
+  //padding:5px;
   background: transparent url("../images/date-picker5.png") 97% 50% no-repeat;
 }
 //END
+
+//SELECT STYLE
+select{
+  border: 0;
+  border-bottom: 1px solid @gray_tone_3;
+}
+//
 
 //INPUT CHECKBOX STYLE
 .checkbox-style {
@@ -206,35 +215,4 @@ input[type="date"] {
   transition: 200ms linear all;
 }
 //END
-
-.table-area {
-  margin-top: 30px;
-  margin-left: 10%;
-  margin-right: 10%;
-  font-size: 18px;
-  font-family: @main_font_family;
-  table {
-    width: 100%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-
-    thead {
-      tr {
-        background-color: @gray_tone_5;
-        color: white;
-        border: none;
-      }
-    }
-
-    td, th {
-      padding: 8px;
-      text-align: center;
-    }
-
-    td {
-      border: 1px solid @gray_tone_3;
-    }
-  }
-}
 

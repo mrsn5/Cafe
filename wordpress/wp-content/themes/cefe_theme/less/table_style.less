@@ -1,0 +1,63 @@
+@import "main";
+
+.table-area {
+  margin: auto;
+  padding-top: 30px;
+  max-width: 80%;
+  margin: auto;
+  //padding-left: 10%;
+  //padding-right: 10%;
+  font-size: 18px;
+  font-family: @main_font_family;
+  table {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    thead {
+      tr {
+        background-color: @gray_tone_5;
+        color: white;
+        border: none;
+      }
+    }
+
+    td, th {
+      padding: 8px;
+      text-align: center;
+    }
+
+    td {
+      border: 1px solid @gray_tone_3;
+      .input-data{
+        width: 100%;
+        .input{
+          width: 100%;
+        }
+      }
+    }
+
+    .color-lines{
+      tr:nth-child(2n) {
+        background-color: @gray_tone_2;
+
+        .editable-cell:hover{
+          background-color: @gray_tone_3;
+        }
+      }
+    }
+  }
+}
+
+.editable-cell{
+  cursor: pointer;
+  .input-data{
+    display: none;
+  }
+}
+
+.editable-cell:hover{
+  background-color: @gray_tone_1;
+}
+

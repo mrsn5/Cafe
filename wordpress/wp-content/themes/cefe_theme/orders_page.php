@@ -17,14 +17,6 @@ define("PATH", get_template_directory_uri());
 <body>
 
 <div class="header">
-<!---->
-<!--    <div class="search-area">-->
-<!--        <input type="text" class="search" id="search_products" placeholder="Пошук">-->
-<!--        <label for="search_products">-->
-<!--            <img src="--><?php //echo PATH?><!--/images/search.svg" class="search-icon">-->
-<!--        </label>-->
-<!--    </div>-->
-
     <div class="add-btn header-btn-style" id="add_btn">
         Додати замовлення
     </div>
@@ -36,7 +28,7 @@ define("PATH", get_template_directory_uri());
     </ul>
 </div>
 
-    <div class="orders-main">
+<!--    <div class="orders-main">-->
         <div class="orders-container">
             <h3 class="orders-label">Мої замовлення</h3>
             <div class="temp-order-area">
@@ -59,7 +51,6 @@ define("PATH", get_template_directory_uri());
                 <h3 class="order-list-label">Закриті</h3>
                 <!--            </div>-->
                 <!--            <div class="closed-orders order-block">-->
-                <!--                <h3 class="order-block-label">Закриті замовлення</h3>-->
                 <!--                <ul>-->
                 <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
                 <!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
@@ -70,8 +61,7 @@ define("PATH", get_template_directory_uri());
                 <!--            </div>-->
             </div>
         </div>
-
-    </div>
+<!--    </div>-->
 <!--</div>-->
 
 

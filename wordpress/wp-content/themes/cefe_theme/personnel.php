@@ -18,11 +18,15 @@
 
 
 <div class="header">
-    <div class="search-area">
-        <input type="text" class="search" id="search_products" placeholder="Пошук">
-        <label for="search_products">
-            <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
-        </label>
+<!--    <div class="search-area">-->
+<!--        <input type="text" class="search" id="search_products" placeholder="ПІБ">-->
+<!--        <label for="search_products">-->
+<!--            <img src="--><?php //echo PATH?><!--/images/search.svg" class="search-icon">-->
+<!--        </label>-->
+<!--    </div>-->
+
+    <div class="header-btn-style search-btn" id="search_personnel_btn">
+        Пошук
     </div>
 
     <div class="add-btn header-btn-style" id="add_area_btn">
@@ -37,142 +41,192 @@
     </ul>
 </div>
 
+
 <div class="main">
-    <div class="new-worker-area">
-        <div class="new-worker-header">
-            <!--        <div class="name">-->
-            <span class="header-text">Новий робітник</span>
-            <!--            <span class="number">#132</span>-->
-            <!--        </div>-->
-            <button class="save-worker-btn btn-style">
-                Зберегти робітника
-            </button>
-        </div>
-        <div class="main-area">
-            <div class="general-inf">
-                <form>
-                    <div class="tab-num">
-                        <label for="tab_num">Табельний номер</label>
-                        <input type="number" id="tab_num" min="0" required>
-                    </div>
+    <div class="search-area">
+        <form>
+            <span class="label-header">
+                Пошук
+                <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+            </span>
 
-                    <div class="name">
-                        <p>ПІБ</p>
-                        <label for="first_name">Ім'я</label>
-                        <input type="text" id="first_name" required />
-                        <label for="surname">Прізвище</label>
-                        <input type="text" id="surname" required />
-                        <label for="father_name">По-батькові</label>
-                        <input type="text" id="father_name" required />
-                    </div>
+            <div class="search-name search-block">
+                <label class="label" for="search_pib">ПІБ</label>
+                <input type="text" class="search" id="search_pib" placeholder="Петро Петренко Петрович">
+            </div>
 
-                    <div class="date">
-                        <p>Персональна інформація</p>
-                        <label for="birth_date">Дата народження</label>
-                        <input type="date" id="birth_date" value="1980-08-26" required />
+            <div class="search-worker search-block">
+                <label class="label" for="position">Посада</label>
+                <select class="select-position" id="position" name="positions" required>
+                    <option value="офіціант">офіціант</option>
+                    <option value="бармен">бармен</option>
+                    <option value="кухар">кухар</option>
+                    <option value="бухгалтер">бухгалтер</option>
+                    <option value="адміністратор">адміністратор</option>
+                </select>
+            </div>
+        </form>
+    </div>
 
-                        <div class="radio-btn-block">
-                            <input type="radio" id="is_male" class="radio-style" name="gender" checked/>
-                            <label for="is_male">Чоловік</label>
+    <div class="inf-area">
+        <div class="new-item-area">
+            <div class="new-item-header">
+                <span class="header-text">Новий робітник</span>
+                <button class="save-item-btn btn-style" >
+                    Зберегти робітника
+                </button>
+            </div>
+            <div class="main-area">
+<!--                <div class="general-inf">-->
+                    <form action="">
 
-                            <input type="radio" id="is_female" class="radio-style" name="gender"/>
-                            <label for="is_female">Жінка</label>
+                        <div>
+                            <p>Робоча інформація</p>
+                            <div class="inputs-row">
+                                <div class="field inline-field">
+                                    <input type="number" name="tab" id="tab_num" placeholder="1234">
+                                    <label for="tab_num">Табельний номер</label>
+                                </div>
+
+                                <div class="field inline-field position-list">
+                                    <div class="select-cont">
+                                        <select class="select-position" id="position" name="positions" required>
+                                            <option value="офіціант">офіціант</option>
+                                            <option value="бармен">бармен</option>
+                                            <option value="кухар">кухар</option>
+                                            <option value="бухгалтер">бухгалтер</option>
+                                            <option value="адміністратор">адміністратор</option>
+                                        </select>
+                                    </div>
+                                    <label class="label-without-trans" for="position">Посада</label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="address">
-                        <p>Контактна інформація</p>
-                        <label for="address">Адреса</label>
-                        <input type="text" id="address" required />
-                        <label for="tel_num">Телефон</label>
-                        <input type="tel" id="tel_num" required>
-                    </div>
+                        <div>
+                            <p>ПІБ</p>
+                            <div class="inputs-row">
+                                <div class="field inline-field">
+                                    <input type="text" name="first_name" id="first_name" placeholder="Петро">
+                                    <label for="first_name">Ім'я</label>
+                                </div>
+
+                                <div class="field inline-field">
+                                    <input type="text" name="surname" id="surname" placeholder="Петренко">
+                                    <label for="surname">Прізвище</label>
+                                </div>
+
+                                <div class="field inline-field">
+                                    <input type="text" name="father_name" id="father_name" placeholder="Петрович">
+                                    <label for="father_name">По батькові</label>
+                                </div>
+                            </div>
+                        </div>
 
 
-                    <div class="position-list">
-                        <!--                    <div class="select-cont">-->
-                        <label for="position">Посада</label>
-                        <select class="select-position" id="position" name="positions" required>
-                            <option value="офіціант">офіціант</option>
-                            <option value="бармен">бармен</option>
-                            <option value="кухар">кухар</option>
-                            <option value="бухгалтер">бухгалтер</option>
-                            <option value="адміністратор">адміністратор</option>
-                        </select>
-                        <!--                    </div>-->
-                    </div>
+                        <div>
+                            <p>Песональні дані</p>
+                            <div class="personal-inf">
+                                <div class="date-field inline-field">
+                                    <input type="date" name="birth_date" id="birth_date" value="1999-02-20">
+                                    <label class="label-without-trans" for="birth_date">Дата народження</label>
+                                </div>
 
-                </form>
+                                <fieldset class="radio-btn-field" id="gender">
+                                    <legend>Стать</legend>
+                                    <input type="radio" id="is_male" class="radio-style" name="gender" checked/>
+                                    <label for="is_male">Чоловік</label>
+
+                                    <input type="radio" id="is_female" class="radio-style" name="gender"/>
+                                    <label for="is_female">Жінка</label>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p>Контактна інформація</p>
+                            <div class="inputs-row">
+                                <div class="field inline-field" style="width: 50%">
+                                    <input type="text" name="address" id="address" placeholder="Київ, вул Марини Цвєтаєвої, 14Б">
+                                    <label for="address">Адреса</label>
+                                </div>
+
+                                <div class="field inline-field">
+                                    <input type="tel" name="tel_num" id="tel_num" placeholder="0951234567">
+                                    <label for="tel_num">Телефон</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+<!--                </div>-->
             </div>
         </div>
+        <div class="table-area">
+            <table>
+                <thead>
+                <tr>
+                    <th>tab №</th>
+                    <th>ім'я</th>
+                    <th>прізвище</th>
+                    <th>по батькові</th>
+                    <th>дата народження</th>
+                    <th>адреса</th>
+                    <th>стать</th>
+                    <th>телефон</th>
+                    <th>посада</th>
+                    <th>зарплатня (грн/міс)</th>
+                </tr>
+                </thead>
+
+                <tbody class="color-lines">
+                <tr>
+                    <td>12</td>
+                    <td>Денис</td>
+                    <td>Іваненко</td>
+                    <td>Петрович</td>
+                    <td>1988-10-02</td>
+                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
+                    <td>ч</td>
+                    <td>0987654321</td>
+                    <td>офіціант</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Денис</td>
+                    <td>Іваненко</td>
+                    <td>Петрович</td>
+                    <td>1988-10-02</td>
+                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
+                    <td>ч</td>
+                    <td>0987654321</td>
+                    <td>офіціант</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Денис</td>
+                    <td>Іваненко</td>
+                    <td>Петрович</td>
+                    <td>1988-10-02</td>
+                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
+                    <td>ч</td>
+                    <td>0987654321</td>
+                    <td>офіціант</td>
+                    <td>5000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="table-area">
-        <table>
-            <thead>
-            <tr>
-                <th>tab №</th>
-                <th>ім'я</th>
-                <th>прізвище</th>
-                <th>по-батькові</th>
-                <th>дата народження</th>
-                <th>адреса</th>
-                <th>стать</th>
-                <th>телефон</th>
-                <th>посада</th>
-                <th>зарплатня (грн/міс)</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr>
-                <td>12</td>
-                <td>Денис</td>
-                <td>Іваненко</td>
-                <td>Петрович</td>
-                <td>1988-10-02</td>
-                <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                <td>ч</td>
-                <td>0987654321</td>
-                <td>офіціант</td>
-                <td>5000</td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>Денис</td>
-                <td>Іваненко</td>
-                <td>Петрович</td>
-                <td>1988-10-02</td>
-                <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                <td>ч</td>
-                <td>0987654321</td>
-                <td>офіціант</td>
-                <td>5000</td>
-            </tr>
-            <tr>
-                <td>12</td>
-                <td>Денис</td>
-                <td>Іваненко</td>
-                <td>Петрович</td>
-                <td>1988-10-02</td>
-                <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                <td>ч</td>
-                <td>0987654321</td>
-                <td>офіціант</td>
-                <td>5000</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </div>
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
-<!--<script type="text/javascript" src="--><?php //echo PATH?><!--/js/orders.js"></script>-->
+<script type="module" src="<?php echo PATH?>/js/general_functions.js"></script>
 </body>
 </html>
 

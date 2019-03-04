@@ -17,7 +17,7 @@
 <body>
 
 <div class="header">
-    <div class="search-order-btn header-btn-style" id="search_orders_btn">
+    <div class="search-btn header-btn-style" id="search_orders_btn">
         Пошук
     </div>
 
@@ -32,7 +32,7 @@
     </ul>
 </div>
 
-<div class="orders-main">
+<div class="main">
 
     <div class="search-area">
         <form>
@@ -41,9 +41,9 @@
                 <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
             </span>
             <div class="search-date search-block">
-            <span>
-                В період
-            </span>
+                <span class="label">
+                    В період
+                </span>
                 <label>
                     з
                     <input type="date">
@@ -55,9 +55,8 @@
             </div>
         </form>
 
-
         <div class="search-worker search-block">
-            <span>Робітник</span>
+            <span class="label">Робітник</span>
             <input type="text" placeholder="Ім'я робітника">
         </div>
     </div>
@@ -92,6 +91,7 @@
 <script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="<?php echo PATH?>/js/orders.js"></script>
+<script type="module" src="<?php echo PATH?>/js/general_functions.js"></script>
 </body>
 </html>
 

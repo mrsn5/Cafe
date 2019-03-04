@@ -1,4 +1,15 @@
 $(function(){
+    //animation for add button
+    $('#add_area_btn').on('click', function(event) {
+        $('.new-item-area').slideToggle();
+        rotateImage($(".img-cont"));
+    });
+
+    //animation for search button
+    $('.search-btn').on('click', function(event) {
+        $('.search-area').animate({width: 'toggle'});
+    });
+
     //edit cells event
     $(document).on ("dblclick", ".editable-cell", function (e) {
         e.stopPropagation();
@@ -62,3 +73,20 @@ function updateValue(value, inputElem, type) {
         }
     }
 }
+
+function rotateImage($imageEl) {
+    var roratedClass = $imageEl.hasClass("rotated") || "fail";
+    if(roratedClass === "fail"){
+        $imageEl.css({
+            "transform": "rotate(-180deg)"
+        });
+        $imageEl.addClass("rotated");
+    } else {
+        $imageEl.css({
+            "transform": "rotate(0deg)"
+        });
+        $imageEl.removeClass("rotated");
+    }
+}
+
+export {rotateImage};

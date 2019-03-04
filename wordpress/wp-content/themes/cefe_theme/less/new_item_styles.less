@@ -1,0 +1,204 @@
+@import "main";
+
+//this code needs @main_font_size and @scale_value be specified
+
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+}
+
+.new-item-area{
+  //display: none;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 10px;
+  max-width: 70%;
+  padding: 10px;
+  border-bottom: 2px @yellow_tone_3 solid;
+  font-family: @main_font_family;
+  color:@gray_tone_5;
+  font-size: @main_font_size;
+
+  .new-item-header{
+    position: relative;
+    height: 60px;
+    font-family: @main_font_family;
+    font-weight: bold;
+
+    .header-text{
+      position: absolute;
+      left: 0;
+      font-size: (@main_font_size + 4);
+      padding: 5px 10px 5px 10px;
+      background-color: @yellow_tone_1;
+    }
+
+    .save-item-btn{
+      position: absolute;
+      right: 0;
+      height: 40px;
+      width: 300px;
+      font-size: @main_font_size;
+      color: @gray_tone_5;
+      background-color: @yellow_tone_2;
+    }
+    .save-item-btn:hover{
+      background-color: @primary_color_yellow;
+    }
+  }
+
+  form{
+    p{
+      margin: 10px 0 0 0;
+      background-color: @yellow_tone_1;
+      text-transform: uppercase;
+    }
+
+    .inputs-row{
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .inline-field{
+        width: 30%;
+      }
+    }
+
+    .block-field{
+      display: flex;
+    }
+    .inline-field{
+      display: inline-flex;
+    }
+
+    .field {
+      flex-flow: column-reverse;
+      margin-bottom: 1em;
+
+      label, input {
+        transition: all 0.2s;
+      }
+
+      input {
+        font-size: (@main_font_size+2);
+        border: 0;
+        border-bottom: 1px solid @gray_tone_3;
+        font-family: @main_font_family;
+        -webkit-appearance: none;
+        border-radius: 0;
+        padding: 0;
+        cursor: text;
+      }
+
+      input:focus {
+        outline: 0;
+        border-bottom: 1px solid @gray_tone_4;
+      }
+
+      input:placeholder-shown + label {
+        cursor: text;
+        white-space: nowrap;
+        overflow: hidden;
+        //text-overflow: ellipsis;
+        transform-origin: left bottom;
+        transform: translate(0, 1.3rem) scale(@scale_value);
+      }
+
+      input:focus::-webkit-input-placeholder {
+        opacity: 1;
+      }
+
+      input:not(:placeholder-shown) + label,
+      input:focus + label {
+        transform: translate(0, 0) scale(1);
+        cursor: pointer;
+      }
+
+      .select-cont{
+        position: relative;
+
+        select{
+          width: 100%;
+          padding: 0;
+          padding-right: 40px;
+          font-size: (@main_font_size + 4);
+          color: @gray_tone_5;
+          font-family: @main_font_family;
+          font-weight: normal;
+          //border: none;
+          background: rgba(255, 255, 255, 0.0);
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          -ms-appearance: none;
+          -o-appearance: none;
+          appearance: none;
+        }
+        select::-ms-expand {
+          display: none;
+        }
+      }
+
+      .select-cont:after {
+        content: '';
+        z-index: -1;
+        background: url("../images/drop_down_icon.png") no-repeat;
+        background-size: contain;
+        width: 25px;
+        height:25px;
+        position: absolute;
+        cursor: pointer;
+        top: 7px;
+        right: 10px;
+      }
+    }
+
+    .date-field{
+      //display: inline-flex;
+      flex-flow: column-reverse;
+      margin-bottom: 1em;
+
+      input{
+        //border: 0;
+        //border-bottom: 1px solid @gray_tone_3;
+        font-family: @main_font_family;
+        font-size: (@main_font_size + 2);
+        padding: 0;
+        font-weight: normal;
+      }
+    }
+    .checkbox-field{
+      display: inline-block;
+      padding-left: 15px;
+      margin-bottom: 1em;
+
+      label{
+        margin-bottom: 0;
+        font-weight: normal;
+      }
+    }
+    .radio-btn-field{
+      display: inline-block;
+      margin-left: 150px;
+      text-align: center;
+
+      label{
+        font-weight: normal;
+      }
+
+      legend{
+        font-size: @main_font_size;
+        margin-bottom: 10px;
+        transform: scale(@scale_value);
+        font-family: @main_font_family;
+        //text-transform: uppercase;
+        font-weight: bold;
+        color: @gray_tone_5;
+      }
+    }
+
+    .label-without-trans{
+      transform-origin: left bottom;
+      transform: scale(@scale_value);
+    }
+  }
+}

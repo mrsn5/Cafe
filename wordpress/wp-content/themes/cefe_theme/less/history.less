@@ -1,4 +1,5 @@
 @import "orders_page";
+@import "search_area";
 
 .header{
   .today-order-btn{
@@ -6,74 +7,7 @@
   }
 }
 
-.orders-main{
-  .search-area{
-    //padding-right: 1px;
-    margin-right: 10px;
-    font-size: 20px;
-    font-weight: normal;
-    color:@gray_tone_6;
-    display: none;
-
-    .label-header{
-      padding: 5px;
-      display: block;
-      background-color: @gray_tone_2;
-      font-weight: bold;
-      position: relative;
-      cursor: pointer;
-
-      .search-icon{
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        right: 10px;
-      }
-    }
-
-    .label-header:hover{
-      background-color: @gray_tone_3;
-    }
-
-    .search-block{
-      padding-top: 10px;
-      padding-left: 5px;
-      border-bottom: 1px solid @gray_tone_3;
-
-      span{
-        padding: 5px;
-        //padding-bottom: 15px;
-        background-color: @yellow_tone_1;
-      }
-    }
-
-    .search-date{
-      label{
-
-        font-weight: normal;
-        margin: 0;
-        min-width: 170px;
-        width: 100%;
-        position: relative;
-        padding-top: 10px;
-        padding-bottom: 30px;
-        padding-left: 5px;
-
-        input{
-          position: absolute;
-          right: 0;
-        }
-      }
-    }
-
-    .search-worker{
-      input{
-        margin-top: 15px;
-        margin-bottom: 20px;
-      }
-    }
-  }
-
+.main{
   .orders-container{
     border-left: 2px solid @gray_tone_4;
 

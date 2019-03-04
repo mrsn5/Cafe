@@ -175,7 +175,7 @@ define("PATH", get_template_directory_uri());
             </div>
 
             <div class="control-buttons">
-                <button class="ok-button control-btn btn-style">OK</button>
+                <button class="ok-button control-btn btn-style">Save</button>
                 <button class="cancel-button control-btn btn-style">CANCEL</button>
             </div>
         </div>

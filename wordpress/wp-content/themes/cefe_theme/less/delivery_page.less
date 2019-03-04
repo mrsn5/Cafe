@@ -1,6 +1,11 @@
 @import "main";
 @import "header";
+@import "search_area";
+@import "table_style";
+@import "new_item_styles";
 
+@main_font_size:20px;
+@scale_value : 1.2;
 
 body{
   margin: 0;
@@ -15,18 +20,10 @@ body{
   color: @gray_tone_5;
   font-family: @main_font_family;
 }
-
-.editable-cell{
-  cursor: pointer;
-  .input-data{
-    display: none;
-  }
-}
 //END
 
-.new-delivery-area{
-  @main_font_size:20px;
 
+.new-item-area{
   display: none;
   max-width: 80%;
   padding: 10px;
@@ -40,7 +37,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: @main_font_family_bold;
+    font-family: @main_font_family;
+    font-weight: bold;
 
     .name{
       display: inline-block;
@@ -62,6 +60,7 @@ body{
       height: 40px;
       width: 250px;
       font-size: (@main_font_size + 2);
+      font-family: @main_font_family_bold;
       color: @gray_tone_5;
       background-color: @yellow_tone_2;
     }
@@ -70,10 +69,6 @@ body{
   .main-area{
     .general-inf{
       left: 0;
-      font-size: @main_font_size;
-      font-family: @main_font_family;
-      font-weight: bold;
-      color:@gray_tone_5;
 
       form{
         display: flex;
@@ -81,63 +76,11 @@ body{
         align-items: flex-end;
       }
 
-      .date{
-        padding: 5px;
-        label{
-          text-align: center;
-          display: block;
-          margin: 0;
-          padding: 5px 5px 5px 0px;
-        }
-      }
-
       .provider-list{
-        padding: 15px 5px 5px 5px;
-
         .select-cont{
-          display: inline-block;
-          position: relative;
-          border: 1px @gray_tone_3 solid;
-          border-radius: 5px;
-          font-size: @main_font_size;
+          padding-left: 10px;
           min-width: 250px;
-
-          select{
-            width: 100%;
-            padding: 5px;
-            padding-right: 40px;
-            border: none;
-            background: rgba(255, 255, 255, 0.0);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            -ms-appearance: none;
-            -o-appearance: none;
-            appearance: none;
-
-          }
-
-          select::-ms-expand {
-            display: none;
-          }
         }
-
-        .select-cont:after {
-          content: '';
-          z-index: -1;
-          background: url("../images/drop_down_icon.png") no-repeat;
-          background-size: contain;
-          width: 25px;
-          height:25px;
-          position: absolute;
-          cursor: pointer;
-          top: 7px;
-          right: 10px;
-        }
-      }
-
-      .checkbox-block{
-        padding: 15px 5px 5px 5px;
-        display: inline-block;
       }
     }
 

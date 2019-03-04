@@ -1,0 +1,99 @@
+@import "main";
+
+.inf-area{
+  border-left: 2px solid @gray_tone_4;
+  width: 100%;
+  .table-area{
+    padding-top: 0;
+  }
+}
+
+.main{
+  display: flex;
+  margin-top: 20px;
+
+  .search-area{
+    width: 300px;
+    //padding-right: 1px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: normal;
+    color:@gray_tone_6;
+    display: none;
+
+    .label-header{
+      padding: 5px;
+      display: block;
+      background-color: @gray_tone_2;
+      font-weight: bold;
+      position: relative;
+      cursor: pointer;
+
+      .search-icon{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right: 10px;
+      }
+    }
+
+    .label-header:hover{
+      background-color: @gray_tone_3;
+    }
+
+    .search-block{
+      padding: 10px 0 10px 5px;
+      //padding-left: 5px;
+      border-bottom: 1px solid @gray_tone_3;
+
+      .label{
+        text-align: left;
+        display: block;
+        color: @gray_tone_5;
+        padding: 5px;
+        text-transform: uppercase;
+        //padding-bottom: 15px;
+        font-weight: bold;
+        font-family: @main_font_family;
+        background-color: @yellow_tone_1;
+        font-size: 18px;
+      }
+
+      .consider-label{
+        font-size: 16px;
+        font-weight: normal;
+        float: right;
+        display: inline-flex;
+        align-items: center;
+        color: @gray_tone_4;
+      }
+    }
+
+    .search-date{
+      label{
+        font-weight: normal;
+        margin: 0;
+        min-width: 170px;
+        width: 100%;
+        position: relative;
+        padding-top: 10px;
+        padding-bottom: 30px;
+        padding-left: 5px;
+
+        input{
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+    input[type="text"]{
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    select{
+      width: 100%;
+    }
+  }
+}
