@@ -11,7 +11,7 @@
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/deliverer.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-    <title>Персонал</title>
+    <title>Постачальники</title>
 
 </head>
 <body>
@@ -73,18 +73,17 @@
             <div class="main-area">
                 <div class="general-inf">
                     <form action="">
-
                         <div>
                             <p>Про підприємство</p>
                             <div class="inputs-row">
                                 <div class="field inline-field" style="width: 30%">
                                     <input type="number" name="code" id="code" placeholder="32855961">
-                                    <label for="code">Код ЄДРПОУ</label>
+                                    <label class="required-label" for="code">Код ЄДРПОУ</label>
                                 </div>
 
-                                <div class="field inline-field"  style="width: 50%">
+                                <div class="field inline-field" style="width: 50%">
                                     <input type="text" name="name" id="name" placeholder="ТОВ «ЕКСІМ ФУД»">
-                                    <label for="name">Назва підприємства</label>
+                                    <label class="required-label" for="name">Назва підприємства</label>
                                 </div>
                             </div>
                         </div>
@@ -95,19 +94,19 @@
 <!--                                <div>-->
                                 <div class="field inline-field" style="width: 50%">
                                     <input type="text" name="contact_person_name" id="contact_person_name" placeholder="Петро Петренко Петрович">
-                                    <label for="contact_person_name">Ім'я контактної особи</label>
+                                    <label class="required-label" for="contact_person_name">Ім'я контактної особи</label>
                                 </div>
 
                                 <div class="field inline-field" style="width: 40%">
                                     <input type="tel" name="contact_person_tel" id="contact_person_tel" placeholder="0951234567">
-                                    <label for="contact_person_tel">Телефон контактної особи</label>
+                                    <label class="required-label" for="contact_person_tel">Телефон контактної особи</label>
                                 </div>
                             </div>
 
                             <div class="inputs-row">
                                 <div class="field inline-field" style="width: 50%">
                                     <input type="text" name="address" id="address" placeholder="Київ, вул Марини Цвєтаєвої, 14Б">
-                                    <label for="address">Адреса</label>
+                                    <label class="required-label" for="address">Адреса</label>
                                 </div>
 
 

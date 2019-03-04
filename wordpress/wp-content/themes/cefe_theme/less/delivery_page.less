@@ -24,47 +24,7 @@ body{
 
 
 .new-item-area{
-  display: none;
   max-width: 80%;
-  padding: 10px;
-  border-bottom: 2px @yellow_tone_3 solid;
-  margin-right: 10%;
-  margin-left: 10%;
-
-  .new-deliv-header{
-    position: relative;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: @main_font_family;
-    font-weight: bold;
-
-    .name{
-      display: inline-block;
-      position: absolute;
-      left: 0;
-      color:@gray_tone_5;
-      font-size: (@main_font_size + 4);
-
-      .name-text{
-        display: inline-block;
-        padding: 5px 10px 5px 10px;
-        background-color: @yellow_tone_1;
-      }
-    }
-
-    .save-delivery-btn{
-      position: absolute;
-      right: 0;
-      height: 40px;
-      width: 250px;
-      font-size: (@main_font_size + 2);
-      font-family: @main_font_family_bold;
-      color: @gray_tone_5;
-      background-color: @yellow_tone_2;
-    }
-  }
 
   .main-area{
     .general-inf{
@@ -77,8 +37,8 @@ body{
       }
 
       .provider-list{
+        padding-left: 10px;
         .select-cont{
-          padding-left: 10px;
           min-width: 250px;
         }
       }
@@ -87,7 +47,7 @@ body{
     .products{
       position: relative;
       width: 100%;
-      padding-bottom: 40px;
+      padding-bottom: 60px;
       margin: auto;
       margin-top: 15px;
 
@@ -111,6 +71,7 @@ body{
           font-size: (@main_font_size - 5);
           text-align: center;
           color: @gray_tone_5;
+          margin: auto;
 
           thead{
             border-bottom: 2px solid @gray_tone_3;
@@ -181,7 +142,7 @@ body{
         border: 1px @gray_tone_3 solid;
         position: absolute;
         right: 0;
-        bottom: 0;
+        bottom: 10px;
       }
     }
   }

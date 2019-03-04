@@ -85,12 +85,12 @@
 
     <div class="inf-area">
         <div class="new-item-area">
-            <div class="new-deliv-header">
+            <div class="new-item-header">
                 <div class="name">
-                    <span class="name-text">Нова поставка</span>
+                    <span class="header-text">Нова поставка</span>
                     <span class="number">#132</span>
                 </div>
-                <button class="save-delivery-btn btn-style">
+                <button class="save-item-btn btn-style">
                     Зберегти поставку
                 </button>
             </div>
@@ -99,29 +99,30 @@
                 <div class="general-inf">
                     <form>
                         <div class="date-field">
-                            <label for="order_date">Дата замовлення</label>
+                            <label class="required-label" for="order_date">Дата замовлення</label>
                             <input type="date" id="order_date" value="1980-08-26">
                         </div>
 
                         <div class="date-field">
-                            <label for="receiving_date">Дата отримання</label>
+                            <label class="required-label" for="receiving_date">Дата отримання</label>
                             <input type="date" id="receiving_date" value="1980-08-26">
                         </div>
 
                         <div class="date-field">
-                            <label for="payment_date">Дата оплати</label>
+                            <label class="required-label" for="payment_date">Дата оплати</label>
                             <input type="date" id="payment_date" value="1980-08-26">
                         </div>
 
-                        <div class="provider-list field">
+                        <div class="provider-list field inline-field">
                             <div class="select-cont">
-                                <select class="select-providers" name="providers">
+                                <select class="select-providers" name="providers" id="providers_list">
                                     <option value="provider 1">Постачальник 1</option>
                                     <option value="provider 2">Постачальник 2</option>
                                     <option value="provider 3">Постачальник 3</option>
                                     <option value="provider 4">Постачальник 4</option>
                                 </select>
                             </div>
+                            <label class="required-label " for="providers_list">Постачальник</label>
                         </div>
 
 <!--                        <div>-->
@@ -168,9 +169,9 @@
                                     </label>
                                 </td>
                                 <td class="editable-cell">
-                                <span class="value">
-                                    20
-                                </span>
+                                    <span class="value">
+                                        20
+                                    </span>
                                     <label class="input-data input-style">
                                         <input type="number" class="input">
                                     </label>

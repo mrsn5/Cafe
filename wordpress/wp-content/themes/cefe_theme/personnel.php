@@ -79,13 +79,12 @@
             <div class="main-area">
 <!--                <div class="general-inf">-->
                     <form action="">
-
                         <div>
                             <p>Робоча інформація</p>
                             <div class="inputs-row">
                                 <div class="field inline-field">
                                     <input type="number" name="tab" id="tab_num" placeholder="1234">
-                                    <label for="tab_num">Табельний номер</label>
+                                    <label class="required-label" for="tab_num">Табельний номер</label>
                                 </div>
 
                                 <div class="field inline-field position-list">
@@ -98,7 +97,7 @@
                                             <option value="адміністратор">адміністратор</option>
                                         </select>
                                     </div>
-                                    <label class="label-without-trans" for="position">Посада</label>
+                                    <label class="required-label label-without-trans" for="position">Посада</label>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +107,12 @@
                             <div class="inputs-row">
                                 <div class="field inline-field">
                                     <input type="text" name="first_name" id="first_name" placeholder="Петро">
-                                    <label for="first_name">Ім'я</label>
+                                    <label class="required-label" for="first_name">Ім'я</label>
                                 </div>
 
                                 <div class="field inline-field">
                                     <input type="text" name="surname" id="surname" placeholder="Петренко">
-                                    <label for="surname">Прізвище</label>
+                                    <label class="required-label" for="surname">Прізвище</label>
                                 </div>
 
                                 <div class="field inline-field">
@@ -123,17 +122,16 @@
                             </div>
                         </div>
 
-
                         <div>
                             <p>Песональні дані</p>
                             <div class="personal-inf">
                                 <div class="date-field inline-field">
                                     <input type="date" name="birth_date" id="birth_date" value="1999-02-20">
-                                    <label class="label-without-trans" for="birth_date">Дата народження</label>
+                                    <label class="required-label label-without-trans" for="birth_date">Дата народження</label>
                                 </div>
 
                                 <fieldset class="radio-btn-field" id="gender">
-                                    <legend>Стать</legend>
+                                    <legend class="required-label">Стать</legend>
                                     <input type="radio" id="is_male" class="radio-style" name="gender" checked/>
                                     <label for="is_male">Чоловік</label>
 
@@ -148,12 +146,12 @@
                             <div class="inputs-row">
                                 <div class="field inline-field" style="width: 50%">
                                     <input type="text" name="address" id="address" placeholder="Київ, вул Марини Цвєтаєвої, 14Б">
-                                    <label for="address">Адреса</label>
+                                    <label class="required-label" for="address">Адреса</label>
                                 </div>
 
                                 <div class="field inline-field">
                                     <input type="tel" name="tel_num" id="tel_num" placeholder="0951234567">
-                                    <label for="tel_num">Телефон</label>
+                                    <label class="required-label" for="tel_num">Телефон</label>
                                 </div>
                             </div>
                         </div>
@@ -182,39 +180,201 @@
                 <tbody class="color-lines">
                 <tr>
                     <td>12</td>
-                    <td>Денис</td>
-                    <td>Іваненко</td>
-                    <td>Петрович</td>
-                    <td>1988-10-02</td>
-                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                    <td>ч</td>
-                    <td>0987654321</td>
-                    <td>офіціант</td>
-                    <td>5000</td>
+                    <td class="editable-cell">
+                        <span class="value">Денис</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Іваненко</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Петрович</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">1988-10-02</span>
+                        <label class="input-data input-style">
+                            <input type="date" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Київ, вул. Марини Цвєтаєвої, 14Б</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">ч</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="ч">ч</option>
+                                <option value="ж">ж</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">0987654321</span>
+                        <label class="input-data input-style">
+                            <input type="tel" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">офіціант</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="офіціант">офіціант</option>
+                                <option value="бармен">бармен</option>
+                                <option value="кухар">кухар</option>
+                                <option value="бухгалтер">бухгалтер</option>
+                                <option value="адміністратор">адміністратор</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">5000</span>
+                        <label class="input-data input-style">
+                            <input type="number" class="input">
+                        </label>
+                    </td>
                 </tr>
                 <tr>
                     <td>12</td>
-                    <td>Денис</td>
-                    <td>Іваненко</td>
-                    <td>Петрович</td>
-                    <td>1988-10-02</td>
-                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                    <td>ч</td>
-                    <td>0987654321</td>
-                    <td>офіціант</td>
-                    <td>5000</td>
+                    <td class="editable-cell">
+                        <span class="value">Денис</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Іваненко</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Петрович</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">1988-10-02</span>
+                        <label class="input-data input-style">
+                            <input type="date" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Київ, вул. Марини Цвєтаєвої, 14Б</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">ч</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="ч">ч</option>
+                                <option value="ж">ж</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">0987654321</span>
+                        <label class="input-data input-style">
+                            <input type="tel" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">офіціант</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="офіціант">офіціант</option>
+                                <option value="бармен">бармен</option>
+                                <option value="кухар">кухар</option>
+                                <option value="бухгалтер">бухгалтер</option>
+                                <option value="адміністратор">адміністратор</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">5000</span>
+                        <label class="input-data input-style">
+                            <input type="number" class="input">
+                        </label>
+                    </td>
                 </tr>
                 <tr>
                     <td>12</td>
-                    <td>Денис</td>
-                    <td>Іваненко</td>
-                    <td>Петрович</td>
-                    <td>1988-10-02</td>
-                    <td>Київ, вул. Марини Цвєтаєвої, 14Б</td>
-                    <td>ч</td>
-                    <td>0987654321</td>
-                    <td>офіціант</td>
-                    <td>5000</td>
+                    <td class="editable-cell">
+                        <span class="value">Денис</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Іваненко</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Петрович</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">1988-10-02</span>
+                        <label class="input-data input-style">
+                            <input type="date" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">Київ, вул. Марини Цвєтаєвої, 14Б</span>
+                        <label class="input-data input-style">
+                            <input type="text" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">ч</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="ч">ч</option>
+                                <option value="ж">ж</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">0987654321</span>
+                        <label class="input-data input-style">
+                            <input type="tel" class="input">
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">офіціант</span>
+                        <label class="input-data input-style">
+                            <select class="input">
+                                <option value="офіціант">офіціант</option>
+                                <option value="бармен">бармен</option>
+                                <option value="кухар">кухар</option>
+                                <option value="бухгалтер">бухгалтер</option>
+                                <option value="адміністратор">адміністратор</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td class="editable-cell">
+                        <span class="value">5000</span>
+                        <label class="input-data input-style">
+                            <input type="number" class="input">
+                        </label>
+                    </td>
                 </tr>
                 </tbody>
             </table>
