@@ -1,0 +1,316 @@
+@import "main";
+@import "header";
+
+line#limit {
+  stroke: #FED966;
+  stroke-width: 3;
+  stroke-dasharray: 3,6;
+}
+
+.grid path {
+  stroke-width: 3;
+}
+
+.grid .tick line {
+  stroke: #9FAAAE;
+  stroke-opacity: 0.2;
+}
+
+body{
+  padding-bottom: 50px;
+}
+
+.header{
+  .dropdown {
+    position: relative;
+    .dropbtn {
+      border: none;
+      cursor: pointer;
+    }
+
+    .dropdown-content {
+      background-color: @blue_tone_1;
+      padding: 10px;
+      display: none;
+      position: absolute;
+      min-width: 200px;
+      z-index: 1;
+
+      a{
+        color: @gray_tone_6;
+        text-decoration: none;
+        display: block;
+      }
+
+      a:hover {
+        background-color: @blue_tone_2;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .dropdown:hover {
+    .dropdown-content{
+      display: block;
+    }
+
+    .dropbtn {
+      background-color: @blue_tone_2;
+    }
+  }
+}
+
+.main{
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  //background-color: @yellow_tone_1;
+
+  .page-label{
+    background-color: @yellow_tone_2;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .page-label-sm{
+    background-color: @yellow_tone_1;
+    margin: 10px 0 0 0;
+    padding: 10px;
+  }
+
+  .statistics-cont{
+    width: 100%;
+
+    .row{
+      //text-align: center;
+      margin: 0;
+
+      .block{
+        padding: 0 10px 0 10px;
+        //float: none;
+        //margin-left: auto;
+        //margin-right: auto;
+        border: 1px dashed @gray_tone_4;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        //height: 100%;
+
+        .block-header{
+          background-color: @yellow_tone_1;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        form{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-flow: row;
+          flex: 1;
+          min-height: 0px;
+          flex-wrap: wrap;
+
+          color: @gray_tone_6;
+          font-family: @main_font_family;
+          font-size: 24px;
+
+          label{
+            margin-bottom: 0;
+            //flex: 1 1 30%;
+          }
+
+          input[type="date"]{
+            font-size: 24px;
+            color: @gray_tone_6;
+            font-weight: bold;
+          }
+
+          .line-between{
+            display: inline-block;
+            font-size: 30px;
+            color: @gray_tone_5;
+            padding-left: 5px;
+            padding-right: 5px;
+            //flex: 1 1 10%;
+          }
+
+          .ok-btn{
+            border: 0;
+            text-transform: uppercase;
+            font-size: 22px;
+            background-color: @blue_tone_1;
+            //flex: 1 1 30%;
+          }
+
+          .ok-btn:hover{
+            background-color: @primary_color_blue;
+          }
+        }
+        .results{
+          h1{
+            text-align: center;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .image{
+              width: 60px;
+              height: 60px;
+            }
+          }
+        }
+      }
+
+      .diagram-block{
+        .content{
+          display: flex;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+
+          form{
+            flex: 1 1 30%;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            text-align: left;
+            //color: @gray_tone_6;
+            //font-family: @main_font_family;
+            //font-size: 24px;
+
+            .period{
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              text-align: center;
+            }
+
+            .select{
+              width: 100%;
+              padding-top: 30px;
+              select{
+                width: 80%;
+              }
+            }
+
+            .elems-num{
+              padding-top: 30px;
+              width: 100%;
+              //text-align: center;
+              input{
+                //margin-right: 10px;
+                width: 80%;
+              }
+            }
+
+            .ok-btn{
+              margin-top: 20px;
+              width: 80%;
+            }
+          }
+
+          .diagram-area{
+            flex: 1 1 70%;
+            display: flex;
+            justify-content: center;
+            //align-items: center;
+            flex-wrap: wrap;
+
+            padding-top: 15px;
+
+            div{
+              display: inline-block;
+            }
+
+            .diagram_cont{
+              text{
+                font-size: 17px;
+                font-family: @main_font_family;
+              }
+            }
+
+            .legend_cont{
+              .legend{
+                color: @gray_tone_6;
+                font-size: 16px;
+                font-family: @main_font_family;
+                tbody{
+                  tr{
+                    td{
+                      padding-left: 5px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+
+        }
+      }
+      .histogram-block{
+
+        form{
+          justify-content: space-around;
+          align-items: flex-end;
+          font-size: 22px!important;
+
+          .elems-num{
+            display: flex;
+            flex-direction: column;
+          }
+
+          input[type="date"]{
+            font-size: 22px;
+          }
+        }
+
+        .diagram_cont{
+          padding-top: 30px;
+          padding-bottom: 10px;
+
+          svg{
+            g{
+              text{
+                font-family: @main_font_family;
+                font-size: 16px;
+                color: @gray_tone_6;
+              }
+            }
+          }
+
+        }
+      }
+
+      .finance-block{
+        color: @gray_tone_6;
+        font-size: 18px;
+
+        table{
+          border-width: 1px 0px 1px 0px;
+          border-style: solid;
+          border-color: @gray_tone_3;
+
+          margin-top: 20px;
+          font-size: 18px;
+          th{
+            padding: 5px;
+          }
+        }
+
+        .total{
+          padding-top: 10px;
+          text-align: right;
+
+          .value{
+            margin-left: 10px;
+            font-size: 45px;
+            font-weight: bold;
+          }
+          //font-size: ;
+        }
+      }
+    }
+  }
+}
