@@ -19,8 +19,6 @@ define("PATH", get_template_directory_uri());
 
 </head>
 <body>
-<div id='dashboard'></div>
-
 <div class="header">
     <div class="dropdown">
         <div class="dropbtn header-btn-style" id="all_st_btn">Статистика</div>
@@ -331,7 +329,7 @@ define("PATH", get_template_directory_uri());
         <div id="workers_st">
             <h3 class="page-label-sm">Персонал</h3>
             <div class="row">
-                <div class="block diagram-block">
+                <div class="block pie-diagram-block">
                     <h2 class="block-header">Робітник, що оформив найбільше замовлень</h2>
 
                     <div class="content">
@@ -365,7 +363,7 @@ define("PATH", get_template_directory_uri());
             </div>
 
             <div class="row">
-                <div class="block diagram-block">
+                <div class="block pie-diagram-block">
                     <h2 class="block-header">Робітник, що приніс найбільший прибуток</h2>
                     <div class="content">
                         <form>
@@ -447,7 +445,7 @@ define("PATH", get_template_directory_uri());
 
 <script type="text/javascript" src="<?php echo PATH ?>/js/graphics.js"></script>
 <script type="text/javascript" src="<?php echo PATH ?>/js/statistics.js"></script>
-<script type="module" src="<?php echo PATH ?>/js/general_functions.js"></script>
+<script type="text/javascript" src="<?php echo PATH ?>/js/general_functions.js"></script>
 </body>
 </html>
 

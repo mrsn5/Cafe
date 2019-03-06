@@ -1,6 +1,6 @@
 <?php
-    /* Template Name: Deliveries */
-    define("PATH", get_template_directory_uri());
+/* Template Name: Deliveries */
+define("PATH", get_template_directory_uri());
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +8,8 @@
 <head>
     <meta charset="UTF-8">
 
-    <link href="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/delivery_page.less" />
+    <link href="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="<?php echo PATH ?>/less/delivery_page.less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
     <title>Deliveries</title>
@@ -22,16 +22,16 @@
         Пошук
     </div>
 
-    <div class="add-btn header-btn-style" id="add_area_btn">
+    <div class="toggle-btn header-btn-style" id="add_area_btn">
         <span>Додати поставку</span>
         <!--<div class="img-cont">-->
-        <img class="img-cont image-transition" src="<?php echo PATH?>/images/drop_down_icon.png">
+        <img class="img-cont image-transition" src="<?php echo PATH ?>/images/drop_down_icon.png">
         <!--</div>-->
     </div>
     <ul>
         <li>ІМ'Я КОРИСТУВАЧА</li>
         <li>|</li>
-        <li><a href="main.html"><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
+        <li><a href="main.html"><img src="<?php echo PATH ?>/images/exit-black.svg" alt="Menu"/></a></li>
     </ul>
 </div>
 
@@ -41,7 +41,7 @@
         <form>
             <span class="label-header">
                 Пошук
-                <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+                <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
             </span>
 
             <div class="search-date search-block">
@@ -84,7 +84,7 @@
     </div>
 
     <div class="inf-area">
-        <div class="new-item-area">
+        <div class="toggle-area new-item-area">
             <div class="new-item-header">
                 <div class="name">
                     <span class="header-text">Нова поставка</span>
@@ -125,17 +125,17 @@
                             <label class="required-label " for="providers_list">Постачальник</label>
                         </div>
 
-<!--                        <div>-->
-                            <div class="checkbox-field">
-                                <input type="checkbox" id="is_paid" class="checkbox-style" />
-                                <label for="is_paid">Сплачено</label>
-                            </div>
+                        <!--                        <div>-->
+                        <div class="checkbox-field">
+                            <input type="checkbox" id="is_paid" class="checkbox-style"/>
+                            <label for="is_paid">Сплачено</label>
+                        </div>
 
-                            <div class="checkbox-field">
-                                <input id="is_received" type="checkbox" class="checkbox-style"/>
-                                <label for="is_received">Отримано</label>
-                            </div>
-<!--                        </div>-->
+                        <div class="checkbox-field">
+                            <input id="is_received" type="checkbox" class="checkbox-style"/>
+                            <label for="is_received">Отримано</label>
+                        </div>
+                        <!--                        </div>-->
                     </form>
                 </div>
 
@@ -214,7 +214,7 @@
                                 <span class="value">
                                     картопля
                                 </span>
-                                    <label class="input-data input-style" >
+                                    <label class="input-data input-style">
                                         <select class="select-ing input">
                                             <option value="картопля">картопля</option>
                                             <option value="помідор">помідор</option>
@@ -222,7 +222,7 @@
                                         </select>
                                     </label>
                                 </td>
-                                <td><img class=" delete-icon" src="<?php echo PATH?>/images/delete.svg"></td>
+                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
                             </tr>
                             <tr class="product">
                                 <td>1</td>
@@ -286,7 +286,7 @@
                                         </select>
                                     </label>
                                 </td>
-                                <td><img class=" delete-icon" src="<?php echo PATH?>/images/delete.svg"></td>
+                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
                             </tr>
 
                             <!--row for new product-->
@@ -336,8 +336,8 @@
                                         </select>
                                     </label>
                                 </td>
-                                <td><img class=" delete-icon" src="<?php echo PATH?>/images/delete.svg"></td>
-                                <td><img class=" delete-icon" src="<?php echo PATH?>/images/checked.svg"></td>
+                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
+                                <td><img class=" icon" src="<?php echo PATH ?>/images/checked.svg"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -351,7 +351,7 @@
             </div>
         </div>
         <div class="table-area">
-            <table >
+            <table>
                 <thead>
                 <tr>
                     <th>№ партії</th>
@@ -363,24 +363,25 @@
                     <th>постачальник</th>
                     <th>сплачено</th>
                     <th>отримано</th>
+                    <th>товари</th>
                 </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="color-lines-with-extra">
                 <tr>
                     <td>2311</td>
                     <td>2019-10-03</td>
                     <td class="editable-cell edit-date">
                         <span class="value">2019-10-03</span>
 
-                        <label class="input-data" >
+                        <label class="input-data">
                             <input type="date" class="input">
                         </label>
                     </td>
                     <td class="editable-cell edit-date">
                         <span class="value">2019-10-03</span>
 
-                        <label class="input-data" >
+                        <label class="input-data">
                             <input type="date" class="input">
                         </label>
                     </td>
@@ -391,7 +392,7 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_paid_2311" class="checkbox-style input" />
+                            <input type="checkbox" id="is_paid_2311" class="checkbox-style input"/>
                             <label for="is_paid_2311"></label>
                         </div>
                     </td>
@@ -399,15 +400,16 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_received_2311" class="checkbox-style input" />
+                            <input type="checkbox" id="is_received_2311" class="checkbox-style input"/>
                             <label for="is_received_2311"></label>
                         </div>
                     </td>
-                    <td class="show-products"><img class="image-transition" src="<?php echo PATH?>/images/drop_down_icon.png"></td>
+                    <td class="show-products"><img class="image-transition"
+                                                   src="<?php echo PATH ?>/images/drop_down_icon.png"></td>
                 </tr>
                 <tr class="extra">
                     <td colspan="10">
-                        <div class="delivery-products custom-scrollbar">
+                        <div class="products-list custom-scrollbar">
                             <ul class="ul-style">
                                 <li class="product prod-header">
                                     <div class="number"></div>
@@ -501,7 +503,7 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_paid_5432" class="checkbox-style input" />
+                            <input type="checkbox" id="is_paid_5432" class="checkbox-style input"/>
                             <label for="is_paid_5432"></label>
                         </div>
                     </td>
@@ -509,15 +511,16 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_received_5432" class="checkbox-style input" />
+                            <input type="checkbox" id="is_received_5432" class="checkbox-style input"/>
                             <label for="is_received_5432"></label>
                         </div>
                     </td>
-                    <td class="show-products"><img class="image-transition" src="<?php echo PATH?>/images/drop_down_icon.png"></td>
+                    <td class="show-products"><img class="image-transition"
+                                                   src="<?php echo PATH ?>/images/drop_down_icon.png"></td>
                 </tr>
                 <tr class="extra">
                     <td colspan="10">
-                        <div class="delivery-products custom-scrollbar">
+                        <div class="products-list custom-scrollbar">
                             <ul class="ul-style">
                                 <li class="product prod-header">
                                     <div class="number"></div>
@@ -611,7 +614,7 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_paid_1232" class="checkbox-style input" />
+                            <input type="checkbox" id="is_paid_1232" class="checkbox-style input"/>
                             <label for="is_paid_1232"></label>
                         </div>
                     </td>
@@ -619,15 +622,16 @@
                         <span class="value">&#x2713</span>
 
                         <div class="input-data checkbox-field">
-                            <input type="checkbox" id="is_received_1232" class="checkbox-style input" />
+                            <input type="checkbox" id="is_received_1232" class="checkbox-style input"/>
                             <label for="is_received_1232"></label>
                         </div>
                     </td>
-                    <td class="show-products"><img class="image-transition" src="<?php echo PATH?>/images/drop_down_icon.png"></td>
+                    <td class="show-products"><img class="image-transition"
+                                                   src="<?php echo PATH ?>/images/drop_down_icon.png"></td>
                 </tr>
                 <tr class="extra">
                     <td colspan="10">
-                        <div class="delivery-products custom-scrollbar">
+                        <div class="products-list custom-scrollbar">
                             <ul class="ul-style">
                                 <li class="product prod-header">
                                     <div class="number"></div>
@@ -706,9 +710,8 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script type="module" src="<?php echo PATH?>/js/general_functions.js"></script>
-<script type="module" src="<?php echo PATH?>/js/delivery_page.js"></script>
+<script src="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo PATH ?>/js/general_functions.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,108 @@
+@import "main";
+
+.products{
+  position: relative;
+  width: 100%;
+  padding-bottom: 60px;
+  margin: auto;
+  margin-top: 15px;
+
+  h3{
+    font-size: (@main_font_size + 2);
+    font-family: @main_font_family;
+    font-weight: bold;
+    color:@gray_tone_5;
+    margin: 0;
+    padding-bottom: 15px;
+    text-align: center;
+  }
+
+  .products-list{
+    background-color: @gray_tone_1;
+    padding: 10px;
+    overflow-y : auto;
+    height: 350px;
+
+    .products-table{
+      font-size: (@main_font_size - 5);
+      text-align: center;
+      color: @gray_tone_5;
+      margin: auto;
+
+      thead{
+        border-bottom: 2px solid @gray_tone_3;
+        tr th{
+          padding-left: 5px;
+          text-align: center;
+        }
+      }
+
+      tr{
+        border: none;
+      }
+
+      tbody{
+        tr{
+          border-bottom: 1px solid @gray_tone_3;
+          font-size: (@main_font_size - 3);
+
+          td{
+            border: 1px solid @gray_tone_3;
+            padding: 5px;
+
+            .icon{
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+            }
+
+            .input-style{
+              //width: 100%;
+              font-weight: normal;
+              input{
+                height: 30px;
+              }
+              input[type="text"]{
+                max-width: 150px;
+              }
+              input[type="number"]{
+                max-width: 100px;
+              }
+              input[type="date"]{
+                max-width: 150px;
+                font-weight: normal;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .total{
+    font-size: @main_font_size;
+    font-family: @main_font_family;
+    color:@gray_tone_5;
+    text-align: right;
+    border-bottom: 1px @gray_tone_3 solid;
+    display: flex;
+    justify-content: space-between;
+
+    .total-price{
+      font-size: (@main_font_size + 4);
+      font-weight: bold;
+    }
+  }
+
+  .add-product-btn{
+    color:@gray_tone_4;
+    width:200px;
+    height:35px;
+    font-size: 18px;
+    background-color: @yellow_tone_2;
+    border: 1px @gray_tone_3 solid;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+  }
+}

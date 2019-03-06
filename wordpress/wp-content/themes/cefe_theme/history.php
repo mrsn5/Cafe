@@ -91,7 +91,7 @@
 <script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="<?php echo PATH?>/js/orders.js"></script>
-<script type="module" src="<?php echo PATH?>/js/general_functions.js"></script>
+<script type="text/javascript" src="<?php echo PATH?>/js/general_functions.js"></script>
 </body>
 </html>
 

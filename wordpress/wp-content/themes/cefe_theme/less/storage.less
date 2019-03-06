@@ -1,0 +1,125 @@
+@import "main";
+@import "header";
+@import "table_style";
+@import "add_products";
+@import "search_area";
+
+@main_font_size: 20px;
+
+.modal{
+  .modal-body{
+    label{
+      color: @gray_tone_6;
+      font-size: (@main_font_size + 2);
+      display: flex;
+      flex-direction: column;
+      input{
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.main{
+  .discarding-area{
+    display: none;
+    border-bottom: 2px solid @yellow_tone_3;
+    width: 65%;
+    margin: auto;
+
+    .discarding-header{
+      margin-top: 10px;
+      font-size: @main_font_size;
+      font-family: @main_font_family_bold;
+      text-align: right;
+
+      .save-discarding-btn{
+        color: @gray_tone_6;
+        background-color: @primary_color_yellow;
+        width: 200px;
+      }
+
+      .save-discarding-btn:hover{
+        background-color: @yellow_tone_3;
+      }
+    }
+
+
+    .products{
+      table{
+        tr{
+          .reason-cell{
+            width: 400px;
+          }
+        }
+
+        .reason-cell{
+          //width: 300px!important;
+          label{
+            width: 100%;
+            input{
+              min-width: 100%;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  .table-area{
+    .show_ings_btn{
+      font-size: (@main_font_size + 2);
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align: right;
+      font-family: @header_font;
+
+      span {
+        display: inline-block;
+        background-color: @primary_color_yellow;
+        padding: 5px;
+      }
+      span:hover{
+        cursor: pointer;
+        background-color: @yellow_tone_3;
+      }
+
+      span + span{
+        margin-left: 10px;
+      }
+    }
+
+    #ingredients_table {
+      tbody {
+        .extra {
+          td {
+            .products-list {
+              ul {
+                .product {
+                  font-size: (@main_font_size - 2);
+                  .number {
+                    width: 2%;
+                  }
+                  .code {
+                    width: 20%;
+                  }
+                  .name {
+                    width: 30%;
+                  }
+                  .date {
+                    width: 15%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #inventory_table{
+      display: none;
+    }
+  }
+}

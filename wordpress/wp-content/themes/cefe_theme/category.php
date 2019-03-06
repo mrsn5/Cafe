@@ -13,13 +13,6 @@
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/category.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
-
-<!--    <script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
-<!--    <script>-->
-<!--        $(function(){-->
-<!--            $(".dish").load("dish_card.html");-->
-<!--        });-->
-<!--    </script>-->
 </head>
 <body>
 

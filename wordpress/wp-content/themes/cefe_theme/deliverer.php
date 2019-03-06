@@ -29,7 +29,7 @@
         Пошук
     </div>
 
-    <div class="add-btn header-btn-style" id="add_area_btn">
+    <div class="toggle-btn header-btn-style" id="add_area_btn">
         <span>Додати постачальника</span>
         <img class="img-cont image-transition" src="<?php echo PATH?>/images/drop_down_icon.png">
     </div>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="inf-area">
-        <div class="new-item-area new-item-area">
+        <div class="toggle-area new-item-area">
             <div class="new-item-header">
                 <span class="header-text">Новий постачальник</span>
                 <button class="save-item-btn btn-style" >
@@ -243,7 +243,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script type="module" src="<?php echo PATH?>/js/general_functions.js"></script>
+<script type="text/javascript" src="<?php echo PATH?>/js/general_functions.js"></script>
 </body>
 </html>
 

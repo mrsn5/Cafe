@@ -17,7 +17,7 @@ define("PATH", get_template_directory_uri());
 <body>
 
 <div class="header">
-    <div class="add-btn header-btn-style" id="add_btn">
+    <div class="toggle-btn header-btn-style" id="add_btn">
         Додати замовлення
     </div>
 

@@ -7,7 +7,7 @@
   margin: auto;
   //padding-left: 10%;
   //padding-right: 10%;
-  font-size: 18px;
+  font-size: (@main_font_size - 2);
   font-family: @main_font_family;
   table {
     width: 100%;
@@ -44,6 +44,103 @@
 
         .editable-cell:hover{
           background-color: @gray_tone_3;
+        }
+      }
+    }
+
+    .color-lines-with-extra{
+      .setColors(@show-products-color, @show-products-hover-color) {
+        .show-products {
+          background-color: @show-products-color;
+        }
+        .show-products:hover {
+          background-color: @show-products-hover-color;
+        }
+      }
+
+      tr:nth-child(4n+1) {
+        .setColors(white, @gray_tone_1);
+
+        .editable-cell:hover {
+          background-color: @gray_tone_1;
+        }
+      }
+
+      tr:nth-child(4n+2) {
+        li:nth-child(2n+2) {
+          background-color: @gray_tone_2;
+        }
+      }
+
+      tr:nth-child(4n+3) {
+        background-color: @gray_tone_2;
+        .setColors(@gray_tone_2, @gray_tone_3);
+
+        .editable-cell:hover {
+          background-color: @gray_tone_3;
+        }
+      }
+
+      tr:nth-child(4n+4) {
+        .products-list {
+          background-color: @gray_tone_2;
+
+          li:nth-child(2n+2) {
+            background-color: @gray_tone_3;
+          }
+        }
+      }
+    }
+
+    tbody{
+      tr {
+        .show-products {
+          padding: 0;
+          cursor: pointer;
+
+          img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+
+      .extra {
+        td {
+          border: none;
+          padding: 0 0 0px 0;
+          position: relative;
+
+          .products-list {
+            display: none;
+            overflow-y: auto;
+            float: right;
+            height: 300px;
+            width: 75%;
+            position: relative;
+            right: 0;
+            border: 1px @gray_tone_3 solid;
+            border-top: none;
+
+            ul {
+              padding-top: 10px;
+              padding-left: 0;
+
+              .product {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 10px 5px 10px;
+                word-break: break-all;
+                font-size: (@main_font_size - 3);
+                text-align: center;
+              }
+
+              .prod-header {
+                word-break: normal;
+                font-size: 16px;
+              }
+            }
+          }
         }
       }
     }

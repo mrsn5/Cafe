@@ -16,13 +16,14 @@
     width: 300px;
     //padding-right: 1px;
     margin-right: 10px;
-    font-size: 20px;
+    font-size: @main_font_size;
     font-weight: normal;
     color:@gray_tone_6;
     display: none;
 
     .label-header{
       padding: 5px;
+      margin-bottom: 10px;
       display: block;
       background-color: @gray_tone_2;
       font-weight: bold;
@@ -42,7 +43,7 @@
     }
 
     .search-block{
-      padding: 10px 0 10px 5px;
+      padding: 0 0 10px 5px;
       //padding-left: 5px;
       border-bottom: 1px solid @gray_tone_3;
 
@@ -56,7 +57,9 @@
         font-weight: bold;
         font-family: @main_font_family;
         background-color: @yellow_tone_1;
-        font-size: 18px;
+        font-size: (@main_font_size - 2);
+        white-space: normal;
+        line-height: @main_font_size;
       }
 
       .consider-label{

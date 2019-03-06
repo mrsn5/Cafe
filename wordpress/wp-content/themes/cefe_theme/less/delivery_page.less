@@ -3,11 +3,12 @@
 @import "search_area";
 @import "table_style";
 @import "new_item_styles";
+@import "add_products";
 
-@main_font_size:20px;
-@scale_value : 1.2;
+@main_font_size: 20px;
+@scale_value: 1.2;
 
-body{
+body {
   margin: 0;
   margin-bottom: 50px;
 }
@@ -20,244 +21,65 @@ body{
   color: @gray_tone_5;
   font-family: @main_font_family;
 }
+
 //END
 
 
-.new-item-area{
+.toggle-area {
   max-width: 80%;
 
-  .main-area{
-    .general-inf{
+  .main-area {
+    .general-inf {
       left: 0;
 
-      form{
+      form {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
       }
 
-      .provider-list{
+      .provider-list {
         padding-left: 10px;
-        .select-cont{
+
+        .select-cont {
           min-width: 250px;
         }
       }
     }
 
-    .products{
-      position: relative;
-      width: 100%;
-      padding-bottom: 60px;
-      margin: auto;
-      margin-top: 15px;
-
-      h3{
-        font-size: (@main_font_size + 2);
-        font-family: @main_font_family;
-        font-weight: bold;
-        color:@gray_tone_5;
-        margin: 0;
-        padding-bottom: 15px;
-        text-align: center;
-      }
-
-      .products-list{
-        background-color: @gray_tone_1;
-        padding: 10px;
-        overflow-y : auto;
-        height: 350px;
-
-        .products-table{
-          font-size: (@main_font_size - 5);
-          text-align: center;
-          color: @gray_tone_5;
-          margin: auto;
-
-          thead{
-            border-bottom: 2px solid @gray_tone_3;
-            tr th{
-              padding-left: 5px;
-              text-align: center;
-            }
-          }
-
-          tr{
-            border: none;
-          }
-
-          tbody{
-            tr{
-              border-bottom: 1px solid @gray_tone_3;
-              font-size: (@main_font_size - 3);
-
-              td{
-                border: 1px solid @gray_tone_3;
-                padding: 5px;
-
-                .delete-icon{
-                  width: 30px;
-                  height: 30px;
-                  cursor: pointer;
-                }
-
-                .input-style{
-                  //width: 100%;
-                  font-weight: normal;
-                  input{
-                    height: 30px;
-                  }
-                  input[type="text"]{
-                    max-width: 150px;
-                  }
-                  input[type="number"]{
-                    max-width: 100px;
-                  }
-                  input[type="date"]{
-                    max-width: 150px;
-                    font-weight: normal;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .total{
-        font-size: @main_font_size;
-        font-family: @main_font_family;
-        color:@gray_tone_5;
-        text-align: right;
-        border-bottom: 1px @gray_tone_3 solid;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .add-product-btn{
-        color:@gray_tone_4;
-        width:200px;
-        height:35px;
-        font-size: 18px;
-        background-color: @yellow_tone_2;
-        border: 1px @gray_tone_3 solid;
-        position: absolute;
-        right: 0;
-        bottom: 10px;
-      }
-    }
+    //.products {}
   }
 }
 
-.table-area{
-  table{
-    tbody{
-      .setColors(@show-products-color, @show-products-hover-color){
-        .show-products{
-          background-color: @show-products-color;
-        }
-        .show-products:hover{
-          background-color: @show-products-hover-color;
-        }
-      }
-
-
-      tr:nth-child(4n+1) {
-        .setColors(white, @gray_tone_1);
-
-        .editable-cell:hover{
-          background-color: @gray_tone_1;
-        }
-      }
-
-      tr:nth-child(4n+2){
-        li:nth-child(2n+2){
-          background-color: @gray_tone_2;
-        }
-      }
-
-      tr:nth-child(4n+3) {
-        background-color: @gray_tone_2;
-        .setColors(@gray_tone_2, @gray_tone_3);
-
-        .editable-cell:hover{
-          background-color: @gray_tone_3;
-        }
-      }
-
-      tr:nth-child(4n+4){
-        .delivery-products{
-          background-color: @gray_tone_2;
-
-          li:nth-child(2n+2){
-            background-color: @gray_tone_3;
-          }
-        }
-      }
-
-
-      tr{
-        .show-products{
-          padding: 0;
-          cursor: pointer;
-          img{
-            width: 20px;
-            height: 20px;
-          }
-        }
-      }
-
+.table-area {
+  table {
+    tbody {
       .extra {
-        td{
-          border: none;
-          padding: 0 0 0px 0;
-          position: relative;
-
-          .delivery-products{
-            display: none;
-            overflow-y: auto;
-            float: right;
-            height: 300px;
-            width: 75%;
-            position: relative;
-            right: 0;
-            border: 1px @gray_tone_3 solid;
-            border-top: none;
-
-            ul{
-              padding-top: 10px;
-              .product{
-                display: flex;
-                justify-content: space-between;
-                padding:0 10px 5px 10px;
-                word-break: break-all;
-                font-size: 17px;
-                text-align: center;
-
-                .number{
+        td {
+          .products-list {
+            ul {
+              .product {
+                .number {
                   width: 2%;
                 }
-                .name{
+                .name {
                   width: 20%;
                 }
                 .unit-price {
                   width: 10%;
                 }
-                .curr-amount{
+                .curr-amount {
                   width: 10%;
                 }
-                .start-amount{
+                .start-amount {
                   width: 10%;
                 }
-                .gen-price{
+                .gen-price {
                   width: 10%;
                 }
-                .date{
+                .date {
                   width: 15%;
                 }
-              }
-              .prod-header{
-                word-break: normal;
-                font-size: 16px;
               }
             }
           }

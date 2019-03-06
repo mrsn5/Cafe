@@ -1,8 +1,20 @@
 $(function(){
-    //animation for add button
-    $('#add_area_btn').on('click', function(event) {
-        $('.new-item-area').slideToggle();
-        rotateImage($(".img-cont"));
+
+    $(".modal-btn").on('click', function () {
+        var modal = $(".modal");
+        modal.modal();
+    });
+
+    //animation for toggle button
+    $('.toggle-btn').on('click', function(event) {
+        $('.toggle-area').slideToggle();
+        rotateImage($(this).find(".img-cont"));
+    });
+
+    //animation for products list in table
+    $(".show-products").on("click", function (event) {
+        ($(this).parent().next("tr").find(".products-list")).slideToggle();
+        rotateImage(($(this).find("img")));
     });
 
     //animation for search button
@@ -88,5 +100,3 @@ function rotateImage($imageEl) {
         $imageEl.removeClass("rotated");
     }
 }
-
-export {rotateImage};
