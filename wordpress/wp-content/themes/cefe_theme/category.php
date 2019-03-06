@@ -18,11 +18,17 @@
 
 <div class="header">
     <div class="search-area">
-        <input type="text" class="search" id="search_products" placeholder="Пошук">
+        <input type="text" class="search" id="search_products" placeholder="Назва страви">
         <label for="search_products">
             <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
         </label>
     </div>
+
+<!--    only for chefs!!!-->
+    <div class="header-btn-style" id="add_dish_btn">
+        Додати страву
+    </div>
+<!---->
 
     <ul>
         <li>ІМ'Я КОРИСТУВАЧА</li>

@@ -1,5 +1,5 @@
 @import "main";
-@import "header";
+@import "general_styles/header";
 
 line#limit {
   stroke: #FED966;
@@ -105,7 +105,7 @@ body{
         form{
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: flex-end;
           flex-flow: row;
           flex: 1;
           min-height: 0px;
@@ -146,7 +146,14 @@ body{
           .ok-btn:hover{
             background-color: @primary_color_blue;
           }
+
+          .dish-name, .category-list{
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+          }
         }
+
         .results{
           h1{
             text-align: center;

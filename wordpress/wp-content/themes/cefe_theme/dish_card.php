@@ -4,6 +4,12 @@ define("PATH", get_template_directory_uri());
 
 <div class="container">
     <span class="announce label label-danger">Недоступна</span>
+
+<!--    only for chefs & barmen-->
+    <span class="delete-label">
+        <img src="<?php echo PATH ?>/images/trash.svg" alt="delete dish">
+    </span>
+
     <div class="top-panel">
 
         <div class="img-cont">
@@ -11,8 +17,6 @@ define("PATH", get_template_directory_uri());
                 <img src="<?php echo PATH?>/images/food/borsch1.jpg">
             </div>
         </div>
-
-
         <div class="inf-block">
             <h1 class="name">Борщ</h1>
 <!--            <span class="availability">Недоступно</span>-->

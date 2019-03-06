@@ -221,6 +221,7 @@ define("PATH", get_template_directory_uri());
             </div>
         </div>
         <!---->
+
         <!--STATISTICS BLOCKS-->
         <div id="general_st">
             <h3 class="page-label-sm">Загальна</h3>
@@ -398,9 +399,64 @@ define("PATH", get_template_directory_uri());
         <div id="dishes_st">
             <h3 class="page-label-sm">Страви</h3>
             <div class="row">
+                <div class="block">
+                    <h2 class="block-header">Кількість замовлених порцій для страви</h2>
+                    <form>
+
+                        <label class="select input-style category-list">
+                            Категорія
+                            <select class="input">
+                                <option value="салати">салати</option>
+                                <option value="гарніри">гарніри</option>
+                                <option value="гарніри">закуски</option>
+                            </select>
+                        </label>
+                        <button class="ok-btn">
+                            oк
+                        </button>
+                    </form>
+
+                    <div class="results">
+                        <h1>
+                            <img class="image" alt="" src="<?php echo PATH ?>/images/dish.svg">
+                            16874
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="block">
+                    <h2 class="block-header">Кількість замовлених порцій для категорії</h2>
+                    <form>
+                        <label class="input-style dish-name">
+                            Назва страви
+                            <input type="text" class="input" placeholder="Назва">
+                        </label>
+
+                        <label class="select input-style category-list">
+                            Категорія
+                            <select class="input">
+                                <option value="салати">салати</option>
+                                <option value="гарніри">гарніри</option>
+                                <option value="гарніри">закуски</option>
+                            </select>
+                        </label>
+                        <button class="ok-btn">
+                            oк
+                        </button>
+                    </form>
+
+                    <div class="results">
+                        <h1>
+                            <img class="image" alt="" src="<?php echo PATH ?>/images/dish.svg">
+                            16874
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class=" block histogram-block">
                     <h2 class="block-header">Страви, що були замовлені найчастіше/найрідше</h2>
-
                     <form>
                         <div class="period">
                             <label>
@@ -412,7 +468,7 @@ define("PATH", get_template_directory_uri());
                             </label>
                         </div>
 
-                        <label class="select input-style"">
+                        <label class="select input-style">
                         <select class="input">
                             <option value="більше">більше</option>
                             <option value="менше">менше</option>
