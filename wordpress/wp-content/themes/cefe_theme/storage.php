@@ -212,6 +212,12 @@ define("PATH", get_template_directory_uri());
                     <span>Всього</span>
                     <span class="total-price">174,42 грн</span>
                 </div>
+                <div class="resp-person">
+                    <span>Відповідальна особа</span>
+                    <label class="input-style">
+                        <input class="input" type="text" placeholder="Ім'я робітника">
+                    </label>
+                </div>
                 <button class="add-product-btn btn-style">Додати продукт</button>
             </div>
         </div>
@@ -258,6 +264,7 @@ define("PATH", get_template_directory_uri());
                                     <div class="name">назва</div>
                                     <div class="date">вжити з</div>
                                     <div class="date">вжити до</div>
+                                    <div class="date">дата останньої інвентаризації</div>
                                 </li>
                                 <li class="product">
                                     <div class="number">1.</div>
@@ -266,6 +273,7 @@ define("PATH", get_template_directory_uri());
                                     <div class="name">Картопля білоруська</div>
                                     <div class="date">2019-07-01</div>
                                     <div class="date">2019-07-01</div>
+                                    <div class="date">2019-07-01</div>
                                 </li>
                                 <li class="product">
                                     <div class="number">1.</div>
@@ -274,12 +282,14 @@ define("PATH", get_template_directory_uri());
                                     <div class="name">Картопля білоруська</div>
                                     <div class="date">2019-07-01</div>
                                     <div class="date">2019-07-01</div>
+                                    <div class="date">2019-07-01</div>
                                 </li>
                                 <li class="product">
                                     <div class="number">1.</div>
                                     <div class="code">12343</div>
                                     <div class="code">53542</div>
                                     <div class="name">Картопля білоруська</div>
+                                    <div class="date">2019-07-01</div>
                                     <div class="date">2019-07-01</div>
                                     <div class="date">2019-07-01</div>
                                 </li>
