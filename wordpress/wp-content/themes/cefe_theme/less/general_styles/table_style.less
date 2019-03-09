@@ -4,7 +4,7 @@
   margin: auto;
   padding-top: 30px;
   max-width: 80%;
-  margin: auto;
+  //margin: auto;
   //padding-left: 10%;
   //padding-right: 10%;
   font-size: (@main_font_size - 2);
@@ -123,21 +123,33 @@
             border-top: none;
 
             ul {
+              display: table;
               padding-top: 10px;
               padding-left: 0;
+              width: 100%;
 
               .product {
-                display: flex;
-                justify-content: space-between;
+                display: table-row;
+                //display: flex;
+                //justify-content: space-between;
                 padding: 0 10px 5px 10px;
                 word-break: break-all;
                 font-size: (@main_font_size - 3);
-                text-align: center;
+                //text-align: center;
+
+                div{
+                  display: table-cell;
+                  text-align: center;
+                }
               }
 
               .prod-header {
                 word-break: normal;
                 font-size: 16px;
+                text-align: center;
+                div{
+                  vertical-align: middle;
+                }
               }
             }
           }

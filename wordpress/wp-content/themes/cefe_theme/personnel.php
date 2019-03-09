@@ -45,25 +45,26 @@
 <div class="main">
     <div class="search-area">
         <form>
-            <span class="label-header">
-                Пошук
-                <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
-            </span>
-
             <div class="search-name search-block">
-                <label class="label" for="search_pib">ПІБ</label>
-                <input type="text" class="search" id="search_pib" placeholder="Петро Петренко Петрович">
-            </div>
+                <span class="label-header">Пошук
+                    <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+                </span>
 
-            <div class="search-worker search-block">
-                <label class="label" for="position">Посада</label>
-                <select class="select-position" id="position" name="positions" required>
-                    <option value="офіціант">офіціант</option>
-                    <option value="бармен">бармен</option>
-                    <option value="кухар">кухар</option>
-                    <option value="бухгалтер">бухгалтер</option>
-                    <option value="адміністратор">адміністратор</option>
-                </select>
+                <div class="input-block">
+                    <label class="label" for="search_pib">ПІБ</label>
+                    <input type="text" class="search" id="search_pib" placeholder="Петро Петренко Петрович">
+                </div>
+
+                <div class="search-worker input-block">
+                    <label class="label" for="position">Посада</label>
+                    <select class="select-position" id="position" name="positions" required>
+                        <option value="офіціант">офіціант</option>
+                        <option value="бармен">бармен</option>
+                        <option value="кухар">кухар</option>
+                        <option value="бухгалтер">бухгалтер</option>
+                        <option value="адміністратор">адміністратор</option>
+                    </select>
+                </div>
             </div>
         </form>
     </div>

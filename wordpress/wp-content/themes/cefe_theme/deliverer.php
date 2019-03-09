@@ -45,19 +45,20 @@
 <div class="main">
     <div class="search-area">
         <form>
-            <span class="label-header">
-                Пошук
-                <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
-            </span>
-
             <div class="search-name search-block">
-                <label class="label" for="search_pib">Назва</label>
-                <input type="text" class="search" id="search_pib" placeholder="Назва постачальника">
-            </div>
+                <span class="label-header">Пошук
+                    <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+                </span>
 
-            <div class="search-name search-block">
-                <label class="label" for="search_pib">Продукт</label>
-                <input type="text" class="search" id="search_pib" placeholder="Продукт, що поставляє">
+                <div class="input-block">
+                    <label class="label" for="search_pib">Назва</label>
+                    <input type="text" class="search" id="search_pib" placeholder="Назва постачальника">
+                </div>
+
+                <div class="search-name input-block">
+                    <label class="label" for="search_pib">Продукт</label>
+                    <input type="text" class="search" id="search_pib" placeholder="Продукт, що поставляє">
+                </div>
             </div>
         </form>
     </div>

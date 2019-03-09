@@ -12,7 +12,7 @@ $(function(){
     });
 
     //animation for products list in table
-    $(".show-products").on("click", function (event) {
+    $(".main").on("click",".show-products", function (event) {
         ($(this).parent().next("tr").find(".products-list")).slideToggle();
         rotateImage(($(this).find("img")));
     });

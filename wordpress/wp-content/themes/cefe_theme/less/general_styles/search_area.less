@@ -23,6 +23,7 @@
 
     .label-header{
       padding: 5px;
+      padding-right: 30px;
       margin-bottom: 10px;
       display: block;
       background-color: @gray_tone_2;
@@ -43,57 +44,63 @@
     }
 
     .search-block{
-      padding: 0 0 10px 5px;
+      padding: 0 0 0px 5px;
       //padding-left: 5px;
       border-bottom: 1px solid @gray_tone_3;
 
-      .label{
-        text-align: left;
-        display: block;
-        color: @gray_tone_5;
-        padding: 5px;
-        text-transform: uppercase;
-        //padding-bottom: 15px;
-        font-weight: bold;
-        font-family: @main_font_family;
-        background-color: @yellow_tone_1;
-        font-size: (@main_font_size - 2);
-        white-space: normal;
-        line-height: @main_font_size;
+      .search-date{
+        label{
+          font-weight: normal;
+          margin: 0;
+          min-width: 170px;
+          width: 100%;
+          position: relative;
+          padding-top: 10px;
+          padding-bottom: 30px;
+          padding-left: 5px;
+
+          input{
+            position: absolute;
+            right: 0;
+          }
+        }
       }
 
-      .consider-label{
-        font-size: 16px;
-        font-weight: normal;
-        float: right;
-        display: inline-flex;
-        align-items: center;
-        color: @gray_tone_4;
-      }
-    }
+      .input-block{
+        padding-bottom: 15px;
+        //border-bottom: 1px solid @gray_tone_3;
+        .label{
+          text-align: left;
+          display: block;
+          color: @gray_tone_5;
+          padding: 5px;
+          text-transform: uppercase;
+          //padding-bottom: 15px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          font-weight: bold;
+          font-family: @main_font_family;
+          background-color: @yellow_tone_1;
+          font-size: (@main_font_size - 2);
+          white-space: normal;
+          line-height: @main_font_size;
+        }
 
-    .search-date{
-      label{
-        font-weight: normal;
-        margin: 0;
-        min-width: 170px;
-        width: 100%;
-        position: relative;
-        padding-top: 10px;
-        padding-bottom: 30px;
-        padding-left: 5px;
-
-        input{
-          position: absolute;
-          right: 0;
+        .consider-label{
+          font-size: 16px;
+          font-weight: normal;
+          float: right;
+          display: inline-flex;
+          align-items: center;
+          color: @gray_tone_4;
         }
       }
     }
 
-    input[type="text"]{
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
+    //input[type="text"]{
+      //margin-top: 10px;
+      //margin-bottom: 10px;
+    //}
 
     select{
       width: 100%;

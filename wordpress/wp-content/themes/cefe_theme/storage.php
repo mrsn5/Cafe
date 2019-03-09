@@ -27,15 +27,15 @@ define("PATH", get_template_directory_uri());
     </div>
 
     <div class="header-btn-style modal-btn" data-toggle="modal">
-        Додати Інгредієнт
+        Додати інгредієнт
     </div>
 
     <div class="header-btn-style" id="inventory_btn">
-        Інвентаризація
+        Провести інвентаризацію
     </div>
 
     <div class="header-btn-style toggle-btn" id="discarding_btn">
-        <span>Списання</span>
+        <span>Списати</span>
         <img class="img-cont image-transition" src="<?php echo PATH ?>/images/drop_down_icon.png">
     </div>
 
@@ -87,20 +87,24 @@ define("PATH", get_template_directory_uri());
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
 
-                <label class="label" for="search_name">Назва</label>
-                <input type="text" class="search " id="search_name" placeholder="Картопля">
+                <div class="input-block">
+                    <label class="label" for="search_name">Назва</label>
+                    <input type="text" class="search " id="search_name" placeholder="Картопля">
+                </div>
             </div>
 
-            <div class="search-name search-block">
+            <div class="search-block">
                 <span class="label-header">Інгредієнти, що скоро зіпсуються
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
 
-                <label class="label" for="search_date">Вжити до</label>
-                <input type="date" id="search_date">
+                <div class="input-block">
+                    <label class="label" for="search_date">Вжити до</label>
+                    <input type="date" id="search_date">
+                </div>
             </div>
 
-            <div class="search-worker search-block">
+            <div class="search-block">
                  <span class="label-header">Інгредієнти, що скінчились
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>

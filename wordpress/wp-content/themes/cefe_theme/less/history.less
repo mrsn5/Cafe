@@ -1,19 +1,18 @@
 @import "orders_page";
 @import "general_styles/search_area";
+@import "general_styles/table_style";
 
 @main_font_size: 20px;
 
 .header{
-  .today-order-btn{
+  .orders-btn{
     width: 300px;
   }
 }
 
 .main{
   .orders-container{
-    border-left: 2px solid @gray_tone_4;
-
-    .today-order-btn{
+    .orders-btn{
       width: 300px;
     }
 
@@ -39,6 +38,36 @@
 
       span + span{
         padding-left: 20px;
+      }
+    }
+  }
+
+  .discarding-container{
+    //display: none;
+    .table-area{
+      table{
+        .extra{
+          .product {
+            .number{
+              width: 2%;
+            }
+            .code{
+              width: 15%;
+            }
+            .name{
+              width: 30%;
+            }
+            .units{
+              width: 10%;
+            }
+            .amount{
+              width: 15%;
+            }
+            .price{
+              width: 15%;
+            }
+          }
+        }
       }
     }
   }

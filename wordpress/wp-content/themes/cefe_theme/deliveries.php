@@ -12,7 +12,7 @@ define("PATH", get_template_directory_uri());
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH ?>/less/delivery_page.less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
-    <title>Deliveries</title>
+    <title>Поставки</title>
 </head>
 <body>
 
@@ -36,50 +36,47 @@ define("PATH", get_template_directory_uri());
 </div>
 
 <div class="main">
-
     <div class="search-area">
         <form>
-            <span class="label-header">
-                Пошук
-                <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
-            </span>
-
-            <div class="search-date search-block">
-                <span class="label">
-                    Отримані в період
+            <div class="search-block">
+                <span class="label-header">Пошук
+                    <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
-                <label>
-                    з
-                    <input type="date">
-                </label>
-                <label>
-                    по
-                    <input type="date">
-                </label>
+
+                <div class="input-block search-date">
+                    <span class="label">Отримані в період</span>
+                    <label>
+                        з
+                        <input type="date">
+                    </label>
+                    <label>
+                        по
+                        <input type="date">
+                    </label>
+                </div>
+
+                <div class="search-paid input-block">
+                    <span class="label" for="search_paid">Сплачені</span>
+                    <input type="checkbox" class="search checkbox-style" id="search_paid">
+                    <label for="search_paid"></label>
+
+                    <label class="consider-label">
+                        <input type="checkbox">
+                        не враховувати
+                    </label>
+                </div>
+
+                <div class="search-paid input-block">
+                    <span class="label" for="search_received">Отримані</span>
+                    <input type="checkbox" class="search checkbox-style" id="search_received">
+                    <label for="search_received"></label>
+
+                    <label class="consider-label">
+                        <input type="checkbox">
+                        не враховувати
+                    </label>
+                </div>
             </div>
-
-            <div class="search-paid search-block">
-                <span class="label" for="search_paid">Сплачені</span>
-                <input type="checkbox" class="search checkbox-style" id="search_paid">
-                <label for="search_paid"></label>
-
-                <label class="consider-label">
-                    <input type="checkbox">
-                    не враховувати
-                </label>
-            </div>
-
-            <div class="search-paid search-block">
-                <span class="label" for="search_received">Отримані</span>
-                <input type="checkbox" class="search checkbox-style" id="search_received">
-                <label for="search_received"></label>
-
-                <label class="consider-label">
-                    <input type="checkbox">
-                    не враховувати
-                </label>
-            </div>
-
         </form>
     </div>
 
