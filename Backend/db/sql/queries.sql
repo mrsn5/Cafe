@@ -46,19 +46,21 @@ FROM dishes X;
 -- Отримати X/Z-звіт.
 SELECT SUM(cost) AS total
 FROM orders
-where DATE(close_time) = CURRENT_DATE AND is_paid = 0b1;
+where DATE(close_time) = '2019-02-24' AND is_paid = 0b1;
 
+
+-- Кількість замовлених порцій і сума за них
 (SELECT dish_name, COUNT(unique_num) AS n_portions, SUM(portions.price) AS total
 FROM portions INNER JOIN dishes ON dishes.tech_card_num = portions.tech_card_num
 WHERE order_num IN (SELECT unique_num
                     FROM orders
-                    WHERE DATE(close_time) = CURRENT_DATE AND is_paid = 0b1)
+                    WHERE DATE(close_time) = '2019-02-24' AND is_paid = TRUE)
 GROUP BY dish_name
 ORDER BY dish_name)
 UNION
 (SELECT 'ВСЬОГО', COUNT(*) AS n_portions, SUM(cost) AS total
 FROM orders INNER JOIN portions ON orders.unique_num = order_num
-where DATE(close_time) = CURRENT_DATE AND is_paid = 0b1);
+where DATE(close_time) = '2019-02-24' AND is_paid = TRUE);
 
 
 -- Отримати відомості про наявність ігредієнтів на складі для конкретної страви.
@@ -69,7 +71,7 @@ SELECT ing_name, IF(amount <= COALESCE((SELECT SUM(curr_amount)
 FROM dishes_ingredients X
 WHERE tech_card_num IN (SELECT tech_card_num
                         FROM dishes
-                        WHERE dish_name = 'Салат "Португальський"');
+                        WHERE dish_name = 'Салат "Португальський');
 
 -- Отримати відомості про наявність конкретного інгредієнту на складі.
 SELECT IF(COUNT(*) > 0, "YES", "NO") AS is_available
@@ -195,6 +197,18 @@ WHERE tech_card_num IN (SELECT tech_card_num
                         GROUP BY tech_card_num
                         HAVING COUNT(unique_num) <= 20);
 
+-- Отримати список страв, котрі були замовлені менше 100 разів за останній місяць.
+SELECT dish_name
+FROM dishes
+WHERE tech_card_num IN (SELECT tech_card_num
+                        FROM portions
+                        WHERE order_num IN (SELECT unique_num
+                                            FROM orders
+                                            WHERE CURRENT_DATE <= ADDDATE(order_time, INTERVAL 1 MONTH))
+                        GROUP BY tech_card_num
+                        HAVING COUNT(unique_num) <= 100);
+
+
 -- Отримати список страв, котрі були замовлені менше/більше n разів.
 SELECT dish_name
 FROM dishes
@@ -250,3 +264,6 @@ WHERE (SELECT MIN(expiration_date)
                                       WHERE dishes.tech_card_num = dishes_ingredients.tech_card_num)) IS NOT NULL
 ORDER BY expiration_date
 LIMIT 10;
+
+
+--	Знайти постачальника, у котрого можна купити всі відсутні інгредієнти потрібні для страв у меню:

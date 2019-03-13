@@ -38,7 +38,7 @@
             <a href="storage"><img src="<?php echo PATH?>/images/open-box.svg" alt="Storage"/></a>
         </li>
         <li style="background-image: linear-gradient(20deg, #e134b7, #ffd2f6);">
-            <a href="deliveries.php"><img src="<?php echo PATH?>/images/truck.svg" alt="Deliveries"/></a>
+            <a href="deliveries"><img src="<?php echo PATH?>/images/truck.svg" alt="Deliveries"/></a>
         </li>
         <li style="background-image: linear-gradient(150deg, rgb(229,173,255), #9532b5);">
             <a href="personnel"><img src="<?php echo PATH?>/images/waiter.svg" alt="Personnel"/></a>
