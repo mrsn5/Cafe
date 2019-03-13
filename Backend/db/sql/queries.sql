@@ -267,3 +267,10 @@ LIMIT 10;
 
 
 --	Знайти постачальника, у котрого можна купити всі відсутні інгредієнти потрібні для страв у меню:
+
+
+SELECT *
+FROM workers NATURAL JOIN telephones
+WHERE position LIKE 'офіціант'
+     AND CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%Ї%'
+ORDER BY tab_num;
