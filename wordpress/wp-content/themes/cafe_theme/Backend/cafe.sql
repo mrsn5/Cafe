@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 14 2019 г., 16:32
+-- Время создания: Мар 14 2019 г., 16:46
 -- Версия сервера: 5.7.24
 -- Версия PHP: 7.2.14
 
@@ -1533,8 +1533,8 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (26, 2, 'use_ssl', '0'),
 (27, 2, 'show_admin_bar_front', 'true'),
 (28, 2, 'locale', ''),
-(29, 2, 'wp_capabilities', 'a:1:{s:10:\"subscriber\";b:1;}'),
-(30, 2, 'wp_user_level', '0'),
+(29, 2, 'wp_capabilities', 'a:1:{s:13:\"administrator\";b:1;}'),
+(30, 2, 'wp_user_level', '10'),
 (31, 2, 'dismissed_wp_pointers', 'wp496_privacy');
 
 -- --------------------------------------------------------
