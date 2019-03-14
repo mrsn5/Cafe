@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 14 2019 г., 16:04
+-- Время создания: Мар 14 2019 г., 16:32
 -- Версия сервера: 5.7.24
 -- Версия PHP: 7.2.14
 
@@ -1498,7 +1498,7 @@ CREATE TABLE IF NOT EXISTS `wp_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`(191))
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Дамп данных таблицы `wp_usermeta`
@@ -1520,8 +1520,22 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (13, 1, 'wp_user_level', '10'),
 (14, 1, 'dismissed_wp_pointers', 'wp496_privacy'),
 (15, 1, 'show_welcome_panel', '1'),
-(16, 1, 'session_tokens', 'a:3:{s:64:\"a1c00f5bfd1676e948e4209bbdbbaad60b824b36749872ec3bad8c06cd9fdcec\";a:4:{s:10:\"expiration\";i:1553785091;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552575491;}s:64:\"c0853537aa2062c947b7df418bae2bb7ea55d3d82f7fb04970e7cd872bd781fa\";a:4:{s:10:\"expiration\";i:1553788914;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552579314;}s:64:\"33c6700541fc5399a5da260203ebc790a6d3afa9a01c2866b978fb3ace574eac\";a:4:{s:10:\"expiration\";i:1553788958;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552579358;}}'),
-(17, 1, 'wp_dashboard_quick_press_last_post_id', '4');
+(16, 1, 'session_tokens', 'a:4:{s:64:\"a1c00f5bfd1676e948e4209bbdbbaad60b824b36749872ec3bad8c06cd9fdcec\";a:4:{s:10:\"expiration\";i:1553785091;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552575491;}s:64:\"c0853537aa2062c947b7df418bae2bb7ea55d3d82f7fb04970e7cd872bd781fa\";a:4:{s:10:\"expiration\";i:1553788914;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552579314;}s:64:\"33c6700541fc5399a5da260203ebc790a6d3afa9a01c2866b978fb3ace574eac\";a:4:{s:10:\"expiration\";i:1553788958;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:131:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 OPR/58.0.3135.79\";s:5:\"login\";i:1552579358;}s:64:\"c39cec84fd5defc66f0ad9b843f94bcb03964d6fe621b40cc9dbab3bb38c6725\";a:4:{s:10:\"expiration\";i:1552753645;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36\";s:5:\"login\";i:1552580845;}}'),
+(17, 1, 'wp_dashboard_quick_press_last_post_id', '4'),
+(18, 2, 'nickname', 'Cafe'),
+(19, 2, 'first_name', ''),
+(20, 2, 'last_name', ''),
+(21, 2, 'description', ''),
+(22, 2, 'rich_editing', 'true'),
+(23, 2, 'syntax_highlighting', 'true'),
+(24, 2, 'comment_shortcuts', 'false'),
+(25, 2, 'admin_color', 'fresh'),
+(26, 2, 'use_ssl', '0'),
+(27, 2, 'show_admin_bar_front', 'true'),
+(28, 2, 'locale', ''),
+(29, 2, 'wp_capabilities', 'a:1:{s:10:\"subscriber\";b:1;}'),
+(30, 2, 'wp_user_level', '0'),
+(31, 2, 'dismissed_wp_pointers', 'wp496_privacy');
 
 -- --------------------------------------------------------
 
@@ -1545,14 +1559,15 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`),
   KEY `user_email` (`user_email`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Дамп данных таблицы `wp_users`
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
-(1, 'san', '$P$Bbm3NVd4UkHtHWPW/CTdeH02Ih7ySq/', 'san', 'mr.sn5.kma@gmail.com', '', '2019-03-14 14:57:59', '', 0, 'san');
+(1, 'san', '$P$Bbm3NVd4UkHtHWPW/CTdeH02Ih7ySq/', 'san', 'mr.sn5.kma@gmail.com', '', '2019-03-14 14:57:59', '', 0, 'san'),
+(2, 'Cafe', '$P$BYsqjuReWXW3N9yrgf13m5gSYoHSq7.', 'cafe', '99pollyanna99@gmail.com', '', '2019-03-14 16:31:55', '1552581116:$P$B/E/0iltRZzI7Md/IZFFjzZ6CQt5dv.', 0, 'Cafe');
 
 -- --------------------------------------------------------
 
@@ -1567,5 +1582,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
---
