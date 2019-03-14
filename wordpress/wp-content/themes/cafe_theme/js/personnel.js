@@ -34,6 +34,7 @@ function get_personnel(position, name) {
         url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select';
     }
 
+
     console.log(url);
 
     fetch(url)
