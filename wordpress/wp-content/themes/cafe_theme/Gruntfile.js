@@ -16,14 +16,14 @@ module.exports = function(grunt) {
                 transform:  [ require('brfs') ],
                 browserifyOptions: {
                     //Папка з корнем джерельних кодів javascript
-                    basedir: "wp-content/themes/cafe_theme/js/"
+                    basedir: "js/"
                 }
             },
 
             //Збірка з назвою personnel
             personnel: {
-                src:        'wp-content/themes/cafe_theme/js/personnel.js',
-                dest:       'wp-content/themes/cafe_theme/js/compiled/personnel.js'
+                src:        'js/personnel.js',
+                dest:       'js/compiled/personnel.js'
             }
         }
     };
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         //Назва завдання будь-яка
         scripts: {
             //На зміни в яких файлах реагувати
-            files: ['wp-content/themes/cafe_theme/js/*.js', 'wp-content/themes/cafe_theme/templates/*.ejs'],
+            files: ['js/*.js', 'templates/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
             tasks: ['browserify:personnel']
         }

@@ -74,7 +74,7 @@
         <div class="toggle-area new-item-area">
             <div class="new-item-header">
                 <span class="header-text">Новий робітник</span>
-                <button class="save-item-btn btn-style" >
+                <button id="save-personnel" class="save-item-btn btn-style" >
                     Зберегти робітника
                 </button>
             </div>
@@ -91,7 +91,7 @@
 
                                 <div class="field inline-field position-list">
                                     <div class="select-cont">
-                                        <select class="select-position" id="position" name="positions" required>
+                                        <select class="select-position" id="position-add" name="positions" required>
                                             <option value="офіціант">офіціант</option>
                                             <option value="бармен">бармен</option>
                                             <option value="кухар">кухар</option>
@@ -134,10 +134,10 @@
 
                                 <fieldset class="radio-btn-field" id="gender">
                                     <legend class="required-label">Стать</legend>
-                                    <input type="radio" id="is_male" class="radio-style" name="gender" checked/>
+                                    <input type="radio" id="is_male" class="radio-style" name="gender" value="Ч" checked/>
                                     <label for="is_male">Чоловік</label>
 
-                                    <input type="radio" id="is_female" class="radio-style" name="gender"/>
+                                    <input type="radio" id="is_female" class="radio-style" name="gender" value="Ж"/>
                                     <label for="is_female">Жінка</label>
                                 </fieldset>
                             </div>
