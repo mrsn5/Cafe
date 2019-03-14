@@ -25,15 +25,14 @@ function get_personnel(position, name) {
     $personnel_table.html("");
 
     if (position && name) {
-        url = './wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position + '&name=' + name;
+        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position + '&name=' + name;
     } else if (position) {
-        url = './wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position;
+        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position;
     } else if (name) {
-        url = './wp-content/themes/cafe_theme/Backend/personnel.php?type=select&name=' + name;
+        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&name=' + name;
     } else {
-        url = './wp-content/themes/cafe_theme/Backend/personnel.php?type=select';
+        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select';
     }
-
 
     console.log(url);
 
@@ -60,7 +59,7 @@ $("#save-personnel").click(function () {
     var telephone = $("#tel_num").val();
 
     console.log(tab_num, position, name, surname, fathername, birthdate, gender, address, telephone);
-    fetch('./wp-content/themes/cafe_theme/Backend/personnel.php?type=add'
+    fetch('../wp-content/themes/cafe_theme/Backend/personnel.php?type=add'
                 + '&first_name=' + name
                 + '&surname=' + surname
                 + '&father_name=' + fathername
