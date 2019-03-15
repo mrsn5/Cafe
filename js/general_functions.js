@@ -1,3 +1,4 @@
+var $ = jQuery;
 $(function(){
 
     $(".modal-btn").on('click', function () {

@@ -3,17 +3,21 @@
 //     size: size,
 //     quantity: 1
 // });
+var $ = jQuery;
 
 let fs = require('fs');
 let ejs = require('ejs');
 
 var personnel= ejs.compile(fs.readFileSync("./templates/personnel.ejs", "utf8"));
 
+$(function() {
 var $personnel_table = $("#personnel-table");
 
-$(function() {
+// jQuery(document).ready( function($) {
+//     get_personnel(null, null);
+// });
+
     get_personnel(null, null);
-});
 
 $("#search-button").click(function () {
     var search_name = $("#search_pib").val().trim();
@@ -22,9 +26,10 @@ $("#search-button").click(function () {
 });
 
 function get_personnel(position, name) {
+    console.log(ajax_object);
     $personnel_table.html("");
     $.ajax({
-        url: 'http://localhost/Cafe/wordpress/wp-admin/admin-ajax.php',
+        url: ajax_object.ajax_url,
         type: 'POST',
         data: {
             action: 'personnel_select',
@@ -43,7 +48,7 @@ function get_personnel(position, name) {
 
 $("#save-personnel").click(function () {
     $.ajax({
-        url: 'http://localhost/Cafe/wordpress/wp-admin/admin-ajax.php',
+        url: ajax_object.ajax_url,
         type: 'POST',
         data: {
             action: 'personnel_add',
@@ -62,4 +67,5 @@ $("#save-personnel").click(function () {
             console.log(res);
         }
     });
+});
 });

@@ -6,77 +6,31 @@
  * Time: 13:50
  */
 
-include 'Backend/dbhelper.php';
+require_once 'Backend/personnel_ajax.php';
 
-add_action( 'wp_ajax_personnel_select', 'select_personnel' );
-add_action( 'wp_ajax_nopriv_personnel_select', 'select_personnel' );
-add_action( 'wp_ajax_personnel_add', 'personnel_add' );
-add_action( 'wp_ajax_nopriv_personnel_add', 'personnel_add' );
+//add bootstrap
+function add_bootstrap(){
+    wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri() . '/libs/bootstrap-3.3.7-dist/css/bootstrap.css', array(), 20141119 );
+    wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js', array('jquery'), '20120206', true );
+}
+add_action('wp_enqueue_scripts', 'add_bootstrap');
 
-function select_personnel(){
-    $conn = DBHelper::connect();
+//add less
+function main_less() {
+    ?>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js" type="text/javascript"></script>
+    <?php
+}
+add_action( 'wp_footer' , 'main_less' );
 
-    if ($_POST['position'] != null && $_POST['name'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
-             WHERE position LIKE '" . $_POST['position'] . "'
-                   AND CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
-             ORDER BY tab_num;";
-    } else if ($_POST['position'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
-             WHERE position LIKE '" . $_POST['position'] . "'
-             ORDER BY tab_num;";
-    } else if ($_POST['name'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
-             WHERE CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
-             ORDER BY tab_num;";
-    } else {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
-             ORDER BY tab_num;";
-    }
+function load_my_scripts(){
+    wp_enqueue_script( 'general_js_functions', get_template_directory_uri() . '/js/general_functions.js', array('jquery'));
 
-    $personnel = array();
-    foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
-        $personnel[] = $row;
-    }
-    echo json_encode($personnel, JSON_UNESCAPED_UNICODE);
+    wp_enqueue_script( 'personnel-ajax-script', get_template_directory_uri() . '/js/compiled/personnel.js', array('jquery'), 100);
 
-
-    DBHelper::disconnect();
-
-    die; // даём понять, что обработчик закончил выполнение
+    wp_localize_script( 'personnel-ajax-script', 'ajax_object',
+            array( 'ajax_url' => admin_url('admin-ajax.php' )));
 }
 
-function personnel_add() {
-    $conn = DBHelper::connect();
-    $sqlQuery =
-        str_replace(
-        "'NULL'", "NULL",
-        "INSERT INTO workers
-        (tab_num, surname, first_name, father_name, birth_date, address, gender, position, salary, hire_date, fire_date)
-        VALUES ("
-        .$_POST['tab_num'].", '"
-        .$_POST['surname']."', '"
-        .$_POST['first_name']."', '"
-        .$_POST['father_name']."','"
-        .$_POST['birth_date'] ."', '"
-        .$_POST['address']."', '"
-        .$_POST['gender']."', '"
-        .$_POST['position']."', "
-        .$_POST['salary'].", CURRENT_DATE, NULL);");
-    try {
-        $conn->query($sqlQuery);
-    } catch (Exception $e) {
-        echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
-        echo $sqlQuery;
-    }
-    echo "ADDED!";
-    DBHelper::disconnect();
-    die;
-}
-
-
+add_action( 'wp_enqueue_scripts', 'load_my_scripts' );
 ?>

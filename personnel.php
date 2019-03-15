@@ -11,6 +11,9 @@
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/personnel.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
+    <?php wp_head(); ?>
+
     <title>Персонал</title>
 
 </head>
@@ -385,11 +388,13 @@
 
 </div>
 
+<?php wp_footer(); ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo PATH?>/js/general_functions.js"></script>
-<script type="text/javascript" src="<?php echo PATH?>/js/compiled/personnel.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH?><!--/js/general_functions.js"></script>-->
+
+<!--<script type="text/javascript" src="--><?php //echo PATH?><!--/js/compiled/personnel.js"></script>-->
 </body>
 </html>
 
