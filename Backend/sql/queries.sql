@@ -267,10 +267,23 @@ LIMIT 10;
 
 
 --	Знайти постачальника, у котрого можна купити всі відсутні інгредієнти потрібні для страв у меню:
+CREATE VIEW needed_ingredients AS
+SELECT DISTINCT ing_name
+FROM dishes_ingredients X
+WHERE amount > (SELECT curr_amount
+                FROM ingredients
+                WHERE ingredients.ing_name = X.ing_name)
+  AND TRUE = ALL (SELECT is_in_menu
+                  FROM dishes
+                  WHERE dishes.tech_card_num = X.tech_card_num);
 
 
-SELECT *
-FROM workers NATURAL JOIN telephones
-WHERE position LIKE 'офіціант'
-     AND CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%Ї%'
-ORDER BY tab_num;
+
+SELECT code, company_name, contact_person_name, contact_person_tel
+FROM providers X
+WHERE NOT EXISTS (SELECT ing_name
+                  FROM needed_ingredients
+                  WHERE ing_name NOT IN (SELECT ing_name
+                                         FROM deliveries INNER JOIN goods ON goods.delivery_num = deliveries.delivery_num
+                                         WHERE X.code = provider_code));
+

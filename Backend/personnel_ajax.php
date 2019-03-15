@@ -101,7 +101,7 @@ function personnel_change() {
 
     if (isset($_POST['tel_num'])) {
         echo "!".$_POST['tel_num'];
-        $sqlQuery ="UPDATE telephones SET tel_num = '" . $_POST['tel_num']. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";;
+        $sqlQuery ="UPDATE telephones SET tel_num = '" . $_POST['tel_num']. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";
         echo $sqlQuery;
         try {
             $conn->query($sqlQuery);
