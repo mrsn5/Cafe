@@ -227,8 +227,8 @@ define("PATH", get_template_directory_uri());
         </div>
 
         <div class="table-area">
-            <div class="show_ings_btn">
-                <span id="all_ings">Всі інгредієнти</span>
+            <div class="show_items_btn">
+                <span id="all_items">Всі інгредієнти</span>
             </div>
             <table id="ingredients_table">
                 <thead>

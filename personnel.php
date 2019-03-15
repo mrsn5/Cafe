@@ -104,6 +104,11 @@
                                     </div>
                                     <label class="required-label label-without-trans" for="position">Посада</label>
                                 </div>
+
+                                <div class="field inline-field">
+                                    <input type="number" name="salary" id="salary" placeholder="2000">
+                                    <label class="required-label" for="salary">Зарплата (грн)</label>
+                                </div>
                             </div>
                         </div>
 
@@ -166,6 +171,10 @@
             </div>
         </div>
         <div class="table-area">
+            <div class="show_items_btn">
+                <span id="all_items">Всі робітники</span>
+            </div>
+
             <table>
                 <thead>
                 <tr>
