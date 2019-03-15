@@ -6,6 +6,8 @@ add_action( 'wp_ajax_personnel_select', 'select_personnel' );
 add_action( 'wp_ajax_nopriv_personnel_select', 'select_personnel' );
 add_action( 'wp_ajax_personnel_add', 'personnel_add' );
 add_action( 'wp_ajax_nopriv_personnel_add', 'personnel_add' );
+add_action( 'wp_ajax_personnel_change', 'personnel_change' );
+add_action( 'wp_ajax_nopriv_personnel_change', 'personnel_change' );
 
 function select_personnel(){
     $conn = DBHelper::connect();
@@ -69,5 +71,34 @@ function personnel_add() {
     DBHelper::disconnect();
     die;
 }
+
+function personnel_change() {
+    $conn = DBHelper::connect();
+    $sqlQuery ="UPDATE workers SET ";
+
+    if (isset($_POST['first_name'])) $sqlQuery = $sqlQuery . "first_name = '" . $_POST['first_name'] . "' ";
+//
+//            .$_POST['tab_num'].", '"
+//            .$_POST['surname']."', '"
+//            .$_POST['first_name']."', '"
+//            .$_POST['father_name']."','"
+//            .$_POST['birth_date'] ."', '"
+//            .$_POST['address']."', '"
+//            .$_POST['gender']."', '"
+//            .$_POST['position']."', "
+//            .$_POST['salary'].", CURRENT_DATE, NULL);");
+
+    $sqlQuery = $sqlQuery . "WHERE tab_num = '" . $_POST['tab_num'] . "';";
+    echo $sqlQuery;
+    try {
+        $conn->query($sqlQuery);
+    } catch (Exception $e) {
+        echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+        echo $sqlQuery;
+    }
+    DBHelper::disconnect();
+    die;
+}
+
 ?>
 

@@ -31,10 +31,18 @@ $(function () {
                 res = JSON.parse(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
-
                     $node.find('.name-input').on('change', function () {
-                        $ajax({
-
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                first_name: $node.find('.name-input').val()
+                            },
+                            success: function (s) {
+                                console.log(s);
+                            }
                         });
                     });
 
