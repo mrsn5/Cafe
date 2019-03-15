@@ -172,7 +172,7 @@
         </div>
         <div class="table-area">
             <div class="show_items_btn">
-                <span id="all_items">Всі робітники</span>
+                <span class="all_items" id="all_personnel">Всі робітники</span>
             </div>
 
             <table>

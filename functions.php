@@ -7,6 +7,7 @@
  */
 
 require_once 'Backend/personnel_ajax.php';
+require_once 'Backend/deliverer_ajax.php';
 
 //add bootstrap
 function add_bootstrap(){
@@ -26,10 +27,14 @@ add_action( 'wp_footer' , 'main_less' );
 function load_my_scripts(){
     wp_enqueue_script( 'general_js_functions', get_template_directory_uri() . '/js/general_functions.js', array('jquery'));
 
+
+    wp_enqueue_script( 'deliverer-ajax-script', get_template_directory_uri() . '/js/compiled/deliverer.js', array('jquery'));
     wp_enqueue_script( 'personnel-ajax-script', get_template_directory_uri() . '/js/compiled/personnel.js', array('jquery'), 100);
 
-    wp_localize_script( 'personnel-ajax-script', 'ajax_object',
+    wp_localize_script( 'deliverer-ajax-script', 'ajax_object',
             array( 'ajax_url' => admin_url('admin-ajax.php' )));
+    wp_localize_script( 'personnel-ajax-script', 'ajax_object',
+        array( 'ajax_url' => admin_url('admin-ajax.php' )));
 }
 
 add_action( 'wp_enqueue_scripts', 'load_my_scripts' );

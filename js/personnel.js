@@ -180,7 +180,7 @@ $(function () {
         });
     });
 
-    $("#all_items").click(function () {
+    $("#all_personnel").click(function () {
         get_personnel(null, null);
     });
 

@@ -7,12 +7,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
+
+    <?php wp_head(); ?>
+    <link href="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/deliverer.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
     <title>Постачальники</title>
-
 </head>
 <body>
 
@@ -46,18 +48,18 @@
     <div class="search-area">
         <form>
             <div class="search-name search-block">
-                <span class="label-header">Пошук
+                <span class="label-header" id="search_deliverer">Пошук
                     <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
                 </span>
 
                 <div class="input-block">
-                    <label class="label" for="search_pib">Назва</label>
-                    <input type="text" class="search" id="search_pib" placeholder="Назва постачальника">
+                    <label class="label" for="search_company_name">Назва</label>
+                    <input type="text" class="search" id="search_company_name" placeholder="Назва постачальника">
                 </div>
 
                 <div class="search-name input-block">
-                    <label class="label" for="search_pib">Продукт</label>
-                    <input type="text" class="search" id="search_pib" placeholder="Продукт, що поставляє">
+                    <label class="label" for="search_product">Продукт</label>
+                    <input type="text" class="search" id="search_product" placeholder="Продукт, що поставляє">
                 </div>
             </div>
         </form>
@@ -67,7 +69,7 @@
         <div class="toggle-area new-item-area">
             <div class="new-item-header">
                 <span class="header-text">Новий постачальник</span>
-                <button class="save-item-btn btn-style" >
+                <button class="save-item-btn btn-style" id="save_deliverer">
                     Зберегти постачальника
                 </button>
             </div>
@@ -83,7 +85,7 @@
                                 </div>
 
                                 <div class="field inline-field" style="width: 50%">
-                                    <input type="text" name="name" id="name" placeholder="ТОВ «ЕКСІМ ФУД»">
+                                    <input type="text" name="name" id="company_name" placeholder="ТОВ «ЕКСІМ ФУД»">
                                     <label class="required-label" for="name">Назва підприємства</label>
                                 </div>
                             </div>
@@ -118,11 +120,24 @@
                             </div>
                         </div>
 
+<!--                        <div>-->
+<!--                            <p>Контракт</p>-->
+<!--                            <div class="inputs-row">-->
+<!--                                <div class="date-field inline-field">-->
+<!--                                    <input type="date" name="sign_date" id="sign_date" value="1999-02-20">-->
+<!--                                    <label class="required-label label-without-trans" for="sign_date">Дата укладання угоди</label>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </form>
                 </div>
             </div>
         </div>
         <div class="table-area">
+            <div class="show_items_btn">
+                <span class="all_items" id="all_deliveries">Всі постачальники</span>
+            </div>
+
             <table>
                 <thead>
                 <tr>
@@ -132,10 +147,13 @@
                     <th>ім'я конт. особи</th>
                     <th>тел. конт. особи</th>
                     <th>електронна пошта</th>
+                    <th>дата укладання угоди</th>
+                    <th>дата розриву угоди</th>
+                    <th class="break-reason">причина розриву</th>
                 </tr>
                 </thead>
 
-                <tbody class="color-lines">
+                <tbody class="color-lines" id="deliverer_table">
                 <tr>
                     <td>32855961</td>
                     <td class="editable-cell">
@@ -241,10 +259,10 @@
     </div>
 </div>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo PATH?>/js/general_functions.js"></script>
+<?php wp_footer(); ?>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH?><!--/js/general_functions.js"></script>-->
 </body>
 </html>
 
