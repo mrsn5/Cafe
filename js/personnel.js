@@ -56,7 +56,7 @@ $("#save-personnel").click(function () {
             gender: $("#is_male:checked").val() || $("#is_female:checked").val(),
             address: $("#address").val(),
             telephone: $("#tel_num").val(),
-            salary: 5000
+            salary: 6000
         },
         success: function (res) {
             console.log(res);
