@@ -25,13 +25,13 @@ function get_personnel(position, name) {
     $personnel_table.html("");
 
     if (position && name) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position + '&name=' + name;
+        url = '../Backend/personnel.php?type=select&position=' + position + '&name=' + name;
     } else if (position) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position;
+        url = '../Backend/personnel.php?type=select&position=' + position;
     } else if (name) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&name=' + name;
+        url = '../Backend/personnel.php?type=select&name=' + name;
     } else {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select';
+        url = '../Backend/personnel.php?type=select';
     }
 
 

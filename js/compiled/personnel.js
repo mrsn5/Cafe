@@ -26,13 +26,13 @@ function get_personnel(position, name) {
     $personnel_table.html("");
 
     if (position && name) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position + '&name=' + name;
+        url = '../Backend/personnel.php?type=select&position=' + position + '&name=' + name;
     } else if (position) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&position=' + position;
+        url = '../Backend/personnel.php?type=select&position=' + position;
     } else if (name) {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select&name=' + name;
+        url = '../Backend/personnel.php?type=select&name=' + name;
     } else {
-        url = '../wp-content/themes/cafe_theme/Backend/personnel.php?type=select';
+        url = '../Backend/personnel.php?type=select';
     }
 
 
@@ -1188,30 +1188,34 @@ exports.cache = {
 
 },{}],5:[function(require,module,exports){
 module.exports={
-  "_from": "ejs",
+  "_args": [
+    [
+      "ejs@2.6.1",
+      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+    ]
+  ],
+  "_from": "ejs@2.6.1",
   "_id": "ejs@2.6.1",
   "_inBundle": false,
   "_integrity": "sha512-0xy4A/twfrRCnkhfk8ErDi5DqdAsAqeGxht4xkCUrsvhhbQNs7E+4jV0CN7+NKIY0aHE72+XvqtBIXzD31ZbXQ==",
   "_location": "/ejs",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "ejs",
+    "raw": "ejs@2.6.1",
     "name": "ejs",
     "escapedName": "ejs",
-    "rawSpec": "",
+    "rawSpec": "2.6.1",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "2.6.1"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
-  "_shasum": "498ec0d495655abc6f23cd61868d926464071aa0",
-  "_spec": "ejs",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress",
+  "_spec": "2.6.1",
+  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
@@ -1220,7 +1224,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/mde/ejs/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Timothy Gu",
@@ -1229,7 +1232,6 @@ module.exports={
     }
   ],
   "dependencies": {},
-  "deprecated": false,
   "description": "Embedded JavaScript templates",
   "devDependencies": {
     "browserify": "^13.1.1",
