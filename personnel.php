@@ -106,7 +106,7 @@
                                 </div>
 
                                 <div class="field inline-field">
-                                    <input type="number" name="salary" id="salary" placeholder="2000">
+                                    <input type="number" name="salary" id="salary-add" placeholder="2000">
                                     <label class="required-label" for="salary">Зарплата (грн)</label>
                                 </div>
                             </div>

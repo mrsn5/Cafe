@@ -1,8 +1,3 @@
-// Personell.push({
-//     person: pizza,
-//     size: size,
-//     quantity: 1
-// });
 var $ = jQuery;
 
 let fs = require('fs');
@@ -38,7 +33,9 @@ $(function () {
                     var $node = $(personnel(p));
 
                     $node.find('.name-input').on('change', function () {
-                        $ajax({});
+                        $ajax({
+
+                        });
                     });
 
                     $personnel_table.append($node);
@@ -62,7 +59,7 @@ $(function () {
                 gender: $("#is_male:checked").val() || $("#is_female:checked").val(),
                 address: $("#address").val(),
                 telephone: $("#tel_num").val(),
-                salary: 6000
+                salary: $("#salary-add").val()
             },
             success: function (res) {
                 console.log(res);
