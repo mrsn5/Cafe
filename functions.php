@@ -53,9 +53,11 @@ function select_personnel(){
 function personnel_add() {
     $conn = DBHelper::connect();
     $sqlQuery =
+        str_replace(
+        "'NULL'", "NULL",
         "INSERT INTO workers
-          (tab_num, surname, first_name, father_name, birth_date, address, gender, position, salary, hire_date, fire_date)
-           VALUES ("
+        (tab_num, surname, first_name, father_name, birth_date, address, gender, position, salary, hire_date, fire_date)
+        VALUES ("
         .$_POST['tab_num'].", '"
         .$_POST['surname']."', '"
         .$_POST['first_name']."', '"
@@ -64,7 +66,7 @@ function personnel_add() {
         .$_POST['address']."', '"
         .$_POST['gender']."', '"
         .$_POST['position']."', "
-        .$_POST['salary'].", CURRENT_DATE, NULL);";
+        .$_POST['salary'].", CURRENT_DATE, NULL);");
     try {
         $conn->query($sqlQuery);
     } catch (Exception $e) {
