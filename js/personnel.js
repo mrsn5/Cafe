@@ -40,6 +40,13 @@ function get_personnel(position, name) {
             res = JSON.parse(res);
             res.forEach(function (p) {
                 var $node = $(personnel(p));
+
+                $node.find('.name-input').on('change', function () {
+                   $ajax({
+
+                   });
+                });
+
                 $personnel_table.append($node);
             });
         }
