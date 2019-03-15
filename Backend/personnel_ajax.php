@@ -63,6 +63,9 @@ function personnel_add() {
             .$_POST['salary'].", CURRENT_DATE, NULL);");
     try {
         $conn->query($sqlQuery);
+
+
+
     } catch (Exception $e) {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
         echo $sqlQuery;
