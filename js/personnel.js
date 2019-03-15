@@ -39,9 +39,115 @@ $(function () {
                                 action: 'personnel_change',
                                 tab_num: $node.find('.tab_num').text(),
                                 first_name: $node.find('.name-input').val()
+                            }
+                        });
+                    });
+                    $node.find('.surname-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                surname: $node.find('.surname-input').val()
+                            }
+                        });
+                    });
+                    $node.find('.fathername-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                father_name: $node.find('.fathername-input').val()
                             },
-                            success: function (s) {
-                                console.log(s);
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.birthdate-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                birth_date: $node.find('.birthdate-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.address-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                address: $node.find('.address-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.gender-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                gender: $node.find('.gender-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.position-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                position: $node.find('.position-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.salary-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                salary: $node.find('.salary-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    });
+                    $node.find('.tel-input').on('change', function () {
+                        $.ajax({
+                            url: ajax_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'personnel_change',
+                                tab_num: $node.find('.tab_num').text(),
+                                tel_num: $node.find('.tel-input').val()
+                            },
+                            success: function (e) {
+                                console.log(e);
                             }
                         });
                     });
@@ -73,5 +179,9 @@ $(function () {
                 console.log(res);
             }
         });
+    });
+
+    $("#all_items").click(function () {
+        get_personnel(null, null);
     });
 });

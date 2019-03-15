@@ -74,21 +74,23 @@ function personnel_add() {
 
 function personnel_change() {
     $conn = DBHelper::connect();
+
     $sqlQuery ="UPDATE workers SET ";
 
-    if (isset($_POST['first_name'])) $sqlQuery = $sqlQuery . "first_name = '" . $_POST['first_name'] . "' ";
-//
-//            .$_POST['tab_num'].", '"
-//            .$_POST['surname']."', '"
-//            .$_POST['first_name']."', '"
-//            .$_POST['father_name']."','"
-//            .$_POST['birth_date'] ."', '"
-//            .$_POST['address']."', '"
-//            .$_POST['gender']."', '"
-//            .$_POST['position']."', "
-//            .$_POST['salary'].", CURRENT_DATE, NULL);");
+    if (isset($_POST['first_name'])) $sqlQuery = $sqlQuery . " first_name = '" . $_POST['first_name'] . "' ";
+    if (isset($_POST['surname'])) $sqlQuery = $sqlQuery . " surname = '" . $_POST['surname'] . "' ";
+    if (isset($_POST['father_name'])) {
+        if ($_POST['father_name'] != null) $sqlQuery = $sqlQuery . "father_name = '" . $_POST['father_name'] . "' ";
+        else $sqlQuery = $sqlQuery . " father_name = NULL ";
+    }
+    if (isset($_POST['birth_date'])) $sqlQuery = $sqlQuery . " birth_date = '" . $_POST['birth_date'] . "' ";
+    if (isset($_POST['address'])) $sqlQuery = $sqlQuery . " address = '" . $_POST['address'] . "' ";
+    if (isset($_POST['gender'])) $sqlQuery = $sqlQuery . " gender = '" . $_POST['gender'] . "' ";
+    if (isset($_POST['position'])) $sqlQuery = $sqlQuery . " position = '" . $_POST['position'] . "' ";
+    if (isset($_POST['salary'])) $sqlQuery = $sqlQuery . " salary = '" . $_POST['salary'] . "' ";
+    if (isset($_POST['fire_date'])) $sqlQuery = $sqlQuery . " fire_date = '" . $_POST['fire_date'] . "' ";
 
-    $sqlQuery = $sqlQuery . "WHERE tab_num = '" . $_POST['tab_num'] . "';";
+    $sqlQuery = $sqlQuery . " WHERE tab_num = '" . $_POST['tab_num'] . "';";
     echo $sqlQuery;
     try {
         $conn->query($sqlQuery);
@@ -96,6 +98,19 @@ function personnel_change() {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
         echo $sqlQuery;
     }
+
+    if (isset($_POST['tel_num'])) {
+        echo "!".$_POST['tel_num'];
+        $sqlQuery ="UPDATE telephones SET tel_num = '" . $_POST['tel_num']. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";;
+        echo $sqlQuery;
+        try {
+            $conn->query($sqlQuery);
+        } catch (Exception $e) {
+            echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+    }
+
     DBHelper::disconnect();
     die;
 }
