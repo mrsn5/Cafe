@@ -13,32 +13,39 @@ function select_personnel(){
     $conn = DBHelper::connect();
 
     if ($_POST['position'] != null && $_POST['name'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
+        $sqlQuery = "SELECT *, workers.tab_num
+             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
              WHERE position LIKE '" . $_POST['position'] . "'
                    AND CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
-             ORDER BY tab_num;";
+             ORDER BY workers.tab_num;";
     } else if ($_POST['position'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
+        $sqlQuery = "SELECT *, workers.tab_num
+             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
              WHERE position LIKE '" . $_POST['position'] . "'
-             ORDER BY tab_num;";
+             ORDER BY workers.tab_num;";
     } else if ($_POST['name'] != null) {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
+        $sqlQuery = "SELECT *, workers.tab_num
+             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
              WHERE CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
-             ORDER BY tab_num;";
+             ORDER BY workers.tab_num;";
     } else {
-        $sqlQuery = "SELECT *
-             FROM workers NATURAL JOIN telephones
-             ORDER BY tab_num;";
+        $sqlQuery = "SELECT *, workers.tab_num
+             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
+             ORDER BY workers.tab_num;";
     }
 
-    $personnel = array();
-    foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
-        $personnel[] = $row;
+
+    try {
+        $personnel = array();
+        foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+            $personnel[] = $row;
+        }
+        echo json_encode($personnel, JSON_UNESCAPED_UNICODE);
+    } catch (Exception $e) {
+        echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+        echo $sqlQuery;
     }
-    echo json_encode($personnel, JSON_UNESCAPED_UNICODE);
+
 
     DBHelper::disconnect();
     die; // даём понять, что обработчик закончил выполнение
@@ -63,6 +70,7 @@ function personnel_add() {
             .$_POST['salary'].", CURRENT_DATE, NULL);");
     try {
         $conn->query($sqlQuery);
+        $conn->query("INSERT INTO telephones (tel_num, tab_num) VALUES ('". $_POST['tel_num'] ."', '". $_POST['tab_num'] ."');");
     } catch (Exception $e) {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
         echo $sqlQuery;

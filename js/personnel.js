@@ -8,8 +8,6 @@ var personnel = ejs.compile(fs.readFileSync("./templates/personnel.ejs", "utf8")
 $(function () {
     var $personnel_table = $("#personnel-table");
 
-    get_personnel(null, null);
-
     $("#search-button").click(function () {
         var search_name = $("#search_pib").val().trim();
         var search_position = $("#position").val();
@@ -17,7 +15,6 @@ $(function () {
     });
 
     function get_personnel(position, name) {
-        console.log(ajax_object);
         $personnel_table.html("");
         $.ajax({
             url: ajax_object.ajax_url,
@@ -29,6 +26,7 @@ $(function () {
             },
             success: function (res) {
                 res = JSON.parse(res);
+                console.log(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
                     $node.find('.name-input').on('change', function () {
@@ -173,10 +171,11 @@ $(function () {
                 gender: $("#is_male:checked").val() || $("#is_female:checked").val(),
                 address: $("#address").val(),
                 telephone: $("#tel_num").val(),
-                salary: $("#salary-add").val()
+                salary: $("#salary-add").val(),
+                tel_num: $("#tel_num").val()
             },
             success: function (res) {
-                console.log(res);
+                get_personnel(null, null);
             }
         });
     });
@@ -184,4 +183,7 @@ $(function () {
     $("#all_items").click(function () {
         get_personnel(null, null);
     });
+
+
+    get_personnel(null, null);
 });
