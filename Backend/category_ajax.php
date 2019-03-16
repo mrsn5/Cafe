@@ -38,14 +38,16 @@ function cat_select(){
     $dishes = array();
 
     foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
-        $ings_query = "SELECT ingredients.ing_name, ingredients.curr_amount
-                       FROM ingredients INNER JOIN dishes_ingredients ON ingredients.ing_name = dishes_ingredients.ing_name
+        $ings_query = "SELECT ing_name, IF(amount <= COALESCE((SELECT SUM(curr_amount)
+                                                               FROM ingredients
+                                                               WHERE ing_name = X.ing_name), 0), \"YES\", \"NO\") AS is_available
+                       FROM dishes_ingredients X
                        WHERE tech_card_num IN (SELECT tech_card_num
                                                FROM dishes
-                                               WHERE dishes.tech_card_num = ".$row['tech_card_num']." AND
-                                                                dishes.tech_card_num = dishes_ingredients.tech_card_num);";
+                                               WHERE dishes.tech_card_num = ".$row['tech_card_num'].");";
         try{
             foreach ($conn->query($ings_query, PDO::FETCH_ASSOC) as $ing) {
+                $ing['is_available'] = ($ing['is_available'] == "YES") ? true : false;
                 $ings[] = $ing;
             }
 

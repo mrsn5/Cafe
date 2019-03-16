@@ -1,3 +1,9 @@
+<%function setIngStyle(ing){
+    if(!ing.is_available){
+        return "not-available";
+    }
+}%>
+
 <li class="dish">
     <div class="container">
         <% if(!dish.is_ing_available) { %>
@@ -45,7 +51,7 @@
         <div class="ingredient-cont">
             <ul class="ing-list">
                 <% for(var i = 0; i < dish.ings.length; i++) { %>
-                    <li>
+                    <li class="<%= setIngStyle(dish.ings[i])%>">
                         <div class="ingredient">
                             <span class="ing-name">
                                 <%= dish.ings[i].ing_name %>
