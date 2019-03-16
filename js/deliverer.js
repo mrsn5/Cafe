@@ -21,6 +21,7 @@ $(function () {
         getDeliverers(null, null);
     });
 
+
     $("#save_deliverer").on('click', function () {
         $.ajax({
             url: ajax_object.ajax_url,

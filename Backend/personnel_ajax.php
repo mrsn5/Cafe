@@ -71,6 +71,7 @@ function personnel_add() {
     try {
         $conn->query($sqlQuery);
         $conn->query("INSERT INTO telephones (tel_num, tab_num) VALUES ('". $_POST['tel_num'] ."', '". $_POST['tab_num'] ."');");
+        
     } catch (Exception $e) {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
         echo $sqlQuery;
