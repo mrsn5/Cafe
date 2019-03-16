@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default',
         [
             'browserify:personnel',
-            'browserify:deliverers',
+            'browserify:deliverers'
             //Інші завдання які необхідно виконати
         ]
     );

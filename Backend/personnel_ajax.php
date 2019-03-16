@@ -34,7 +34,6 @@ function select_personnel(){
              ORDER BY workers.tab_num;";
     }
 
-
     try {
         $personnel = array();
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
@@ -69,14 +68,16 @@ function personnel_add() {
             .$_POST['position']."', "
             .$_POST['salary'].", CURRENT_DATE, NULL);");
     try {
+        //add worker
         $conn->query($sqlQuery);
+
         $conn->query("INSERT INTO telephones (tel_num, tab_num) VALUES ('". $_POST['tel_num'] ."', '". $_POST['tab_num'] ."');");
-        
+
     } catch (Exception $e) {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
         echo $sqlQuery;
     }
-    echo "ADDED!";
+//    echo "ADDED!";
     DBHelper::disconnect();
     die;
 }
@@ -123,6 +124,5 @@ function personnel_change() {
     DBHelper::disconnect();
     die;
 }
-
 ?>
 

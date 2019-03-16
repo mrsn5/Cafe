@@ -8,6 +8,9 @@ var personnel = ejs.compile(fs.readFileSync("./templates/personnel.ejs", "utf8")
 $(function () {
     var $personnel_table = $("#personnel-table");
 
+    get_personnel(null, null);
+    addChangeLiesteners();
+
     $("#search-button").click(function () {
         var search_name = $("#search_pib").val().trim();
         var search_position = $("#position").val();
@@ -29,127 +32,6 @@ $(function () {
                 console.log(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
-                    $node.find('.name-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                first_name: $node.find('.name-input').val()
-                            }
-                        });
-                    });
-                    $node.find('.surname-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                surname: $node.find('.surname-input').val()
-                            }
-                        });
-                    });
-                    $node.find('.fathername-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                father_name: $node.find('.fathername-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.birthdate-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                birth_date: $node.find('.birthdate-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.address-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                address: $node.find('.address-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.gender-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                gender: $node.find('.gender-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.position-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                position: $node.find('.position-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.salary-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                salary: $node.find('.salary-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                    $node.find('.tel-input').on('change', function () {
-                        $.ajax({
-                            url: ajax_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'personnel_change',
-                                tab_num: $node.find('.tab_num').text(),
-                                tel_num: $node.find('.tel-input').val()
-                            },
-                            success: function (e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-
                     $personnel_table.append($node);
                 });
             }
@@ -176,6 +58,7 @@ $(function () {
             },
             success: function (res) {
                 get_personnel(null, null);
+                console.log(res);
             }
         });
     });
@@ -185,5 +68,178 @@ $(function () {
     });
 
 
-    get_personnel(null, null);
+    // get_personnel(null, null);
+    function addChangeLiesteners() {
+
+        $personnel_table.on('change', '.name-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let first_name = $(this).val().trim();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    first_name: first_name
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.surname-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let surname = $(this).val().trim();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    surname: surname
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.fathername-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let father_name = $(this).val().trim();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    father_name: father_name
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.birthdate-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let birth_date = $(this).val();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    birth_date: birth_date
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.address-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let address = $(this).val().trim();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    address: address
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.gender-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let gender = $(this).val();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    gender: gender
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.position-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let position = $(this).val();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    position: position
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.salary-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let salary = $(this).val();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    salary: salary
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.tel-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let tel_num = $(this).val().trim();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    tel_num: tel_num
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+    }
 });

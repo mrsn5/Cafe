@@ -88,7 +88,7 @@
                             <p>Робоча інформація</p>
                             <div class="inputs-row">
                                 <div class="field inline-field">
-                                    <input type="number" name="tab" id="tab_num" placeholder="1234">
+                                    <input type="number" name="tab" id="tab_num" placeholder="123">
                                     <label class="required-label" for="tab_num">Табельний номер</label>
                                 </div>
 
