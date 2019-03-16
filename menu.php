@@ -14,6 +14,7 @@
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/menu.less">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
+    <?php wp_head(); ?>
 
     <title>Меню</title>
 </head>
@@ -63,7 +64,7 @@
 
 <!-- Tab container -->
 <div class="tab-container" style="opacity: 0.9;">
-    <ul>
+    <ul id="categories_container">
         <li style="background-image: linear-gradient(180deg, #50c3ff, #046aec);">
             <a href="orders.html"><h2>Холодні закуски</h2></a>
         </li>
@@ -128,10 +129,12 @@
 </div>
 
 
+<?php wp_footer(); ?>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<!--<script src="libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
 
 
 </body>

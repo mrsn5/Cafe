@@ -29,6 +29,16 @@ module.exports = function(grunt) {
             deliverers: {
                 src:        'js/deliverer.js',
                 dest:       'js/compiled/deliverer.js'
+            },
+
+            menu: {
+                src:        'js/menu.js',
+                dest:       'js/compiled/menu.js'
+            },
+
+            category: {
+                src:        'js/category.js',
+                dest:       'js/compiled/category.js'
             }
         }
     };
@@ -43,7 +53,7 @@ module.exports = function(grunt) {
             //На зміни в яких файлах реагувати
             files: ['js/*.js', 'templates/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
-            tasks: ['browserify:personnel','browserify:deliverers' ]
+            tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category' ]
         }
     };
 
@@ -61,7 +71,9 @@ module.exports = function(grunt) {
     grunt.registerTask('default',
         [
             'browserify:personnel',
-            'browserify:deliverers'
+            'browserify:deliverers',
+            'browserify:menu',
+            'browserify:category'
             //Інші завдання які необхідно виконати
         ]
     );

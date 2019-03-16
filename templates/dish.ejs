@@ -1,0 +1,65 @@
+<li class="dish">
+    <div class="container">
+        <% if(!dish.is_ing_available) { %>
+            <span class="announce label label-danger">Недоступна</span>
+        <% } %>
+
+        <!--    only for chefs & barmen-->
+        <span class="delete-label">
+        <img src="<%=url_object.template_directory%>/images/trash.svg" alt="delete dish">
+    </span>
+
+        <div class="top-panel">
+
+            <div class="img-cont">
+                <div class="image-wrap">
+                    <img src="<%=url_object.template_directory%>/images/food/borsch1.jpg">
+                </div>
+            </div>
+            <div class="inf-block">
+                <h1 class="name"><%= dish.dish_name %></h1>
+                <!--            <span class="availability">Недоступно</span>-->
+                <ul>
+                    <li>
+                        <img class="inf-icon weight" src="<%=url_object.template_directory%>/images/icon-weight.png">
+                        <span><%= dish.weight %> г</span>
+                    </li>
+                    <li>
+                        <img class="inf-icon price" src="<%=url_object.template_directory%>/images/icon-price.png">
+                        <span><%= dish.price %> грн</span>
+                    </li>
+                    <li>
+                        <img class="inf-icon calories" src="<%=url_object.template_directory%>/images/icon-calories.png">
+                        <span><%= dish.calories %> ккал</span>
+                    </li>
+                    <li>
+                        <img class="inf-icon timer" src="<%=url_object.template_directory%>/images/icon-timer.png">
+                        <span><%= dish.cooking_time %> хв</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="separator">
+
+        <div class="ingredient-cont">
+            <ul class="ing-list">
+                <% for(var i = 0; i < dish.ings.length; i++) { %>
+                    <li>
+                        <div class="ingredient">
+                            <span class="ing-name">
+                                <%= dish.ings[i].ing_name %>
+                            </span>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="button-cont">
+            <button class="ok-btn btn-style">ДОДАТИ</button>
+            <button class="cancel-btn btn-style">НАЗАД</button>
+        </div>
+
+    </div>
+</li>
