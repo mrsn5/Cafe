@@ -15,6 +15,10 @@ dataDishes = [{"label":"Борщ", "value":70},
 
 var color = d3.scale.category20b();
 function createPie(id, data){
+    if(data.length === 0){
+        data.push({"pib":"empty","worker_res":1});
+    }
+
     var w = 300,
         h = 300,
         r = 150;
@@ -32,7 +36,7 @@ function createPie(id, data){
         .outerRadius(r);
 
     var pie = d3.layout.pie()
-        .value(function(d) { return d.value; });
+        .value(function(d) { return d.worker_res; });
 
     var arcs = vis.selectAll("g.slice")
         .data(pie)
@@ -52,10 +56,11 @@ function createPie(id, data){
             return "translate(" + arc.centroid(d) + ")";
         })
         .attr("text-anchor", "middle")
-        .text(function(d, i) { return data[i].value; });
+        .text(function(d, i) { return data[i].worker_res; });
 
     d3.selectAll(id + " text").style("fill", "white");
 }
+
 function legend(id, lD){
     var leg = {};
 
@@ -71,11 +76,11 @@ function legend(id, lD){
         .attr("fill",function(d, i) { return color(i); });
 
     // create the second column for each segment.
-    tr.append("td").text(function(d){ return d.label;});
+    tr.append("td").text(function(d){ return d.pib;});
 
     // create the third column for each segment.
     tr.append("td").attr("class",'legendFreq')
-        .text(function(d){ return d.value;});
+        .text(function(d){ return d.worker_res;});
 
     return leg;
 }
@@ -164,11 +169,14 @@ function createBarChart(id, data){
 
 }
 
-createPie("#worker_orders_diagram", dataOrders);
-legend("#worker_orders_legend", dataOrders);
-
-createPie("#worker_income_diagram", dataIncome);
-legend("#worker_income_legend", dataIncome);
+// legend("#worker_orders_legend", []);
+//
+// createPie("#worker_income_diagram", []);
+// legend("#worker_income_legend", []);
 
 createBarChart("#dishes_orders_diagram", dataDishes);
+
+
+exports.createPie = createPie;
+exports.legend = legend;
         
