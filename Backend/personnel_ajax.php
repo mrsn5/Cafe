@@ -16,7 +16,7 @@ function select_personnel(){
         $sqlQuery = "SELECT *, workers.tab_num
              FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
              WHERE position LIKE '" . $_POST['position'] . "'
-                   AND CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
+                   AND CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
              ORDER BY workers.tab_num;";
     } else if ($_POST['position'] != null) {
         $sqlQuery = "SELECT *, workers.tab_num
@@ -26,7 +26,7 @@ function select_personnel(){
     } else if ($_POST['name'] != null) {
         $sqlQuery = "SELECT *, workers.tab_num
              FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
-             WHERE CONCAT(first_name, ' ', surname, ' ', father_name) LIKE '%" . $_POST['name'] . "%'
+             WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
              ORDER BY workers.tab_num;";
     } else {
         $sqlQuery = "SELECT *, workers.tab_num

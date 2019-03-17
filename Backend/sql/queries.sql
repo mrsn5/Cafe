@@ -287,3 +287,13 @@ WHERE NOT EXISTS (SELECT ing_name
                                          FROM deliveries INNER JOIN goods ON goods.delivery_num = deliveries.delivery_num
                                          WHERE X.code = provider_code));
 
+-- Тести
+
+SELECT *, DATE_FORMAT(close_time, '%H:%i %d.%m.%y') AS time_c
+FROM orders WHERE is_closed = true AND DATE(order_time) >= '2019-03-17' AND DATE(order_time) <= '2019-03-17' ORDER BY close_time DESC;
+
+
+
+SELECT *
+FROM workers
+WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%ра%'

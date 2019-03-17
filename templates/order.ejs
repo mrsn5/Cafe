@@ -1,0 +1,86 @@
+<div class="order-container">
+
+    <div class="order-num">
+        <h1>#<%= order.unique_num %></h1>
+        <% if (mode !== 'history') { %>
+        <a class="edit" href=""><img src="<%= url %>/images/edit.svg" alt="Edit"/></a>
+        <% } %>
+    </div>
+
+    <% if (mode !== 'history') { %>
+    <div class="table-num">
+        <a href=""><img src="<%= url %>/images/hand-2.svg" alt="Money"/></a>
+        <a href=""><img src="<%= url %>/images/hand.svg" alt="Card"/></a>
+        <h1>12</h1>
+    </div>
+    <% } %>
+
+    <div class="order-time">
+        <%= order.time_c %>
+        <!--            - 11.30-->
+    </div>
+
+    <% if (mode === 'history') { %>
+    <div class="personnel">
+        <%= order.name %>
+    </div>
+    <% } %>
+
+
+    <div class="content">
+        <ul>
+            <!-- ITEMS -->
+
+            <% for(var i=0; i < order.portions.length; i++) { %>
+            <li class="item">
+                <div class="item-info">
+                    <% if (mode !== 'history') { %>
+                    <input type="checkbox" id="box-1">
+                    <% } %>
+                    <label for="box-1">
+                        <div class="text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>
+                                    <%=" is-ready";%>
+                                <% } else if ( order.portions[i].is_served == '1') { %>
+                                    <%=" is-served";%>
+                                <% } %>">
+                            <span class="name"><%= order.portions[i].dish_name %></span><br/>
+                            <% if (order.portions[i].special_wishes != null) { %>
+                            <span class="comment">[<%= order.portions[i].special_wishes %>]</span>
+                            <% } %>
+                        </div>
+                    </label>
+                </div>
+                <span class="quantity"><%= order.portions[i].quantity %></span>
+                <span class="price"><%= order.portions[i].price %> грн</span>
+            </li>
+            <% } %>
+
+
+
+            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->
+            <!--<li><hr></li>-->
+
+            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->
+            <!--<li class="discount">-->
+                <!--<div class="item-info">-->
+                    <!--<div class="text">-->
+                        <!--<span>Знижка</span><br/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<span class="quantity">%</span>-->
+                <!--<span class="price"> грн</span>-->
+            <!--</li>-->
+
+
+            <!-- BREAK LINE-->
+            <li><hr></li>
+
+            <!-- TOTAL -->
+            <li class="total">
+                <span>Всього</span>
+                <span class="total-price"><%= order.cost %> грн</span>
+            </li>
+
+        </ul>
+    </div>
+</div>

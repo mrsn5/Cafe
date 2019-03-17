@@ -13,12 +13,7 @@ body {
   user-select: none;
 }
 
-h1 {
-  font-family: @main_font_family_bold;
-  font-weight: normal;
-  color: @gray_tone_5;
-  display: inline-block;
-}
+
 
 .order-container {
   font-family: @main_font_family;
@@ -31,6 +26,13 @@ h1 {
   border-width: 1px;
   border-radius: 8px;
   border-color: #c1c1c1;
+
+  h1 {
+    font-family: @main_font_family_bold;
+    font-weight: normal;
+    color: @gray_tone_5;
+    display: inline-block;
+  }
 
   //these ones to unset bootstrap styles
   h1{
@@ -61,6 +63,16 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%);
   top: 10px;
+  font-family: @main_font_family_bold;
+  color: darkgray;
+  font-size: 14px;
+}
+
+.personnel {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 25px;
   font-family: @main_font_family_bold;
   color: darkgray;
   font-size: 14px;
@@ -107,7 +119,26 @@ h1 {
   min-width: 220px;
   vertical-align: middle;
   width: 60%;
+}
 
+.is-ready {
+  color: #00bf52;
+  animation-duration: 1s;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes blink {
+  from {
+    color: rgb(51, 51, 51);
+  }
+  to {
+    color: #00bf52;
+  }
+}
+
+.is-served {
+  color: #939393;
 }
 
 .name {
@@ -205,4 +236,8 @@ input[type="checkbox"]:checked + label:before {
     font-family: @main_font_family_bold;
     color: @gray_tone_5;
   }
+}
+
+#prompt-label {
+  display: inline-block;
 }
