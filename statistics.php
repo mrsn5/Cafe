@@ -58,13 +58,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Прибутки від замовлень за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="orders_income_from" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="orders_income_to" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="orders_income_btn">
                             oк
                         </button>
                     </form>
@@ -72,38 +72,20 @@ define("PATH", get_template_directory_uri());
                     <table>
                         <thead>
                         <tr>
-                            <th>номер замовлення</th>
+                            <th class="order-num">номер замовлення</th>
                             <th>дата закриття</th>
                             <th>офіціант</th>
                             <th>сума</th>
                         </tr>
                         </thead>
 
-                        <tbody>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
+                        <tbody id="orders_income_table">
                         </tbody>
                     </table>
 
                     <div class="total">
                         <span>Прибуток</span>
-                        <span class="value">543 </span> грн
+                        <span class="value" id="orders_income_total">0</span> грн
                     </div>
                 </div>
             </div>
@@ -115,13 +97,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Витрати від поставок за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="deliveries_cost_from" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="deliveries_cost_to" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="deliveries_cost_btn">
                             oк
                         </button>
                     </form>
@@ -137,41 +119,14 @@ define("PATH", get_template_directory_uri());
                         </tr>
                         </thead>
 
-                        <tbody>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>2019-02-20</td>
-                            <td>постачальник 1</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>2019-02-20</td>
-                            <td>постачальник 1</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>2019-02-20</td>
-                            <td>постачальник 1</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>2019-02-20</td>
-                            <td>постачальник 1</td>
-                            <td>123 грн</td>
-                        </tr>
+                        <tbody id="deliveries_cost_table">
+
                         </tbody>
                     </table>
 
                     <div class="total">
                         <span>Витрати</span>
-                        <span class="value">543 </span> грн
+                        <span class="value" id="deliveries_cost_total">0 </span> грн
                     </div>
                 </div>
             </div>
@@ -185,38 +140,20 @@ define("PATH", get_template_directory_uri());
                     <table>
                         <thead>
                         <tr>
-                            <th>номер замовлення</th>
+                            <th class="order-num">номер замовлення</th>
                             <th>дата закриття</th>
                             <th>офіціант</th>
                             <th>сума</th>
                         </tr>
                         </thead>
 
-                        <tbody>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
-                        <tr>
-                            <td>123</td>
-                            <td>2019-02-20</td>
-                            <td>Перто Петренко Петрович</td>
-                            <td>123 грн</td>
-                        </tr>
+                        <tbody id="x_report_table">
                         </tbody>
                     </table>
 
                     <div class="total">
                         <span>Прибуток</span>
-                        <span class="value">543 </span> грн
+                        <span class="value" id="x_report_total">0 </span> грн
                     </div>
                 </div>
             </div>
@@ -431,18 +368,18 @@ define("PATH", get_template_directory_uri());
                     <form>
                         <label class="input-style dish-name">
                             Назва страви
-                            <input type="text" class="input" placeholder="Назва">
+                            <input type="text" id="dish_portion_name" class="input" placeholder="Назва">
                         </label>
 
-                        <label class="select input-style category-list">
-                            Категорія
-                            <select class="input select-category">
-                                <option value="салати">салати</option>
-                                <option value="гарніри">гарніри</option>
-                                <option value="гарніри">закуски</option>
-                            </select>
-                        </label>
-                        <button class="ok-btn">
+<!--                        <label class="select input-style category-list">-->
+<!--                            Категорія-->
+<!--                            <select class="input select-category" id="dish_portions_category_list">-->
+<!--                                <option value="салати">салати</option>-->
+<!--                                <option value="гарніри">гарніри</option>-->
+<!--                                <option value="гарніри">закуски</option>-->
+<!--                            </select>-->
+<!--                        </label>-->
+                        <button class="ok-btn" id="dish_portions_btn">
                             oк
                         </button>
                     </form>
@@ -450,7 +387,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/dish.svg">
-                            0
+                            <span id="dish_portions">0</span>
                         </h1>
                     </div>
                 </div>
@@ -461,16 +398,16 @@ define("PATH", get_template_directory_uri());
                     <form>
                         <div class="period">
                             <label>
-                                <input type="date" value="2019-02-20">
+                                <input type="date" id="dish_frequency_from" value="2019-02-20">
                             </label>
                             <span class="line-between">&#9473;</span>
                             <label>
-                                <input type="date" value="2019-02-20">
+                                <input type="date" id="dish_frequency_to" value="2019-02-20">
                             </label>
                         </div>
 
                         <label class="select input-style">
-                        <select class="input">
+                        <select class="input" id="dish_frequency_less_more_option">
                             <option value="більше">більше</option>
                             <option value="менше">менше</option>
                         </select>
@@ -478,10 +415,10 @@ define("PATH", get_template_directory_uri());
 
                         <label class="elems-num input-style">
                             Кількість замовлень
-                            <input type="number" class="input" min="1" placeholder="1">
+                            <input type="number" id="dish_frequency_orders_amount" class="input" min="1" placeholder="1">
                         </label>
 
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="dish_frequency_btn">
                             oк
                         </button>
                     </form>

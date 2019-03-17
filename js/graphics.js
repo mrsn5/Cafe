@@ -99,7 +99,7 @@ function createBarChart(id, data){
     var height = data.length*30;
 
     var max = d3.max(data, function (d) {
-        return d.value;
+        return d.dish_res;
     });
 
     var x = d3.scale.linear()
@@ -109,7 +109,7 @@ function createBarChart(id, data){
     var y = d3.scale.ordinal()
         .rangeRoundBands([height, 0], .1)
         .domain(data.map(function (d) {
-            return d.label;
+            return d.dish_name;
         }));
 
     var yAxis = d3.svg.axis()
@@ -142,26 +142,26 @@ function createBarChart(id, data){
         .style("fill", function(d, i) { return color(i); })
         .attr("class", "bar")
         .attr("y", function (d) {
-            return y(d.label);
+            return y(d.dish_name);
         })
         .attr("height", y.rangeBand())
         .attr("x", 0)
         .attr("width", function (d) {
-            return x(d.value);
+            return x(d.dish_res);
         });
 
     bars.append("text")
         .attr("class", "label")
         //y position of the label is halfway down the bar
         .attr("y", function (d) {
-            return y(d.label) + y.rangeBand() / 2 + 4;
+            return y(d.dish_name) + y.rangeBand() / 2 + 4;
         })
         //x position is 3 pixels to the right of the bar
         .attr("x", function (d) {
-            return x(d.value) + 3;
+            return x(d.dish_res) + 3;
         })
         .text(function (d) {
-            return d.value;
+            return d.dish_res;
         });
 
     bars.selectAll("text").
@@ -174,9 +174,9 @@ function createBarChart(id, data){
 // createPie("#worker_income_diagram", []);
 // legend("#worker_income_legend", []);
 
-createBarChart("#dishes_orders_diagram", dataDishes);
+// createBarChart("#dishes_orders_diagram", dataDishes);
 
 
 exports.createPie = createPie;
 exports.legend = legend;
-        
+exports.createBarChart = createBarChart;
