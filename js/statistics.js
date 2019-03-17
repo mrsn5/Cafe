@@ -1,4 +1,8 @@
-$(function(){
+let Diagrams = require("./graphics");
+
+jQuery(function(){
+    let $ = jQuery;
+
     var $page_label = $(".page-label");
     var $container = $(".statistics-cont");
 
@@ -51,8 +55,223 @@ $(function(){
         $container.append($workers_st);
         $container.append($dishes_st);
         $page_label.text(label_text);
-        $(".page-label-sm").show();
+        $(".page-label-sm").show()
+
+        Diagrams.createPie("#worker_orders_diagram", []);
+        Diagrams.createPie("#worker_income_diagram", []);
+
+        getAllCategories();
     }
+
+    function getAllCategories(){
+        let $cat_list = $('.select-category');
+        $cat_list.innerHTML = '';
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'categories_select',
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                res.forEach(function (el) {
+                    $cat_list.append("<option value=" + el['cat_name'] + ">" + el['cat_name'] + "</option>");
+                });
+            }
+        });
+    }
+
+
+    //AJAX QUERIES
+
+    $container.on('click', "#av_time_btn", function (e) {
+        e.preventDefault();
+
+        let $av_client_time = $('#average_client_time');
+
+        let $date_from = $('#date_from_av_time').val();
+        let $date_to = $('#date_to_av_time').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'average_client_time',
+                date_from: $date_from,
+                date_to: $date_to
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                $av_client_time.text(res['avg_time']);
+            }
+        });
+    });
+
+    $container.on('click', "#orders_amount_btn", function (e) {
+        e.preventDefault();
+
+        let $orders_amount = $('#orders_amount');
+
+        let $date_from = $('#orders_amount_from').val();
+        let $date_to = $('#orders_amount_to').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'orders_amount',
+                date_from: $date_from,
+                date_to: $date_to
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                $orders_amount.text(res['orders_amount']);
+            }
+        });
+    });
+
+
+    $container.on('click', "#av_order_cost_btn", function (e) {
+        e.preventDefault();
+
+        let $orders_cost = $('#av_order_cost');
+
+        let $date_from = $('#av_order_cost_from').val();
+        let $date_to = $('#av_order_cost_to').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'average_orders_cost',
+                date_from: $date_from,
+                date_to: $date_to
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                $orders_cost.text(res['avg_cost']);
+            }
+        });
+    });
+
+    $container.on('click', "#av_cost_per_person_btn", function (e) {
+        e.preventDefault();
+
+        let $av_cost_per_person = $('#av_cost_per_person');
+
+        let $date_from = $('#av_cost_per_person_from').val();
+        let $date_to = $('#av_cost_per_person_to').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'average_orders_cost_per_person',
+                date_from: $date_from,
+                date_to: $date_to
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                $av_cost_per_person.text(res['avg_cost_per_person']);
+            }
+        });
+    });
+
+    $container.on('click', "#workers_orders_btn", function (e) {
+        e.preventDefault();
+
+        let $workers_orders_diagram = $('#worker_orders_diagram');
+        $workers_orders_diagram.html('');
+
+        let $workers_orders_legend = $('#worker_orders_legend');
+        $workers_orders_legend.html('');
+
+        let $date_from = $('#workers_orders_from').val();
+        let $date_to = $('#workers_orders_to').val();
+        let $first_n = $('#first_n_workers_orders').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'best_workers_orders_amount',
+                date_from: $date_from,
+                date_to: $date_to,
+                first: $first_n
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+
+                Diagrams.createPie('#worker_orders_diagram', res);
+                Diagrams.legend('#worker_orders_legend', res);
+                // $av_cost_per_person.text(res['avg_cost_per_person']);
+            }
+        });
+    });
+
+
+    $container.on('click', "#worker_income_btn", function (e) {
+        e.preventDefault();
+
+        let $workers_orders_diagram = $('#worker_income_diagram');
+        $workers_orders_diagram.html('');
+
+        let $workers_orders_legend = $('#worker_income_legend');
+        $workers_orders_legend.html('');
+
+        let $date_from = $('#worker_income_from').val();
+        let $date_to = $('#worker_income_to').val();
+        let $first_n = $('#first_n_workers_income').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'best_workers_income',
+                date_from: $date_from,
+                date_to: $date_to,
+                first: $first_n
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+
+                Diagrams.createPie('#worker_income_diagram', res);
+                Diagrams.legend('#worker_income_legend', res);
+                // $av_cost_per_person.text(res['avg_cost_per_person']);
+            }
+        });
+    });
+
+    $container.on('click', "#category_portions_btn", function (e) {
+        e.preventDefault();
+
+        let $category_portions = $('#category_portions');
+
+        let $category_name = $('#category_portions_category_list').val();
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'category_portions_amount',
+                cat_name: $category_name
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+
+                $category_portions.text(res['n_portions']);
+            }
+        });
+    });
 });
 
 

@@ -38,6 +38,11 @@ module.exports = function(grunt) {
             category: {
                 src:        'js/category.js',
                 dest:       'js/compiled/category.js'
+            },
+
+            statistic: {
+                src:        'js/statistics.js',
+                dest:       'js/compiled/statistics.js'
             }
         }
     };
@@ -52,7 +57,7 @@ module.exports = function(grunt) {
             //На зміни в яких файлах реагувати
             files: ['js/*.js', 'templates/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
-            tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category' ]
+            tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category', 'browserify:statistic' ]
         }
     };
 
@@ -72,7 +77,8 @@ module.exports = function(grunt) {
             'browserify:personnel',
             'browserify:deliverers',
             'browserify:menu',
-            'browserify:category'
+            'browserify:category',
+            'browserify:statistic'
             //Інші завдання які необхідно виконати
         ]
     );

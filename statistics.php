@@ -8,15 +8,16 @@ define("PATH", get_template_directory_uri());
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <?php wp_head(); ?>
+
+<!--    <link href="--><?php //echo PATH ?><!--/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">-->
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH ?>/less/statistics.less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+<!--    <script src="http://d3js.org/d3.v3.min.js"></script>-->
 
     <title>Статистика</title>
-
 </head>
 <body>
 <div class="header">
@@ -230,13 +231,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Середнє перебування клієнта в кафе за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="date_from_av_time" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="date_to_av_time" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="av_time_btn">
                             oк
                         </button>
                     </form>
@@ -244,7 +245,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/clock.svg">
-                            1.23 год
+                            <span id="average_client_time">0</span> год
                         </h1>
                     </div>
                 </div>
@@ -257,13 +258,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Кількість оформлених чеків за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="orders_amount_from" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="orders_amount_to" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button id="orders_amount_btn" class="ok-btn">
                             oк
                         </button>
                     </form>
@@ -271,7 +272,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/receipt1.svg">
-                            1876
+                            <span id="orders_amount">0</span>
                         </h1>
                     </div>
                 </div>
@@ -282,13 +283,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Середня вартість чека за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="av_order_cost_from" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="av_order_cost_to" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button id="av_order_cost_btn" class="ok-btn">
                             oк
                         </button>
                     </form>
@@ -296,7 +297,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/coin.svg">
-                            143 грн
+                            <span id="av_order_cost">0</span> грн
                         </h1>
                     </div>
                 </div>
@@ -307,13 +308,13 @@ define("PATH", get_template_directory_uri());
                     <h2 class="block-header">Середня вартість чека на людину за період</h2>
                     <form>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="av_cost_per_person_from" value="2019-02-20">
                         </label>
                         <span class="line-between">&#9473;</span>
                         <label>
-                            <input type="date" value="2019-02-20">
+                            <input type="date" id="av_cost_per_person_to" value="2019-02-20">
                         </label>
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="av_cost_per_person_btn">
                             oк
                         </button>
                     </form>
@@ -321,7 +322,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/coin.svg">
-                            143 грн
+                            <span id="av_cost_per_person">0</span> грн
                         </h1>
                     </div>
                 </div>
@@ -337,20 +338,20 @@ define("PATH", get_template_directory_uri());
                         <form>
                             <div class="period">
                                 <label>
-                                    <input type="date" value="2019-02-20">
+                                    <input type="date" id="workers_orders_from" value="2019-02-20">
                                 </label>
                                 <span class="line-between">&#9473;</span>
                                 <label>
-                                    <input type="date" value="2019-02-20">
+                                    <input type="date" id="workers_orders_to" value="2019-02-20">
                                 </label>
                             </div>
 
                             <label class="elems-num input-style">
                                 Перших
-                                <input type="number" class="input" min="1" max="10" placeholder="1">
+                                <input type="number" id="first_n_workers_orders" class="input" min="1" max="10" placeholder="1">
                             </label>
 
-                            <button class="ok-btn">
+                            <button class="ok-btn" id="workers_orders_btn">
                                 oк
                             </button>
                         </form>
@@ -370,20 +371,20 @@ define("PATH", get_template_directory_uri());
                         <form>
                             <div class="period">
                                 <label>
-                                    <input type="date" value="2019-02-20">
+                                    <input type="date" id="worker_income_from" value="2019-02-20">
                                 </label>
                                 <span class="line-between">&#9473;</span>
                                 <label>
-                                    <input type="date" value="2019-02-20">
+                                    <input type="date" id="worker_income_to" value="2019-02-20">
                                 </label>
                             </div>
 
                             <label class="elems-num input-style">
                                 Перших
-                                <input type="number" class="input" min="1" max="10" placeholder="1">
+                                <input type="number" id="first_n_workers_income" class="input" min="1" max="10" placeholder="1">
                             </label>
 
-                            <button class="ok-btn">
+                            <button class="ok-btn" id="worker_income_btn">
                                 oк
                             </button>
                         </form>
@@ -400,18 +401,18 @@ define("PATH", get_template_directory_uri());
             <h3 class="page-label-sm">Страви</h3>
             <div class="row">
                 <div class="block">
-                    <h2 class="block-header">Кількість замовлених порцій для страви</h2>
+                    <h2 class="block-header">Кількість замовлених порцій для категорії</h2>
                     <form>
 
                         <label class="select input-style category-list">
                             Категорія
-                            <select class="input">
+                            <select class="input select-category" id="category_portions_category_list">
                                 <option value="салати">салати</option>
                                 <option value="гарніри">гарніри</option>
                                 <option value="гарніри">закуски</option>
                             </select>
                         </label>
-                        <button class="ok-btn">
+                        <button class="ok-btn" id="category_portions_btn">
                             oк
                         </button>
                     </form>
@@ -419,14 +420,14 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/dish.svg">
-                            16874
+                            <span id="category_portions">0</span>
                         </h1>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="block">
-                    <h2 class="block-header">Кількість замовлених порцій для категорії</h2>
+                    <h2 class="block-header">Кількість замовлених порцій для страви</h2>
                     <form>
                         <label class="input-style dish-name">
                             Назва страви
@@ -435,7 +436,7 @@ define("PATH", get_template_directory_uri());
 
                         <label class="select input-style category-list">
                             Категорія
-                            <select class="input">
+                            <select class="input select-category">
                                 <option value="салати">салати</option>
                                 <option value="гарніри">гарніри</option>
                                 <option value="гарніри">закуски</option>
@@ -449,7 +450,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/dish.svg">
-                            16874
+                            0
                         </h1>
                     </div>
                 </div>
@@ -495,13 +496,14 @@ define("PATH", get_template_directory_uri());
     </div>
 </div>
 
+<?php wp_footer(); ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH ?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
 
-<script type="text/javascript" src="<?php echo PATH ?>/js/graphics.js"></script>
-<script type="text/javascript" src="<?php echo PATH ?>/js/statistics.js"></script>
-<script type="text/javascript" src="<?php echo PATH ?>/js/general_functions.js"></script>
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/graphics.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/statistics.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/general_functions.js"></script>-->
 </body>
 </html>
 
