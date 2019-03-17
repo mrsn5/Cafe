@@ -35,7 +35,7 @@
     <ul>
         <li>ІМ'Я КОРИСТУВАЧА</li>
         <li>|</li>
-        <li><a href="#">><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
+        <li><a href="#"><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
     </ul>
 </div>
 
