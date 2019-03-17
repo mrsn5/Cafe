@@ -776,7 +776,6 @@ CREATE TABLE IF NOT EXISTS `workers` (
   PRIMARY KEY (`tab_num`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
 INSERT INTO `workers` (`tab_num`, `surname`, `first_name`, `father_name`, `birth_date`, `address`, `gender`, `position`, `salary`, `hire_date`, `fire_date`) VALUES('000', 'Бобров', 'Северин', 'Максиміліанович', '1955-06-07', 'пр-т Валерія Лобановського 51', 'Ч', 'власник', '0.00', '2001-08-05', NULL);
 INSERT INTO `workers` (`tab_num`, `surname`, `first_name`, `father_name`, `birth_date`, `address`, `gender`, `position`, `salary`, `hire_date`, `fire_date`) VALUES('506', 'Бариков', 'Овсій', 'Анфімовіч', '1978-06-18', 'просп. Соборності 4', 'Ч', 'офіціант', '8000.00', '2006-02-01', NULL);
 INSERT INTO `workers` (`tab_num`, `surname`, `first_name`, `father_name`, `birth_date`, `address`, `gender`, `position`, `salary`, `hire_date`, `fire_date`) VALUES('501', 'Болобанов', 'Паїсій', 'Ардальоновіч', '1974-04-24', 'вул. Кудряшова 16а', 'Ч', 'офіціант', '4000.00', '2001-08-05', '2002-03-07');
