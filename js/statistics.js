@@ -1,5 +1,18 @@
 let Diagrams = require("./graphics");
 
+
+Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+        (mm>9 ? '' : '0') + mm,
+        (dd>9 ? '' : '0') + dd
+    ].join('-');
+};
+
+
+
 jQuery(function(){
     let $ = jQuery;
 
@@ -17,6 +30,12 @@ jQuery(function(){
 
     onLoad($("#all_st_btn").text());
 
+    var now = new Date().yyyymmdd();
+    $('input[type="date"]').val(now);
+
+    $("#first_n_workers_orders").val(3);
+    $("#first_n_workers_income").val(3);
+    $("#dish_frequency_orders_amount").val(10);
     $("#all_st_btn").on('click', function(){
         onLoad($(this).text());
     });
@@ -29,6 +48,7 @@ jQuery(function(){
         $page_label.text($(this).text());
         $(".page-label-sm").show();
         getXReport();
+        $('input[type="date"]').val(now);
     });
 
     addEvent($("#general_st_btn"), $container, $general_st);
