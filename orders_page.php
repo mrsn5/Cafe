@@ -11,6 +11,9 @@ define("PATH", get_template_directory_uri());
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/orders_page.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
+    <?php wp_head(); ?>
+    <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/orders.less" />
     <title>Замовлення</title>
 
 </head>
@@ -41,12 +44,8 @@ define("PATH", get_template_directory_uri());
                 <h3 class="order-list-label">Відкриті</h3>
                 <!--            <div class="open-orders order-block">-->
                 <!--                <h3 class="order-block-label">Відкриті замовлення</h3>-->
-                <ul>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
+                <ul id="open-orders">
+
                 </ul>
                 <h3 class="order-list-label">Закриті</h3>
                 <!--            </div>-->
@@ -64,9 +63,9 @@ define("PATH", get_template_directory_uri());
 <!--    </div>-->
 <!--</div>-->
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<?php wp_footer(); ?>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
 
 </body>
 </html>

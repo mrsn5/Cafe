@@ -81,6 +81,11 @@ function load_my_scripts(){
                 wp_localize_script('orders-ajax-script', 'url_object',
                     array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri()));
                 break;
+            case 'orders_page.php':
+                wp_enqueue_script('orders-ajax-script', get_template_directory_uri() . '/js/compiled/orders.js', array('jquery'), '1.0.0', true);
+                wp_localize_script('orders-ajax-script', 'url_object',
+                    array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri()));
+                break;
         }
     }
     wp_enqueue_script( 'general_js_functions', get_template_directory_uri() . '/js/general_functions.js', array('jquery'));

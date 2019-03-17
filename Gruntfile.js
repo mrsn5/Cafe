@@ -48,6 +48,11 @@ module.exports = function(grunt) {
             history: {
                 src:        'js/history.js',
                 dest:       'js/compiled/history.js'
+            },
+
+            orders: {
+                src:        'js/orders.js',
+                dest:       'js/compiled/orders.js'
             }
         }
     };
@@ -62,7 +67,7 @@ module.exports = function(grunt) {
             //На зміни в яких файлах реагувати
             files: ['js/*.js', 'templates/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
-            tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category', 'browserify:statistic', 'browserify:history' ]
+            tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category', 'browserify:statistic', 'browserify:history', 'browserify:orders' ]
         }
     };
 
@@ -84,7 +89,8 @@ module.exports = function(grunt) {
             'browserify:menu',
             'browserify:category',
             'browserify:statistic',
-            'browserify:history'
+            'browserify:history',
+            'browserify:orders'
             //Інші завдання які необхідно виконати
         ]
     );
