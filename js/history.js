@@ -5,7 +5,7 @@ $(function(){
     var $orders_search = $(".search-cont-orders");
     var $discarding_search = $(".search-cont-discarding");
 
-    var $container = $(".inf-area");
+    var $container = $(".inf-details-block");
     var $container_search = $(".search-area");
 
     onLoad();

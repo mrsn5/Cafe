@@ -1,8 +1,8 @@
-<%function setIngStyle(ing){
-    if(!ing.is_available){
+<% function setIngStyle(ing) {
+    if (!ing.is_available) {
         return "not-available";
     }
-}%>
+} %>
 
 <li class="dish">
     <div class="container">
@@ -12,46 +12,53 @@
 
         <!--    only for chefs & barmen-->
         <span class="delete-label">
-        <img src="<%=url_object.template_directory%>/images/trash.svg" alt="delete dish">
+        <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish">
     </span>
 
         <div class="top-panel">
 
-            <div class="img-cont">
-                <div class="image-wrap">
-                    <img src="<%=url_object.template_directory%>/images/food/borsch1.jpg">
-                </div>
-            </div>
+            <!--<div class="img-cont">-->
+            <!--<div class="image-wrap">-->
+            <!--<img src="<%= url_object.template_directory %>/images/food/borsch1.jpg">-->
+            <!--</div>-->
+            <!--</div>-->
             <div class="inf-block">
                 <h1 class="name"><%= dish.dish_name %></h1>
-                <!--            <span class="availability">Недоступно</span>-->
-                <ul>
-                    <li>
-                        <img class="inf-icon weight" src="<%=url_object.template_directory%>/images/icon-weight.png">
-                        <span><%= dish.weight %> г</span>
-                    </li>
-                    <li>
-                        <img class="inf-icon price" src="<%=url_object.template_directory%>/images/icon-price.png">
-                        <span><%= dish.price %> грн</span>
-                    </li>
-                    <li>
-                        <img class="inf-icon calories" src="<%=url_object.template_directory%>/images/icon-calories.png">
-                        <span><%= dish.calories %> ккал</span>
-                    </li>
-                    <li>
-                        <img class="inf-icon timer" src="<%=url_object.template_directory%>/images/icon-timer.png">
-                        <span><%= dish.cooking_time %> хв</span>
-                    </li>
-                </ul>
+                <!--<ul>-->
+                <div class="details">
+                    <div class="inf-details-block">
+                        <div>
+                            <img class="inf-icon weight" src="<%= url_object.template_directory %>/images/icon-weight.png">
+                            <span><%= dish.weight %> г</span>
+                        </div>
+                        <div>
+                            <img class="inf-icon price" src="<%= url_object.template_directory %>/images/icon-price.png">
+                            <span><%= dish.price %> грн</span>
+                        </div>
+                    </div>
+
+                    <div class="inf-details-block">
+                        <div>
+                            <img class="inf-icon calories"
+                                 src="<%= url_object.template_directory %>/images/icon-calories.png">
+                            <span><%= dish.calories %> ккал</span>
+                        </div>
+                        <div>
+                            <img class="inf-icon timer" src="<%= url_object.template_directory %>/images/icon-timer.png">
+                            <span><%= dish.cooking_time %> хв</span>
+                        </div>
+                    </div>
+                </div>
+                <!--</ul>-->
             </div>
         </div>
 
         <hr class="separator">
 
         <div class="ingredient-cont">
-            <ul class="ing-list">
+            <ul class="ing-list toggle-area">
                 <% for(var i = 0; i < dish.ings.length; i++) { %>
-                    <li class="<%= setIngStyle(dish.ings[i])%>">
+                    <li class="<%= setIngStyle(dish.ings[i]) %>">
                         <div class="ingredient">
                             <span class="ing-name">
                                 <%= dish.ings[i].ing_name %>
@@ -60,6 +67,10 @@
                     </li>
                 <% } %>
             </ul>
+            <h3 class="show-ings toggle-btn">
+                інгредієнти
+                <img class="img-cont image-transition" src="<%= url_object.template_directory %>/images/drop_down_icon.png">
+            </h3>
         </div>
 
         <div class="button-cont">

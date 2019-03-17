@@ -48,44 +48,41 @@
   display: flex;
 }
 
-ul {
-  list-style-type: none;
-}
+//ul {
+//  list-style-type: none;
+//}
+//
+//.img-cont{
+//  width: 60%;
+//}
+//
+//.image-wrap{
+//  width: 100%;
+//  position: relative;
+//}
 
-.img-cont{
-  width: 60%;
-}
+//.image-wrap:after {
+//  content: "";
+//  display: block;
+//  padding-bottom: 100%;
+//}
+//
+//.image-wrap {
+//  img {
+//    width: 90%;
+//    height: 90%;
+//    margin: auto;
+//    position: absolute;
+//    top:0;
+//    bottom: 0;
+//    left:0;
+//    right:0;
+//    object-fit: cover;
+//    border: 1px solid @gray_tone_3;
+//    border-radius: 10px;
+//  }
+//}
 
-.image-wrap{
-  width: 100%;
-  position: relative;
-}
-
-.image-wrap:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.image-wrap {
-  img {
-    width: 90%;
-    height: 90%;
-    margin: auto;
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left:0;
-    right:0;
-    object-fit: cover;
-    border: 1px solid @gray_tone_3;
-    border-radius: 10px;
-  }
-}
-
-.inf-block{
-  width: 40%;
-}
 
 .inf-block{
   .name{
@@ -110,35 +107,42 @@ ul {
 //  }
 //}
 
-.inf-block{
-  ul{
-    //color: @gray_tone_5;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 0;
-    margin: 0;
-  }
-}
-
-.inf-icon{
-  width: 28px;
-  height: 28px;
-  vertical-align: middle;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 
 .inf-block {
-  li{
-    padding-top: 5px;
+  width: 100%;
+  //display: block;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  .details{
+    padding-top: 20px;
     display: flex;
-    span {
-      word-break: break-all;
+    justify-content: space-between;
+    .inf-details-block{
       display: inline-flex;
-      padding-left: 5px;
-      line-height: normal;
-      align-items: center;
+      //width: 45%;
+      flex-direction: column;
+
+      div{
+        padding-top: 5px;
+        display: inline-flex;
+        span {
+          word-break: break-all;
+          display: inline-flex;
+          padding-left: 5px;
+          line-height: normal;
+          align-items: center;
+        }
+
+        .inf-icon{
+          width: 28px;
+          height: 28px;
+          vertical-align: middle;
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
     }
   }
 }
@@ -151,6 +155,7 @@ ul {
 }
 
 .ing-list{
+  display: none;
   font-weight: normal;
   font-size: 15px;
   //color:@gray_tone_5;
@@ -175,6 +180,24 @@ ul {
   }
 }
 
+.ingredient-cont{
+  .show-ings{
+    text-align: center;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .image-transition{
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  .show-ings:hover{
+    cursor: pointer;
+
+  }
+}
 
 
 .button-cont{

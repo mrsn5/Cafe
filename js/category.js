@@ -1,4 +1,6 @@
-var $ = jQuery;
+let Gen = require("./general_functions");
+
+let $ = jQuery;
 
 let fs = require('fs');
 let ejs = require('ejs');
@@ -43,4 +45,9 @@ $(function(){
             }
         });
     }
+
+    $dishes_container.on('click', '.toggle-btn', function(event) {
+        $('.toggle-area').slideToggle();
+        Gen.rotateImage($(this).find(".img-cont"));
+    });
 });

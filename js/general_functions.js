@@ -1,4 +1,4 @@
-var $ = jQuery;
+let $ = jQuery;
 $(function(){
 
     $(".modal-btn").on('click', function () {
@@ -101,3 +101,6 @@ function rotateImage($imageEl) {
         $imageEl.removeClass("rotated");
     }
 }
+
+exports.rotateImage = rotateImage;
+

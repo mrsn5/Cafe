@@ -11,7 +11,6 @@ module.exports = function(grunt) {
         browserify:     {
             //Загальні налаштування (grunt-browserify)
             options:      {
-
                 //brfs замість fs.readFileSync вставляє вміст файлу
                 transform:  [ require('brfs') ],
                 browserifyOptions: {
