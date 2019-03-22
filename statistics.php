@@ -369,6 +369,8 @@ define("PATH", get_template_directory_uri());
                         <label class="input-style dish-name">
                             Назва страви
                             <input type="text" id="dish_portion_name" class="input" placeholder="Назва">
+
+
                         </label>
 
 <!--                        <label class="select input-style category-list">-->

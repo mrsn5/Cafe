@@ -33,6 +33,7 @@ $(function(){
 
     orders_today();
 
+
     var now = new Date().yyyymmdd();
     $('#date-from-search').val(now);
     $('#date-to-search').val(now);

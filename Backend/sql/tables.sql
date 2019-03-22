@@ -1,6 +1,6 @@
-CREATE DATABASE cafe;
-ALTER DATABASE cafe CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE cafe;
+-- CREATE DATABASE cafe;
+-- ALTER DATABASE cafe CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- USE cafe;
 
 CREATE TABLE workers
 (
@@ -16,7 +16,7 @@ CREATE TABLE workers
   hire_date DATE NOT NULL,
   fire_date DATE NULL,
   PRIMARY KEY (tab_num),
-  CONSTRAINT CK_JUVENILE CHECK (year(current_timestamp) - year(birth_date) > 16) -- NOT perfect
+  CONSTRAINT CK_JUVENILE CHECK (year(CURRENT_TIMESTAMP()) - year(birth_date) > 16) -- NOT perfect
 );
 
 CREATE TABLE telephones
