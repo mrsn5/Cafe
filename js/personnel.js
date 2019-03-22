@@ -1,5 +1,5 @@
 var $ = jQuery;
-// TEST
+// TEST2
 let fs = require('fs');
 let ejs = require('ejs');
 
