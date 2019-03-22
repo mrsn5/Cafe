@@ -1,7 +1,5 @@
 .idea/
 
 ./node_modules
-./js/compiled
 
 node_modules/
-js/compiled/
