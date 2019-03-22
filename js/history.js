@@ -24,7 +24,7 @@ $(function(){
     var $orders_search = $(".search-cont-orders");
     var $discarding_search = $(".search-cont-discarding");
 
-    var $container = $(".inf-details-block");
+    var $container = $(".inf-area");
     var $container_search = $(".search-area");
 
     onLoad();
@@ -32,7 +32,6 @@ $(function(){
     var $orders_list = $("#orders-list");
 
     orders_today();
-
 
     var now = new Date().yyyymmdd();
     $('#date-from-search').val(now);
@@ -63,13 +62,6 @@ $(function(){
         $container.append($orders);
         $container_search.append($orders_search);
     }
-
-
-
-
-
-
-
 
     function orders_today() {
         $("#prompt-label").text("Замовлення на сьогодні");

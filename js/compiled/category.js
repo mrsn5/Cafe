@@ -6,7 +6,7 @@ let $ = jQuery;
 
 let ejs = require('ejs');
 
-let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(!dish.is_ing_available) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n        <div class=\"top-panel\">\r\n\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\" src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\" src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><%= dish.price %> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\" src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\" src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <div class=\"button-cont\">\r\n            <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            <button class=\"cancel-btn btn-style\">НАЗАД</button>\r\n        </div>\r\n\r\n    </div>\r\n</li>");
+let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) {%>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <%}%>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\" src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\" src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><%= dish.price %> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\" src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\" src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <div class=\"button-cont\">\r\n            <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            <button class=\"cancel-btn btn-style\">НАЗАД</button>\r\n        </div>\r\n\r\n    </div>\r\n</li>");
 
 $(function(){
     let $dishes_container = $("#dishes_container");
@@ -20,11 +20,23 @@ $(function(){
     function getDishes() {
         $dishes_container.html('');
 
+        let action_name = '';
+        switch (cat_name) {
+            case 'Топ ліст':
+                action_name = 'top_list';
+                break;
+            case 'Стоп ліст':
+                action_name = 'stop_list';
+                break;
+            default:
+                action_name = 'cat_select';
+        }
+
         $.ajax({
             url: url_object.ajax_url,
             type: 'POST',
             data: {
-                action: 'cat_select',
+                action: action_name,
                 cat_name:cat_name
             },
             success: function (res) {
@@ -48,7 +60,7 @@ $(function(){
     }
 
     $dishes_container.on('click', '.toggle-btn', function(event) {
-        $('.toggle-area').slideToggle();
+        $(this).parent().find('.toggle-area').slideToggle();
         Gen.rotateImage($(this).find(".img-cont"));
     });
 });
@@ -1274,7 +1286,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1298,7 +1310,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

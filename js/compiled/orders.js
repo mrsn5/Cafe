@@ -1184,7 +1184,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1208,7 +1208,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

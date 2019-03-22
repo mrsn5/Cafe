@@ -11,8 +11,7 @@ $(function () {
 
     getCategories();
 
-    $categories_container.on('click', ".category-name", function () {
-        // alert('Hi');
+    $("body").on('click', ".category-name", function () {
        let cat_name = $(this).text().trim();
        localStorage.setItem('cat_name', cat_name);
 

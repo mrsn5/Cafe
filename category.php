@@ -26,11 +26,6 @@
         </label>
     </div>
 
-<!--    only for chefs!!!-->
-    <div class="header-btn-style" id="add_dish_btn">
-        Додати страву
-    </div>
-<!---->
 
     <ul>
         <li>ІМ'Я КОРИСТУВАЧА</li>

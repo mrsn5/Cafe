@@ -25,7 +25,7 @@ $(function(){
     var $orders_search = $(".search-cont-orders");
     var $discarding_search = $(".search-cont-discarding");
 
-    var $container = $(".inf-details-block");
+    var $container = $(".inf-area");
     var $container_search = $(".search-area");
 
     onLoad();
@@ -33,7 +33,6 @@ $(function(){
     var $orders_list = $("#orders-list");
 
     orders_today();
-
 
     var now = new Date().yyyymmdd();
     $('#date-from-search').val(now);
@@ -64,13 +63,6 @@ $(function(){
         $container.append($orders);
         $container_search.append($orders_search);
     }
-
-
-
-
-
-
-
 
     function orders_today() {
         $("#prompt-label").text("Замовлення на сьогодні");
@@ -1235,7 +1227,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1259,7 +1251,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

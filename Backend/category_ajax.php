@@ -12,8 +12,14 @@ require_once 'dbhelper.php';
 //add_action( 'wp_ajax_specify_cat_name', 'specify_cat_name' );
 //add_action( 'wp_ajax_nopriv_specify_cat_name', 'specify_cat_name' );
 
-add_action( 'wp_ajax_cat_select', 'cat_select' );
-add_action( 'wp_ajax_nopriv_cat_select', 'cat_select' );
+add_action('wp_ajax_cat_select', 'cat_select');
+add_action('wp_ajax_nopriv_cat_select', 'cat_select');
+
+add_action('wp_ajax_top_list', 'top_list');
+add_action('wp_ajax_nopriv_top_list', 'top_list');
+
+add_action('wp_ajax_stop_list', 'stop_list');
+add_action('wp_ajax_nopriv_stop_list', 'stop_list');
 
 //$category_name = '';
 //
@@ -25,14 +31,54 @@ add_action( 'wp_ajax_nopriv_cat_select', 'cat_select' );
 //    die();
 //}
 
-function cat_select(){
-    $conn = DBHelper::connect();
-
+function cat_select()
+{
     $sqlQuery = "SELECT *
                  FROM dishes
                  WHERE tech_card_num IN (SELECT tech_card_num
                                          FROM dishes_categories
-                                         WHERE cat_name LIKE '".$_POST['cat_name']."');";
+                                         WHERE cat_name LIKE '" . $_POST['cat_name'] . "');";
+
+    getDishesList($sqlQuery);
+}
+
+
+function top_list()
+{
+    $sqlQuery = "SELECT *,
+                (SELECT MIN(expiration_date)
+                 FROM goods
+                 WHERE  curr_amount <> 0
+                        AND ing_name IN (SELECT ing_name
+                                         FROM dishes_ingredients
+                                         WHERE dishes.tech_card_num =
+                                                                dishes_ingredients.tech_card_num)) 
+                                         AS expiration_date
+FROM dishes
+WHERE (SELECT MIN(expiration_date)
+                FROM goods
+                WHERE     curr_amount <> 0
+                         AND ing_name IN (SELECT ing_name
+                                      FROM dishes_ingredients
+                                      WHERE dishes.tech_card_num =
+                                                     dishes_ingredients.tech_card_num)) IS NOT NULL
+ORDER BY expiration_date;";
+
+    getDishesList($sqlQuery);
+}
+
+
+function stop_list(){
+    $sqlQuery = "SELECT *
+                 FROM dishes
+                 WHERE is_ing_available = 0;";
+
+    getDishesList($sqlQuery);
+}
+
+function getDishesList($sqlQuery)
+{
+    $conn = DBHelper::connect();
 
     $ings = array();
     $dishes = array();
@@ -44,8 +90,8 @@ function cat_select(){
                        FROM dishes_ingredients X
                        WHERE tech_card_num IN (SELECT tech_card_num
                                                FROM dishes
-                                               WHERE dishes.tech_card_num = ".$row['tech_card_num'].");";
-        try{
+                                               WHERE dishes.tech_card_num = " . $row['tech_card_num'] . ");";
+        try {
             foreach ($conn->query($ings_query, PDO::FETCH_ASSOC) as $ing) {
                 $ing['is_available'] = ($ing['is_available'] == "YES") ? true : false;
                 $ings[] = $ing;
@@ -53,13 +99,14 @@ function cat_select(){
 
             $row['ings'] = $ings;
             $dishes[] = $row;
-            echo json_encode($dishes, JSON_UNESCAPED_UNICODE);
-        }catch (Exception $e){
-            echo ($e);
+        } catch (Exception $e) {
+            echo($e);
             DBHelper::disconnect();
             die();
         }
     }
+
+    echo json_encode($dishes, JSON_UNESCAPED_UNICODE);
     DBHelper::disconnect();
     die;
 }

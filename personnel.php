@@ -15,7 +15,6 @@
     <?php wp_head(); ?>
 
     <title>Персонал</title>
-
 </head>
 <body>
 

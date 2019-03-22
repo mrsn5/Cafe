@@ -55,6 +55,20 @@
 <!--8. Напитки-->
 
 <div class="header">
+    <!--    only for chefs!!!-->
+    <div class="header-btn-style" id="add_dish_btn">
+        Додати страву
+    </div>
+    <!---->
+
+    <div class="top-btn header-btn-style category-name" id="top_list">
+        Топ ліст
+    </div>
+
+    <div class="stop-btn header-btn-style category-name" id="stop_list">
+        Стоп ліст
+    </div>
+
     <ul>
         <li>ІМ'Я КОРИСТУВАЧА</li>
         <li>|</li>

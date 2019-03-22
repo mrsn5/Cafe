@@ -19,11 +19,23 @@ $(function(){
     function getDishes() {
         $dishes_container.html('');
 
+        let action_name = '';
+        switch (cat_name) {
+            case 'Топ ліст':
+                action_name = 'top_list';
+                break;
+            case 'Стоп ліст':
+                action_name = 'stop_list';
+                break;
+            default:
+                action_name = 'cat_select';
+        }
+
         $.ajax({
             url: url_object.ajax_url,
             type: 'POST',
             data: {
-                action: 'cat_select',
+                action: action_name,
                 cat_name:cat_name
             },
             success: function (res) {
@@ -47,7 +59,7 @@ $(function(){
     }
 
     $dishes_container.on('click', '.toggle-btn', function(event) {
-        $('.toggle-area').slideToggle();
+        $(this).parent().find('.toggle-area').slideToggle();
         Gen.rotateImage($(this).find(".img-cont"));
     });
 });

@@ -6,7 +6,7 @@
 
 <li class="dish">
     <div class="container">
-        <% if(!dish.is_ing_available) { %>
+        <% if(dish.is_ing_available == 0) { %>
             <span class="announce label label-danger">Недоступна</span>
         <% } %>
 
@@ -16,7 +16,6 @@
     </span>
 
         <div class="top-panel">
-
             <!--<div class="img-cont">-->
             <!--<div class="image-wrap">-->
             <!--<img src="<%= url_object.template_directory %>/images/food/borsch1.jpg">-->
@@ -24,6 +23,9 @@
             <!--</div>-->
             <div class="inf-block">
                 <h1 class="name"><%= dish.dish_name %></h1>
+                <% if(dish.expiration_date) {%>
+                    <h3 class="exp-date"><%= dish.expiration_date %></h3>
+                <%}%>
                 <!--<ul>-->
                 <div class="details">
                     <div class="inf-details-block">
