@@ -58,10 +58,23 @@
                 </div>
 
                 <div class="search-name input-block">
-                    <label class="label" for="search_product">Продукт</label>
-                    <input type="text" class="search" id="search_product" placeholder="Продукт, що поставляє">
+                    <label class="label" for="search_product">Інгредієнт</label>
+                    <input type="text" class="search" id="search_product" placeholder="Інгредієнт, що поставляє">
+                </div>
+
+                <div class="search-name input-block">
+                    <label class="label" for="search_dish">Для страви</label>
+                    <input type="text" class="search" id="search_dish" placeholder="Назва страви">
                 </div>
             </div>
+
+            <div class="search-name search-block">
+                <span class="label-header" id="search_all_ings_deliverer">Постачає відсутні інгредієнти
+                    <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+                </span>
+            </div>
+
+
         </form>
     </div>
 

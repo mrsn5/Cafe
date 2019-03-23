@@ -129,7 +129,6 @@ $(function () {
 
         $("#product_container").on('click', ".delete-ing", function () {
             let index = $(this).parents('tr').find('.index').text() - 1;
-            console.log(index);
             dish_ings.splice(index, 1);
 
             $(this).parents('tr').nextAll().each(function () {

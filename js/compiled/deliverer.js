@@ -9,17 +9,36 @@ let delivererTempl = ejs.compile("<tr>\r\n    <td class=\"code\"><%= code %></td
 $(function () {
     let $deliverer_table = $("#deliverer_table");
 
-    getDeliverers(null, null);
+    getDeliverers(null, null, null);
     addChangeListeners();
 
     $("#search_deliverer").click(function () {
         var search_name = $("#search_company_name").val().trim();
         var search_product = $("#search_product").val().trim();
-        getDeliverers(search_name, search_product);
+        var dish_name = $("#search_dish").val().trim();
+        getDeliverers(search_name, search_product, dish_name);
+    });
+
+    $("#search_all_ings_deliverer").on('click', function () {
+        $deliverer_table.html("");
+        $.ajax({
+            url: ajax_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'deliverer_all_ings_select',
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                displayDeliverers(res, delivererTempl, $deliverer_table)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     });
 
     $('#all_deliveries').on('click', function () {
-        getDeliverers(null, null);
+        getDeliverers(null, null, null);
     });
 
 
@@ -47,7 +66,7 @@ $(function () {
     });
 
 
-    function getDeliverers(company_name, product) {
+    function getDeliverers(company_name, product, dish) {
         $deliverer_table.html("");
         $.ajax({
             url: ajax_object.ajax_url,
@@ -55,7 +74,8 @@ $(function () {
             data: {
                 action: 'deliverer_select',
                 company_name: company_name,
-                product: product
+                product: product,
+                dish_name:dish
             },
             success: function (res) {
                 res = JSON.parse(res);
