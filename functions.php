@@ -59,7 +59,7 @@ function load_my_scripts(){
                 wp_enqueue_script('menu-ajax-script', get_template_directory_uri() . '/js/compiled/menu.js', array('jquery'), '1.0.0', true);
                 wp_localize_script('menu-ajax-script', 'url_object',
                     array('ajax_url' => admin_url('admin-ajax.php'),
-                        'category_page_url' => get_permalink(get_page_by_title( 'Category' ))));
+                        'category_page_url' => get_permalink(get_page_by_title( 'Category' )), 'template_directory' => get_stylesheet_directory_uri()));
                 break;
             case 'category.php':
                 wp_enqueue_script('category-ajax-script', get_template_directory_uri() . '/js/compiled/category.js', array('jquery'), '1.0.0', true);

@@ -15,7 +15,7 @@
 
     <title>Головна</title>
 </head>
-<body>
+<body class="main-page-body">
 
 <div class="header">
     <ul>
