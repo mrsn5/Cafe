@@ -16,6 +16,7 @@
     "grunt": "^1.0.3",
     "require": "^2.4.20"
   },
+
   "devDependencies": {
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-watch": "^1.1.0"

@@ -1,0 +1,112 @@
+<%
+function getValOrNull(param) {
+    if(param != null){
+        return param;
+    }else {
+        return '-';
+    }
+}
+%>
+
+<tr>
+    <td class="deliv-num"><%= delivery.delivery_num %></td>
+    <td><%= delivery.order_date %></td>
+    <td class="editable-cell">
+        <span class="value"><%= getValOrNull(delivery.receiving_date)%></span>
+
+        <label class="input-data">
+            <input type="date" class="input receiving-date-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= getValOrNull(delivery.pay_date) %></span>
+
+        <label class="input-data">
+            <input type="date" class="input pay-date-input">
+        </label>
+    </td>
+    <td>
+        <%= getValOrNull (delivery.invoice_num)%>
+    </td>
+    <td><%= delivery.cost %></td>
+    <td><%= delivery.company_name %></td>
+    <td class="">
+        <!--<span class="value">-->
+            <!--&#x2713-->
+            <% if(delivery.purchased == 1) {%>
+                &#10003;
+            <%} else {%>
+                &#10007;
+            <%}%>
+        <!--</span>-->
+
+        <!--<div class="input-data checkbox-field">-->
+            <!--<input type="checkbox" id="is_paid_<%=delivery.delivery_num%>" class="checkbox-style input is-paid-input"/>-->
+            <!--<label for="is_paid_<%=delivery.delivery_num%>"></label>-->
+        <!--</div>-->
+    </td>
+    <td class="">
+        <!--<span class="value">-->
+            <% if(delivery.is_received == 1) {%>
+                &#10003;
+            <%} else {%>
+                &#10007;
+            <%}%>
+        <!--</span>-->
+
+        <!--<div class="input-data checkbox-field">-->
+            <!--<input type="checkbox" id="is_received_<%=delivery.delivery_num%>" class="checkbox-style input is-received-input"/>-->
+            <!--<label for="is_received_<%=delivery.delivery_num%>"></label>-->
+        <!--</div>-->
+    </td>
+    <td class="show-products"><img class="image-transition"
+                                   src="<%= url_object.template_directory%>/images/drop_down_icon.png"></td>
+</tr>
+<tr class="extra">
+    <td colspan="10">
+        <div class="products-list custom-scrollbar">
+            <ul class="ul-style">
+                <li class="product prod-header">
+                    <div class="number"></div>
+                    <div class="name">назва</div>
+                    <div class="unit-price">ціна за од. (грн)</div>
+                    <div class="curr-amount">поточна кількість</div>
+                    <div class="start-amount">поч. кількість</div>
+                    <div class="gen-price">заг. вартість (грн)</div>
+                    <div class="date">вжити з</div>
+                    <div class="date">вжити до</div>
+                </li>
+
+                <% for(let i = 0; i<delivery.goods.length; i++) {%>
+                <li class="product">
+                    <div class="number"><%= i+1%></div>
+                    <div class="name"><%= delivery.goods[i].goods_name%></div>
+                    <div class="unit-price">
+                        <%= delivery.goods[i].unit_price%>
+
+                    </div>
+                    <div class="curr-amount">
+                        <%= delivery.goods[i].curr_amount%>
+                        <span><%= delivery.goods[i].unit_name%></span>
+                    </div>
+                    <div class="start-amount">
+                        <%= delivery.goods[i].start_amount%>
+                        <span><%= delivery.goods[i].unit_name%></span>
+                    </div>
+                    <div class="gen-price">
+                        <%= delivery.goods[i].cost%>
+
+                    </div>
+                    <div class="date">
+                        <%= getValOrNull (delivery.goods[i].production_date) %>
+                    </div>
+                    <div class="date">
+                        <%= getValOrNull (delivery.goods[i].expiration_date) %>
+                    </div>
+                </li>
+
+                <%}%>
+            </ul>
+        </div>
+    </td>
+</tr>

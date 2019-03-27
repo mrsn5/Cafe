@@ -1,247 +1,172 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 let $ = jQuery;
-// TEST2
 
 let ejs = require('ejs');
 
-var personnel = ejs.compile("<tr>\r\n<td class=\"tab_num\"><%= tab_num %></td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= first_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input name-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= surname %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input surname-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= father_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input fathername-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= birth_date %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"date\" class=\"input birthdate-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= address %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input address-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= gender %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input gender-input\">\r\n            <option value=\"Ч\">Ч</option>\r\n            <option value=\"Ж\">Ж</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= tel_num %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"tel\" class=\"input tel-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= position %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input position-input\">\r\n            <option value=\"власник\">власник</option>\r\n            <option value=\"офіціант\">офіціант</option>\r\n            <option value=\"бармен\">бармен</option>\r\n            <option value=\"кухар\">кухар</option>\r\n            <option value=\"бухгалтер\">бухгалтер</option>\r\n            <option value=\"адміністратор\">адміністратор</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= salary %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"number\" class=\"input salary-input\">\r\n    </label>\r\n</td>\r\n</tr>");
+let delivery_templ= ejs.compile("<%\r\nfunction getValOrNull(param) {\r\n    if(param != null){\r\n        return param;\r\n    }else {\r\n        return '-';\r\n    }\r\n}\r\n%>\r\n\r\n<tr>\r\n    <td class=\"deliv-num\"><%= delivery.delivery_num %></td>\r\n    <td><%= delivery.order_date %></td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= getValOrNull(delivery.receiving_date)%></span>\r\n\r\n        <label class=\"input-data\">\r\n            <input type=\"date\" class=\"input receiving-date-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= getValOrNull(delivery.pay_date) %></span>\r\n\r\n        <label class=\"input-data\">\r\n            <input type=\"date\" class=\"input pay-date-input\">\r\n        </label>\r\n    </td>\r\n    <td>\r\n        <%= getValOrNull (delivery.invoice_num)%>\r\n    </td>\r\n    <td><%= delivery.cost %></td>\r\n    <td><%= delivery.company_name %></td>\r\n    <td class=\"\">\r\n        <!--<span class=\"value\">-->\r\n            <!--&#x2713-->\r\n            <% if(delivery.purchased == 1) {%>\r\n                &#10003;\r\n            <%} else {%>\r\n                &#10007;\r\n            <%}%>\r\n        <!--</span>-->\r\n\r\n        <!--<div class=\"input-data checkbox-field\">-->\r\n            <!--<input type=\"checkbox\" id=\"is_paid_<%=delivery.delivery_num%>\" class=\"checkbox-style input is-paid-input\"/>-->\r\n            <!--<label for=\"is_paid_<%=delivery.delivery_num%>\"></label>-->\r\n        <!--</div>-->\r\n    </td>\r\n    <td class=\"\">\r\n        <!--<span class=\"value\">-->\r\n            <% if(delivery.is_received == 1) {%>\r\n                &#10003;\r\n            <%} else {%>\r\n                &#10007;\r\n            <%}%>\r\n        <!--</span>-->\r\n\r\n        <!--<div class=\"input-data checkbox-field\">-->\r\n            <!--<input type=\"checkbox\" id=\"is_received_<%=delivery.delivery_num%>\" class=\"checkbox-style input is-received-input\"/>-->\r\n            <!--<label for=\"is_received_<%=delivery.delivery_num%>\"></label>-->\r\n        <!--</div>-->\r\n    </td>\r\n    <td class=\"show-products\"><img class=\"image-transition\"\r\n                                   src=\"<%= url_object.template_directory%>/images/drop_down_icon.png\"></td>\r\n</tr>\r\n<tr class=\"extra\">\r\n    <td colspan=\"10\">\r\n        <div class=\"products-list custom-scrollbar\">\r\n            <ul class=\"ul-style\">\r\n                <li class=\"product prod-header\">\r\n                    <div class=\"number\"></div>\r\n                    <div class=\"name\">назва</div>\r\n                    <div class=\"unit-price\">ціна за од. (грн)</div>\r\n                    <div class=\"curr-amount\">поточна кількість</div>\r\n                    <div class=\"start-amount\">поч. кількість</div>\r\n                    <div class=\"gen-price\">заг. вартість (грн)</div>\r\n                    <div class=\"date\">вжити з</div>\r\n                    <div class=\"date\">вжити до</div>\r\n                </li>\r\n\r\n                <% for(let i = 0; i<delivery.goods.length; i++) {%>\r\n                <li class=\"product\">\r\n                    <div class=\"number\"><%= i+1%></div>\r\n                    <div class=\"name\"><%= delivery.goods[i].goods_name%></div>\r\n                    <div class=\"unit-price\">\r\n                        <%= delivery.goods[i].unit_price%>\r\n\r\n                    </div>\r\n                    <div class=\"curr-amount\">\r\n                        <%= delivery.goods[i].curr_amount%>\r\n                        <span><%= delivery.goods[i].unit_name%></span>\r\n                    </div>\r\n                    <div class=\"start-amount\">\r\n                        <%= delivery.goods[i].start_amount%>\r\n                        <span><%= delivery.goods[i].unit_name%></span>\r\n                    </div>\r\n                    <div class=\"gen-price\">\r\n                        <%= delivery.goods[i].cost%>\r\n\r\n                    </div>\r\n                    <div class=\"date\">\r\n                        <%= getValOrNull (delivery.goods[i].production_date) %>\r\n                    </div>\r\n                    <div class=\"date\">\r\n                        <%= getValOrNull (delivery.goods[i].expiration_date) %>\r\n                    </div>\r\n                </li>\r\n\r\n                <%}%>\r\n            </ul>\r\n        </div>\r\n    </td>\r\n</tr>");
+
+Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+        (mm>9 ? '' : '0') + mm,
+        (dd>9 ? '' : '0') + dd
+    ].join('-');
+};
 
 $(function () {
-    var $personnel_table = $("#personnel-table");
+    let now = new Date().yyyymmdd();
+    $('#search_date_from').val(now);
+    $('#search_date_to').val(now);
 
-    get_personnel(null, null);
-    addChangeLiesteners();
+    let $deliveries_cont = $('#deliveries_list');
+    get_deliveries(null, null, null, null);
 
-    $("#search-button").click(function () {
-        var search_name = $("#search_pib").val().trim();
-        var search_position = $("#position").val();
-        get_personnel(search_position, search_name);
+    addChangeListeners();
+
+    $("#search_deliveries").on('click', function() {
+        let date_from = $("#search_date_from").val();
+        let date_to = $("#search_date_to").val();
+
+        let is_paid = null;
+        let is_received = null;
+
+        if(!$('#is_paid_count').is(':checked')){
+            is_paid = $('#search_paid').is(':checked');
+        }
+
+        if(!$('#is_received_count').is(':checked')){
+            is_received = $('#search_received').is(':checked');
+        }
+
+        get_deliveries(date_from, date_to, is_paid, is_received);
     });
 
-    function get_personnel(position, name) {
-        $personnel_table.html("");
+    $('#all_deliveries').on('click', function () {
+        get_deliveries(null, null, null, null);
+    });
+
+    function get_deliveries(dateFrom, dateTo, paid, received) {
+        console.log(dateFrom);
+        console.log(dateTo);
+        console.log(paid);
+        console.log(received);
+
+        $deliveries_cont.html("");
+
         $.ajax({
-            url: ajax_object.ajax_url,
+            url: url_object.ajax_url,
             type: 'POST',
             data: {
-                action: 'personnel_select',
-                position: position,
-                name: name
+                action: 'delivery_select',
+                date_from: dateFrom,
+                date_to: dateTo,
+                is_paid: paid,
+                is_received: received
             },
             success: function (res) {
                 res = JSON.parse(res);
                 console.log(res);
-                res.forEach(function (p) {
-                    var $node = $(personnel(p));
-                    $personnel_table.append($node);
+
+                res.forEach(function (delivery) {
+                    let goods = delivery['goods'];
+                    goods.forEach(function (good) {
+                       good['cost'] = good['unit_price']*good['start_amount'];
+                    });
+                    delivery['goods'] = goods;
+                    console.log(delivery);
+
+                    let $node = $(delivery_templ({delivery: delivery}));
+                    $deliveries_cont.append($node);
                 });
             }
         });
     }
 
-    $("#save-personnel").click(function () {
-        $.ajax({
-            url: ajax_object.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'personnel_add',
-                tab_num: $("#tab_num").val(),
-                position: $("#position-add").val(),
-                first_name: $("#first_name").val(),
-                surname: $("#surname").val(),
-                father_name: $("#father_name").val() == '' ? 'NULL' : $("#father_name").val(),
-                birth_date: $("#birth_date").val(),
-                gender: $("#is_male:checked").val() || $("#is_female:checked").val(),
-                address: $("#address").val(),
-                telephone: $("#tel_num").val(),
-                salary: $("#salary-add").val(),
-                tel_num: $("#tel_num").val()
-            },
-            success: function (res) {
-                get_personnel(null, null);
-                console.log(res);
-            }
-        });
-    });
 
-    $("#all_personnel").click(function () {
-        get_personnel(null, null);
-    });
-
-
-    // get_personnel(null, null);
-    function addChangeLiesteners() {
-
-        $personnel_table.on('change', '.name-input', function () {
+    function addChangeListeners() {
+        $deliveries_cont.on('change', '.receiving-date-input', function () {
             let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let first_name = $(this).val().trim();
+            let code = $parent.find(".deliv-num").text();
+            console.log(code);
+            let receiving_date = $(this).val();
+            console.log(receiving_date);
 
             $.ajax({
-                url: ajax_object.ajax_url,
+                url: url_object.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    first_name: first_name
+                    action: 'delivery_change',
+                    code: code,
+                    receiving_date: receiving_date
                 },
-                success: function (e) {
-                    console.log(e);
+                success: function (res) {
+                    console.log(res);
+                    console.log('UPDATED');
                 }
             });
         });
 
-        $personnel_table.on('change', '.surname-input', function () {
+        $deliveries_cont.on('change', '.pay-date-input', function () {
             let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let surname = $(this).val().trim();
+            let code = $parent.find(".deliv-num").text();
+            let pay_date = $(this).val();
 
             $.ajax({
-                url: ajax_object.ajax_url,
+                url: url_object.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    surname: surname
+                    action: 'delivery_change',
+                    code: code,
+                    pay_date: pay_date
                 },
-                success: function (e) {
-                    console.log(e);
+                success: function (res) {
+                    console.log(res);
+                    console.log('UPDATED');
                 }
             });
         });
 
-        $personnel_table.on('change', '.fathername-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let father_name = $(this).val().trim();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    father_name: father_name
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.birthdate-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let birth_date = $(this).val();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    birth_date: birth_date
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.address-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let address = $(this).val().trim();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    address: address
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.gender-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let gender = $(this).val();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    gender: gender
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.position-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let position = $(this).val();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    position: position
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.salary-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let salary = $(this).val();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    salary: salary
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
-
-        $personnel_table.on('change', '.tel-input', function () {
-            let $parent = ($(this).parents('tr'));
-            let tab_num = $parent.find(".tab_num").text();
-            let tel_num = $(this).val().trim();
-
-            $.ajax({
-                url: ajax_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'personnel_change',
-                    tab_num: tab_num,
-                    tel_num: tel_num
-                },
-                success: function (e) {
-                    console.log(e);
-                }
-            });
-        });
+        // $deliveries_cont.on('change', '.is-paid-input', function () {
+        //     let $parent = ($(this).parents('tr'));
+        //     let code = $parent.find(".deliv-num").text();
+        //     let is_paid = $(this).is(':checked') ? 1 : 0;
+        //
+        //     $.ajax({
+        //         url: url_object.ajax_url,
+        //         type: 'POST',
+        //         data: {
+        //             action: 'delivery_change',
+        //             code: code,
+        //             is_paid: is_paid
+        //         },
+        //         success: function (res) {
+        //             console.log(res);
+        //             console.log('UPDATED');
+        //         }
+        //     });
+        // });
+        //
+        // $deliveries_cont.on('change', '.is-received-input', function () {
+        //     let $parent = ($(this).parents('tr'));
+        //     let code = $parent.find(".deliv-num").text();
+        //     let is_received = $(this).is(':checked') ? 1 : 0;
+        //
+        //     $.ajax({
+        //         url: url_object.ajax_url,
+        //         type: 'POST',
+        //         data: {
+        //             action: 'delivery_change',
+        //             code: code,
+        //             is_received: is_received
+        //         },
+        //         success: function (res) {
+        //             console.log(res);
+        //             console.log('UPDATED');
+        //         }
+        //     });
+        // });
     }
 });
 },{"ejs":3}],2:[function(require,module,exports){

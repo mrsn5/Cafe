@@ -12,6 +12,7 @@ define("PATH", get_template_directory_uri());
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH ?>/less/delivery_page.less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
+    <?php wp_head(); ?>
     <title>Поставки</title>
 </head>
 <body>
@@ -39,7 +40,7 @@ define("PATH", get_template_directory_uri());
     <div class="search-area">
         <form>
             <div class="search-block">
-                <span class="label-header">Пошук
+                <span class="label-header" id="search_deliveries">Пошук
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
 
@@ -47,11 +48,11 @@ define("PATH", get_template_directory_uri());
                     <span class="label">Отримані в період</span>
                     <label>
                         з
-                        <input type="date">
+                        <input type="date" id="search_date_from">
                     </label>
                     <label>
                         по
-                        <input type="date">
+                        <input type="date" id="search_date_to">
                     </label>
                 </div>
 
@@ -61,7 +62,7 @@ define("PATH", get_template_directory_uri());
                     <label for="search_paid"></label>
 
                     <label class="consider-label">
-                        <input type="checkbox">
+                        <input type="checkbox" id="is_paid_count" checked>
                         не враховувати
                     </label>
                 </div>
@@ -72,7 +73,7 @@ define("PATH", get_template_directory_uri());
                     <label for="search_received"></label>
 
                     <label class="consider-label">
-                        <input type="checkbox">
+                        <input type="checkbox" id="is_received_count" checked>
                         не враховувати
                     </label>
                 </div>
@@ -348,6 +349,10 @@ define("PATH", get_template_directory_uri());
             </div>
         </div>
         <div class="table-area">
+            <div class="show_items_btn">
+                <span class="all_items" id="all_deliveries">Всі поставки</span>
+            </div>
+
             <table>
                 <thead>
                 <tr>
@@ -364,7 +369,7 @@ define("PATH", get_template_directory_uri());
                 </tr>
                 </thead>
 
-                <tbody class="color-lines-with-extra">
+                <tbody class="color-lines-with-extra" id="deliveries_list">
                 <tr>
                     <td>2311</td>
                     <td>2019-10-03</td>
@@ -705,10 +710,10 @@ define("PATH", get_template_directory_uri());
 
 </div>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo PATH ?>/js/general_functions.js"></script>
+<?php wp_footer(); ?>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH ?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/general_functions.js"></script>-->
 
 </body>
 </html>

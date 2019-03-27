@@ -1,11 +1,13 @@
 <?php
 
-require_once 'dbhelper.php';
+require_once ('dbhelper.php');
 
 add_action( 'wp_ajax_personnel_select', 'select_personnel' );
 add_action( 'wp_ajax_nopriv_personnel_select', 'select_personnel' );
+
 add_action( 'wp_ajax_personnel_add', 'personnel_add' );
 add_action( 'wp_ajax_nopriv_personnel_add', 'personnel_add' );
+
 add_action( 'wp_ajax_personnel_change', 'personnel_change' );
 add_action( 'wp_ajax_nopriv_personnel_change', 'personnel_change' );
 

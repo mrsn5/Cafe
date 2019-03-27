@@ -1,4 +1,4 @@
-var $ = jQuery;
+let $ = jQuery;
 // TEST2
 let fs = require('fs');
 let ejs = require('ejs');

@@ -12,6 +12,7 @@ require_once 'Backend/menu_ajax.php';
 require_once 'Backend/category_ajax.php';
 require_once 'Backend/statistics_ajax.php';
 require_once 'Backend/orders_ajax.php';
+require_once 'Backend/deliveries_ajax.php';
 
 //add bootstrap
 function add_bootstrap(){
@@ -84,6 +85,11 @@ function load_my_scripts(){
             case 'orders_page.php':
                 wp_enqueue_script('orders-ajax-script', get_template_directory_uri() . '/js/compiled/orders.js', array('jquery'), '1.0.0', true);
                 wp_localize_script('orders-ajax-script', 'url_object',
+                    array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri()));
+                break;
+            case 'deliveries.php':
+                wp_enqueue_script('deliveries-ajax-script', get_template_directory_uri() . '/js/compiled/deliveries.js', array('jquery'), '1.0.0', true);
+                wp_localize_script('deliveries-ajax-script', 'url_object',
                     array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri()));
                 break;
         }

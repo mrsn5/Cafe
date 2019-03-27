@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
   `purchased` bit(1) GENERATED ALWAYS AS (if(isnull(`pay_date`),0x00,0x01)) VIRTUAL,
   `returned` bit(1) NOT NULL DEFAULT false,
   `invoice_num` int(10) UNSIGNED DEFAULT NULL,
+  `order_date` date NOT NULL,
   `receiving_date` date DEFAULT NULL,
   `pay_date` date DEFAULT NULL,
   `cost` decimal(16,2) UNSIGNED NOT NULL DEFAULT '0.00',
@@ -60,15 +61,15 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
   KEY `provider_code` (`provider_code`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(1, false, 10038493, '2019-02-23', '2019-02-23', '2139.00', '09836456');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(2, false, 32466432, '2019-02-23', '2019-02-23', '100.00', '46985133');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(3, false, 56435, '2019-02-23', '2019-02-23', '1100.00', '56453132');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(4, false, 43234, '2019-02-23', '2019-02-23', '231.25', '21343655');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(5, false, 3234234, '2019-02-23', '2019-02-23', '3500.00', '23435453');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(6, false, 453455324, '2019-02-23', '2019-02-23', '58.16', '87697842');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(7, false, 66755, '2019-02-23', '2019-02-23', '47.50', '78974346');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(8, false, 546322, '2019-02-23', '2019-02-23', '289.00', '87697842');
-INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(9, false, NULL, NULL, NULL, '0.00', '87697842');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(1, false, 10038493, '2019-02-20', '2019-02-23', '2019-02-23', '2139.00', '09836456');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(2, false, 32466432, '2019-02-19', '2019-02-23', '2019-02-23', '100.00', '46985133');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(3, false, 56435, '2019-02-21', '2019-02-23', '2019-02-23', '1100.00', '56453132');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(4, false, 43234, '2019-02-17', '2019-02-23', '2019-02-23', '231.25', '21343655');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(5, false, 3234234, '2019-02-10', '2019-02-23', '2019-02-23', '3500.00', '23435453');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(6, false, 453455324, '2019-02-20', '2019-02-23', '2019-02-23', '58.16', '87697842');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(7, false, 66755, '2019-02-18', '2019-02-23', '2019-02-23', '47.50', '78974346');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(8, false, 546322, '2019-02-13', '2019-02-23', '2019-02-23', '289.00', '87697842');
+INSERT INTO `deliveries` (`delivery_num`, `returned`, `invoice_num`, `order_date`, `receiving_date`, `pay_date`, `cost`, `provider_code`) VALUES(9, false, NULL, '2019-02-23', NULL, NULL, '0.00', '87697842');
 DROP TRIGGER IF EXISTS `create_deliv`;
 DELIMITER $$
 CREATE TRIGGER `create_deliv` BEFORE INSERT ON `deliveries` FOR EACH ROW BEGIN

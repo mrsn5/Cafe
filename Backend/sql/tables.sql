@@ -165,6 +165,7 @@ CREATE TABLE deliveries
   purchased BIT(1) AS(IF(pay_date IS NULL, 0b0, 0b1)),
   returned BIT(1) NOT NULL DEFAULT 0b0,
   invoice_num INT UNSIGNED NULL,
+  order_date DATE NOT NULL,
   receiving_date DATE NULL,
   pay_date DATE NULL,
   cost DECIMAL(16,2) UNSIGNED NOT NULL DEFAULT 0,
