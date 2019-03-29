@@ -80,10 +80,10 @@ function getDishesList($sqlQuery)
 {
     $conn = DBHelper::connect();
 
-    $ings = array();
     $dishes = array();
 
     foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+        $ings = array();
         $ings_query = "SELECT ing_name, IF(amount <= COALESCE((SELECT SUM(curr_amount)
                                                                FROM ingredients
                                                                WHERE ing_name = X.ing_name), 0), \"YES\", \"NO\") AS is_available
