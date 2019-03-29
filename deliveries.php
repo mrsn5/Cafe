@@ -86,9 +86,11 @@ define("PATH", get_template_directory_uri());
             <div class="new-item-header">
                 <div class="name">
                     <span class="header-text">Нова поставка</span>
-                    <span class="number">#132</span>
+<!--                    <span class="number">#-->
+<!--                        <span class="value" id="delivery_num">132</span>-->
+<!--                    </span>-->
                 </div>
-                <button class="save-item-btn btn-style">
+                <button class="save-item-btn btn-style" id="save_delivery">
                     Зберегти поставку
                 </button>
             </div>
@@ -96,43 +98,53 @@ define("PATH", get_template_directory_uri());
             <div class="main-area">
                 <div class="general-inf">
                     <form>
-                        <div class="date-field">
-                            <label class="required-label" for="order_date">Дата замовлення</label>
-                            <input type="date" id="order_date" value="1980-08-26">
-                        </div>
-
-                        <div class="date-field">
-                            <label class="required-label" for="receiving_date">Дата отримання</label>
-                            <input type="date" id="receiving_date" value="1980-08-26">
-                        </div>
-
-                        <div class="date-field">
-                            <label class="required-label" for="payment_date">Дата оплати</label>
-                            <input type="date" id="payment_date" value="1980-08-26">
-                        </div>
-
-                        <div class="provider-list field inline-field">
-                            <div class="select-cont">
-                                <select class="select-providers" name="providers" id="providers_list">
-                                    <option value="provider 1">Постачальник 1</option>
-                                    <option value="provider 2">Постачальник 2</option>
-                                    <option value="provider 3">Постачальник 3</option>
-                                    <option value="provider 4">Постачальник 4</option>
-                                </select>
+                        <div class="inputs-row">
+                            <div class="date-field">
+                                <label class="required-label" for="order_date">Дата замовлення</label>
+                                <input type="date" id="order_date" value="1980-08-26">
                             </div>
-                            <label class="required-label " for="providers_list">Постачальник</label>
+
+                            <div class="date-field">
+                                <label class="required-label" for="receiving_date">Дата отримання</label>
+                                <input type="date" id="receiving_date">
+                            </div>
+
+                            <div class="date-field">
+                                <label class="required-label" for="payment_date">Дата оплати</label>
+                                <input type="date" id="payment_date">
+                            </div>
                         </div>
+
+                        <div class="inputs-row">
+                            <div class="provider-list field inline-field">
+                                <div class="select-cont">
+                                    <select class="select-providers" name="providers" id="providers_list">
+                                        <option value="provider 1">Постачальник 1</option>
+                                        <option value="provider 2">Постачальник 2</option>
+                                        <option value="provider 3">Постачальник 3</option>
+                                        <option value="provider 4">Постачальник 4</option>
+                                    </select>
+                                </div>
+                                <label class="required-label " for="providers_list">Постачальник</label>
+                            </div>
+
+                            <div class="field block-field" style="padding-left: 10px">
+                                <input type="number" id="invoice_num" placeholder="12345">
+                                <label class="" style="transform: translate(0,0)" for="invoice_num">Номер накладної</label>
+                            </div>
+                        </div>
+
 
                         <!--                        <div>-->
-                        <div class="checkbox-field">
-                            <input type="checkbox" id="is_paid" class="checkbox-style"/>
-                            <label for="is_paid">Сплачено</label>
-                        </div>
-
-                        <div class="checkbox-field">
-                            <input id="is_received" type="checkbox" class="checkbox-style"/>
-                            <label for="is_received">Отримано</label>
-                        </div>
+<!--                        <div class="checkbox-field">-->
+<!--                            <input type="checkbox" id="is_paid" class="checkbox-style"/>-->
+<!--                            <label for="is_paid">Сплачено</label>-->
+<!--                        </div>-->
+<!---->
+<!--                        <div class="checkbox-field">-->
+<!--                            <input id="is_received" type="checkbox" class="checkbox-style"/>-->
+<!--                            <label for="is_received">Отримано</label>-->
+<!--                        </div>-->
                         <!--                        </div>-->
                     </form>
                 </div>
@@ -157,157 +169,29 @@ define("PATH", get_template_directory_uri());
                             </tr>
                             </thead>
 
-                            <tbody>
-                            <tr class="product">
-                                <td>1</td>
-                                <td class="editable-cell">
-                                    <span class="value">картопля</span>
-                                    <label class="input-data input-style">
-                                        <input type="text" class="input"/>
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                    <span class="value">
-                                        20
-                                    </span>
-                                    <label class="input-data input-style">
-                                        <input type="number" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    30
-                                </span>
-                                    <label class="input-data input-style">
-                                        <input type="number" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    кг
-                                </span>
-                                    <label class="input-data input-style">
-                                        <select class="select-units input">
-                                            <option value="кг">кг</option>
-                                            <option value="л">л</option>
-                                            <option value="шт">шт</option>
-                                        </select>
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                    <span class="value">-</span>
-
-                                    <label class="input-data input-style">
-                                        <input type="date" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                    <span class="value">-</span>
-                                    <label class="input-data input-style">
-                                        <input type="date" class="input">
-                                    </label>
-                                </td>
-                                <td>134</td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    картопля
-                                </span>
-                                    <label class="input-data input-style">
-                                        <select class="select-ing input">
-                                            <option value="картопля">картопля</option>
-                                            <option value="помідор">помідор</option>
-                                            <option value="капуста">капуста</option>
-                                        </select>
-                                    </label>
-                                </td>
-                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
-                            </tr>
-                            <tr class="product">
-                                <td>1</td>
-                                <td class="editable-cell">
-                                    <span class="value">картопля</span>
-                                    <label class="input-data input-style">
-                                        <input type="text" class="input"/>
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    20
-                                </span>
-                                    <label class="input-data input-style">
-                                        <input type="number" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    30
-                                </span>
-                                    <label class="input-data input-style">
-                                        <input type="number" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    кг
-                                </span>
-                                    <label class="input-data input-style">
-                                        <select class="select-units input">
-                                            <option value="кг">кг</option>
-                                            <option value="л">л</option>
-                                            <option value="шт">шт</option>
-                                        </select>
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                    <span class="value">-</span>
-
-                                    <label class="input-data input-style">
-                                        <input type="date" class="input">
-                                    </label>
-                                </td>
-                                <td class="editable-cell">
-                                    <span class="value">-</span>
-                                    <label class="input-data input-style">
-                                        <input type="date" class="input">
-                                    </label>
-                                </td>
-                                <td>134</td>
-                                <td class="editable-cell">
-                                <span class="value">
-                                    картопля
-                                </span>
-                                    <label class="input-data input-style">
-                                        <select class="select-ing input">
-                                            <option value="картопля">картопля</option>
-                                            <option value="помідор">помідор</option>
-                                            <option value="капуста">капуста</option>
-                                        </select>
-                                    </label>
-                                </td>
-                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
-                            </tr>
+                            <tbody id="new_delivery_goods_cont">
 
                             <!--row for new product-->
-                            <tr class="product">
-                                <td>1</td>
+                            <tr id="new_good" class="product">
+                                <td></td>
                                 <td>
                                     <label class="input-style">
-                                        <input type="text" class="input" placeholder="назва"/>
+                                        <input type="text" class="input" id="good_name" placeholder="назва"/>
                                     </label>
                                 </td>
                                 <td class="">
                                     <label class="input-style">
-                                        <input type="number" class="input" placeholder="ціна">
+                                        <input type="number" class="input" min="0" id="price" placeholder="ціна">
                                     </label>
                                 </td>
                                 <td class="">
                                     <label class="input-style">
-                                        <input type="number" class="input" placeholder="кількість">
+                                        <input type="number" class="input" min="0" id="amount" placeholder="кількість">
                                     </label>
                                 </td>
                                 <td class="">
                                     <label class="input-style">
-                                        <select class="select-units input">
+                                        <select class="select-units input" id="units">
                                             <option value="кг" selected>кг</option>
                                             <option value="л">л</option>
                                             <option value="шт">шт</option>
@@ -316,35 +200,39 @@ define("PATH", get_template_directory_uri());
                                 </td>
                                 <td class="">
                                     <label class="input-style">
-                                        <input type="date" class="input">
+                                        <input type="date" id="production_date" class="input">
                                     </label>
                                 </td>
                                 <td class="">
                                     <label class="input-style">
-                                        <input type="date" class="input">
+                                        <input type="date" id="expiration_date" class="input">
                                     </label>
                                 </td>
-                                <td>0</td>
+                                <td id="gen_price">0</td>
                                 <td class="">
                                     <label class="input-style">
-                                        <select class="select-ing input">
-                                            <option value="картопля" selected>картопля</option>
-                                            <option value="помідор">помідор</option>
-                                            <option value="капуста">капуста</option>
-                                        </select>
+                                        <input type="text" class="input ings-list" list="ing_list" placeholder="інгредієнт">
+
+                                        <datalist id="ing_list"></datalist>
+                                    </label>
+<!--                                        <select class="select-ing input" id="ings_list">-->
+<!--                                            <option value="картопля" selected>картопля</option>-->
+<!--                                            <option value="помідор">помідор</option>-->
+<!--                                            <option value="капуста">капуста</option>-->
+<!--                                        </select>-->
                                     </label>
                                 </td>
-                                <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
-                                <td><img class=" icon" src="<?php echo PATH ?>/images/checked.svg"></td>
+<!--                                <td><img class=" icon" src="--><?php //echo PATH ?><!--/images/delete.svg"></td>-->
+                                <td><img class=" icon" id="add_good" alt="add icon" src="<?php echo PATH ?>/images/checked.svg"></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="total">
                         <span>Всього</span>
-                        <span class="total-price">174,42 грн</span>
+                        <span class="total-price"><span id="price_value">0</span> грн</span>
                     </div>
-                    <button class="add-product-btn btn-style">Додати продукт</button>
+<!--                    <button class="add-product-btn btn-style">Додати продукт</button>-->
                 </div>
             </div>
         </div>

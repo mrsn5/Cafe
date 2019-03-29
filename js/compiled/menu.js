@@ -93,7 +93,7 @@ $(function () {
             });
 
             if(ing){
-                $price_cell.text(ing['unit_price']);
+                $price_cell.text(ing['unit_price'].toFixed(5));
             }
         });
 
@@ -144,7 +144,6 @@ $(function () {
             $ings_list.append("<option class='ing-option' value='" + el['ing_name'] + "'>");
         });
     }
-
 
     function getCategories(callback) {
         $.ajax({

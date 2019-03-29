@@ -30,7 +30,7 @@ function getValOrNull(param) {
     </td>
     <td><%= delivery.cost %></td>
     <td><%= delivery.company_name %></td>
-    <td class="">
+    <td class="purchased-cell">
         <!--<span class="value">-->
             <!--&#x2713-->
             <% if(delivery.purchased == 1) {%>
@@ -45,7 +45,7 @@ function getValOrNull(param) {
             <!--<label for="is_paid_<%=delivery.delivery_num%>"></label>-->
         <!--</div>-->
     </td>
-    <td class="">
+    <td class="is-received-cell">
         <!--<span class="value">-->
             <% if(delivery.is_received == 1) {%>
                 &#10003;
@@ -63,7 +63,7 @@ function getValOrNull(param) {
                                    src="<%= url_object.template_directory%>/images/drop_down_icon.png"></td>
 </tr>
 <tr class="extra">
-    <td colspan="10">
+    <td colspan="12">
         <div class="products-list custom-scrollbar">
             <ul class="ul-style">
                 <li class="product prod-header">

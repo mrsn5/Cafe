@@ -19,6 +19,9 @@ add_action( 'wp_ajax_nopriv_deliverer_add', 'deliverer_add' );
 add_action( 'wp_ajax_deliverer_change', 'deliverer_change' );
 add_action( 'wp_ajax_nopriv_deliverer_change', 'deliverer_change' );
 
+add_action( 'wp_ajax_get_deliverer_by_name', 'get_deliverer_by_name' );
+add_action( 'wp_ajax_nopriv_get_deliverer_by_name', 'get_deliverer_by_name' );
+
 function select_deliverer(){
     $conn = DBHelper::connect();
 
@@ -212,6 +215,23 @@ function deliverer_change() {
         echo $sqlQuery;
     }
 
+    DBHelper::disconnect();
+    die;
+}
+
+
+function get_deliverer_by_name(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery = "SELECT code
+                 FROM providers
+                 WHERE company_name = '".$_POST['company_name']."';";
+
+    $prov = array();
+    foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+        $prov[] = $row;
+    }
+    echo json_encode($prov[0], JSON_UNESCAPED_UNICODE);
     DBHelper::disconnect();
     die;
 }

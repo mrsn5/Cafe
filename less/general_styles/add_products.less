@@ -19,16 +19,22 @@
 
   .products-list{
     background-color: @gray_tone_1;
-    padding: 10px;
+    padding: 10px 0 10px 0;
     overflow-y : auto;
     height: 350px;
 
     .products-table{
-      font-size: (@main_font_size - 5);
+      font-size: (@main_font_size - 2);
       text-align: center;
       color: @gray_tone_5;
       margin: auto;
       width: 100%;
+
+      .product{
+        input{
+         font-size: (@main_font_size - 2);
+        }
+      }
 
       thead{
         border-bottom: 2px solid @gray_tone_3;
@@ -44,6 +50,7 @@
 
       tbody{
         tr{
+          background-color: white;
           border-bottom: 1px solid @gray_tone_3;
           font-size: (@main_font_size - 3);
 

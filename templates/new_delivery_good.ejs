@@ -1,0 +1,66 @@
+<%
+function getValOrNull(param) {
+    if(param != 'NULL'){
+        return param;
+    }else {
+        return '-';
+    }
+}
+%>
+
+<tr class="product">
+    <td class="index"><%= index %></td>
+    <td class="editable-cell">
+        <span class=""><%= goods_name %></span>
+        <!--<label class="input-data input-style">-->
+            <!--<input type="text" class="input"/>-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class=""><%= unit_price%></span>
+        <!--<label class="input-data input-style">-->
+            <!--<input type="number" class="input">-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class=""><%= start_amount%></span>
+        <!--<label class="input-data input-style">-->
+            <!--<input type="number" class="input">-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class=""><%= unit_name%></span>
+        <!--<label class="input-data input-style">-->
+            <!--<select class="select-units input">-->
+                <!--<option value="кг">кг</option>-->
+                <!--<option value="л">л</option>-->
+                <!--<option value="шт">шт</option>-->
+            <!--</select>-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class=""><%= getValOrNull(production_date)%></span>
+
+        <!--<label class="input-data input-style">-->
+            <!--<input type="date" class="input">-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class=""><%= getValOrNull(expiration_date)%></span>
+        <!--<label class="input-data input-style">-->
+            <!--<input type="date" class="input">-->
+        <!--</label>-->
+    </td>
+    <td class="gen-good-price"><%= cost%></td>
+    <td class="editable-cell">
+        <span class=""><%= ing_name%></span>
+        <!--<label class="input-data input-style">-->
+            <!--<select class="select-ing input">-->
+                <!--<option value="картопля">картопля</option>-->
+                <!--<option value="помідор">помідор</option>-->
+                <!--<option value="капуста">капуста</option>-->
+            <!--</select>-->
+        <!--</label>-->
+    </td>
+    <td><img class="icon delete-icon" src="<%= url_object.template_directory%>/images/delete.svg"></td>
+</tr>

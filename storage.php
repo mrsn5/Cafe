@@ -124,13 +124,13 @@ define("PATH", get_template_directory_uri());
                     <table class="products-table">
                         <thead>
                         <tr>
-                            <th class="number-col"></th>
-                            <th class="">код</th>
-                            <th class="">назва</th>
-                            <th class="">кількість</th>
-                            <th class="">заг. вартість (грн)</th>
-                            <th class="reason">причина</th>
-                            <th class="img-col"></th>
+                            <th class="number-col" style="width: 5%"></th>
+                            <th class="" style="width: 10%">код</th>
+                            <th class="" style="width: 15%">назва</th>
+                            <th class="" style="width: 10%">кількість</th>
+                            <th class="" style="width: 10%">заг. вартість (грн)</th>
+                            <th class="reason" style="width: 35%">причина</th>
+                            <th class="img-col" style="width: 5%"></th>
                         </tr>
                         </thead>
 
@@ -206,7 +206,7 @@ define("PATH", get_template_directory_uri());
                                     <input type="text" class="input" placeholder="причина">
                                 </label>
                             </td>
-                            <td><img class=" icon" src="<?php echo PATH ?>/images/delete.svg"></td>
+<!--                            <td><img class=" icon" src="--><?php //echo PATH ?><!--/images/delete.svg"></td>-->
                             <td><img class=" icon" src="<?php echo PATH ?>/images/checked.svg"></td>
                         </tr>
                         </tbody>
@@ -222,7 +222,7 @@ define("PATH", get_template_directory_uri());
                         <input class="input" type="text" placeholder="Ім'я робітника">
                     </label>
                 </div>
-                <button class="add-product-btn btn-style">Додати продукт</button>
+<!--                <button class="add-product-btn btn-style">Додати продукт</button>-->
             </div>
         </div>
 
