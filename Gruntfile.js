@@ -58,6 +58,11 @@ module.exports = function(grunt) {
             deliveries: {
                 src:        'js/deliveries.js',
                 dest:       'js/compiled/deliveries.js'
+            },
+
+            storage: {
+                src:        'js/storage.js',
+                dest:       'js/compiled/storage.js'
             }
         }
     };
@@ -73,7 +78,8 @@ module.exports = function(grunt) {
             files: ['js/*.js', 'templates/*.ejs'],
             //Які завдання виконувати під час зміни в файлах
             tasks: ['browserify:personnel','browserify:deliverers', 'browserify:menu', 'browserify:category',
-                'browserify:statistic', 'browserify:history', 'browserify:orders', 'browserify:deliveries' ]
+                'browserify:statistic', 'browserify:history', 'browserify:orders', 'browserify:deliveries',
+                'browserify:storage']
         }
     };
 
@@ -97,7 +103,8 @@ module.exports = function(grunt) {
             'browserify:statistic',
             'browserify:history',
             'browserify:orders',
-            'browserify:deliveries'
+            'browserify:deliveries',
+            'browserify:storage'
             //Інші завдання які необхідно виконати
         ]
     );

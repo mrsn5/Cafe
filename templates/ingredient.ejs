@@ -1,0 +1,56 @@
+<%
+function getValOrNull(param) {
+    if(param != null){
+        return param;
+    }else {
+        return '-';
+    }
+}
+%>
+
+<tr>
+    <td class="ing-name"><%= ing.ing_name%></td>
+    <td class="editable-cell">
+        <span class="value"><%= ing.units%></span>
+        <label class="input-data input-style">
+            <select class="select-units input ing-units-list" id="ings_units">
+                <% for(let i = 0; i < units.length; i++) {%>
+                <option><%= units[i]%></option>
+                <%}%>
+            </select>
+        </label>
+    </td>
+    <td><%= ing.curr_amount%></td>
+    <td class="show-products">
+        <img class="image-transition" src="<%= url_object.template_directory%>/images/drop_down_icon.png">
+    </td>
+</tr>
+<tr class="extra">
+    <td colspan="10">
+        <div class="products-list custom-scrollbar">
+            <ul class="ul-style">
+                <li class="product prod-header">
+                    <div class="number"></div>
+                    <div class="code">№ поставки</div>
+                    <div class="code">код товару</div>
+                    <div class="name">назва</div>
+                    <div class="date">вжити з</div>
+                    <div class="date">вжити до</div>
+                    <div class="date">дата останньої інвентаризації</div>
+                </li>
+
+                <% for(let i = 0; i < ing.goods.length; i++) {%>
+                <li class="product">
+                    <div class="number"><%= i+1%></div>
+                    <div class="code"><%= ing.goods[i].delivery_num%></div>
+                    <div class="code"><%= ing.goods[i].unique_code%></div>
+                    <div class="name"><%= ing.goods[i].goods_name%></div>
+                    <div class="date"><%= getValOrNull(ing.goods[i].production_date)%></div>
+                    <div class="date"><%= getValOrNull(ing.goods[i].expiration_date)%></div>
+                    <div class="date"><%= getValOrNull(ing.goods[i].inventarization_date)%></div>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </td>
+</tr>

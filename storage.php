@@ -6,10 +6,11 @@ define("PATH", get_template_directory_uri());
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<!--    <link href="--><?php //echo PATH ?><!--/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH ?>/less/storage.less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
+    <?php wp_head(); ?>
     <title>Склад</title>
 </head>
 <body>
@@ -83,29 +84,34 @@ define("PATH", get_template_directory_uri());
     <div class="search-area">
         <form>
             <div class="search-name search-block">
-                <span class="label-header">Пошук
+                <span class="label-header" id="search_ings">Пошук
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
 
                 <div class="input-block">
                     <label class="label" for="search_name">Назва</label>
-                    <input type="text" class="search " id="search_name" placeholder="Картопля">
+                    <input type="text" class="search " id="search_ing_name" placeholder="Картопля">
                 </div>
-            </div>
-
-            <div class="search-block">
-                <span class="label-header">Інгредієнти, що скоро зіпсуються
-                    <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
-                </span>
 
                 <div class="input-block">
-                    <label class="label" for="search_date">Вжити до</label>
-                    <input type="date" id="search_date">
+                    <label class="label" for="run_out_date">Скоро зіпсуються</label>
+                    <input type="date" id="run_out_date">
                 </div>
             </div>
 
+<!--            <div class="search-block">-->
+<!--                <span class="label-header">Інгредієнти, що скоро зіпсуються-->
+<!--                    <img src="--><?php //echo PATH ?><!--/images/search.svg" class="search-icon">-->
+<!--                </span>-->
+<!---->
+<!--                <div class="input-block">-->
+<!--                    <label class="label" for="search_date">Вжити до</label>-->
+<!--                    <input type="date" id="search_date">-->
+<!--                </div>-->
+<!--            </div>-->
+
             <div class="search-block">
-                 <span class="label-header">Інгредієнти, що скінчились
+                 <span class="label-header" id="run_out_ings">Інгредієнти, що скінчились
                     <img src="<?php echo PATH ?>/images/search.svg" class="search-icon">
                 </span>
 <!--                <div class="label" id="absent_ings">Інгредієнти, що скінчились</div>-->
@@ -240,68 +246,7 @@ define("PATH", get_template_directory_uri());
                 </tr>
                 </thead>
 
-                <tbody class="color-lines-with-extra">
-                <tr>
-                    <td>картопля</td>
-                    <td class="editable-cell">
-                        <span class="value">кг</span>
-                        <label class="input-data input-style">
-                            <select class="select-units input">
-                                <option value="кг">кг</option>
-                                <option value="л">л</option>
-                                <option value="шт">шт</option>
-                            </select>
-                        </label>
-                    </td>
-                    <td>200</td>
-                    <td class="show-products"><img class="image-transition"
-                                                   src="<?php echo PATH ?>/images/drop_down_icon.png">
-                    </td>
-                <tr class="extra">
-                    <td colspan="10">
-                        <div class="products-list custom-scrollbar">
-                            <ul class="ul-style">
-                                <li class="product prod-header">
-                                    <div class="number"></div>
-                                    <div class="code">№ поставки</div>
-                                    <div class="code">код товару</div>
-                                    <div class="name">назва</div>
-                                    <div class="date">вжити з</div>
-                                    <div class="date">вжити до</div>
-                                    <div class="date">дата останньої інвентаризації</div>
-                                </li>
-                                <li class="product">
-                                    <div class="number">1.</div>
-                                    <div class="code">12343</div>
-                                    <div class="code">53542</div>
-                                    <div class="name">Картопля білоруська</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                </li>
-                                <li class="product">
-                                    <div class="number">1.</div>
-                                    <div class="code">12343</div>
-                                    <div class="code">53542</div>
-                                    <div class="name">Картопля білоруська</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                </li>
-                                <li class="product">
-                                    <div class="number">1.</div>
-                                    <div class="code">12343</div>
-                                    <div class="code">53542</div>
-                                    <div class="name">Картопля білоруська</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                    <div class="date">2019-07-01</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                </tr>
+                <tbody class="color-lines-with-extra" id="ingredient_container">
                 </tbody>
             </table>
 
@@ -385,10 +330,11 @@ define("PATH", get_template_directory_uri());
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="<?php echo PATH ?>/js/general_functions.js"></script>
-<script type="text/javascript" src="<?php echo PATH ?>/js/storage.js"></script>
+<?php wp_footer(); ?>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="--><?php //echo PATH ?><!--/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+<!---->
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/general_functions.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo PATH ?><!--/js/storage.js"></script>-->
 </body>
 </html>
