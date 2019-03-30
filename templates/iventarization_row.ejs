@@ -1,0 +1,21 @@
+<tr class="ivent-item">
+    <td><%= unique_code%></td>
+    <td><%= goods_name%></td>
+    <td><%= ing_name%></td>
+    <td><%= unit_name%></td>
+    <td class="price-per-unit"><%= (+unit_price).toFixed(2)%></td>
+    <!--                при закупці-->
+    <td><%= start_amount%></td>
+    <td><%= (+start_cost).toFixed(2)%></td>
+    <!--                очікувана-->
+    <td><%= expected_amount%></td>
+    <td><%= (+expected_cost).toFixed(2)%></td>
+    <!--                фактична-->
+    <td class="curr-amount">
+        <span class="curr-amount-text"></span>
+        <label class="input-style">
+            <input style="width: 100%" type="number" class="input curr-amount-input" min="0" placeholder="фактична кількість">
+        </label>
+    </td>
+    <td class="curr-price">0.00</td>
+</tr>

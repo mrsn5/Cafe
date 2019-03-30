@@ -193,8 +193,11 @@ define("PATH", get_template_directory_uri());
 
         <div class="table-area">
             <div class="show_items_btn">
+                <span id="ivent_print">Друкувати</span>
+
                 <span id="all_items">Всі інгредієнти</span>
             </div>
+
             <table id="ingredients_table">
                 <thead>
                 <tr>
@@ -213,78 +216,47 @@ define("PATH", get_template_directory_uri());
                 <thead>
                 <tr>
                     <th>код товару</th>
-                    <th>назва товару</th>
-                    <th>назва інгредієнту</th>
-                    <th>одиниці вимірювання</th>
+                    <th style="width: 15%">назва товару</th>
+                    <th style="width: 15%">назва інгредієнту</th>
+                    <th style="width: 3%">од. вим.</th>
+                    <th style="width: 10%">ціна за од.</th>
                     <th>кількість при закупці</th>
                     <th>сума при закупці(грн)</th>
                     <th>очікувана кількість</th>
                     <th>очікувана сума (грн)</th>
-                    <th>фактична кількість</th>
+                    <th style="width: 10%">фактична кількість</th>
                     <th>фактична сума (грн)</th>
                 </tr>
                 </thead>
 
-                <tbody class="color-lines">
-                <tr>
-                    <td>1234</td>
-                    <td>картопля білоруська</td>
-                    <td>картопля</td>
-                    <td>кг</td>
-                    <!--                при закупці-->
-                    <td>200</td>
-                    <td>300</td>
-                    <!--                очікувана-->
-                    <td>150</td>
-                    <td>250</td>
-                    <!--                фактична-->
-                    <td>
-                        <label class="input-style">
-                            <input type="number" class="input" min="0" placeholder="фактична кількість">
-                        </label>
-                    </td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td>картопля білоруська</td>
-                    <td>картопля</td>
-                    <td>кг</td>
-                    <!--                при закупці-->
-                    <td>200</td>
-                    <td>300</td>
-                    <!--                очікувана-->
-                    <td>150</td>
-                    <td>250</td>
-                    <!--                фактична-->
-                    <td>
-                        <label class="input-style">
-                            <input type="number" class="input" min="0" placeholder="фактична кількість">
-                        </label>
-                    </td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td>картопля білоруська</td>
-                    <td>картопля</td>
-                    <td>кг</td>
-                    <!--                при закупці-->
-                    <td>200</td>
-                    <td>300</td>
-                    <!--                очікувана-->
-                    <td>150</td>
-                    <td>250</td>
-                    <!--                фактична-->
-                    <td>
-                        <label class="input-style">
-                            <input type="number" class="input" min="0" placeholder="фактична кількість">
-                        </label>
-                    </td>
-                    <td>0</td>
-                </tr>
+                <tbody class="color-lines" id="ivent_goods_container">
+
                 </tbody>
             </table>
+
+            <div class="ivent-print-inputs">
+                <div class="ivent-input ivent-person">
+                    <span>Івентаризацію провів</span>
+                    <label class="input-style person-input">
+                        <input class="input" type="text" id="ivent_person">
+                    </label>
+                </div>
+
+                <div class="ivent-input ivent-date">
+                    <span>Дата</span>
+                    <label class="input-style date-input">
+                        <input class="input" type="text" id="ivent_date">
+                    </label>
+
+                    <div class="ivent-sign">
+                        <span>Підпис</span>
+                        <label class="input-style date-input">
+                            <input class="input" type="text" id="ivent_sign">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -29,9 +29,11 @@ add_action('wp_ajax_nopriv_get_all_goods', 'get_all_goods');
 add_action('wp_ajax_get_employee_by_name', 'get_employee_by_name');
 add_action('wp_ajax_nopriv_get_employee_by_name', 'get_employee_by_name');
 
-
 add_action('wp_ajax_discarding_add', 'discarding_add');
 add_action('wp_ajax_nopriv_discarding_add', 'discarding_add');
+
+add_action('wp_ajax_iventarization', 'iventarization');
+add_action('wp_ajax_nopriv_iventarization', 'iventarization');
 
 function ing_units_select()
 {
@@ -286,6 +288,29 @@ function discarding_add(){
         echo $sqlQuery;
     }
     echo "ADDED!";
+    DBHelper::disconnect();
+    die;
+}
+
+
+function iventarization(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery = "SELECT unique_code, goods_name, unit_name, start_amount, start_amount*unit_price AS start_cost, 
+                                    expected_amount, cost AS expected_cost, ing_name, unit_price
+                     FROM goods;";
+
+    $sqlQueryUpdate = "UPDATE goods SET
+                       inventarization_date =  DATE_FORMAT(CURRENT_DATE,'%Y-%m-%d')";
+
+    $goods = array();
+    foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+        $goods[] = $row;
+    }
+
+    $conn->query($sqlQueryUpdate, PDO::FETCH_ASSOC);
+
+    echo json_encode($goods, JSON_UNESCAPED_UNICODE);
     DBHelper::disconnect();
     die;
 }

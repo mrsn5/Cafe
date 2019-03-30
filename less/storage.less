@@ -139,5 +139,80 @@
     #inventory_table{
       display: none;
     }
+
+    #ivent_print{
+      visibility: hidden;
+    }
+
+
+  }
+
+  .ivent-print-inputs{
+    margin-top: 50px;
+    display: none;
+  }
+
+  .ivent-input{
+    margin-top: 20px;
+    font-size: (@main_font_size + 2);
+    //display: none;
+
+    input{
+      width: 100%;
+      border-bottom: 1px solid @gray_tone_6;
+    }
+  }
+
+  .person-input{
+    width: 50%;
+  }
+
+  .ivent-sign{
+    display: inline-block;
+    margin-left: 30px;
+  }
+}
+
+@media print {
+  background-image: none;
+  background-color: white;
+
+  .header{
+    display: none!important;
+    div, ul{
+      display: none!important;
+    }
+  }
+
+  #ivent_print{
+    display: none!important;
+  }
+
+  #all_items{
+    display: none!important;
+  }
+
+  .table-area{
+    margin-top: -100px!important;
+    padding-top: 0!important;
+    margin-left: 0!important;
+  }
+
+  #inventory_table{
+    tr{
+      th{
+        border: 1px solid @primary_color_gray!important;
+      }
+    }
+
+    .curr-amount{
+      .input-style{
+        visibility: hidden!important;
+      }
+    }
+  }
+
+  .ivent-print-inputs{
+    display: block!important;
   }
 }
