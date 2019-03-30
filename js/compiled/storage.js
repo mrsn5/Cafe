@@ -8,7 +8,6 @@ let ing_templ = ejs.compile("<%\r\nfunction getValOrNull(param) {\r\n    if(para
 
 
 $(function(){
-
     let $inventory_table = $('#inventory_table');
     let $ingredients_table = $('#ingredients_table');
 
@@ -24,18 +23,15 @@ $(function(){
         $inventory_table.hide();
     });
 
-
-    $ings_cont = $("#ingredient_container");
-    ings_units = [];
+    let $ings_cont = $("#ingredient_container");
+    let ings_units = [];
 
     get_units(function (data) {
         ings_units = data;
-
         get_ings(null, null, null);
-
         addChangeListeners();
+        fillNewIngUnits(ings_units);
     });
-
 
     $("#search_ings").on('click', function () {
         let search_name = $("#search_ing_name").val().trim();
@@ -52,6 +48,15 @@ $(function(){
 
     $("#all_items").on('click', function () {
         get_ings(null, null, null);
+    });
+
+    $("#add_ing").on('click', function () {
+        add_ing();
+    });
+
+    $("#cancel_add_ing").on('click', function () {
+        $("#new_ing_name").val('');
+        $("#new_ing_units").val(ings_units[0]);
     });
 
     function get_ings(name, exp_date, run_out_ings) {
@@ -124,6 +129,30 @@ $(function(){
                     console.log('UPDATED');
                 }
             });
+        });
+    }
+
+    function add_ing() {
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'ing_add',
+                ing_name: $("#new_ing_name").val(),
+                units: $("#new_ing_units").val()
+            },
+            success: function (res) {
+                get_ings(null, null, null);
+                console.log(res);
+            }
+        });
+    }
+
+    function fillNewIngUnits(units) {
+        let $units_list = $("#new_ing_units");
+        $units_list.html('');
+        units.forEach(function (unit) {
+            $units_list.append("<option>" + unit + "</option>");
         });
     }
 });

@@ -20,6 +20,9 @@ add_action('wp_ajax_nopriv_ingredient_select', 'ingredient_select');
 add_action('wp_ajax_ing_change', 'ing_change');
 add_action('wp_ajax_nopriv_ing_change', 'ing_change');
 
+add_action('wp_ajax_ing_add', 'ing_add');
+add_action('wp_ajax_nopriv_ing_add', 'ing_add');
+
 function ing_units_select()
 {
     $conn = DBHelper::connect();
@@ -168,6 +171,30 @@ function ing_change(){
         echo $sqlQuery;
     }
 
+    DBHelper::disconnect();
+    die;
+}
+
+
+function ing_add(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery =
+        str_replace(
+            "'NULL'", "NULL",
+            "INSERT INTO ingredients
+                    (ing_name, units)
+                    VALUES ('"
+                           . $_POST['ing_name'] . "', '"
+                           . $_POST['units'] . "');");
+    try {
+        $conn->query($sqlQuery);
+
+    } catch (Exception $e) {
+        echo 'Exception: ', $e->getMessage(), "\n";
+        echo $sqlQuery;
+    }
+    echo "ADDED!";
     DBHelper::disconnect();
     die;
 }

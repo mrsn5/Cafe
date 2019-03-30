@@ -59,12 +59,12 @@ define("PATH", get_template_directory_uri());
             <div class="modal-body">
                 <label class="input-style">
                     Назва інгредієнту
-                    <input type="text" class="ing-name input" placeholder="Назва">
+                    <input type="text" class="ing-name input" id="new_ing_name" placeholder="Назва">
                 </label>
 
                 <label class="input-style">
                     Одиниці вимірювання
-                    <select class="select-units input">
+                    <select class="select-units input" id="new_ing_units">
                         <option value="кг">кг</option>
                         <option value="л">л</option>
                         <option value="шт">шт</option>
@@ -73,8 +73,8 @@ define("PATH", get_template_directory_uri());
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-style save-modal-btn" data-dismiss="modal">SAVE</button>
-                <button type="button" class="btn btn-style close-modal-btn" data-dismiss="modal">CANCEL</button>
+                <button type="button" class="btn btn-style save-modal-btn" id="add_ing" data-dismiss="modal">SAVE</button>
+                <button type="button" class="btn btn-style close-modal-btn" id="cancel_add_ing" data-dismiss="modal">CANCEL</button>
             </div>
         </div>
     </div>
