@@ -26,7 +26,7 @@ $(function () {
     let delivery_goods = [];
 
     let $deliveries_cont = $('#deliveries_list');
-    get_deliveries(null, null, null, null);
+    getDeliveries(null, null, null, null);
 
     addChangeListeners();
 
@@ -58,7 +58,7 @@ $(function () {
             is_received = $('#search_received').is(':checked');
         }
 
-        get_deliveries(date_from, date_to, is_paid, is_received);
+        getDeliveries(date_from, date_to, is_paid, is_received);
     });
 
     $("#save_delivery").on('click', function () {
@@ -80,8 +80,9 @@ $(function () {
                     goods: delivery_goods
                 },
                 success: function (res) {
-                    get_deliveries(null, null, null, null);
+                    getDeliveries(null, null, null, null);
                     console.log(res);
+                    delivery_goods = [];
                 }
             });
         });
@@ -90,7 +91,7 @@ $(function () {
     });
 
     $('#all_deliveries').on('click', function () {
-        get_deliveries(null, null, null, null);
+        getDeliveries(null, null, null, null);
     });
 
     function fillUnitsList($units_cont, units) {
@@ -137,7 +138,7 @@ $(function () {
         });
     }
 
-    function get_deliveries(dateFrom, dateTo, paid, received) {
+    function getDeliveries(dateFrom, dateTo, paid, received) {
         console.log(dateFrom);
         console.log(dateTo);
         console.log(paid);

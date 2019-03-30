@@ -17,6 +17,7 @@ add_action('wp_ajax_nopriv_delivery_change', 'delivery_change');
 add_action('wp_ajax_delivery_add', 'delivery_add');
 add_action('wp_ajax_nopriv_delivery_add', 'delivery_add');
 
+
 function delivery_select()
 {
     $conn = DBHelper::connect();

@@ -122,7 +122,7 @@ define("PATH", get_template_directory_uri());
     <div class="inf-area">
         <div class="toggle-area discarding-area">
             <div class="discarding-header">
-                <button class="save-discarding-btn btn-style">Списати</button>
+                <button class="save-discarding-btn btn-style" id="add_discarding">Списати</button>
             </div>
             <div class="products">
                 <h3>Продукти</h3>
@@ -133,6 +133,9 @@ define("PATH", get_template_directory_uri());
                             <th class="number-col" style="width: 5%"></th>
                             <th class="" style="width: 10%">код</th>
                             <th class="" style="width: 15%">назва</th>
+                            <th class="" style="width: 7%">один. вимірюв.</th>
+                            <th class="" style="width: 7%">ціна за од.</th>
+                            <th class="" style="width: 10%">поточна кількість</th>
                             <th class="" style="width: 10%">кількість</th>
                             <th class="" style="width: 10%">заг. вартість (грн)</th>
                             <th class="reason" style="width: 35%">причина</th>
@@ -140,92 +143,48 @@ define("PATH", get_template_directory_uri());
                         </tr>
                         </thead>
 
-                        <tbody>
-                        <tr class="product">
-                            <td>1</td>
-                            <td>1234</td>
-                            <td>картопля</td>
-
-                            <td class="editable-cell">
-                                <span class="value">20</span>
-                                <label class="input-data input-style">
-                                    <input type="number" class="input">
-                                </label>
-                            </td>
-
-                            <td>1342</td>
-
-                            <td class="editable-cell reason-cell">
-                                <span class="value">-</span>
-                                <label class="input-data input-style">
-                                    <input type="text" class="input">
-                                </label>
-                            </td>
-
-                            <td><img class="icon" src="<?php echo PATH ?>/images/delete.svg"></td>
-                        </tr>
-                        <tr class="product">
-                            <td>1</td>
-                            <td>1234</td>
-                            <td>картопля</td>
-
-                            <td class="editable-cell">
-                                <span class="value">20</span>
-                                <label class="input-data input-style">
-                                    <input type="number" class="input">
-                                </label>
-                            </td>
-
-                            <td>1342</td>
-
-                            <td class="editable-cell reason-cell">
-                                <span class="value">-</span>
-                                <label class="input-data input-style">
-                                    <input type="text" class="input">
-                                </label>
-                            </td>
-
-                            <td><img class="icon" src="<?php echo PATH ?>/images/delete.svg"></td>
-                        </tr>
-
+                        <tbody id="disc_goods_list">
                         <!--row for new product-->
-                        <tr class="product">
-                            <td>1</td>
+                        <tr class="product" id="disc_new_good">
+                            <td></td>
                             <td>
                                 <label class="input-style">
-                                    <input type="number" class="input" placeholder="код"/>
+                                    <input type="number" class="input" id="good_code" placeholder="код"/>
                                 </label>
                             </td>
 
-                            <td class="">
-                                назва
-                            </td>
+                            <td class="" id="good_name"></td>
+                            <td class="" id="good_unit"></td>
+                            <td id="price_per_unit">0</td>
+                            <td id="curr_amount">0</td>
 
                             <td class="">
                                 <label class="input-style">
-                                    <input type="number" class="input" placeholder="кількість">
+                                    <input type="number" class="input" id="good_amount" placeholder="кількість">
                                 </label>
                             </td>
-                            <td>0</td>
+
+                            <td id="good_cost">0</td>
+
                             <td class="reason-cell">
                                 <label class="input-style">
-                                    <input type="text" class="input" placeholder="причина">
+                                    <input type="text" class="input" id="reason" placeholder="причина">
                                 </label>
                             </td>
 <!--                            <td><img class=" icon" src="--><?php //echo PATH ?><!--/images/delete.svg"></td>-->
-                            <td><img class=" icon" src="<?php echo PATH ?>/images/checked.svg"></td>
+                            <td><img class="icon" id="add_good" src="<?php echo PATH ?>/images/checked.svg"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="total">
                     <span>Всього</span>
-                    <span class="total-price">174,42 грн</span>
+                    <span class="total-price"><span id="price_value">0</span> грн</span>
                 </div>
                 <div class="resp-person">
                     <span>Відповідальна особа</span>
                     <label class="input-style">
-                        <input class="input" type="text" placeholder="Ім'я робітника">
+                        <input class="input" type="text" id="resp_person" placeholder="ПІБ робітника">
                     </label>
                 </div>
 <!--                <button class="add-product-btn btn-style">Додати продукт</button>-->

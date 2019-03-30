@@ -23,6 +23,16 @@ add_action('wp_ajax_nopriv_ing_change', 'ing_change');
 add_action('wp_ajax_ing_add', 'ing_add');
 add_action('wp_ajax_nopriv_ing_add', 'ing_add');
 
+add_action('wp_ajax_get_all_goods', 'get_all_goods');
+add_action('wp_ajax_nopriv_get_all_goods', 'get_all_goods');
+
+add_action('wp_ajax_get_employee_by_name', 'get_employee_by_name');
+add_action('wp_ajax_nopriv_get_employee_by_name', 'get_employee_by_name');
+
+
+add_action('wp_ajax_discarding_add', 'discarding_add');
+add_action('wp_ajax_nopriv_discarding_add', 'discarding_add');
+
 function ing_units_select()
 {
     $conn = DBHelper::connect();
@@ -192,6 +202,87 @@ function ing_add(){
 
     } catch (Exception $e) {
         echo 'Exception: ', $e->getMessage(), "\n";
+        echo $sqlQuery;
+    }
+    echo "ADDED!";
+    DBHelper::disconnect();
+    die;
+}
+
+
+function get_all_goods(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery = "SELECT unique_code, goods_name, unit_price, curr_amount, unit_name
+                 FROM goods;";
+
+    $goods = array();
+    foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+        $goods[] = $row;
+    }
+    echo json_encode($goods, JSON_UNESCAPED_UNICODE);
+    DBHelper::disconnect();
+    die;
+}
+
+
+function get_employee_by_name(){
+        $conn = DBHelper::connect();
+
+        $sqlQuery = "SELECT tab_num
+                     FROM workers
+                     WHERE surname = '".$_POST['surname']."'
+                       AND first_name = '".$_POST['first_name']."'
+                       AND IF(father_name IS NULL , '', father_name) = '".$_POST['father_name']."';";
+
+        $workers = array();
+        foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+            $workers[] = $row;
+        }
+        $worker = count($workers) == 0 ? null : $workers[0];
+
+        echo json_encode($worker, JSON_UNESCAPED_UNICODE);
+        DBHelper::disconnect();
+        die;
+}
+
+
+function discarding_add(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery =
+        str_replace(
+            "'NULL'", "NULL",
+            "INSERT INTO discarding
+        (discard_date, cost, tab_num)
+        VALUES (
+        '".$_POST['date']."', 
+         ".$_POST['cost'].", 
+        '".$_POST['resp_person']."');");
+
+    try {
+        $conn->query($sqlQuery);
+
+        $last_id = $conn->lastInsertId();
+
+        $goods = $_POST['goods'];
+
+        foreach ($goods as $good) {
+            $sqlQueryGood = str_replace(
+                "'NULL'", "NULL",
+                "INSERT INTO discarding_goods
+                          (discard_code, good_code, amount, reason, cost) 
+                               VALUES (
+                                ".$last_id.",
+                               '" . $good['good_code'] . "',
+                               '" . $good['amount'] . "',
+                               '" . $good['reason'] . "',
+                               '" . $good['cost'] . "');");
+
+            $conn->query($sqlQueryGood);
+        }
+    } catch (Exception $e) {
+        echo 'Exception: ',  $e->getMessage(), "\n";
         echo $sqlQuery;
     }
     echo "ADDED!";
