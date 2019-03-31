@@ -28,8 +28,8 @@ $(function () {
                 name: name
             },
             success: function (res) {
-                res = JSON.parse(res);
                 console.log(res);
+                res = JSON.parse(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
                     $personnel_table.append($node);

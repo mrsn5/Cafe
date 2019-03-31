@@ -4,8 +4,8 @@
 class DBHelper {
     private static $servername = "localhost";
     private static $username = "root";
-    private static $password = "";
-    private static $port = 3306;
+    private static $password = "root";
+    private static $port = 8889;
     private static $myDB = "cafe";
     private static $conn = null;
 

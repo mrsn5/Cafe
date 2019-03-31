@@ -4,7 +4,7 @@ var $ = jQuery;
 
 let ejs = require('ejs');
 
-let delivererTempl = ejs.compile("<tr>\r\n    <td class=\"code\"><%= code %></td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"> <%= company_name %> </span>\r\n        <label class=\"input-data\">\r\n            <input type=\"text\" class=\"input company-name-input\"/>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= address %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"text\" class=\"input address-input\"/>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= contact_person_name %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"text\" class=\"input cont-person-name-input\"/>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= contact_person_tel %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"tel\" class=\"input cont-person-tel-input\"/>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= email %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"email\" class=\"input email-input\"/>\r\n        </label>\r\n    </td>\r\n    <td>\r\n        <span ><%= sign_date %></span>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= break_date %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"date\" class=\"input break-date-input\"/>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell break-reason\">\r\n        <span class=\"value\"><%= break_reason %></span>\r\n        <label class=\"input-data\">\r\n            <input type=\"text\" class=\"input break-reason-input\"/>\r\n        </label>\r\n    </td>\r\n</tr>");
+let delivererTempl = ejs.compile("<tr>\n    <td class=\"code\"><%= code %></td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"> <%= company_name %> </span>\n        <label class=\"input-data\">\n            <input type=\"text\" class=\"input company-name-input\"/>\n        </label>\n    </td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"><%= address %></span>\n        <label class=\"input-data\">\n            <input type=\"text\" class=\"input address-input\"/>\n        </label>\n    </td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"><%= contact_person_name %></span>\n        <label class=\"input-data\">\n            <input type=\"text\" class=\"input cont-person-name-input\"/>\n        </label>\n    </td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"><%= contact_person_tel %></span>\n        <label class=\"input-data\">\n            <input type=\"tel\" class=\"input cont-person-tel-input\"/>\n        </label>\n    </td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"><%= email %></span>\n        <label class=\"input-data\">\n            <input type=\"email\" class=\"input email-input\"/>\n        </label>\n    </td>\n    <td>\n        <span ><%= sign_date %></span>\n    </td>\n    <td class=\"editable-cell\">\n        <span class=\"value\"><%= break_date %></span>\n        <label class=\"input-data\">\n            <input type=\"date\" class=\"input break-date-input\"/>\n        </label>\n    </td>\n    <td class=\"editable-cell break-reason\">\n        <span class=\"value\"><%= break_reason %></span>\n        <label class=\"input-data\">\n            <input type=\"text\" class=\"input break-reason-input\"/>\n        </label>\n    </td>\n</tr>");
 
 $(function () {
     let $deliverer_table = $("#deliverer_table");
@@ -1355,7 +1355,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
+      "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1379,7 +1379,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
+  "_where": "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

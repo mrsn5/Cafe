@@ -4,7 +4,7 @@ let $ = jQuery;
 
 let ejs = require('ejs');
 
-var personnel = ejs.compile("<tr>\r\n<td class=\"tab_num\"><%= tab_num %></td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= first_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input name-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= surname %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input surname-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= father_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input fathername-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= birth_date %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"date\" class=\"input birthdate-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= address %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input address-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= gender %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input gender-input\">\r\n            <option value=\"Ч\">Ч</option>\r\n            <option value=\"Ж\">Ж</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= tel_num %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"tel\" class=\"input tel-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= position %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input position-input\">\r\n            <option value=\"власник\">власник</option>\r\n            <option value=\"офіціант\">офіціант</option>\r\n            <option value=\"бармен\">бармен</option>\r\n            <option value=\"кухар\">кухар</option>\r\n            <option value=\"бухгалтер\">бухгалтер</option>\r\n            <option value=\"адміністратор\">адміністратор</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= salary %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"number\" class=\"input salary-input\">\r\n    </label>\r\n</td>\r\n</tr>");
+var personnel = ejs.compile("<tr>\n<td class=\"tab_num\"><%= tab_num %></td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= first_name %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"text\" class=\"input name-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= surname %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"text\" class=\"input surname-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= father_name %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"text\" class=\"input fathername-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= birth_date %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"date\" class=\"input birthdate-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= address %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"text\" class=\"input address-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= gender %></span>\n    <label class=\"input-data input-style\">\n        <select class=\"input gender-input\">\n            <option value=\"Ч\">Ч</option>\n            <option value=\"Ж\">Ж</option>\n        </select>\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= tel_num %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"tel\" class=\"input tel-input\">\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= position %></span>\n    <label class=\"input-data input-style\">\n        <select class=\"input position-input\">\n            <option value=\"власник\">власник</option>\n            <option value=\"офіціант\">офіціант</option>\n            <option value=\"бармен\">бармен</option>\n            <option value=\"кухар\">кухар</option>\n            <option value=\"бухгалтер\">бухгалтер</option>\n            <option value=\"адміністратор\">адміністратор</option>\n        </select>\n    </label>\n</td>\n<td class=\"editable-cell\">\n    <span class=\"value\"><%= salary %></span>\n    <label class=\"input-data input-style\">\n        <input type=\"number\" class=\"input salary-input\">\n    </label>\n</td>\n</tr>");
 
 $(function () {
     var $personnel_table = $("#personnel-table");
@@ -29,8 +29,8 @@ $(function () {
                 name: name
             },
             success: function (res) {
-                res = JSON.parse(res);
                 console.log(res);
+                res = JSON.parse(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
                     $personnel_table.append($node);
@@ -1358,7 +1358,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
+      "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1382,7 +1382,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
+  "_where": "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
