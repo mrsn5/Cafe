@@ -17,7 +17,6 @@ define("PATH", get_template_directory_uri());
 </head>
 <body>
 <div class="order-container">
-
         <div class="order-header-panel">
             <div class="order-num">
                 <h2 class="order-header">#1203</h2>

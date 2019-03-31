@@ -1,12 +1,17 @@
-var $ = jQuery;
+let Gen = require("./general_functions");
+var $ = jQuery
 
+let Storage = require('./locStorage');
 let fs = require('fs');
 let ejs = require('ejs');
 
 let category = ejs.compile(fs.readFileSync("./templates/category.ejs", "utf8"));
 let ing_row = ejs.compile(fs.readFileSync("./templates/new_dish_ing_row.ejs", "utf8"));
 
+
 $(function () {
+    let url_params = Gen.decodeUrl();
+
     let $categories_container = $("#categories_container");
     let $cat_list = $("#categories_add");
     let $ings_list = $("#ing_list");
@@ -22,10 +27,13 @@ $(function () {
     });
 
     $("body").on('click', ".category-name", function () {
-       let cat_name = $(this).text().trim();
-       localStorage.setItem('cat_name', cat_name);
+        let cat_name = $(this).text().trim();
+        Storage.set('cat_name', cat_name);
 
-       window.location.href = url_object.category_page_url;
+        let url = url_object.category_page_url;
+        if (url_params['order_num'])
+            url += '/?order_num=' + encodeURI(url_params['order_num']);
+        window.location.href = url;
     });
 
 
@@ -47,7 +55,7 @@ $(function () {
                 price: $("#price_value").text()
             },
             success: function (res) {
-             //   get_personnel(null, null);
+                //   get_personnel(null, null);
                 console.log(res);
             }
         });
@@ -61,6 +69,7 @@ $(function () {
             $categories_container.append($node);
         });
     }
+
     function categoriesList(cats) {
         cats.forEach(function (el) {
             $cat_list.append("<option>" + el['cat_name'] + "</option>");
@@ -71,10 +80,10 @@ $(function () {
         let new_price = 0;
 
         ings.forEach(function (ing) {
-           new_price = new_price + +ing['gen_price'];
+            new_price = new_price + +ing['gen_price'];
         });
 
-        $('#price_value').text((new_price*1.5).toFixed(2));
+        $('#price_value').text((new_price * 1.5).toFixed(2));
     }
 
     function defineNewIngRow(ings) {
@@ -87,29 +96,29 @@ $(function () {
         $ings_select.on('input', function () {
             let ing_name = $(this).val();
             ings.forEach(function (el) {
-                if(el['ing_name'] === ing_name)
+                if (el['ing_name'] === ing_name)
                     ing = el;
             });
 
-            if(ing){
+            if (ing) {
                 $price_cell.text(ing['unit_price'].toFixed(5));
             }
         });
 
         $amount_input.on('input', function () {
             let amount = $(this).val();
-            if(ing){
-                $gen_price_cell.text((ing['unit_price']*amount).toFixed(2));
+            if (ing) {
+                $gen_price_cell.text((ing['unit_price'] * amount).toFixed(2));
             }
         });
 
         $("#add_ingredient").on('click', function () {
-            if(ing){
+            if (ing) {
                 let ing_elem = {
-                    index:dish_ings.length + 1,
+                    index: dish_ings.length + 1,
                     ing_name: ing['ing_name'],
                     ing_amount: $amount_input.val(),
-                    unit_price:ing['unit_price'],
+                    unit_price: ing['unit_price'],
                     gen_price: $gen_price_cell.text()
                 };
                 let $node = $(ing_row(ing_elem));
@@ -117,7 +126,7 @@ $(function () {
                 dish_ings.push(ing_elem);
                 $("#new_product").before($node);
                 updateDishPrice(dish_ings);
-            //    $("#product_container").prepend($node);
+                //    $("#product_container").prepend($node);
             }
 
             $ings_select.val('');
@@ -131,7 +140,7 @@ $(function () {
             dish_ings.splice(index, 1);
 
             $(this).parents('tr').nextAll().each(function () {
-               let i = $(this).find(".index").text();
+                let i = $(this).find(".index").text();
                 $(this).find(".index").text(i - 1);
             });
 
@@ -155,7 +164,6 @@ $(function () {
                 res = JSON.parse(res);
                 console.log(res);
                 callback(res);
-
             }
         });
     }

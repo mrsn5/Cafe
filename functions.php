@@ -67,7 +67,9 @@ function load_my_scripts(){
             case 'category.php':
                 wp_enqueue_script('category-ajax-script', get_template_directory_uri() . '/js/compiled/category.js', array('jquery'), '1.0.0', true);
                 wp_localize_script('category-ajax-script', 'url_object',
-                    array('ajax_url' => admin_url('admin-ajax.php'), 'template_directory' => get_stylesheet_directory_uri()));
+                    array('ajax_url' => admin_url('admin-ajax.php'), 'template_directory' => get_stylesheet_directory_uri(),
+                        'orders_page_url' => get_permalink(get_page_by_title( 'Orders' )),
+                        'menu_page_url' => get_permalink(get_page_by_title( 'Menu' ))));
                 break;
             case 'deliverer.php':
                 wp_enqueue_script('deliverer-ajax-script', get_template_directory_uri() . '/js/compiled/deliverer.js', array('jquery'), '1.0.0', true);
@@ -87,7 +89,8 @@ function load_my_scripts(){
             case 'orders_page.php':
                 wp_enqueue_script('orders-ajax-script', get_template_directory_uri() . '/js/compiled/orders.js', array('jquery'), '1.0.0', true);
                 wp_localize_script('orders-ajax-script', 'url_object',
-                    array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri()));
+                    array('ajax_url' => admin_url('admin-ajax.php'),'template_directory' => get_stylesheet_directory_uri(),
+                        'menu_page_url' => get_permalink(get_page_by_title( 'Menu' ))));
                 break;
             case 'deliveries.php':
                 wp_enqueue_script('deliveries-ajax-script', get_template_directory_uri() . '/js/compiled/deliveries.js', array('jquery'), '1.0.0', true);

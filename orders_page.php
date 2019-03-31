@@ -10,6 +10,7 @@ define("PATH", get_template_directory_uri());
     <link href="<?php echo PATH?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <!--<link rel="stylesheet" type="text/css" href="css/orders.css">-->
     <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/orders_page.less" />
+    <link rel="stylesheet/less" type="text/css" href="<?php echo PATH?>/less/new_order.less" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 
     <?php wp_head(); ?>
@@ -20,7 +21,7 @@ define("PATH", get_template_directory_uri());
 <body>
 
 <div class="header">
-    <div class="toggle-btn header-btn-style" id="add_btn">
+    <div class="toggle-btn header-btn-style" id="add_order_btn">
         Додати замовлення
     </div>
 
@@ -36,9 +37,9 @@ define("PATH", get_template_directory_uri());
             <h3 class="orders-label">Мої замовлення</h3>
             <div class="temp-order-area">
                 <h3 class="order-list-label">Не збережені</h3>
-                <ul>
-                    <li class="order-item"><?php include('new_order.php');?></li>
-                    <li class="order-item"><?php include('new_order.php');?></li>
+                <ul id="unsaved_orders_list">
+<!--                    <li class="order-item">--><?php //include('new_order.php');?><!--</li>-->
+<!--                    <li class="order-item">--><?php //include('new_order.php');?><!--</li>-->
                 </ul>
 
                 <h3 class="order-list-label">Відкриті</h3>

@@ -102,5 +102,18 @@ function rotateImage($imageEl) {
     }
 }
 
+function decodeUrl() {
+    let search = location.search.substring(1);
+
+    if(search == ''){
+        return {};
+    }
+
+    let url_params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    return url_params;
+}
+
+
 exports.rotateImage = rotateImage;
+exports.decodeUrl = decodeUrl;
 

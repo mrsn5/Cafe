@@ -1,18 +1,44 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var $ = jQuery;
+var basil = require("basil.js");
 
+options = {
+    storages: ['session']
+};
+
+basil = new basil(options);
+
+exports.set = function(key, value){
+    basil.set(key, value);
+};
+
+exports.get = function(key){
+    return basil.get(key);
+};
+},{"basil.js":3}],2:[function(require,module,exports){
+let $ = jQuery;
+
+let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-var order = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\r\n        <h1>12</h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" id=\"box-1\">\r\n                    <% } %>\r\n                    <label for=\"box-1\">\r\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } else if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let order = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\r\n        <h1>12</h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" id=\"box-1\">\r\n                    <% } %>\r\n                    <label for=\"box-1\">\r\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } else if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let new_order_templ = ejs.compile("<li class=\"order-item\">\r\n    <div class=\"order-container\">\r\n        <div class=\"order-header-panel\">\r\n            <div class=\"order-num\">\r\n                <h2 class=\"order-header\">#<span id=\"order_num\"><%= order.order_num %></span></h2>\r\n            </div>\r\n\r\n            <div class=\"table-num-list\">\r\n                <div class=\"btn-group\">\r\n                    <button class=\"btn btn-secondary dropdown-btn dropdown-btn-val\" type=\"button\">\r\n                        <h2 class=\"order-header\">1</h2>\r\n                    </button>\r\n                    <button class=\"btn btn-secondary dropdown-toggle dropdown-toggle-split dropdown-btn dropdown-btn-img\"\r\n                            type=\"button\" id=\"tableListDropdown\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"true\">\r\n                        <img src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">1</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">5</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">12</h2></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"order-time\"><%= order.order_time %></div>\r\n        </div>\r\n        <div class=\"order-content\">\r\n            <ul>\r\n                <% for(let i = 0; i < order.dishes.length; i++) { %>\r\n                    <li class=\"item\">\r\n                        <div class=\"item-info\">\r\n                            <span class=\"item-number\"><%= i+1%></span>\r\n                            <div class=\"text\">\r\n                                <span class=\"name\"><%= order.dishes[i].dish_name%></span>\r\n                                <br/>\r\n                                <span class=\"comment\" id=\"comment_text\"></span>\r\n                            </div>\r\n                            <div class=\"comment-icon\">\r\n                                <a class=\"modal-show-btn\" data-toggle=\"modal\" href=\"\" id=\"add_comment_btn\"><img\r\n                                            src=\"<%= url_object.template_directory %>/images/add-comment2.png\"\r\n                                            alt=\"AddComment\"/></a>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <input type=\"number\" min=\"1\" class=\"quantity\" value=\"<%= order.dishes[i].quantity%>\">\r\n                        <span class=\"price\"><span class=\"dish-price\"><%= order.dishes[i].dish_price%></span> грн</span>\r\n\r\n                        <div class=\"modal fade show-modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n                            <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n                                <div class=\"modal-content\">\r\n                                    <div class=\"modal-header\">\r\n                                        <h2 class=\"modal-title comment-modal-title\" id=\"modal_comment_title\">\r\n                                            Коментар</h2>\r\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                                            <span aria-hidden=\"true\">&times;</span>\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"modal-body\">\r\n                                        <input type=\"text\" class=\"comment-input-class\" id=\"input_comment\">\r\n                                    </div>\r\n                                    <div class=\"modal-footer\">\r\n                                        <button type=\"button\" class=\"btn btn-style save-modal-btn\" id=\"save_comment\"\r\n                                                data-dismiss=\"modal\">SAVE\r\n                                        </button>\r\n                                        <button type=\"button\" class=\"btn btn-style close-modal-btn\"\r\n                                                data-dismiss=\"modal\">CANCEL\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n                <li class=\"item add-new-item add-dish-btn\">\r\n                    <div class=\"item-info\">\r\n                        <div class=\"add-block\">\r\n                            <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" class=\"add-icon\">\r\n                            <span class=\"add-new-item-text\">Додати страву</span>\r\n                        </div>\r\n\r\n                    </div>\r\n                    <a href=\"#\"><span></span></a>\r\n                </li>\r\n            </ul>\r\n\r\n            <div class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><span class=\"order-total-cost\"><%= order_cost%></span> грн</span>\r\n            </div>\r\n\r\n            <div class=\"control-buttons\">\r\n                <button class=\"ok-button control-btn btn-style\">Зберегти</button>\r\n                <button class=\"cancel-button control-btn btn-style\">Видалити</button>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n</li>\r\n");
+
+Date.prototype.hrsmins = function () {
+    let hrs = this.getHours();
+    let mins = this.getMinutes();
+
+    return [hrs, mins
+    ].join(':');
+};
 
 $(function(){
+    let unsaved_orders = [];
 
     $(".dropdown-menu li a").click(function(){
         $(".dropdown-btn-val .order-header").text($(this).text());
         $(".dropdown-btn-val .order-header").val($(this).text());
     });
-
 
     $(".modal-show-btn").on('click', function () {
         var item = $(this).parents(".item");
@@ -37,6 +63,8 @@ $(function(){
     var open_orders = $("#open-orders");
 
     get_orders(false);
+
+    get_unsaved_orders();
 
     function get_orders(is_closed, tab_num) {
         open_orders.html("");
@@ -68,11 +96,529 @@ $(function(){
         });
     }
 
+    function get_unsaved_orders(){
+        unsaved_orders = Storage.get('unsaved_orders') ? Storage.get('unsaved_orders') : [];
 
+        unsaved_orders.forEach(function (order) {
+            let order_cost = 0;
+            for(let i = 0; i< order.dishes.length; i++)
+                order_cost += order.dishes[i].dish_price*order.dishes[i].quantity;
+
+            $("#unsaved_orders_list").prepend($(new_order_templ({
+                order:order,
+                order_cost: order_cost
+            })));
+        });
+    }
+
+
+    $('#add_order_btn').on('click', function () {
+        let order;
+        console.log(unsaved_orders.length);
+        if(unsaved_orders.length == 0){
+            get_next_order_id(function (data) {
+                order = {
+                    order_num: data['next_id'],
+                    order_time: new Date().hrsmins(),
+                    dishes: []
+                };
+                appendNewOrder(order);
+            });
+        }
+        else{
+            let last_order = getLastOrder();
+            console.log(last_order);
+            order = {
+                order_num: +(last_order['order_num']) + 1,
+                order_time: new Date().hrsmins(),
+                dishes: []
+            };
+            appendNewOrder(order);
+        }
+    });
+
+    function appendNewOrder(new_order) {
+        $("#unsaved_orders_list").prepend($(new_order_templ({
+            order: new_order,
+            order_cost: 0
+        })));
+
+        unsaved_orders.push(new_order);
+        Storage.set('unsaved_orders', unsaved_orders);
+    }
+
+    function getLastOrder() {
+        return unsaved_orders[unsaved_orders.length-1];
+    }
+
+    function get_next_order_id(callback){
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'get_next_order_id',
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+                callback(res);
+            }
+        });
+    }
+
+    $("#unsaved_orders_list").on('click', '.add-dish-btn', function () {
+        let $parent = $(this).parents('.order-container');
+        let order_num = $parent.find('#order_num').text();
+        console.log(order_num);
+
+        window.location.href = url_object.menu_page_url + '/?order_num=' + encodeURI(order_num);
+        // $.ajax({
+        //     url: url_object.ajax_url,
+        //     type: 'POST',
+        //     data: {
+        //         action: 'choose_order_dish_mode',
+        //         order_num: order_num
+        //     },
+        //     success: function (res) {
+        //         console.log(res);
+        //
+        //     }
+        // });
+    });
+
+    $("#unsaved_orders_list").on('input', '.quantity', function () {
+        let quantity = $(this).val();
+
+        let $parent = $(this).parents('.order-container');
+        let order_num = $parent.find('#order_num').text();
+        let dish_name = $(this).parents('.item').find('.name').text();
+
+        let orderIndex = unsaved_orders.findIndex(o => o.order_num == order_num);
+        if(orderIndex > -1){
+            console.log(order);
+            let i = unsaved_orders[orderIndex].dishes.findIndex(d => d.dish_name == dish_name);
+            if(i > -1){
+                unsaved_orders[orderIndex].dishes[i].quantity = quantity;
+            }
+
+            let $total_cost = $(this).parents('.order-container').find('.order-total-cost');
+            Storage.set('unsaved_orders', unsaved_orders);
+            updateOrderCost(unsaved_orders[orderIndex], $total_cost);
+        }
+    });
+
+
+    function updateOrderCost(order, $cost_label) {
+        let order_cost = 0;
+        for(let i = 0; i< order.dishes.length; i++)
+            order_cost += order.dishes[i].dish_price*order.dishes[i].quantity;
+        $cost_label.text(order_cost);
+    }
 });
-},{"ejs":3}],2:[function(require,module,exports){
+},{"./locStorage":1,"ejs":5}],3:[function(require,module,exports){
+(function () {
+	// Basil
+	var Basil = function (options) {
+		return Basil.utils.extend({}, Basil.plugins, new Basil.Storage().init(options));
+	};
 
-},{}],3:[function(require,module,exports){
+	// Version
+	Basil.version = '0.4.10';
+
+	// Utils
+	Basil.utils = {
+		extend: function () {
+			var destination = typeof arguments[0] === 'object' ? arguments[0] : {};
+			for (var i = 1; i < arguments.length; i++) {
+				if (arguments[i] && typeof arguments[i] === 'object')
+					for (var property in arguments[i])
+						destination[property] = arguments[i][property];
+			}
+			return destination;
+		},
+		each: function (obj, fnIterator, context) {
+			if (this.isArray(obj)) {
+				for (var i = 0; i < obj.length; i++)
+					if (fnIterator.call(context, obj[i], i) === false) return;
+			} else if (obj) {
+				for (var key in obj)
+					if (fnIterator.call(context, obj[key], key) === false) return;
+			}
+		},
+		tryEach: function (obj, fnIterator, fnError, context) {
+			this.each(obj, function (value, key) {
+				try {
+					return fnIterator.call(context, value, key);
+				} catch (error) {
+					if (this.isFunction(fnError)) {
+						try {
+							fnError.call(context, value, key, error);
+						} catch (error) {}
+					}
+				}
+			}, this);
+		},
+		registerPlugin: function (methods) {
+			Basil.plugins = this.extend(methods, Basil.plugins);
+		},
+		getTypeOf: function (obj) {
+			if (typeof obj === 'undefined' || obj === null)
+				return '' + obj;
+			return Object.prototype.toString.call(obj).replace(/^\[object\s(.*)\]$/, function ($0, $1) { return $1.toLowerCase(); });
+		}
+	};
+
+	// Add some isType methods: isArguments, isBoolean, isFunction, isString, isArray, isNumber, isDate, isRegExp, isUndefined, isNull.
+	var types = ['Arguments', 'Boolean', 'Function', 'String', 'Array', 'Number', 'Date', 'RegExp', 'Undefined', 'Null'];
+	for (var i = 0; i < types.length; i++) {
+		Basil.utils['is' + types[i]] = (function (type) {
+			return function (obj) {
+				return Basil.utils.getTypeOf(obj) === type.toLowerCase();
+			};
+		})(types[i]);
+	}
+
+	// Plugins
+	Basil.plugins = {};
+
+	// Options
+	Basil.options = Basil.utils.extend({
+		namespace: 'b45i1',
+		storages: ['local', 'cookie', 'session', 'memory'],
+		expireDays: 365,
+		keyDelimiter: '.'
+	}, window.Basil ? window.Basil.options : {});
+
+	// Storage
+	Basil.Storage = function () {
+		var _salt = 'b45i1' + (Math.random() + 1)
+				.toString(36)
+				.substring(7),
+			_storages = {},
+			_isValidKey = function (key) {
+				var type = Basil.utils.getTypeOf(key);
+				return (type === 'string' && key) || type === 'number' || type === 'boolean';
+			},
+			_toStoragesArray = function (storages) {
+				if (Basil.utils.isArray(storages))
+					return storages;
+				return Basil.utils.isString(storages) ? [storages] : [];
+			},
+			_toStoredKey = function (namespace, path, delimiter) {
+				var key = '';
+				if (_isValidKey(path)) {
+					key += path;
+				} else if (Basil.utils.isArray(path)) {
+					path = Basil.utils.isFunction(path.filter) ? path.filter(_isValidKey) : path;
+					key = path.join(delimiter);
+				}
+				return key && _isValidKey(namespace) ? namespace + delimiter + key : key;
+ 			},
+			_toKeyName = function (namespace, key, delimiter) {
+				if (!_isValidKey(namespace))
+					return key;
+				return key.replace(new RegExp('^' + namespace + delimiter), '');
+			},
+			_toStoredValue = function (value) {
+				return JSON.stringify(value);
+			},
+			_fromStoredValue = function (value) {
+				return value ? JSON.parse(value) : null;
+			};
+
+		// HTML5 web storage interface
+		var webStorageInterface = {
+			engine: null,
+			check: function () {
+				try {
+					window[this.engine].setItem(_salt, true);
+					window[this.engine].removeItem(_salt);
+				} catch (e) {
+					return false;
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				window[this.engine].setItem(key, value);
+			},
+			get: function (key) {
+				return window[this.engine].getItem(key);
+			},
+			remove: function (key) {
+				window[this.engine].removeItem(key);
+			},
+			reset: function (namespace) {
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0) {
+						this.remove(key);
+						i--;
+					}
+				}
+			},
+			keys: function (namespace, delimiter) {
+				var keys = [];
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				}
+				return keys;
+			}
+		};
+
+		// local storage
+		_storages.local = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'localStorage'
+		});
+		// session storage
+		_storages.session = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'sessionStorage'
+		});
+
+		// memory storage
+		_storages.memory = {
+			_hash: {},
+			check: function () {
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				this._hash[key] = value;
+			},
+			get: function (key) {
+				return this._hash[key] || null;
+			},
+			remove: function (key) {
+				delete this._hash[key];
+			},
+			reset: function (namespace) {
+				for (var key in this._hash) {
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace, delimiter) {
+				var keys = [];
+				for (var key in this._hash)
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				return keys;
+			}
+		};
+
+		// cookie storage
+		_storages.cookie = {
+			check: function (options) {
+				if (!navigator.cookieEnabled)
+					return false;
+				if (window.self !== window.top) {
+					// we need to check third-party cookies;
+					var cookie = 'thirdparty.check=' + Math.round(Math.random() * 1000);
+					document.cookie = cookie + '; path=/';
+					return document.cookie.indexOf(cookie) !== -1;
+				}
+				// if cookie secure activated, ensure it works (not the case if we are in http only)
+				if (options && options.secure) {
+					try {
+						this.set(_salt, _salt, options);
+						var hasSecurelyPersited = this.get(_salt) === _salt;
+						this.remove(_salt);
+						return hasSecurelyPersited;
+					} catch (error) {
+						return false;
+					}
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				options = options || {};
+				if (!key)
+					throw Error('invalid key');
+				var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+				// handle expiration days
+				if (options.expireDays) {
+					var date = new Date();
+					date.setTime(date.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
+					cookie += '; expires=' + date.toGMTString();
+				}
+				// handle domain
+				if (options.domain && options.domain !== document.domain) {
+					var _domain = options.domain.replace(/^\./, '');
+					if (document.domain.indexOf(_domain) === -1 || _domain.split('.').length <= 1)
+						throw Error('invalid domain');
+					cookie += '; domain=' + options.domain;
+				}
+				// handle secure
+				if (options.secure === true) {
+					cookie += '; Secure';
+				}
+				document.cookie = cookie + '; path=/';
+			},
+			get: function (key) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var encodedKey = encodeURIComponent(key);
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				// retrieve last updated cookie first
+				for (var i = cookies.length - 1, cookie; i >= 0; i--) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					if (cookie.indexOf(encodedKey + '=') === 0)
+						return decodeURIComponent(cookie.substring(encodedKey.length + 1, cookie.length));
+				}
+				return null;
+			},
+			remove: function (key) {
+				// remove cookie from main domain
+				this.set(key, '', { expireDays: -1 });
+				// remove cookie from upper domains
+				var domainParts = document.domain.split('.');
+				for (var i = domainParts.length; i > 1; i--) {
+					this.set(key, '', { expireDays: -1, domain: '.' + domainParts.slice(- i).join('.') });
+				}
+			},
+			reset: function (namespace) {
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = cookie.substr(0, cookie.indexOf('='));
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace, delimiter) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var keys = [],
+					cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = decodeURIComponent(cookie.substr(0, cookie.indexOf('=')));
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				}
+				return keys;
+			}
+		};
+
+		return {
+			init: function (options) {
+				this.setOptions(options);
+				return this;
+			},
+			setOptions: function (options) {
+				this.options = Basil.utils.extend({}, this.options || Basil.options, options);
+			},
+			support: function (storage) {
+				return _storages.hasOwnProperty(storage);
+			},
+			check: function (storage) {
+				if (this.support(storage))
+					return _storages[storage].check(this.options);
+				return false;
+			},
+			set: function (key, value, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return false;
+				value = options.raw === true ? value : _toStoredValue(value);
+				var where = null;
+				// try to set key/value in first available storage
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					_storages[storage].set(key, value, options);
+					where = storage;
+					return false; // break;
+				}, null, this);
+				if (!where) {
+					// key has not been set anywhere
+					return false;
+				}
+				// remove key from all other storages
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (storage !== where)
+						_storages[storage].remove(key);
+				}, null, this);
+				return true;
+			},
+			get: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return null;
+				var value = null;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (value !== null)
+						return false; // break if a value has already been found.
+					value = _storages[storage].get(key, options) || null;
+					value = options.raw === true ? value : _fromStoredValue(value);
+				}, function (storage, index, error) {
+					value = null;
+				}, this);
+				return value;
+			},
+			remove: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].remove(key);
+				}, null, this);
+			},
+			reset: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].reset(options.namespace);
+				}, null, this);
+			},
+			keys: function (options) {
+				options = options || {};
+				var keys = [];
+				for (var key in this.keysMap(options))
+					keys.push(key);
+				return keys;
+			},
+			keysMap: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				var map = {};
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					Basil.utils.each(_storages[storage].keys(options.namespace, options.keyDelimiter), function (key) {
+						map[key] = Basil.utils.isArray(map[key]) ? map[key] : [];
+						map[key].push(storage);
+					}, this);
+				}, null, this);
+				return map;
+			}
+		};
+	};
+
+	// Access to native storages, without namespace or basil value decoration
+	Basil.memory = new Basil.Storage().init({ storages: 'memory', namespace: null, raw: true });
+	Basil.cookie = new Basil.Storage().init({ storages: 'cookie', namespace: null, raw: true });
+	Basil.localStorage = new Basil.Storage().init({ storages: 'local', namespace: null, raw: true });
+	Basil.sessionStorage = new Basil.Storage().init({ storages: 'session', namespace: null, raw: true });
+
+	// browser export
+	window.Basil = Basil;
+
+	// AMD export
+	if (typeof define === 'function' && define.amd) {
+		define(function() {
+			return Basil;
+		});
+	// commonjs export
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Basil;
+	}
+
+})();
+
+},{}],4:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1013,7 +1559,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":5,"./utils":4,"fs":2,"path":6}],4:[function(require,module,exports){
+},{"../package.json":7,"./utils":6,"fs":4,"path":8}],6:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1179,7 +1725,7 @@ exports.cache = {
   }
 };
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -1263,7 +1809,7 @@ module.exports={
   "version": "2.6.1"
 }
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -1569,7 +2115,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":7}],7:[function(require,module,exports){
+},{"_process":9}],9:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1755,4 +2301,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[1]);
+},{}]},{},[2]);

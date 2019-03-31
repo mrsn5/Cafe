@@ -3,15 +3,25 @@ let Gen = require("./general_functions");
 
 let $ = jQuery;
 
+let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) {%>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <%}%>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\" src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\" src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><%= dish.price %> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\" src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\" src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <div class=\"button-cont\">\r\n            <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            <button class=\"cancel-btn btn-style\">НАЗАД</button>\r\n        </div>\r\n\r\n    </div>\r\n</li>");
+let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) { %>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <% } %>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><span class=\"dish-price-span\"><%= dish.price %></span> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\"\r\n                     src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <% if (choose_mode && dish.is_ing_available == 1) { %>\r\n            <div class=\"button-cont\">\r\n                <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</li>");
+
 
 $(function(){
+    let url_params = Gen.decodeUrl();
+
+    let menu_url = url_object.menu_page_url;
+    if(url_params['order_num'])
+        menu_url += '/?order_num='+url_params['order_num'];
+
+    $('#menu_link').attr("href", menu_url);
+
     let $dishes_container = $("#dishes_container");
     let $cat_name_label = $("#category_name");
-    let cat_name = localStorage.getItem('cat_name');
+    let cat_name = Storage.get('cat_name');
 
     $cat_name_label.text(cat_name);
 
@@ -32,39 +42,91 @@ $(function(){
                 action_name = 'cat_select';
         }
 
-        $.ajax({
-            url: url_object.ajax_url,
-            type: 'POST',
-            data: {
-                action: action_name,
-                cat_name:cat_name
-            },
-            success: function (res) {
-                res = JSON.parse(res);
-                console.log(res);
+   //     getMode(function (data) {
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: action_name,
+                    cat_name:cat_name
+                },
+                success: function (res) {
+                    res = JSON.parse(res);
+                    console.log(res);
 
-                // let cat_name = res.cat_name;
-                // let dishes = res.dishes;
+             //       console.log(url_object.template_directory);
 
-                console.log(url_object.template_directory);
+                    res.forEach(function (d) {
+                        var $node = $(dishTempl({
+                            dish: d,
+                            url_object: url_object,
+                         //   choose_dish_mode:data['is_choose_mode'],
+                            choose_mode: url_params['order_num']
+                        }));
+                        $dishes_container.append($node);
+                    });
+                }
+            });
 
-                res.forEach(function (d) {
-                    var $node = $(dishTempl({
-                        dish: d,
-                        url_object: url_object
-                    }));
-                    $dishes_container.append($node);
-                });
-            }
-        });
+            $dishes_container.on('click', '.ok-btn', function() {
+                if(data['is_choose_mode']) {
+                    let $parent = $(this).parents('.dish');
+                    let dish_name = $parent.find('.name').text();
+                    let dish_price = $parent.find('.dish-price-span').text();
+                    let unsaved_orders = Storage.get('unsaved_orders');
+                    // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
+                    let order_index = unsaved_orders.findIndex(order => order.order_num == data['order_num']);
+
+                    if (order_index > -1) {
+                        unsaved_orders[order_index].dishes.push({
+                            dish_name: dish_name,
+                            dish_price: dish_price,
+                            quantity: 1
+                        });
+                    }
+
+                    Storage.set('unsaved_orders', unsaved_orders);
+                    window.location.href = url_object.orders_page_url;
+                    // $.ajax({
+                    //     url: url_object.ajax_url,
+                    //     type: 'POST',
+                    //     data: {
+                    //         action: 'destroy_session',
+                    //         session_key: 'order_num'
+                    //     },
+                    //     success: function (res) {
+                    //   //      res = JSON.parse(res);
+                    //         console.log(res);
+                    //
+                    //
+                    //     }
+                    // });
+                }
+            });
+     //   });
     }
 
     $dishes_container.on('click', '.toggle-btn', function(event) {
         $(this).parent().find('.toggle-area').slideToggle();
         Gen.rotateImage($(this).find(".img-cont"));
     });
+
+    // function getMode(callback) {
+    //     $.ajax({
+    //         url: url_object.ajax_url,
+    //         type: 'POST',
+    //         data: {
+    //             action: 'is_mode'
+    //         },
+    //         success: function (res) {
+    //             res = JSON.parse(res);
+    //             console.log(res);
+    //             callback(res);
+    //         }
+    //     });
+    // }
 });
-},{"./general_functions":2,"ejs":4}],2:[function(require,module,exports){
+},{"./general_functions":2,"./locStorage":3,"ejs":6}],2:[function(require,module,exports){
 let $ = jQuery;
 $(function(){
 
@@ -169,12 +231,442 @@ function rotateImage($imageEl) {
     }
 }
 
+function decodeUrl() {
+    let search = location.search.substring(1);
+
+    if(search == ''){
+        return {};
+    }
+
+    let url_params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    return url_params;
+}
+
+
 exports.rotateImage = rotateImage;
+exports.decodeUrl = decodeUrl;
 
 
 },{}],3:[function(require,module,exports){
+var basil = require("basil.js");
 
-},{}],4:[function(require,module,exports){
+options = {
+    storages: ['session']
+};
+
+basil = new basil(options);
+
+exports.set = function(key, value){
+    basil.set(key, value);
+};
+
+exports.get = function(key){
+    return basil.get(key);
+};
+},{"basil.js":4}],4:[function(require,module,exports){
+(function () {
+	// Basil
+	var Basil = function (options) {
+		return Basil.utils.extend({}, Basil.plugins, new Basil.Storage().init(options));
+	};
+
+	// Version
+	Basil.version = '0.4.10';
+
+	// Utils
+	Basil.utils = {
+		extend: function () {
+			var destination = typeof arguments[0] === 'object' ? arguments[0] : {};
+			for (var i = 1; i < arguments.length; i++) {
+				if (arguments[i] && typeof arguments[i] === 'object')
+					for (var property in arguments[i])
+						destination[property] = arguments[i][property];
+			}
+			return destination;
+		},
+		each: function (obj, fnIterator, context) {
+			if (this.isArray(obj)) {
+				for (var i = 0; i < obj.length; i++)
+					if (fnIterator.call(context, obj[i], i) === false) return;
+			} else if (obj) {
+				for (var key in obj)
+					if (fnIterator.call(context, obj[key], key) === false) return;
+			}
+		},
+		tryEach: function (obj, fnIterator, fnError, context) {
+			this.each(obj, function (value, key) {
+				try {
+					return fnIterator.call(context, value, key);
+				} catch (error) {
+					if (this.isFunction(fnError)) {
+						try {
+							fnError.call(context, value, key, error);
+						} catch (error) {}
+					}
+				}
+			}, this);
+		},
+		registerPlugin: function (methods) {
+			Basil.plugins = this.extend(methods, Basil.plugins);
+		},
+		getTypeOf: function (obj) {
+			if (typeof obj === 'undefined' || obj === null)
+				return '' + obj;
+			return Object.prototype.toString.call(obj).replace(/^\[object\s(.*)\]$/, function ($0, $1) { return $1.toLowerCase(); });
+		}
+	};
+
+	// Add some isType methods: isArguments, isBoolean, isFunction, isString, isArray, isNumber, isDate, isRegExp, isUndefined, isNull.
+	var types = ['Arguments', 'Boolean', 'Function', 'String', 'Array', 'Number', 'Date', 'RegExp', 'Undefined', 'Null'];
+	for (var i = 0; i < types.length; i++) {
+		Basil.utils['is' + types[i]] = (function (type) {
+			return function (obj) {
+				return Basil.utils.getTypeOf(obj) === type.toLowerCase();
+			};
+		})(types[i]);
+	}
+
+	// Plugins
+	Basil.plugins = {};
+
+	// Options
+	Basil.options = Basil.utils.extend({
+		namespace: 'b45i1',
+		storages: ['local', 'cookie', 'session', 'memory'],
+		expireDays: 365,
+		keyDelimiter: '.'
+	}, window.Basil ? window.Basil.options : {});
+
+	// Storage
+	Basil.Storage = function () {
+		var _salt = 'b45i1' + (Math.random() + 1)
+				.toString(36)
+				.substring(7),
+			_storages = {},
+			_isValidKey = function (key) {
+				var type = Basil.utils.getTypeOf(key);
+				return (type === 'string' && key) || type === 'number' || type === 'boolean';
+			},
+			_toStoragesArray = function (storages) {
+				if (Basil.utils.isArray(storages))
+					return storages;
+				return Basil.utils.isString(storages) ? [storages] : [];
+			},
+			_toStoredKey = function (namespace, path, delimiter) {
+				var key = '';
+				if (_isValidKey(path)) {
+					key += path;
+				} else if (Basil.utils.isArray(path)) {
+					path = Basil.utils.isFunction(path.filter) ? path.filter(_isValidKey) : path;
+					key = path.join(delimiter);
+				}
+				return key && _isValidKey(namespace) ? namespace + delimiter + key : key;
+ 			},
+			_toKeyName = function (namespace, key, delimiter) {
+				if (!_isValidKey(namespace))
+					return key;
+				return key.replace(new RegExp('^' + namespace + delimiter), '');
+			},
+			_toStoredValue = function (value) {
+				return JSON.stringify(value);
+			},
+			_fromStoredValue = function (value) {
+				return value ? JSON.parse(value) : null;
+			};
+
+		// HTML5 web storage interface
+		var webStorageInterface = {
+			engine: null,
+			check: function () {
+				try {
+					window[this.engine].setItem(_salt, true);
+					window[this.engine].removeItem(_salt);
+				} catch (e) {
+					return false;
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				window[this.engine].setItem(key, value);
+			},
+			get: function (key) {
+				return window[this.engine].getItem(key);
+			},
+			remove: function (key) {
+				window[this.engine].removeItem(key);
+			},
+			reset: function (namespace) {
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0) {
+						this.remove(key);
+						i--;
+					}
+				}
+			},
+			keys: function (namespace, delimiter) {
+				var keys = [];
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				}
+				return keys;
+			}
+		};
+
+		// local storage
+		_storages.local = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'localStorage'
+		});
+		// session storage
+		_storages.session = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'sessionStorage'
+		});
+
+		// memory storage
+		_storages.memory = {
+			_hash: {},
+			check: function () {
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				this._hash[key] = value;
+			},
+			get: function (key) {
+				return this._hash[key] || null;
+			},
+			remove: function (key) {
+				delete this._hash[key];
+			},
+			reset: function (namespace) {
+				for (var key in this._hash) {
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace, delimiter) {
+				var keys = [];
+				for (var key in this._hash)
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				return keys;
+			}
+		};
+
+		// cookie storage
+		_storages.cookie = {
+			check: function (options) {
+				if (!navigator.cookieEnabled)
+					return false;
+				if (window.self !== window.top) {
+					// we need to check third-party cookies;
+					var cookie = 'thirdparty.check=' + Math.round(Math.random() * 1000);
+					document.cookie = cookie + '; path=/';
+					return document.cookie.indexOf(cookie) !== -1;
+				}
+				// if cookie secure activated, ensure it works (not the case if we are in http only)
+				if (options && options.secure) {
+					try {
+						this.set(_salt, _salt, options);
+						var hasSecurelyPersited = this.get(_salt) === _salt;
+						this.remove(_salt);
+						return hasSecurelyPersited;
+					} catch (error) {
+						return false;
+					}
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				options = options || {};
+				if (!key)
+					throw Error('invalid key');
+				var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+				// handle expiration days
+				if (options.expireDays) {
+					var date = new Date();
+					date.setTime(date.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
+					cookie += '; expires=' + date.toGMTString();
+				}
+				// handle domain
+				if (options.domain && options.domain !== document.domain) {
+					var _domain = options.domain.replace(/^\./, '');
+					if (document.domain.indexOf(_domain) === -1 || _domain.split('.').length <= 1)
+						throw Error('invalid domain');
+					cookie += '; domain=' + options.domain;
+				}
+				// handle secure
+				if (options.secure === true) {
+					cookie += '; Secure';
+				}
+				document.cookie = cookie + '; path=/';
+			},
+			get: function (key) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var encodedKey = encodeURIComponent(key);
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				// retrieve last updated cookie first
+				for (var i = cookies.length - 1, cookie; i >= 0; i--) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					if (cookie.indexOf(encodedKey + '=') === 0)
+						return decodeURIComponent(cookie.substring(encodedKey.length + 1, cookie.length));
+				}
+				return null;
+			},
+			remove: function (key) {
+				// remove cookie from main domain
+				this.set(key, '', { expireDays: -1 });
+				// remove cookie from upper domains
+				var domainParts = document.domain.split('.');
+				for (var i = domainParts.length; i > 1; i--) {
+					this.set(key, '', { expireDays: -1, domain: '.' + domainParts.slice(- i).join('.') });
+				}
+			},
+			reset: function (namespace) {
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = cookie.substr(0, cookie.indexOf('='));
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace, delimiter) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var keys = [],
+					cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = decodeURIComponent(cookie.substr(0, cookie.indexOf('=')));
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key, delimiter));
+				}
+				return keys;
+			}
+		};
+
+		return {
+			init: function (options) {
+				this.setOptions(options);
+				return this;
+			},
+			setOptions: function (options) {
+				this.options = Basil.utils.extend({}, this.options || Basil.options, options);
+			},
+			support: function (storage) {
+				return _storages.hasOwnProperty(storage);
+			},
+			check: function (storage) {
+				if (this.support(storage))
+					return _storages[storage].check(this.options);
+				return false;
+			},
+			set: function (key, value, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return false;
+				value = options.raw === true ? value : _toStoredValue(value);
+				var where = null;
+				// try to set key/value in first available storage
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					_storages[storage].set(key, value, options);
+					where = storage;
+					return false; // break;
+				}, null, this);
+				if (!where) {
+					// key has not been set anywhere
+					return false;
+				}
+				// remove key from all other storages
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (storage !== where)
+						_storages[storage].remove(key);
+				}, null, this);
+				return true;
+			},
+			get: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return null;
+				var value = null;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (value !== null)
+						return false; // break if a value has already been found.
+					value = _storages[storage].get(key, options) || null;
+					value = options.raw === true ? value : _fromStoredValue(value);
+				}, function (storage, index, error) {
+					value = null;
+				}, this);
+				return value;
+			},
+			remove: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key, options.keyDelimiter)))
+					return;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].remove(key);
+				}, null, this);
+			},
+			reset: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].reset(options.namespace);
+				}, null, this);
+			},
+			keys: function (options) {
+				options = options || {};
+				var keys = [];
+				for (var key in this.keysMap(options))
+					keys.push(key);
+				return keys;
+			},
+			keysMap: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				var map = {};
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					Basil.utils.each(_storages[storage].keys(options.namespace, options.keyDelimiter), function (key) {
+						map[key] = Basil.utils.isArray(map[key]) ? map[key] : [];
+						map[key].push(storage);
+					}, this);
+				}, null, this);
+				return map;
+			}
+		};
+	};
+
+	// Access to native storages, without namespace or basil value decoration
+	Basil.memory = new Basil.Storage().init({ storages: 'memory', namespace: null, raw: true });
+	Basil.cookie = new Basil.Storage().init({ storages: 'cookie', namespace: null, raw: true });
+	Basil.localStorage = new Basil.Storage().init({ storages: 'local', namespace: null, raw: true });
+	Basil.sessionStorage = new Basil.Storage().init({ storages: 'session', namespace: null, raw: true });
+
+	// browser export
+	window.Basil = Basil;
+
+	// AMD export
+	if (typeof define === 'function' && define.amd) {
+		define(function() {
+			return Basil;
+		});
+	// commonjs export
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Basil;
+	}
+
+})();
+
+},{}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1115,7 +1607,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":6,"./utils":5,"fs":3,"path":7}],5:[function(require,module,exports){
+},{"../package.json":8,"./utils":7,"fs":5,"path":9}],7:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1281,7 +1773,7 @@ exports.cache = {
   }
 };
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -1365,7 +1857,7 @@ module.exports={
   "version": "2.6.1"
 }
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -1671,7 +2163,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":8}],8:[function(require,module,exports){
+},{"_process":10}],10:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 

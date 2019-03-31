@@ -11,6 +11,13 @@ require_once 'dbhelper.php';
 add_action( 'wp_ajax_orders_select', 'orders_select' );
 add_action( 'wp_ajax_nopriv_orders_select', 'orders_select' );
 
+add_action( 'wp_ajax_get_next_order_id', 'get_next_order_id' );
+add_action( 'wp_ajax_nopriv_get_next_order_id', 'get_next_order_id' );
+
+add_action( 'wp_ajax_choose_order_dish_mode', 'choose_order_dish_mode' );
+add_action( 'wp_ajax_nopriv_choose_order_dish_mode', 'choose_order_dish_mode' );
+
+
 function orders_select(){
     $conn = DBHelper::connect();
 
@@ -72,4 +79,40 @@ function orders_select(){
     }
     DBHelper::disconnect();
     die;
+}
+
+function get_next_order_id(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery = "SELECT AUTO_INCREMENT
+                 FROM information_schema.TABLES
+                 WHERE TABLE_SCHEMA = 'cafe'
+                   AND TABLE_NAME = 'orders';";
+
+    $res = array();
+
+    try{
+        $stmt = $conn->prepare($sqlQuery);
+        $stmt->execute();
+        $row = $stmt->fetch();
+
+        $res['next_id'] = $row[0];
+
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
+    }catch (Exception $e){
+        echo 'Exception: ',  $e->getMessage(), "\n";
+        echo $e;
+    }
+
+    DBHelper::disconnect();
+    die;
+}
+
+function choose_order_dish_mode(){
+    if($_POST['order_num'] != null){
+        session_start();
+        $_SESSION["order_num"] = $_POST['order_num'];
+
+        echo 'Success';
+    }
 }

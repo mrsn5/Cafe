@@ -37,7 +37,7 @@
 <div class="content">
     <div class="path-section">
         <ul class="breadcrumb">
-            <li><a href="<?php echo Theme_Name?>/menu">Меню</a></li>
+            <li><a id="menu_link" href="">Меню</a></li>
             <li id="category_name">Перші страви</li>
         </ul>
     </div>

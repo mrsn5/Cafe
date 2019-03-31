@@ -23,19 +23,21 @@
             <!--</div>-->
             <div class="inf-block">
                 <h1 class="name"><%= dish.dish_name %></h1>
-                <% if(dish.expiration_date) {%>
+                <% if(dish.expiration_date) { %>
                     <h3 class="exp-date"><%= dish.expiration_date %></h3>
-                <%}%>
+                <% } %>
                 <!--<ul>-->
                 <div class="details">
                     <div class="inf-details-block">
                         <div>
-                            <img class="inf-icon weight" src="<%= url_object.template_directory %>/images/icon-weight.png">
+                            <img class="inf-icon weight"
+                                 src="<%= url_object.template_directory %>/images/icon-weight.png">
                             <span><%= dish.weight %> г</span>
                         </div>
                         <div>
-                            <img class="inf-icon price" src="<%= url_object.template_directory %>/images/icon-price.png">
-                            <span><%= dish.price %> грн</span>
+                            <img class="inf-icon price"
+                                 src="<%= url_object.template_directory %>/images/icon-price.png">
+                            <span><span class="dish-price-span"><%= dish.price %></span> грн</span>
                         </div>
                     </div>
 
@@ -46,7 +48,8 @@
                             <span><%= dish.calories %> ккал</span>
                         </div>
                         <div>
-                            <img class="inf-icon timer" src="<%= url_object.template_directory %>/images/icon-timer.png">
+                            <img class="inf-icon timer"
+                                 src="<%= url_object.template_directory %>/images/icon-timer.png">
                             <span><%= dish.cooking_time %> хв</span>
                         </div>
                     </div>
@@ -71,14 +74,15 @@
             </ul>
             <h3 class="show-ings toggle-btn">
                 інгредієнти
-                <img class="img-cont image-transition" src="<%= url_object.template_directory %>/images/drop_down_icon.png">
+                <img class="img-cont image-transition"
+                     src="<%= url_object.template_directory %>/images/drop_down_icon.png">
             </h3>
         </div>
 
-        <div class="button-cont">
-            <button class="ok-btn btn-style">ДОДАТИ</button>
-            <button class="cancel-btn btn-style">НАЗАД</button>
-        </div>
-
+        <% if (choose_mode && dish.is_ing_available == 1) { %>
+            <div class="button-cont">
+                <button class="ok-btn btn-style">ДОДАТИ</button>
+            </div>
+        <% } %>
     </div>
 </li>
