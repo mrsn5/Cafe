@@ -6,6 +6,10 @@
 
 @main_font_size: 16px;
 
+body {
+  position: relative;
+}
+
 .modal{
   .modal-body{
     label{
@@ -215,4 +219,21 @@
   .ivent-print-inputs{
     display: block!important;
   }
+
+  .colontitle-bottom {
+   bottom: 0px;
+  }
+}
+
+
+.colontitle-bottom {
+  background-color: white;
+  z-index: 10;
+  display: inline-block;
+  position: fixed;
+  height: 30px;
+  bottom: -100;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
