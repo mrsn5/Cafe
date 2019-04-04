@@ -40,11 +40,11 @@ $(function () {
         });
     });
 
-    $('#all_ings').on('click', function () {
-        $ingredients_table.show();
-        $inventory_table.hide();
-        $ivent_print.css('visibility', 'hidden');
-    });
+    // $('#all_items').on('click', function () {
+    //     $ingredients_table.show();
+    //     $inventory_table.hide();
+    //     $ivent_print.css('visibility', 'hidden');
+    // });
 
     let $ings_cont = $("#ingredient_container");
     let ings_units = [];
@@ -74,7 +74,8 @@ $(function () {
     $("#all_items").on('click', function () {
         $ingredients_table.show();
         $inventory_table.hide();
-        $ivent_print.hide();
+        // $ivent_print.hide();
+        $ivent_print.css('visibility', 'hidden');
         get_ings(null, null, null);
     });
 
@@ -276,7 +277,7 @@ $(function () {
                     $price_per_unit.text('0');
                 });
 
-                $(document).on("click", function (e) {
+                $('.storage-main').on("click", function (e) {
                     if (!$good_code.is(e.target) && $good_code.has(e.target).length === 0) {
                         let code = $good_code.val().trim();
 

@@ -1,67 +1,73 @@
-<tr>
-<td class="tab_num"><%= tab_num %></td>
-<td class="editable-cell">
-    <span class="value"><%= first_name %></span>
-    <label class="input-data input-style">
-        <input type="text" class="input name-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= surname %></span>
-    <label class="input-data input-style">
-        <input type="text" class="input surname-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= father_name %></span>
-    <label class="input-data input-style">
-        <input type="text" class="input fathername-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= birth_date %></span>
-    <label class="input-data input-style">
-        <input type="date" class="input birthdate-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= address %></span>
-    <label class="input-data input-style">
-        <input type="text" class="input address-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= gender %></span>
-    <label class="input-data input-style">
-        <select class="input gender-input">
-            <option value="Ч">Ч</option>
-            <option value="Ж">Ж</option>
-        </select>
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= tel_num %></span>
-    <label class="input-data input-style">
-        <input type="tel" class="input tel-input">
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= position %></span>
-    <label class="input-data input-style">
-        <select class="input position-input">
-            <option value="власник">власник</option>
-            <option value="офіціант">офіціант</option>
-            <option value="бармен">бармен</option>
-            <option value="кухар">кухар</option>
-            <option value="бухгалтер">бухгалтер</option>
-            <option value="адміністратор">адміністратор</option>
-        </select>
-    </label>
-</td>
-<td class="editable-cell">
-    <span class="value"><%= salary %></span>
-    <label class="input-data input-style">
-        <input type="number" class="input salary-input">
-    </label>
-</td>
+<tr class="worker-row">
+    <td class="tab_num"><%= tab_num %></td>
+    <td class="editable-cell">
+        <span class="value first-name"><%= first_name %></span>
+        <label class="input-data input-style">
+            <input type="text" class="input name-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value surname"><%= surname %></span>
+        <label class="input-data input-style">
+            <input type="text" class="input surname-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value father-name"><%= father_name %></span>
+        <label class="input-data input-style">
+            <input type="text" class="input fathername-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= birth_date %></span>
+        <label class="input-data input-style">
+            <input type="date" class="input birthdate-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= address %></span>
+        <label class="input-data input-style">
+            <input type="text" class="input address-input">
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= gender %></span>
+        <label class="input-data input-style">
+            <select class="input gender-input">
+                <option value="Ч">Ч</option>
+                <option value="Ж">Ж</option>
+            </select>
+        </label>
+    </td>
+    <td class="telephones-cell modal-show-btn change-cell" data-toggle="modal">
+
+        <% for(let i = 0; i < tels.length; i++) { %>
+            <span class="tel">
+            <%= tels[i]['tel_num'] %><br/>
+            </span>
+        <% } %>
+
+        <!--<label class="input-data input-style">-->
+        <!--<input type="tel" class="input tel-input">-->
+        <!--</label>-->
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= position %></span>
+        <label class="input-data input-style">
+            <select class="input position-input">
+                <option value="власник">власник</option>
+                <option value="офіціант">офіціант</option>
+                <option value="бармен">бармен</option>
+                <option value="кухар">кухар</option>
+                <option value="бухгалтер">бухгалтер</option>
+                <option value="адміністратор">адміністратор</option>
+            </select>
+        </label>
+    </td>
+    <td class="editable-cell">
+        <span class="value"><%= salary %></span>
+        <label class="input-data input-style">
+            <input type="number" class="input salary-input">
+        </label>
+    </td>
 </tr>

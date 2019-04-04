@@ -23,7 +23,7 @@ define("PATH", get_template_directory_uri());
         Пошук
     </div>
 
-    <div class="toggle-btn header-btn-style" id="add_area_btn">
+    <div class="toggle-btn header-btn-style" id="add_delivery_btn">
         <span>Додати поставку</span>
         <!--<div class="img-cont">-->
         <img class="img-cont image-transition" src="<?php echo PATH ?>/images/drop_down_icon.png">

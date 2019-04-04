@@ -16,29 +16,40 @@ function select_personnel(){
 
     if ($_POST['position'] != null && $_POST['name'] != null) {
         $sqlQuery = "SELECT *, workers.tab_num
-             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
+             FROM workers 
              WHERE position LIKE '" . $_POST['position'] . "'
                    AND CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
+             
              ORDER BY workers.tab_num;";
     } else if ($_POST['position'] != null) {
         $sqlQuery = "SELECT *, workers.tab_num
-             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
+             FROM workers 
              WHERE position LIKE '" . $_POST['position'] . "'
              ORDER BY workers.tab_num;";
     } else if ($_POST['name'] != null) {
         $sqlQuery = "SELECT *, workers.tab_num
-             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
+             FROM workers 
              WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
              ORDER BY workers.tab_num;";
     } else {
         $sqlQuery = "SELECT *, workers.tab_num
-             FROM workers LEFT OUTER JOIN telephones ON workers.tab_num = telephones.tab_num
+             FROM workers
              ORDER BY workers.tab_num;";
     }
 
+//    GROUP BY workers.tab_num, surname, first_name, father_name, birth_date, address, gender, position, salary, hire_date, fire_date
     try {
         $personnel = array();
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+            $sqlQueryTels = "SELECT tel_num
+                             FROM telephones
+                             WHERE tab_num = ".$row['tab_num'].";";
+            $tels = array();
+            foreach ($conn->query($sqlQueryTels, PDO::FETCH_ASSOC) as $tel) {
+                $tels[] = $tel;
+            }
+
+            $row['tels'] = $tels;
             $personnel[] = $row;
         }
         echo json_encode($personnel, JSON_UNESCAPED_UNICODE);
@@ -73,7 +84,12 @@ function personnel_add() {
         //add worker
         $conn->query($sqlQuery);
 
-        $conn->query("INSERT INTO telephones (tel_num, tab_num) VALUES ('". $_POST['tel_num'] ."', '". $_POST['tab_num'] ."');");
+        $tels = $_POST['telephones'];
+        if($tels != null){
+            foreach ($tels as $tel){
+                $conn->query("INSERT INTO telephones (tel_num, tab_num) VALUES ('". $tel ."', '". $_POST['tab_num'] ."');");
+            }
+        }
 
     } catch (Exception $e) {
         echo 'Выброшено исключение: ',  $e->getMessage(), "\n";

@@ -64,8 +64,6 @@ $(function () {
     $("#save_delivery").on('click', function () {
       //  let code = 0;
         getProviderCodeByName($("#providers_list").val().trim(),function (data) {
-     //        code = data['code'];
-
             $.ajax({
                 url: url_object.ajax_url,
                 type: 'POST',
@@ -83,6 +81,17 @@ $(function () {
                     getDeliveries(null, null, null, null);
                     console.log(res);
                     delivery_goods = [];
+
+                    $("#order_date").val(now);
+                    $("#receiving_date").val(null);
+                    $("#payment_date").val(null);
+                    $("#invoice_num").val('');
+                    $("#price_value").text('0');
+                    $('.product-item').each(function () {
+                        $(this).remove();
+                    });
+
+                     $('#add_delivery_btn').click();
                 }
             });
         });

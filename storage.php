@@ -80,7 +80,7 @@ define("PATH", get_template_directory_uri());
     </div>
 </div>
 
-<div class="main">
+<div class="main storage-main">
     <div class="search-area">
         <form>
             <div class="search-name search-block">
