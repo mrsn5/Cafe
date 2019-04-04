@@ -7,7 +7,7 @@ $(function(){
     });
 
     //animation for toggle button
-    $('.toggle-btn').on('click', function(event) {
+    $('.toggle-btn').off('click').on('click', function(event) {
         $('.toggle-area').slideToggle();
         rotateImage($(this).find(".img-cont"));
     });

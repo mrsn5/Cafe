@@ -7,15 +7,15 @@ let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n            <div class=\"tech-card-num\">\r\n                <span id=\"tech_card_num\"><%= dish.tech_card_num%></span>\r\n            </div>\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) { %>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <% } %>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><span class=\"dish-price-span\"><%= dish.price %></span> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\"\r\n                     src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <% if (choose_mode && dish.is_ing_available == 1) { %>\r\n            <div class=\"button-cont\">\r\n                <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</li>");
+let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <span class=\"delete-label\" id=\"delete_dish\">\r\n        <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish\">\r\n    </span>\r\n\r\n            <div class=\"tech-card-num\">\r\n                <span id=\"tech_card_num\"><%= dish.tech_card_num%></span>\r\n            </div>\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) { %>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <% } %>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><span class=\"dish-price-span\"><%= dish.price %></span> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n\r\n                            <span class=\"ing-amount\">\r\n                                <%= dish.ings[i].amount %>\r\n                                <%= dish.ings[i].units %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\"\r\n                     src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <% if (choose_mode && dish.is_ing_available == 1) { %>\r\n            <div class=\"button-cont\">\r\n                <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</li>");
 
 
-$(function(){
+$(function () {
     let url_params = Gen.decodeUrl();
 
     let menu_url = url_object.menu_page_url;
-    if(url_params['order_num'])
-        menu_url += '/?order_num='+url_params['order_num'];
+    if (url_params['order_num'])
+        menu_url += '/?order_num=' + url_params['order_num'];
 
     $('#menu_link').attr("href", menu_url);
 
@@ -42,60 +42,76 @@ $(function(){
                 action_name = 'cat_select';
         }
 
-   //     getMode(function (data) {
-            $.ajax({
-                url: url_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: action_name,
-                    cat_name:cat_name
-                },
-                success: function (res) {
-                    res = JSON.parse(res);
-                    console.log(res);
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: action_name,
+                cat_name: cat_name
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
 
-             //       console.log(url_object.template_directory);
+                res.forEach(function (d) {
+                    var $node = $(dishTempl({
+                        dish: d,
+                        url_object: url_object,
+                        choose_mode: url_params['order_num']
+                    }));
+                    $dishes_container.append($node);
+                });
+            }
+        });
 
-                    res.forEach(function (d) {
-                        var $node = $(dishTempl({
-                            dish: d,
-                            url_object: url_object,
-                         //   choose_dish_mode:data['is_choose_mode'],
-                            choose_mode: url_params['order_num']
-                        }));
-                        $dishes_container.append($node);
-                    });
-                }
-            });
+        $dishes_container.on('click', '.ok-btn', function () {
+            //      if(url_params['order_num']) {
+            let $parent = $(this).parents('.dish');
+            let dish_name = $parent.find('.name').text();
+            let dish_price = $parent.find('.dish-price-span').text();
+            let tech_card_num = $parent.find('#tech_card_num').text();
 
-            $dishes_container.on('click', '.ok-btn', function() {
-          //      if(url_params['order_num']) {
-                    let $parent = $(this).parents('.dish');
-                    let dish_name = $parent.find('.name').text();
-                    let dish_price = $parent.find('.dish-price-span').text();
-                    let tech_card_num = $parent.find('#tech_card_num').text();
+            let unsaved_orders = Storage.get('unsaved_orders');
+            // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
+            let order_index = unsaved_orders.findIndex(order => order.unique_num == url_params['order_num']);
 
-                    let unsaved_orders = Storage.get('unsaved_orders');
-                    // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
-                    let order_index = unsaved_orders.findIndex(order => order.unique_num == url_params['order_num']);
+            if (order_index > -1) {
+                unsaved_orders[order_index].portions.push({
+                    tech_card_num: tech_card_num,
+                    dish_name: dish_name,
+                    special_wishes: '',
+                    price: dish_price,
+                    quantity: 1
+                });
+            }
 
-                    if (order_index > -1) {
-                        unsaved_orders[order_index].portions.push({
-                            tech_card_num: tech_card_num,
-                            dish_name: dish_name,
-                            special_wishes: '',
-                            price: dish_price,
-                            quantity: 1
-                        });
-                    }
+            Storage.set('unsaved_orders', unsaved_orders);
+            window.location.href = url_object.orders_page_url;
+        });
 
-                    Storage.set('unsaved_orders', unsaved_orders);
-                    window.location.href = url_object.orders_page_url;
-            });
-     //   });
+        // $dishes_container.on('click', '#delete_dish', function () {
+        //     let $parent = $(this).parents('.dish');
+        //     let tech_card_num = $parent.find('#tech_card_num').text();
+        //
+        //     if(tech_card_num){
+        //         $.ajax({
+        //             url: url_object.ajax_url,
+        //             type: 'POST',
+        //             data: {
+        //                 action: 'delete_dish',
+        //                 tech_card_num: tech_card_num
+        //             },
+        //             success: function (res) {
+        //                 // res = JSON.parse(res);
+        //                 console.log(res);
+        //                 $parent.remove();
+        //             }
+        //         });
+        //     }
+        // });
     }
 
-    $dishes_container.on('click', '.toggle-btn', function(event) {
+    $dishes_container.on('click', '.toggle-btn', function (event) {
         $(this).parent().find('.toggle-area').slideToggle();
         Gen.rotateImage($(this).find(".img-cont"));
     });
@@ -111,7 +127,7 @@ $(function(){
     });
 
     //animation for toggle button
-    $('.toggle-btn').on('click', function(event) {
+    $('.toggle-btn').off('click').on('click', function(event) {
         $('.toggle-area').slideToggle();
         rotateImage($(this).find(".img-cont"));
     });

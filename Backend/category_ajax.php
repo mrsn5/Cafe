@@ -21,6 +21,9 @@ add_action('wp_ajax_nopriv_top_list', 'top_list');
 add_action('wp_ajax_stop_list', 'stop_list');
 add_action('wp_ajax_nopriv_stop_list', 'stop_list');
 
+//add_action('wp_ajax_delete_dish', 'delete_dish');
+//add_action('wp_ajax_nopriv_delete_dish', 'delete_dish');
+
 //$category_name = '';
 //
 //function specify_cat_name(){
@@ -84,10 +87,10 @@ function getDishesList($sqlQuery)
 
     foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
         $ings = array();
-        $ings_query = "SELECT ing_name, IF(amount <= COALESCE((SELECT SUM(curr_amount)
+        $ings_query = "SELECT X.ing_name, units, amount, IF(amount <= COALESCE((SELECT SUM(curr_amount)
                                                                FROM ingredients
                                                                WHERE ing_name = X.ing_name), 0), \"YES\", \"NO\") AS is_available
-                       FROM dishes_ingredients X
+                       FROM dishes_ingredients X INNER JOIN ingredients ON ingredients.ing_name = X.ing_name
                        WHERE tech_card_num IN (SELECT tech_card_num
                                                FROM dishes
                                                WHERE dishes.tech_card_num = " . $row['tech_card_num'] . ");";
@@ -110,3 +113,25 @@ function getDishesList($sqlQuery)
     DBHelper::disconnect();
     die;
 }
+
+
+//function delete_dish(){
+//    if($_POST['tech_card_num']){
+//        $conn = DBHelper::connect();
+//
+//        $sqlQuery = "DELETE FROM dishes
+//                     WHERE tech_card_num = ".$_POST['tech_card_num'].";";
+//
+//        try {
+//            $conn->query($sqlQuery, PDO::FETCH_ASSOC);
+//        }catch (Exception $e) {
+//            echo($e);
+//            DBHelper::disconnect();
+//            die();
+//        }
+//
+//        echo 'Dish '.$_POST['tech_card_num'].' deleted';
+//        DBHelper::disconnect();
+//        die;
+//    }
+//}

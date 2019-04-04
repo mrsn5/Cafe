@@ -9,12 +9,12 @@ let ejs = require('ejs');
 let dishTempl = ejs.compile(fs.readFileSync("./templates/dish.ejs", "utf8"));
 
 
-$(function(){
+$(function () {
     let url_params = Gen.decodeUrl();
 
     let menu_url = url_object.menu_page_url;
-    if(url_params['order_num'])
-        menu_url += '/?order_num='+url_params['order_num'];
+    if (url_params['order_num'])
+        menu_url += '/?order_num=' + url_params['order_num'];
 
     $('#menu_link').attr("href", menu_url);
 
@@ -41,60 +41,76 @@ $(function(){
                 action_name = 'cat_select';
         }
 
-   //     getMode(function (data) {
-            $.ajax({
-                url: url_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: action_name,
-                    cat_name:cat_name
-                },
-                success: function (res) {
-                    res = JSON.parse(res);
-                    console.log(res);
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: action_name,
+                cat_name: cat_name
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
 
-             //       console.log(url_object.template_directory);
+                res.forEach(function (d) {
+                    var $node = $(dishTempl({
+                        dish: d,
+                        url_object: url_object,
+                        choose_mode: url_params['order_num']
+                    }));
+                    $dishes_container.append($node);
+                });
+            }
+        });
 
-                    res.forEach(function (d) {
-                        var $node = $(dishTempl({
-                            dish: d,
-                            url_object: url_object,
-                         //   choose_dish_mode:data['is_choose_mode'],
-                            choose_mode: url_params['order_num']
-                        }));
-                        $dishes_container.append($node);
-                    });
-                }
-            });
+        $dishes_container.on('click', '.ok-btn', function () {
+            //      if(url_params['order_num']) {
+            let $parent = $(this).parents('.dish');
+            let dish_name = $parent.find('.name').text();
+            let dish_price = $parent.find('.dish-price-span').text();
+            let tech_card_num = $parent.find('#tech_card_num').text();
 
-            $dishes_container.on('click', '.ok-btn', function() {
-          //      if(url_params['order_num']) {
-                    let $parent = $(this).parents('.dish');
-                    let dish_name = $parent.find('.name').text();
-                    let dish_price = $parent.find('.dish-price-span').text();
-                    let tech_card_num = $parent.find('#tech_card_num').text();
+            let unsaved_orders = Storage.get('unsaved_orders');
+            // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
+            let order_index = unsaved_orders.findIndex(order => order.unique_num == url_params['order_num']);
 
-                    let unsaved_orders = Storage.get('unsaved_orders');
-                    // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
-                    let order_index = unsaved_orders.findIndex(order => order.unique_num == url_params['order_num']);
+            if (order_index > -1) {
+                unsaved_orders[order_index].portions.push({
+                    tech_card_num: tech_card_num,
+                    dish_name: dish_name,
+                    special_wishes: '',
+                    price: dish_price,
+                    quantity: 1
+                });
+            }
 
-                    if (order_index > -1) {
-                        unsaved_orders[order_index].portions.push({
-                            tech_card_num: tech_card_num,
-                            dish_name: dish_name,
-                            special_wishes: '',
-                            price: dish_price,
-                            quantity: 1
-                        });
-                    }
+            Storage.set('unsaved_orders', unsaved_orders);
+            window.location.href = url_object.orders_page_url;
+        });
 
-                    Storage.set('unsaved_orders', unsaved_orders);
-                    window.location.href = url_object.orders_page_url;
-            });
-     //   });
+        // $dishes_container.on('click', '#delete_dish', function () {
+        //     let $parent = $(this).parents('.dish');
+        //     let tech_card_num = $parent.find('#tech_card_num').text();
+        //
+        //     if(tech_card_num){
+        //         $.ajax({
+        //             url: url_object.ajax_url,
+        //             type: 'POST',
+        //             data: {
+        //                 action: 'delete_dish',
+        //                 tech_card_num: tech_card_num
+        //             },
+        //             success: function (res) {
+        //                 // res = JSON.parse(res);
+        //                 console.log(res);
+        //                 $parent.remove();
+        //             }
+        //         });
+        //     }
+        // });
     }
 
-    $dishes_container.on('click', '.toggle-btn', function(event) {
+    $dishes_container.on('click', '.toggle-btn', function (event) {
         $(this).parent().find('.toggle-area').slideToggle();
         Gen.rotateImage($(this).find(".img-cont"));
     });

@@ -11,7 +11,7 @@
         <% } %>
 
         <!--    only for chefs & barmen-->
-        <span class="delete-label">
+        <span class="delete-label" id="delete_dish">
         <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish">
     </span>
 
@@ -70,6 +70,11 @@
                         <div class="ingredient">
                             <span class="ing-name">
                                 <%= dish.ings[i].ing_name %>
+                            </span>
+
+                            <span class="ing-amount">
+                                <%= dish.ings[i].amount %>
+                                <%= dish.ings[i].units %>
                             </span>
                         </div>
                     </li>

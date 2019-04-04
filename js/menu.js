@@ -101,7 +101,7 @@ $(function () {
             });
 
             if (ing) {
-                $price_cell.text(ing['unit_price'].toFixed(5));
+                $price_cell.text((+(ing['unit_price'])).toFixed(5));
             }
         });
 
@@ -118,7 +118,7 @@ $(function () {
                     index: dish_ings.length + 1,
                     ing_name: ing['ing_name'],
                     ing_amount: $amount_input.val(),
-                    unit_price: ing['unit_price'],
+                    unit_price: (+ing['unit_price']).toFixed(5),
                     gen_price: $gen_price_cell.text()
                 };
                 let $node = $(ing_row(ing_elem));
