@@ -105,12 +105,12 @@ define("PATH", get_template_directory_uri());
                             </div>
 
                             <div class="date-field">
-                                <label class="required-label" for="receiving_date">Дата отримання</label>
+                                <label class="" for="receiving_date">Дата отримання</label>
                                 <input type="date" id="receiving_date">
                             </div>
 
                             <div class="date-field">
-                                <label class="required-label" for="payment_date">Дата оплати</label>
+                                <label class="" for="payment_date">Дата оплати</label>
                                 <input type="date" id="payment_date">
                             </div>
                         </div>

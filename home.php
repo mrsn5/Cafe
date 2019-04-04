@@ -15,11 +15,7 @@ define("PATH", get_template_directory_uri());
 <body class="main-page-body">
 
 <div class="header">
-    <ul>
-        <li>ІМ'Я КОРИСТУВАЧА</li>
-        <li>|</li>
-        <li><a href="main.html"><img src="<?php echo PATH?>/images/exit.svg" alt="Menu"/></a></li>
-    </ul>
+
 </div>
 
 <!-- Tab container -->

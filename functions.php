@@ -15,6 +15,8 @@ require_once 'Backend/orders_ajax.php';
 require_once 'Backend/deliveries_ajax.php';
 require_once 'Backend/storage_ajax.php';
 require_once 'Backend/discarding_ajax.php';
+require_once 'Backend/users_roles.php';
+require_once 'Backend/login.php';
 
 //add bootstrap
 function add_bootstrap(){
@@ -108,4 +110,10 @@ function load_my_scripts(){
 }
 
 add_action( 'wp_enqueue_scripts', 'load_my_scripts' );
+
+
+
+
+
+
 ?>
