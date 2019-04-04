@@ -7,7 +7,7 @@
 @main_font_size:16px;
 @scale_value : 1.2;
 
-.inf-details-block{
+//.inf-details-block{
   //border-left: 2px solid @gray_tone_4;
 
   .toggle-area{
@@ -21,7 +21,52 @@
 
   .table-area{
     padding-top: 0;
+    max-width: 85%!important;
+  }
+//}
+
+.telephones-cell{
+  cursor: pointer;
+}
+
+.tels{
+  width: 40%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .select-cont{
+    padding-left: 10px;
+  }
+
+  .inline-field{
+    width: 44%!important;
+  }
+
+  .add-tel{
+    cursor: pointer;
   }
 }
 
+.modal{
+  .modal-title{
+    font-size: (@main_font_size + 3)!important;
+  }
+
+  .tels-cont{
+    font-size: (@main_font_size + 2);
+
+    .tel-row{
+      padding-bottom: 5px;
+    }
+  }
+
+  .new-tell{
+    font-size: (@main_font_size + 2);
+  }
+
+  .glyphicon{
+    cursor: pointer;
+  }
+}
 

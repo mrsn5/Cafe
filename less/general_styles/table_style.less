@@ -72,7 +72,7 @@
       tr:nth-child(2n) {
         background-color: @gray_tone_2;
 
-        .editable-cell:hover{
+        .editable-cell:hover, .change-cell:hover{
           background-color: @gray_tone_3;
         }
       }
@@ -91,9 +91,10 @@
       tr:nth-child(4n+1) {
         .setColors(white, @gray_tone_1);
 
-        .editable-cell:hover {
+        .editable-cell:hover,  .change-cell:hover{
           background-color: @gray_tone_1;
         }
+
       }
 
       tr:nth-child(4n+2) {
@@ -106,7 +107,7 @@
         background-color: @gray_tone_2;
         .setColors(@gray_tone_2, @gray_tone_3);
 
-        .editable-cell:hover {
+        .editable-cell:hover, .change-cell:hover {
           background-color: @gray_tone_3;
         }
       }
@@ -189,14 +190,14 @@
   }
 }
 
-.editable-cell{
+.editable-cell, .change-cell:hover{
   cursor: pointer;
   .input-data{
     display: none;
   }
 }
 
-.editable-cell:hover{
+.editable-cell:hover, .change-cell:hover{
   background-color: @gray_tone_1;
 }
 

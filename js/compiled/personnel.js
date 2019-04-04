@@ -4,7 +4,7 @@ let $ = jQuery;
 
 let ejs = require('ejs');
 
-var personnel = ejs.compile("<tr>\r\n<td class=\"tab_num\"><%= tab_num %></td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= first_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input name-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= surname %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input surname-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= father_name %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input fathername-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= birth_date %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"date\" class=\"input birthdate-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= address %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"text\" class=\"input address-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= gender %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input gender-input\">\r\n            <option value=\"Ч\">Ч</option>\r\n            <option value=\"Ж\">Ж</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= tel_num %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"tel\" class=\"input tel-input\">\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= position %></span>\r\n    <label class=\"input-data input-style\">\r\n        <select class=\"input position-input\">\r\n            <option value=\"власник\">власник</option>\r\n            <option value=\"офіціант\">офіціант</option>\r\n            <option value=\"бармен\">бармен</option>\r\n            <option value=\"кухар\">кухар</option>\r\n            <option value=\"бухгалтер\">бухгалтер</option>\r\n            <option value=\"адміністратор\">адміністратор</option>\r\n        </select>\r\n    </label>\r\n</td>\r\n<td class=\"editable-cell\">\r\n    <span class=\"value\"><%= salary %></span>\r\n    <label class=\"input-data input-style\">\r\n        <input type=\"number\" class=\"input salary-input\">\r\n    </label>\r\n</td>\r\n</tr>");
+var personnel = ejs.compile("<tr class=\"worker-row\">\r\n    <td class=\"tab_num\"><%= tab_num %></td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value first-name\"><%= first_name %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"text\" class=\"input name-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value surname\"><%= surname %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"text\" class=\"input surname-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value father-name\"><%= father_name %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"text\" class=\"input fathername-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= birth_date %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"date\" class=\"input birthdate-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= address %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"text\" class=\"input address-input\">\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= gender %></span>\r\n        <label class=\"input-data input-style\">\r\n            <select class=\"input gender-input\">\r\n                <option value=\"Ч\">Ч</option>\r\n                <option value=\"Ж\">Ж</option>\r\n            </select>\r\n        </label>\r\n    </td>\r\n    <td class=\"telephones-cell modal-show-btn change-cell\" data-toggle=\"modal\">\r\n\r\n        <% for(let i = 0; i < tels.length; i++) { %>\r\n            <span class=\"tel\">\r\n            <%= tels[i]['tel_num'] %><br/>\r\n            </span>\r\n        <% } %>\r\n\r\n        <!--<label class=\"input-data input-style\">-->\r\n        <!--<input type=\"tel\" class=\"input tel-input\">-->\r\n        <!--</label>-->\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= position %></span>\r\n        <label class=\"input-data input-style\">\r\n            <select class=\"input position-input\">\r\n                <option value=\"власник\">власник</option>\r\n                <option value=\"офіціант\">офіціант</option>\r\n                <option value=\"бармен\">бармен</option>\r\n                <option value=\"кухар\">кухар</option>\r\n                <option value=\"бухгалтер\">бухгалтер</option>\r\n                <option value=\"адміністратор\">адміністратор</option>\r\n            </select>\r\n        </label>\r\n    </td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= salary %></span>\r\n        <label class=\"input-data input-style\">\r\n            <input type=\"number\" class=\"input salary-input\">\r\n        </label>\r\n    </td>\r\n</tr>");
 
 $(function () {
     var $personnel_table = $("#personnel-table");
@@ -40,6 +40,12 @@ $(function () {
     }
 
     $("#save-personnel").click(function () {
+        let tels = [];
+        $('#tels_list').find('.tel-opt').each(function () {
+            tels.push($(this).val());
+        });
+        console.log(tels);
+
         $.ajax({
             url: ajax_object.ajax_url,
             type: 'POST',
@@ -53,13 +59,26 @@ $(function () {
                 birth_date: $("#birth_date").val(),
                 gender: $("#is_male:checked").val() || $("#is_female:checked").val(),
                 address: $("#address").val(),
-                telephone: $("#tel_num").val(),
+                telephones: tels,
                 salary: $("#salary-add").val(),
-                tel_num: $("#tel_num").val()
+                // tel_num: $("#tel_num").val()
             },
             success: function (res) {
                 get_personnel(null, null);
                 console.log(res);
+
+                $("#tab_num").val('');
+                $("#first_name").val('');
+                $("#surname").val('');
+                $("#father_name").val('');
+                $("#birth_date").val(null);
+                $("#address").val('');
+                $("#salary-add").val('');
+
+                $('#tels_list').html('');
+                $("#tel_num").val('');
+
+                $('#add_area_btn').click();
             }
         });
     });
@@ -68,6 +87,52 @@ $(function () {
         get_personnel(null, null);
     });
 
+    $("#add_tel").on('click', function () {
+       let tel = $("#tel_num").val();
+        $("#tels_list").append('<option class="tel-opt">'+tel+'</option>');
+        $("#tel_num").val('');
+    });
+
+    $personnel_table.on('click', ".modal-show-btn", function () {
+        let worker = $(this).parents(".worker-row");
+        let modal = $(".show-modal");
+        modal.modal();
+
+        let modal_title = $('.tels-modal-title');
+        let tels_cont = $('.tels-cont');
+        tels_cont.html('');
+
+        modal_title.text(worker.find('.first-name').text() + " " + worker.find('.surname').text() + " " + worker.find('.father-name').text());
+
+        worker.find('.telephones-cell').find('.tel').each(function () {
+            appendToTelsList(tels_cont, $(this).text());
+        });
+    });
+
+    $('#add_tell_modal').on('click', function () {
+       let new_tel = $("#input_tell").val();
+       let tels_cont = $('.tels-cont');
+       if(new_tel != ''){
+           appendToTelsList(tels_cont, new_tel);
+       }
+        $("#input_tell").val('');
+    });
+
+    $('.modal').on('click', '.remove-tel', function () {
+        $(this).parents('.tel-row').remove();
+    });
+
+    function appendToTelsList(tels_cont, tel) {
+        tels_cont.append('<div class="tel-row">\n' +
+            '                            <div style="display: inline-block" class="editable-cell">\n' +
+            '                                <span class="value">'+ tel.trim() +'</span>\n' +
+            '                                <label class="input-data input-style">\n' +
+            '                                    <input type="tel" class="input tel-input">\n' +
+            '                                </label>\n' +
+            '                            </div>\n' +
+            '                            <span  class="glyphicon glyphicon-remove remove-tel"></span>\n' +
+            '                        </div>');
+    }
 
     // get_personnel(null, null);
     function addChangeLiesteners() {

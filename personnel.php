@@ -72,6 +72,50 @@
         </form>
     </div>
 
+    <div class="modal fade show-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title tels-modal-title" id="modal_tels_title">
+                        Список телефонів
+                    </h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="tels-cont">
+<!--                        <div class="tel-row">-->
+<!--                            <div style="display: inline-block" class="editable-cell">-->
+<!--                                <span class="value">088549543</span>-->
+<!--                                <label class="input-data input-style">-->
+<!--                                    <input type="tel" class="input tel-input">-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <span  class="glyphicon glyphicon-remove"></span>-->
+<!--                        </div>-->
+
+                    </div>
+
+                    <label>
+                        <input type="tel" class="new-tell" id="input_tell" placeholder="Новий телефон">
+                        <span class="glyphicon glyphicon-ok" id="add_tell_modal"></span>
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-style save-modal-btn" id="save_comment"
+                            data-dismiss="modal">SAVE
+                    </button>
+                    <button type="button" class="btn btn-style close-modal-btn"
+                            data-dismiss="modal">CANCEL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="inf-area">
         <div class="toggle-area new-item-area">
             <div class="new-item-header">
@@ -158,10 +202,19 @@
                                     <label class="required-label" for="address">Адреса</label>
                                 </div>
 
-                                <div class="field inline-field">
-                                    <input type="tel" name="tel_num" id="tel_num" placeholder="0951234567">
-                                    <label class="required-label" for="tel_num">Телефон</label>
+                                <div class="tels">
+                                    <div class="field inline-field">
+                                        <input type="tel" name="tel_num" id="tel_num" placeholder="0951234567">
+                                        <label class="required-label" for="tel_num">Телефон</label>
+                                    </div>
+                                    <span class="glyphicon glyphicon-ok add-tel" id="add_tel"></span>
+
+                                    <div class="field inline-field select-cont">
+                                        <select class="telephones-list" id="tels_list">
+                                        </select>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -171,6 +224,8 @@
         </div>
         <div class="table-area">
             <div class="show_items_btn">
+                <span class="curr_workers" id="curr_workers">Поточні робітники</span>
+                <span class="fired_workers" id="fired_workers">Звільнені робітники</span>
                 <span class="all_items" id="all_personnel">Всі робітники</span>
             </div>
 
