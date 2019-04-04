@@ -36,11 +36,7 @@
         <img class="img-cont image-transition" src="<?php echo PATH?>/images/drop_down_icon.png">
     </div>
 
-    <ul>
-        <li>ІМ'Я КОРИСТУВАЧА</li>
-        <li>|</li>
-        <li><a href="main.html"><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
-    </ul>
+
 </div>
 
 

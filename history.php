@@ -33,11 +33,7 @@
         Списання
     </div>
 
-    <ul>
-        <li>ІМ'Я КОРИСТУВАЧА</li>
-        <li>|</li>
-        <li><a href="main.html"><img src="<?php echo PATH?>/images/exit-black.svg" alt="Menu"/></a></li>
-    </ul>
+
 </div>
 
 <div class="main">

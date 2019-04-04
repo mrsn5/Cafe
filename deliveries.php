@@ -29,11 +29,7 @@ define("PATH", get_template_directory_uri());
         <img class="img-cont image-transition" src="<?php echo PATH ?>/images/drop_down_icon.png">
         <!--</div>-->
     </div>
-    <ul>
-        <li>ІМ'Я КОРИСТУВАЧА</li>
-        <li>|</li>
-        <li><a href="main.html"><img src="<?php echo PATH ?>/images/exit-black.svg" alt="Menu"/></a></li>
-    </ul>
+
 </div>
 
 <div class="main">
