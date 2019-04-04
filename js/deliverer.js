@@ -77,6 +77,7 @@ $(function () {
                 dish_name:dish
             },
             success: function (res) {
+                // console.log(res);
                 res = JSON.parse(res);
                 displayDeliverers(res, delivererTempl, $deliverer_table)
             },

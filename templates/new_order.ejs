@@ -2,13 +2,13 @@
     <div class="order-container">
         <div class="order-header-panel">
             <div class="order-num">
-                <h2 class="order-header">#<span id="order_num"><%= order.order_num %></span></h2>
+                <h2 style="visibility: hidden;" class="order-header">#<span id="order_num"><%= order.unique_num %></span></h2>
             </div>
 
             <div class="table-num-list">
                 <div class="btn-group">
                     <button class="btn btn-secondary dropdown-btn dropdown-btn-val" type="button">
-                        <h2 class="order-header">1</h2>
+                        <h2 class="order-header" id="table_num">1</h2>
                     </button>
                     <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split dropdown-btn dropdown-btn-img"
                             type="button" id="tableListDropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -17,8 +17,13 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="#"><h2 class="order-header">1</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">2</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">3</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">4</h2></a></li>
                         <li><a class="dropdown-item" href="#"><h2 class="order-header">5</h2></a></li>
-                        <li><a class="dropdown-item" href="#"><h2 class="order-header">12</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">6</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">7</h2></a></li>
+                        <li><a class="dropdown-item" href="#"><h2 class="order-header">8</h2></a></li>
                     </ul>
                 </div>
             </div>
@@ -27,12 +32,12 @@
         </div>
         <div class="order-content">
             <ul>
-                <% for(let i = 0; i < order.dishes.length; i++) { %>
+                <% for(let i = 0; i < order.portions.length; i++) { %>
                     <li class="item">
                         <div class="item-info">
                             <span class="item-number"><%= i+1%></span>
                             <div class="text">
-                                <span class="name"><%= order.dishes[i].dish_name%></span>
+                                <span class="name"><%= order.portions[i].dish_name%></span>
                                 <br/>
                                 <span class="comment" id="comment_text"></span>
                             </div>
@@ -43,8 +48,8 @@
                             </div>
                         </div>
 
-                        <input type="number" min="1" class="quantity" value="<%= order.dishes[i].quantity%>">
-                        <span class="price"><span class="dish-price"><%= order.dishes[i].dish_price%></span> грн</span>
+                        <input type="number" min="1" class="quantity" value="<%= order.portions[i].quantity%>">
+                        <span class="price"><span class="dish-price"><%= order.portions[i].price%></span> грн</span>
 
                         <div class="modal fade show-modal" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -86,12 +91,18 @@
 
             <div class="total">
                 <span>Всього</span>
-                <span class="total-price"><span class="order-total-cost"><%= order_cost%></span> грн</span>
+                <span class="total-price"><span class="order-total-cost"><%= cost%></span> грн</span>
+            </div>
+            <div class="n-people">
+                <span>Кількість людей</span>
+                <label class="n-people-input">
+                    <input type="number" id="n_people" min="1" placeholder="1" value="<%= order.n_people%>">
+                </label>
             </div>
 
             <div class="control-buttons">
-                <button class="ok-button control-btn btn-style">Зберегти</button>
-                <button class="cancel-button control-btn btn-style">Видалити</button>
+                <button class="ok-button control-btn btn-style" id="save_order_btn">Зберегти</button>
+                <button class="cancel-button control-btn btn-style" id="delete_new_order_btn">Видалити</button>
             </div>
         </div>
 

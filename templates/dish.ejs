@@ -15,6 +15,9 @@
         <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish">
     </span>
 
+            <div class="tech-card-num">
+                <span id="tech_card_num"><%= dish.tech_card_num%></span>
+            </div>
         <div class="top-panel">
             <!--<div class="img-cont">-->
             <!--<div class="image-wrap">-->
@@ -79,7 +82,7 @@
             </h3>
         </div>
 
-        <% if (choose_mode && dish.is_ing_available == 1) { %>
+        <% if (choose_mode) { %>
             <div class="button-cont">
                 <button class="ok-btn btn-style">ДОДАТИ</button>
             </div>

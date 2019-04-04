@@ -21,52 +21,83 @@ let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let order = ejs.compile("<li class=\"order-item\">\n<div class=\"order-container\">\n\n    <div class=\"order-num\">\n        <h1>#<%= order.unique_num %></h1>\n        <% if (mode !== 'history') { %>\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\n        <% } %>\n    </div>\n\n    <% if (mode !== 'history') { %>\n    <div class=\"table-num\">\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\n        <h1>12</h1>\n    </div>\n    <% } %>\n\n    <div class=\"order-time\">\n        <%= order.time_c %>\n        <!--            - 11.30-->\n    </div>\n\n    <% if (mode === 'history') { %>\n    <div class=\"personnel\">\n        <%= order.name %>\n    </div>\n    <% } %>\n\n\n    <div class=\"content\">\n        <ul>\n            <!-- ITEMS -->\n\n            <% for(var i=0; i < order.portions.length; i++) { %>\n            <li class=\"item\">\n                <div class=\"item-info\">\n                    <% if (mode !== 'history') { %>\n                    <input type=\"checkbox\" id=\"box-1\">\n                    <% } %>\n                    <label for=\"box-1\">\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\n                                    <%=\" is-ready\";%>\n                                <% } else if ( order.portions[i].is_served == '1') { %>\n                                    <%=\" is-served\";%>\n                                <% } %>\">\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\n                            <% if (order.portions[i].special_wishes != null) { %>\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\n                            <% } %>\n                        </div>\n                    </label>\n                </div>\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\n            </li>\n            <% } %>\n\n\n\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\n            <!--<li><hr></li>-->\n\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\n            <!--<li class=\"discount\">-->\n                <!--<div class=\"item-info\">-->\n                    <!--<div class=\"text\">-->\n                        <!--<span>Знижка</span><br/>-->\n                    <!--</div>-->\n                <!--</div>-->\n                <!--<span class=\"quantity\">%</span>-->\n                <!--<span class=\"price\"> грн</span>-->\n            <!--</li>-->\n\n\n            <!-- BREAK LINE-->\n            <li><hr></li>\n\n            <!-- TOTAL -->\n            <li class=\"total\">\n                <span>Всього</span>\n                <span class=\"total-price\"><%= order.cost %> грн</span>\n            </li>\n\n        </ul>\n    </div>\n</div>\n</li>");
-let new_order_templ = ejs.compile("<li class=\"order-item\">\n    <div class=\"order-container\">\n        <div class=\"order-header-panel\">\n            <div class=\"order-num\">\n                <h2 class=\"order-header\">#<span id=\"order_num\"><%= order.order_num %></span></h2>\n            </div>\n\n            <div class=\"table-num-list\">\n                <div class=\"btn-group\">\n                    <button class=\"btn btn-secondary dropdown-btn dropdown-btn-val\" type=\"button\">\n                        <h2 class=\"order-header\">1</h2>\n                    </button>\n                    <button class=\"btn btn-secondary dropdown-toggle dropdown-toggle-split dropdown-btn dropdown-btn-img\"\n                            type=\"button\" id=\"tableListDropdown\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\n                            aria-expanded=\"true\">\n                        <img src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">1</h2></a></li>\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">5</h2></a></li>\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">12</h2></a></li>\n                    </ul>\n                </div>\n            </div>\n\n            <div class=\"order-time\"><%= order.order_time %></div>\n        </div>\n        <div class=\"order-content\">\n            <ul>\n                <% for(let i = 0; i < order.dishes.length; i++) { %>\n                    <li class=\"item\">\n                        <div class=\"item-info\">\n                            <span class=\"item-number\"><%= i+1%></span>\n                            <div class=\"text\">\n                                <span class=\"name\"><%= order.dishes[i].dish_name%></span>\n                                <br/>\n                                <span class=\"comment\" id=\"comment_text\"></span>\n                            </div>\n                            <div class=\"comment-icon\">\n                                <a class=\"modal-show-btn\" data-toggle=\"modal\" href=\"\" id=\"add_comment_btn\"><img\n                                            src=\"<%= url_object.template_directory %>/images/add-comment2.png\"\n                                            alt=\"AddComment\"/></a>\n                            </div>\n                        </div>\n\n                        <input type=\"number\" min=\"1\" class=\"quantity\" value=\"<%= order.dishes[i].quantity%>\">\n                        <span class=\"price\"><span class=\"dish-price\"><%= order.dishes[i].dish_price%></span> грн</span>\n\n                        <div class=\"modal fade show-modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n                            <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                                <div class=\"modal-content\">\n                                    <div class=\"modal-header\">\n                                        <h2 class=\"modal-title comment-modal-title\" id=\"modal_comment_title\">\n                                            Коментар</h2>\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                                            <span aria-hidden=\"true\">&times;</span>\n                                        </button>\n                                    </div>\n                                    <div class=\"modal-body\">\n                                        <input type=\"text\" class=\"comment-input-class\" id=\"input_comment\">\n                                    </div>\n                                    <div class=\"modal-footer\">\n                                        <button type=\"button\" class=\"btn btn-style save-modal-btn\" id=\"save_comment\"\n                                                data-dismiss=\"modal\">SAVE\n                                        </button>\n                                        <button type=\"button\" class=\"btn btn-style close-modal-btn\"\n                                                data-dismiss=\"modal\">CANCEL\n                                        </button>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n                    </li>\n                <% } %>\n                <li class=\"item add-new-item add-dish-btn\">\n                    <div class=\"item-info\">\n                        <div class=\"add-block\">\n                            <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" class=\"add-icon\">\n                            <span class=\"add-new-item-text\">Додати страву</span>\n                        </div>\n\n                    </div>\n                    <a href=\"#\"><span></span></a>\n                </li>\n            </ul>\n\n            <div class=\"total\">\n                <span>Всього</span>\n                <span class=\"total-price\"><span class=\"order-total-cost\"><%= order_cost%></span> грн</span>\n            </div>\n\n            <div class=\"control-buttons\">\n                <button class=\"ok-button control-btn btn-style\">Зберегти</button>\n                <button class=\"cancel-button control-btn btn-style\">Видалити</button>\n            </div>\n        </div>\n\n    </div>\n</li>\n");
+let order_templ = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\r\n        <h1><%= order.table_num%></h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" id=\"box-1\">\r\n                    <% } %>\r\n                    <label for=\"box-1\">\r\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } else if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let new_order_templ = ejs.compile("<li class=\"order-item\">\r\n    <div class=\"order-container\">\r\n        <div class=\"order-header-panel\">\r\n            <div class=\"order-num\">\r\n                <h2 style=\"visibility: hidden;\" class=\"order-header\">#<span id=\"order_num\"><%= order.unique_num %></span></h2>\r\n            </div>\r\n\r\n            <div class=\"table-num-list\">\r\n                <div class=\"btn-group\">\r\n                    <button class=\"btn btn-secondary dropdown-btn dropdown-btn-val\" type=\"button\">\r\n                        <h2 class=\"order-header\" id=\"table_num\">1</h2>\r\n                    </button>\r\n                    <button class=\"btn btn-secondary dropdown-toggle dropdown-toggle-split dropdown-btn dropdown-btn-img\"\r\n                            type=\"button\" id=\"tableListDropdown\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"true\">\r\n                        <img src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">1</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">2</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">3</h2></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"order-time\"><%= order.order_time %></div>\r\n        </div>\r\n        <div class=\"order-content\">\r\n            <ul>\r\n                <% for(let i = 0; i < order.portions.length; i++) { %>\r\n                    <li class=\"item\">\r\n                        <div class=\"item-info\">\r\n                            <span class=\"item-number\"><%= i+1%></span>\r\n                            <div class=\"text\">\r\n                                <span class=\"name\"><%= order.portions[i].dish_name%></span>\r\n                                <br/>\r\n                                <span class=\"comment\" id=\"comment_text\"></span>\r\n                            </div>\r\n                            <div class=\"comment-icon\">\r\n                                <a class=\"modal-show-btn\" data-toggle=\"modal\" href=\"\" id=\"add_comment_btn\"><img\r\n                                            src=\"<%= url_object.template_directory %>/images/add-comment2.png\"\r\n                                            alt=\"AddComment\"/></a>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <input type=\"number\" min=\"1\" class=\"quantity\" value=\"<%= order.portions[i].quantity%>\">\r\n                        <span class=\"price\"><span class=\"dish-price\"><%= order.portions[i].price%></span> грн</span>\r\n\r\n                        <div class=\"modal fade show-modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n                            <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n                                <div class=\"modal-content\">\r\n                                    <div class=\"modal-header\">\r\n                                        <h2 class=\"modal-title comment-modal-title\" id=\"modal_comment_title\">\r\n                                            Коментар</h2>\r\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                                            <span aria-hidden=\"true\">&times;</span>\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"modal-body\">\r\n                                        <input type=\"text\" class=\"comment-input-class\" id=\"input_comment\">\r\n                                    </div>\r\n                                    <div class=\"modal-footer\">\r\n                                        <button type=\"button\" class=\"btn btn-style save-modal-btn\" id=\"save_comment\"\r\n                                                data-dismiss=\"modal\">SAVE\r\n                                        </button>\r\n                                        <button type=\"button\" class=\"btn btn-style close-modal-btn\"\r\n                                                data-dismiss=\"modal\">CANCEL\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n                <li class=\"item add-new-item add-dish-btn\">\r\n                    <div class=\"item-info\">\r\n                        <div class=\"add-block\">\r\n                            <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" class=\"add-icon\">\r\n                            <span class=\"add-new-item-text\">Додати страву</span>\r\n                        </div>\r\n\r\n                    </div>\r\n                    <a href=\"#\"><span></span></a>\r\n                </li>\r\n            </ul>\r\n\r\n            <div class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><span class=\"order-total-cost\"><%= cost%></span> грн</span>\r\n            </div>\r\n            <div class=\"n-people\">\r\n                <span>Кількість людей</span>\r\n                <label class=\"n-people-input\">\r\n                    <input type=\"number\" id=\"n_people\" min=\"1\" placeholder=\"1\" value=\"<%= order.n_people%>\">\r\n                </label>\r\n            </div>\r\n\r\n            <div class=\"control-buttons\">\r\n                <button class=\"ok-button control-btn btn-style\" id=\"save_order_btn\">Зберегти</button>\r\n                <button class=\"cancel-button control-btn btn-style\" id=\"delete_new_order_btn\">Видалити</button>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n</li>\r\n");
 
 Date.prototype.hrsmins = function () {
     let hrs = this.getHours();
     let mins = this.getMinutes();
+    let sec = this.getSeconds();
 
-    return [hrs, mins
+    return [hrs, mins, (sec > 9 ? '' : '0') + sec
     ].join(':');
 };
 
-$(function(){
+
+Date.prototype.yyyymmdd = function () {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+    ].join('-');
+};
+
+$(function () {
+    let today_date = new Date().yyyymmdd();
+
     let unsaved_orders = [];
 
-    $(".dropdown-menu li a").click(function(){
+    let open_orders = $("#open-orders");
+    let $unsaved_orders_cont = $("#unsaved_orders_list");
+
+    $unsaved_orders_cont.on('click', ".dropdown-menu li a", function () {
         $(".dropdown-btn-val .order-header").text($(this).text());
         $(".dropdown-btn-val .order-header").val($(this).text());
     });
 
-    $(".modal-show-btn").on('click', function () {
-        var item = $(this).parents(".item");
-        var modal = item.find(".show-modal");
+    $unsaved_orders_cont.on('click', ".modal-show-btn", function () {
+        let item = $(this).parents(".item");
+        let modal = item.find(".show-modal");
         modal.modal();
 
-        var input_comment =  modal.find(".comment-input-class");
-        var comment_text = item.find(".comment");
-        var comment = comment_text.text();
-        var matches = comment.match(/\[(.*?)\]/);
-        if(matches){
+        let input_comment = modal.find(".comment-input-class");
+        let comment_text = item.find(".comment");
+        let comment = comment_text.text();
+        let matches = comment.match(/\[(.*?)\]/);
+        if (matches) {
             comment = matches[1];
         }
         input_comment.val(comment);
 
         modal.find(".save-modal-btn").click(function () {
-            var new_comment = input_comment.val();
-            item.find(".comment").text("[" + new_comment + "]");
+            let new_comment = input_comment.val();
+            if (new_comment != '') {
+                item.find(".comment").text("[" + new_comment + "]");
+
+                let dish_name = item.find(".name").text();
+                console.log(dish_name);
+
+                let order_num = $(this).parents('.order-item').find('#order_num').text();
+                let order_i = unsaved_orders.findIndex(o => o.unique_num == order_num);
+                if (order_i > -1) {
+                    let dish_i = unsaved_orders[order_i].portions.findIndex(p => p.dish_name == dish_name);
+                    if (dish_i > -1) {
+                        unsaved_orders[order_i].portions[dish_i].special_wishes = new_comment;
+                        Storage.set('unsaved_orders', unsaved_orders);
+                    }
+                }
+            }
+
         })
     });
 
-    var open_orders = $("#open-orders");
+    getOrders(false);
 
-    get_orders(false);
+    getUnsavedOrders();
 
-    get_unsaved_orders();
-
-    function get_orders(is_closed, tab_num) {
+    function getOrders(is_closed, tab_num) {
         open_orders.html("");
         $.ajax({
             url: url_object.ajax_url,
@@ -85,7 +116,7 @@ $(function(){
                 console.log(res);
                 res.forEach(function (o) {
                     // console.log(url_object.template_directory);
-                    var $node = $(order({
+                    var $node = $(order_templ({
                         order: o,
                         url: url_object.template_directory,
                         mode: 'orders'
@@ -96,17 +127,17 @@ $(function(){
         });
     }
 
-    function get_unsaved_orders(){
+    function getUnsavedOrders() {
         unsaved_orders = Storage.get('unsaved_orders') ? Storage.get('unsaved_orders') : [];
 
         unsaved_orders.forEach(function (order) {
             let order_cost = 0;
-            for(let i = 0; i< order.dishes.length; i++)
-                order_cost += order.dishes[i].dish_price*order.dishes[i].quantity;
+            for (let i = 0; i < order.portions.length; i++)
+                order_cost += order.portions[i].price * order.portions[i].quantity;
 
             $("#unsaved_orders_list").prepend($(new_order_templ({
-                order:order,
-                order_cost: order_cost
+                order: order,
+                cost: order_cost
             })));
         });
     }
@@ -115,55 +146,29 @@ $(function(){
     $('#add_order_btn').on('click', function () {
         let order;
         console.log(unsaved_orders.length);
-        if(unsaved_orders.length == 0){
-            get_next_order_id(function (data) {
-                order = {
-                    order_num: data['next_id'],
-                    order_time: new Date().hrsmins(),
-                    dishes: []
-                };
-                appendNewOrder(order);
-            });
-        }
-        else{
-            let last_order = getLastOrder();
-            console.log(last_order);
-            order = {
-                order_num: +(last_order['order_num']) + 1,
-                order_time: new Date().hrsmins(),
-                dishes: []
-            };
-            appendNewOrder(order);
-        }
+        let last_order_id = getLastOrderId();
+        console.log(last_order_id);
+        order = {
+            unique_num: +last_order_id + 1,
+            order_time: new Date().hrsmins(),
+            portions: [],
+            n_people: 1
+        };
+        appendNewOrder(order);
     });
 
     function appendNewOrder(new_order) {
-        $("#unsaved_orders_list").prepend($(new_order_templ({
+        $unsaved_orders_cont.prepend($(new_order_templ({
             order: new_order,
-            order_cost: 0
+            cost: 0
         })));
 
         unsaved_orders.push(new_order);
         Storage.set('unsaved_orders', unsaved_orders);
     }
 
-    function getLastOrder() {
-        return unsaved_orders[unsaved_orders.length-1];
-    }
-
-    function get_next_order_id(callback){
-        $.ajax({
-            url: url_object.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'get_next_order_id',
-            },
-            success: function (res) {
-                res = JSON.parse(res);
-                console.log(res);
-                callback(res);
-            }
-        });
+    function getLastOrderId() {
+        return unsaved_orders.length === 0 ? 0 : (unsaved_orders[unsaved_orders.length - 1])['unique_num'];
     }
 
     $("#unsaved_orders_list").on('click', '.add-dish-btn', function () {
@@ -172,33 +177,36 @@ $(function(){
         console.log(order_num);
 
         window.location.href = url_object.menu_page_url + '/?order_num=' + encodeURI(order_num);
-        // $.ajax({
-        //     url: url_object.ajax_url,
-        //     type: 'POST',
-        //     data: {
-        //         action: 'choose_order_dish_mode',
-        //         order_num: order_num
-        //     },
-        //     success: function (res) {
-        //         console.log(res);
-        //
-        //     }
-        // });
     });
 
-    $("#unsaved_orders_list").on('input', '.quantity', function () {
+
+    $unsaved_orders_cont.on('input', '#n_people', function () {
+        let n_people = $(this).val();
+
+        let $parent = $(this).parents('.order-container');
+        let order_num = $parent.find('#order_num').text();
+
+        let orderIndex = unsaved_orders.findIndex(o => o.unique_num == order_num);
+        if (orderIndex > -1) {
+            unsaved_orders[orderIndex].n_people = n_people;
+        }
+        Storage.set('unsaved_orders', unsaved_orders);
+    });
+
+
+    $unsaved_orders_cont.on('input', '.quantity', function () {
         let quantity = $(this).val();
 
         let $parent = $(this).parents('.order-container');
         let order_num = $parent.find('#order_num').text();
         let dish_name = $(this).parents('.item').find('.name').text();
 
-        let orderIndex = unsaved_orders.findIndex(o => o.order_num == order_num);
-        if(orderIndex > -1){
-            console.log(order);
-            let i = unsaved_orders[orderIndex].dishes.findIndex(d => d.dish_name == dish_name);
-            if(i > -1){
-                unsaved_orders[orderIndex].dishes[i].quantity = quantity;
+        let orderIndex = unsaved_orders.findIndex(o => o.unique_num == order_num);
+        if (orderIndex > -1) {
+            console.log(order_templ);
+            let i = unsaved_orders[orderIndex].portions.findIndex(d => d.dish_name == dish_name);
+            if (i > -1) {
+                unsaved_orders[orderIndex].portions[i].quantity = quantity;
             }
 
             let $total_cost = $(this).parents('.order-container').find('.order-total-cost');
@@ -207,11 +215,86 @@ $(function(){
         }
     });
 
+    $unsaved_orders_cont.on('click', "#save_order_btn", function () {
+        let $parent = $(this).parents('.order-item');
+        let order_num = $parent.find('#order_num').text();
+        let order_index = unsaved_orders.findIndex(o => o.unique_num == order_num);
+
+        if (order_index > -1) {
+            let order = unsaved_orders[order_index];
+            let order_cost = 0;
+            for (let i = 0; i < order.portions.length; i++) {
+                order_cost += order.portions[i].price * order.portions[i].quantity;
+            }
+            order['cost'] = order_cost;
+
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'add_new_order',
+                    // unique_num: order['unique_num'],
+                    order_time: today_date + " " + order['order_time'],
+                    table_num: $parent.find('#table_num').text(),
+                    is_paid: false,
+                    cost: order['cost'],
+                    n_people: order['n_people'],
+                    portions: order['portions'],
+                    tab_num: 516
+                },
+                success: function (res) {
+                    console.log(res);
+                    res = JSON.parse(res);
+                    let lastid = res['last_id'];
+
+                    if (lastid != null) {
+                        getLastInsertedOrder(lastid, function (res) {
+                            let $node = $(order_templ({
+                                order: res,
+                                url: url_object.template_directory,
+                                mode: 'orders'
+                            }));
+
+                            open_orders.append($node);
+                            $parent.remove();
+                            unsaved_orders.splice(order_index, 1);
+                            Storage.set('unsaved_orders', unsaved_orders);
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    $unsaved_orders_cont.on('click', "#delete_new_order_btn", function () {
+        let $parent = $(this).parents('.order-item');
+        let order_num = $parent.find('#order_num').text();
+        let order_index = unsaved_orders.findIndex(o => o.unique_num == order_num);
+        unsaved_orders.splice(order_index, 1);
+        Storage.set('unsaved_orders', unsaved_orders);
+        $parent.remove();
+    });
+
+    function getLastInsertedOrder(id, callback) {
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'orders_select',
+                unique_num: id
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+                callback(res['0']);
+            }
+        });
+    }
 
     function updateOrderCost(order, $cost_label) {
         let order_cost = 0;
-        for(let i = 0; i< order.dishes.length; i++)
-            order_cost += order.dishes[i].dish_price*order.dishes[i].quantity;
+        for (let i = 0; i < order.portions.length; i++)
+            order_cost += order.portions[i].price * order.portions[i].quantity;
         $cost_label.text(order_cost);
     }
 });
@@ -1730,7 +1813,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1754,7 +1837,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

@@ -1,6 +1,6 @@
 <?php
 
-
+require_once(ABSPATH . 'wp-config.php');
 class DBHelper {
     private static $servername = "localhost";
     private static $username = "root";
@@ -11,11 +11,11 @@ class DBHelper {
 
     static function connect() {
         try{
-            self::$conn = new PDO("mysql:host=".self::$servername.
-                "; dbname=".self::$myDB.
+            self::$conn = new PDO("mysql:host=".DB_HOST.
+                "; dbname=".DB_NAME.
                 "; port=".self::$port,
-                self::$username,
-                self::$password);
+                DB_USER,
+                DB_PASSWORD);
             // set the PDO error mode to exception
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->exec("SET NAMES 'utf8'");

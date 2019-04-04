@@ -68,39 +68,28 @@ $(function(){
             });
 
             $dishes_container.on('click', '.ok-btn', function() {
-                if(data['is_choose_mode']) {
+          //      if(url_params['order_num']) {
                     let $parent = $(this).parents('.dish');
                     let dish_name = $parent.find('.name').text();
                     let dish_price = $parent.find('.dish-price-span').text();
+                    let tech_card_num = $parent.find('#tech_card_num').text();
+
                     let unsaved_orders = Storage.get('unsaved_orders');
                     // let curr_order = unsaved_orders.find(order => order.order_num == data['order_num']);
-                    let order_index = unsaved_orders.findIndex(order => order.order_num == data['order_num']);
+                    let order_index = unsaved_orders.findIndex(order => order.unique_num == url_params['order_num']);
 
                     if (order_index > -1) {
-                        unsaved_orders[order_index].dishes.push({
+                        unsaved_orders[order_index].portions.push({
+                            tech_card_num: tech_card_num,
                             dish_name: dish_name,
-                            dish_price: dish_price,
+                            special_wishes: '',
+                            price: dish_price,
                             quantity: 1
                         });
                     }
 
                     Storage.set('unsaved_orders', unsaved_orders);
                     window.location.href = url_object.orders_page_url;
-                    // $.ajax({
-                    //     url: url_object.ajax_url,
-                    //     type: 'POST',
-                    //     data: {
-                    //         action: 'destroy_session',
-                    //         session_key: 'order_num'
-                    //     },
-                    //     success: function (res) {
-                    //   //      res = JSON.parse(res);
-                    //         console.log(res);
-                    //
-                    //
-                    //     }
-                    // });
-                }
             });
      //   });
     }
@@ -110,18 +99,4 @@ $(function(){
         Gen.rotateImage($(this).find(".img-cont"));
     });
 
-    // function getMode(callback) {
-    //     $.ajax({
-    //         url: url_object.ajax_url,
-    //         type: 'POST',
-    //         data: {
-    //             action: 'is_mode'
-    //         },
-    //         success: function (res) {
-    //             res = JSON.parse(res);
-    //             console.log(res);
-    //             callback(res);
-    //         }
-    //     });
-    // }
 });

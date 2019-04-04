@@ -143,8 +143,8 @@ let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let category = ejs.compile("<li>\n    <a class=\"category-name\"><h2><%= cat_name %></h2></a>\n</li>");
-let ing_row = ejs.compile("<tr class=\"product\">\n    <td class=\"index\"><%= index%></td>\n    <td>\n        <span><%= ing_name%></span>\n    </td>\n    <td>\n        <span><%= ing_amount%></span>\n    </td>\n    <td><%= unit_price%></td>\n    <td><%= gen_price%></td>\n    <td><img class=\"icon delete-ing\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\n</tr>");
+let category = ejs.compile("<li>\r\n    <a class=\"category-name\"><h2><%= cat_name %></h2></a>\r\n</li>");
+let ing_row = ejs.compile("<tr class=\"product\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <td>\r\n        <span><%= ing_name%></span>\r\n    </td>\r\n    <td>\r\n        <span><%= ing_amount%></span>\r\n    </td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= gen_price%></td>\r\n    <td><img class=\"icon delete-ing\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
 
 
 $(function () {
@@ -1836,7 +1836,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1860,7 +1860,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "/Applications/MAMP/htdocs/Cafe/wp-content/themes/Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
