@@ -3,7 +3,8 @@ var $ = jQuery;
 let fs = require('fs');
 let ejs = require('ejs');
 
-var order = ejs.compile(fs.readFileSync("./templates/order.ejs", "utf8"));
+let order = ejs.compile(fs.readFileSync("./templates/order.ejs", "utf8"));
+let discarding_templ = ejs.compile(fs.readFileSync("./templates/discarding.ejs", "utf8"));
 
 
 Date.prototype.yyyymmdd = function() {
@@ -29,7 +30,7 @@ $(function(){
 
     onLoad();
 
-    var $orders_list = $("#orders-list");
+    let $orders_list = $("#orders-list");
 
     orders_today();
 
@@ -37,8 +38,15 @@ $(function(){
     $('#date-from-search').val(now);
     $('#date-to-search').val(now);
 
-    $("#search-button").on('click', function(){
+    $container_search.on('click', "#search-button", function(){
         get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()))
+    });
+
+    $container_search.on('click', "#search_discards", function(){
+        get_discardings($('#discarding_date').val(), $('#resp_person').val().trim() === ''? null: $('#resp_person').val().trim());
+
+        $('#discarding_date').val('');
+        $('#resp_person').val('');
     });
 
     $("#today-orders").on('click', function(){
@@ -54,6 +62,7 @@ $(function(){
         $container_search.html('');
         $container.append($discarding);
         $container_search.append($discarding_search);
+        get_discardings();
     });
 
     function onLoad() {
@@ -111,4 +120,28 @@ $(function(){
         });
     }
 
+    function get_discardings(disc_date, resp_person) {
+        let $discarding_list = $('#discarding_list_container');
+        $discarding_list.html("");
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'discarding_select',
+                disc_date: disc_date,
+                resp_person: resp_person
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+                res.forEach(function (d) {
+                    let $node = $(discarding_templ({
+                        discarding: d,
+                        url: url_object.template_directory
+                    }));
+                    $discarding_list.append($node);
+                });
+            }
+        });
+    }
 });

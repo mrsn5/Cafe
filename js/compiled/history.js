@@ -4,7 +4,8 @@ var $ = jQuery;
 
 let ejs = require('ejs');
 
-var order = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\r\n        <h1><%= order.table_num%></h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" id=\"box-1\">\r\n                    <% } %>\r\n                    <label for=\"box-1\">\r\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } else if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let order = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\" href=\"\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n        <a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>\r\n        <h1><%= order.table_num%></h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" id=\"box-1\">\r\n                    <% } %>\r\n                    <label for=\"box-1\">\r\n                        <div class=\"text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } else if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let discarding_templ = ejs.compile("<tr>\r\n    <td><%= discarding.unique_code%></td>\r\n    <td><%= discarding.discard_date%></td>\r\n    <td><%= discarding.cost%></td>\r\n    <td><%= discarding.resp_person%></td>\r\n    <td class=\"show-products\"><img class=\"image-transition\"\r\n                                   src=\"<%= url%>/images/drop_down_icon.png\">\r\n    </td>\r\n</tr>\r\n<tr class=\"extra\">\r\n    <td colspan=\"10\">\r\n        <div class=\"products-list custom-scrollbar\">\r\n            <ul class=\"ul-style\">\r\n                <li class=\"product prod-header\">\r\n                    <div class=\"number\"></div>\r\n                    <div class=\"code\">№ поставки</div>\r\n                    <div class=\"code\">№ товару</div>\r\n                    <div class=\"name\">назва</div>\r\n                    <div class=\"units\">один. вим.</div>\r\n                    <div class=\"amount\">кількість</div>\r\n                    <div class=\"price\">сума</div>\r\n                    <div class=\"reason\">причина</div>\r\n                </li>\r\n                <% for(let i = 0; i<discarding.goods.length; i++) {%>\r\n                <li class=\"product\">\r\n                    <div class=\"number\"><%= i+1%></div>\r\n                    <div class=\"code\"><%= discarding.goods[i].delivery_num%></div>\r\n                    <div class=\"code\"><%= discarding.goods[i].good_code%></div>\r\n                    <div class=\"name\"><%= discarding.goods[i].goods_name%></div>\r\n                    <div class=\"units\"><%= discarding.goods[i].unit_name%></div>\r\n                    <div class=\"amount\"><%= discarding.goods[i].amount%></div>\r\n                    <div class=\"price\"><%= discarding.goods[i].cost%></div>\r\n                    <div class=\"reason\"><%= discarding.goods[i].reason%></div>\r\n                </li>\r\n                <%}%>\r\n            </ul>\r\n        </div>\r\n    </td>\r\n</tr>");
 
 
 Date.prototype.yyyymmdd = function() {
@@ -30,7 +31,7 @@ $(function(){
 
     onLoad();
 
-    var $orders_list = $("#orders-list");
+    let $orders_list = $("#orders-list");
 
     orders_today();
 
@@ -38,8 +39,15 @@ $(function(){
     $('#date-from-search').val(now);
     $('#date-to-search').val(now);
 
-    $("#search-button").on('click', function(){
+    $container_search.on('click', "#search-button", function(){
         get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()))
+    });
+
+    $container_search.on('click', "#search_discards", function(){
+        get_discardings($('#discarding_date').val(), $('#resp_person').val().trim() === ''? null: $('#resp_person').val().trim());
+
+        $('#discarding_date').val('');
+        $('#resp_person').val('');
     });
 
     $("#today-orders").on('click', function(){
@@ -55,6 +63,7 @@ $(function(){
         $container_search.html('');
         $container.append($discarding);
         $container_search.append($discarding_search);
+        get_discardings();
     });
 
     function onLoad() {
@@ -112,6 +121,30 @@ $(function(){
         });
     }
 
+    function get_discardings(disc_date, resp_person) {
+        let $discarding_list = $('#discarding_list_container');
+        $discarding_list.html("");
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'discarding_select',
+                disc_date: disc_date,
+                resp_person: resp_person
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+                res.forEach(function (d) {
+                    let $node = $(discarding_templ({
+                        discarding: d,
+                        url: url_object.template_directory
+                    }));
+                    $discarding_list.append($node);
+                });
+            }
+        });
+    }
 });
 },{"ejs":3}],2:[function(require,module,exports){
 

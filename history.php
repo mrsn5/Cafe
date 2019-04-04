@@ -80,7 +80,7 @@
         <div class="search-cont-discarding">
             <form>
                 <div class="search-block">
-                    <span class="label-header">Пошук
+                    <span class="label-header" id="search_discards">Пошук
                         <img src="<?php echo PATH?>/images/search.svg" class="search-icon" alt="Пошук по даті">
                     </span>
                     <div class="input-block">
@@ -90,7 +90,7 @@
 
                     <div class="input-block">
                         <label class="label" for="resp_person">Відповідальна особа</label>
-                        <input type="text" placeholder="Ім'я робітника">
+                        <input type="text" placeholder="Ім'я робітника" id="resp_person">
                     </div>
                 </div>
             </form>
@@ -114,11 +114,11 @@
 
             <div class="temp-order-area">
                 <ul id="orders-list">
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
-                    <li class="order-item"><?php include('orders.php');?></li>
+<!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+<!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+<!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+<!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
+<!--                    <li class="order-item">--><?php //include('orders.php');?><!--</li>-->
                 </ul>
             </div>
         </div>
@@ -136,60 +136,8 @@
                     </tr>
                     </thead>
 
-                    <tbody class="color-lines-with-extra">
-                    <tr>
-                        <td>1234</td>
-                        <td>2019-02-20</td>
-                        <td>340</td>
-                        <td>Петренко Петро Петрович</td>
-                        <td class="show-products"><img class="image-transition"
-                                                       src="<?php echo PATH ?>/images/drop_down_icon.png">
-                        </td>
-                    </tr>
-                    <tr class="extra">
-                        <td colspan="10">
-                            <div class="products-list custom-scrollbar">
-                                <ul class="ul-style">
-                                    <li class="product prod-header">
-                                        <div class="number"></div>
-                                        <div class="code">№ поставки</div>
-                                        <div class="code">код товару</div>
-                                        <div class="name">назва</div>
-                                        <div class="units">один. вимірюв.</div>
-                                        <div class="amount">кількість</div>
-                                        <div class="price">ціна за од.(грн)</div>
-                                    </li>
-                                    <li class="product">
-                                        <div class="number">1.</div>
-                                        <div class="code">12343</div>
-                                        <div class="code">53542</div>
-                                        <div class="name">Картопля білоруська</div>
-                                        <div class="units">кг</div>
-                                        <div class="amount">30</div>
-                                        <div class="price">10</div>
-                                    </li>
-                                    <li class="product">
-                                        <div class="number">1.</div>
-                                        <div class="code">12343</div>
-                                        <div class="code">53542</div>
-                                        <div class="name">Картопля білоруська</div>
-                                        <div class="units">кг</div>
-                                        <div class="amount">30</div>
-                                        <div class="price">10</div>
-                                    </li>
-                                    <li class="product">
-                                        <div class="number">1.</div>
-                                        <div class="code">12343</div>
-                                        <div class="code">53542</div>
-                                        <div class="name">Картопля білоруська</div>
-                                        <div class="units">кг</div>
-                                        <div class="amount">30</div>
-                                        <div class="price">10</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+                    <tbody class="color-lines-with-extra" id="discarding_list_container">
+
                     </tbody>
                 </table>
             </div>

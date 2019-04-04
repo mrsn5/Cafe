@@ -14,6 +14,7 @@ require_once 'Backend/statistics_ajax.php';
 require_once 'Backend/orders_ajax.php';
 require_once 'Backend/deliveries_ajax.php';
 require_once 'Backend/storage_ajax.php';
+require_once 'Backend/discarding_ajax.php';
 
 //add bootstrap
 function add_bootstrap(){

@@ -1,0 +1,39 @@
+<tr>
+    <td><%= discarding.unique_code%></td>
+    <td><%= discarding.discard_date%></td>
+    <td><%= discarding.cost%></td>
+    <td><%= discarding.resp_person%></td>
+    <td class="show-products"><img class="image-transition"
+                                   src="<%= url%>/images/drop_down_icon.png">
+    </td>
+</tr>
+<tr class="extra">
+    <td colspan="10">
+        <div class="products-list custom-scrollbar">
+            <ul class="ul-style">
+                <li class="product prod-header">
+                    <div class="number"></div>
+                    <div class="code">№ поставки</div>
+                    <div class="code">№ товару</div>
+                    <div class="name">назва</div>
+                    <div class="units">один. вим.</div>
+                    <div class="amount">кількість</div>
+                    <div class="price">сума</div>
+                    <div class="reason">причина</div>
+                </li>
+                <% for(let i = 0; i<discarding.goods.length; i++) {%>
+                <li class="product">
+                    <div class="number"><%= i+1%></div>
+                    <div class="code"><%= discarding.goods[i].delivery_num%></div>
+                    <div class="code"><%= discarding.goods[i].good_code%></div>
+                    <div class="name"><%= discarding.goods[i].goods_name%></div>
+                    <div class="units"><%= discarding.goods[i].unit_name%></div>
+                    <div class="amount"><%= discarding.goods[i].amount%></div>
+                    <div class="price"><%= discarding.goods[i].cost%></div>
+                    <div class="reason"><%= discarding.goods[i].reason%></div>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </td>
+</tr>
