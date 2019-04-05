@@ -15,6 +15,9 @@ $(function () {
         var search_name = $("#search_pib").val().trim();
         var search_position = $("#position").val();
         get_personnel(search_position, search_name);
+
+        $("#search_pib").val('');
+        $("#position").val('');
     });
 
     function get_personnel(position, name) {
@@ -32,6 +35,26 @@ $(function () {
                 res = JSON.parse(res);
                 res.forEach(function (p) {
                     var $node = $(personnel(p));
+                    $personnel_table.append($node);
+                });
+            }
+        });
+    }
+
+    function get_personnel_on_fire_date(fired) {
+        $personnel_table.html("");
+        $.ajax({
+            url: ajax_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'fired_workers_select',
+                fired: fired
+            },
+            success: function (res) {
+                console.log(res);
+                res = JSON.parse(res);
+                res.forEach(function (p) {
+                    let $node = $(personnel(p));
                     $personnel_table.append($node);
                 });
             }
@@ -86,6 +109,14 @@ $(function () {
         get_personnel(null, null);
     });
 
+    $("#curr_workers").on('click', function () {
+        get_personnel_on_fire_date(false);
+    });
+
+    $("#fired_workers").on('click', function () {
+        get_personnel_on_fire_date(true);
+    });
+
     $("#add_tel").on('click', function () {
        let tel = $("#tel_num").val();
         $("#tels_list").append('<option class="tel-opt">'+tel+'</option>');
@@ -94,6 +125,8 @@ $(function () {
 
     $personnel_table.on('click', ".modal-show-btn", function () {
         let worker = $(this).parents(".worker-row");
+        let tab_num = worker.find(".tab_num").text();
+
         let modal = $(".show-modal");
         modal.modal();
 
@@ -102,11 +135,46 @@ $(function () {
         tels_cont.html('');
 
         modal_title.text(worker.find('.first-name').text() + " " + worker.find('.surname').text() + " " + worker.find('.father-name').text());
+        modal.attr('id', tab_num);
 
         worker.find('.telephones-cell').find('.tel').each(function () {
             appendToTelsList(tels_cont, $(this).text());
         });
     });
+
+    $("#save_tells").on('click', function () {
+        let modal = $(".show-modal");
+        let tab_num = modal.attr('id');
+
+        let tels = [];
+        $('.tels-cont').find('.tel-row').each(function () {
+            tels.push($(this).find('.value').text());
+        });
+        console.log(tels);
+        console.log(tab_num);
+
+        $.ajax({
+            url: ajax_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'personnel_change',
+                tab_num: tab_num,
+                tels: tels
+            },
+            success: function (e) {
+                console.log(e);
+
+                let worker_id = '#tab_num_'+tab_num;
+                let worker = $(worker_id);
+                let tel_cell = worker.find(".telephones-cell");
+                tel_cell.html('');
+                tels.forEach(function (tel) {
+                    tel_cell.append('<span class="tel">'+ tel +'<br/></span>');
+                });
+            }
+        });
+    });
+
 
     $('#add_tell_modal').on('click', function () {
        let new_tel = $("#input_tell").val();
@@ -300,6 +368,25 @@ $(function () {
                     action: 'personnel_change',
                     tab_num: tab_num,
                     tel_num: tel_num
+                },
+                success: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+
+        $personnel_table.on('change', '.fire-date-input', function () {
+            let $parent = ($(this).parents('tr'));
+            let tab_num = $parent.find(".tab_num").text();
+            let fire_date = $(this).val();
+
+            $.ajax({
+                url: ajax_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'personnel_change',
+                    tab_num: tab_num,
+                    fire_date: fire_date
                 },
                 success: function (e) {
                     console.log(e);
