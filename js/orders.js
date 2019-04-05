@@ -167,11 +167,12 @@ $(function () {
                                 console.log("PAYED");
                                 $node.find('.pay-order').attr('style', 'display:none');
                                 $node.find('.close-order').attr('style', 'display:inline-block');
+                                isPaid = true;
                             }
                         });
                     });
 
-                    if (o.is_paid) {
+                    if (o.is_paid == 1) {
                         $node.find('.pay-order').attr('style', 'display:none');
                         $node.find('.close-order').attr('style', 'display:inline-block');
                     }
