@@ -42,8 +42,7 @@ function ing_units_select()
 
     $sqlQuery = "SELECT column_type
                  FROM information_schema.COLUMNS
-                 WHERE TABLE_SCHEMA = 'cafe'
-                   AND TABLE_NAME = 'ingredients'
+                 WHERE TABLE_NAME = 'ingredients'
                    AND COLUMN_NAME = 'units';";
     $enum = null;
     $res = array();
