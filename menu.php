@@ -6,7 +6,7 @@ define("PATH", get_template_directory_uri());
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="<?php echo PATH ?>/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <!--<link rel="stylesheet" type="text/css" href="css/main.css">-->
