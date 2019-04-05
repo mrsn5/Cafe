@@ -16,6 +16,12 @@ $(function () {
         var search_product = $("#search_product").val().trim();
         var dish_name = $("#search_dish").val().trim();
         getDeliverers(search_name, search_product, dish_name);
+
+        $("#search_company_name").val('');
+        $("#search_product").val('');
+        $("#search_dish").val('');
+
+        $('#search_orders_btn').click();
     });
 
     $("#search_all_ings_deliverer").on('click', function () {
@@ -60,6 +66,15 @@ $(function () {
                 res = JSON.parse(res);
                 if(res.length > 0)
                     $deliverer_table.append($(delivererTempl(res[0])));
+
+                $("#code").val('');
+                $("#company_name").val('');
+                $("#address").val('');
+                $("#contact_person_name").val('');
+                $("#contact_person_tel").val('');
+                $("#email").val('');
+
+                $('#add_area_btn').click();
             }
         });
     });

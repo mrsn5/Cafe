@@ -127,7 +127,7 @@ define("PATH", get_template_directory_uri());
                         <thead>
                         <tr>
                             <th class="number-col" style="width: 5%"></th>
-                            <th class="" style="width: 10%">код</th>
+                            <th class="" style="width: 10%">№ товару</th>
                             <th class="" style="width: 15%">назва</th>
                             <th class="" style="width: 7%">один. вимірюв.</th>
                             <th class="" style="width: 7%">ціна за од.</th>

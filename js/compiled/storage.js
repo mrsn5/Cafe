@@ -5,8 +5,8 @@ let $ = jQuery;
 let ejs = require('ejs');
 
 let ing_templ = ejs.compile("<%\r\nfunction getValOrNull(param) {\r\n    if(param != null){\r\n        return param;\r\n    }else {\r\n        return '-';\r\n    }\r\n}\r\n%>\r\n\r\n<tr>\r\n    <td class=\"ing-name\"><%= ing.ing_name%></td>\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= ing.units%></span>\r\n        <label class=\"input-data input-style\">\r\n            <select class=\"select-units input ing-units-list\" id=\"ings_units\">\r\n                <% for(let i = 0; i < units.length; i++) {%>\r\n                <option><%= units[i]%></option>\r\n                <%}%>\r\n            </select>\r\n        </label>\r\n    </td>\r\n    <td><%= ing.curr_amount%></td>\r\n    <td class=\"show-products\">\r\n        <img class=\"image-transition\" src=\"<%= url_object.template_directory%>/images/drop_down_icon.png\">\r\n    </td>\r\n</tr>\r\n<tr class=\"extra\">\r\n    <td colspan=\"10\">\r\n        <div class=\"products-list custom-scrollbar\">\r\n            <ul class=\"ul-style\">\r\n                <li class=\"product prod-header\">\r\n                    <div class=\"number\"></div>\r\n                    <div class=\"code\">№ поставки</div>\r\n                    <div class=\"code\">код товару</div>\r\n                    <div class=\"name\">назва</div>\r\n                    <div class=\"date\">вжити з</div>\r\n                    <div class=\"date\">вжити до</div>\r\n                    <div class=\"date\">дата останньої інвентаризації</div>\r\n                </li>\r\n\r\n                <% for(let i = 0; i < ing.goods.length; i++) {%>\r\n                <li class=\"product\">\r\n                    <div class=\"number\"><%= i+1%></div>\r\n                    <div class=\"code\"><%= ing.goods[i].delivery_num%></div>\r\n                    <div class=\"code\"><%= ing.goods[i].unique_code%></div>\r\n                    <div class=\"name\"><%= ing.goods[i].goods_name%></div>\r\n                    <div class=\"date\"><%= getValOrNull(ing.goods[i].production_date)%></div>\r\n                    <div class=\"date\"><%= getValOrNull(ing.goods[i].expiration_date)%></div>\r\n                    <div class=\"date\"><%= getValOrNull(ing.goods[i].inventarization_date)%></div>\r\n                </li>\r\n                <%}%>\r\n            </ul>\r\n        </div>\r\n    </td>\r\n</tr>");
-let disc_good_templ = ejs.compile("<tr class=\"product good-item\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <td><%= good_code%></td>\r\n    <td><%= goods_name%></td>\r\n    <td><%= good_unit%></td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= curr_amount%></td>\r\n\r\n    <td class=\"editable-cell\">\r\n        <span class=\"value\"><%= amount%></span>\r\n        <!--<label class=\"input-data input-style\">-->\r\n            <!--<input type=\"number\" class=\"input\">-->\r\n        <!--</label>-->\r\n    </td>\r\n\r\n    <td class=\"cost\"><%= cost%></td>\r\n\r\n    <td class=\"editable-cell reason-cell\">\r\n        <span class=\"value\"><%= reason%></span>\r\n        <!--<label class=\"input-data input-style\">-->\r\n            <!--<input type=\"text\" class=\"input\">-->\r\n        <!--</label>-->\r\n    </td>\r\n\r\n    <td><img class=\"icon delete-icon\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
-let iventarization_temlp = ejs.compile("<tr class=\"ivent-item\">\r\n    <td><%= unique_code%></td>\r\n    <td><%= goods_name%></td>\r\n    <td><%= ing_name%></td>\r\n    <td><%= unit_name%></td>\r\n    <td class=\"price-per-unit\"><%= (+unit_price).toFixed(2)%></td>\r\n    <!--                при закупці-->\r\n    <td><%= start_amount%></td>\r\n    <td><%= (+start_cost).toFixed(2)%></td>\r\n    <!--                очікувана-->\r\n    <td><%= expected_amount%></td>\r\n    <td><%= (+expected_cost).toFixed(2)%></td>\r\n    <!--                фактична-->\r\n    <td class=\"curr-amount\">\r\n        <span class=\"curr-amount-text\"></span>\r\n        <label class=\"input-style\">\r\n            <input style=\"width: 100%\" type=\"number\" class=\"input curr-amount-input\" min=\"0\" placeholder=\"фактична кількість\">\r\n        </label>\r\n    </td>\r\n    <td class=\"curr-price\">0.00</td>\r\n</tr>");
+let disc_good_templ = ejs.compile("<tr class=\"product good-item\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <!--<td></td>-->\r\n    <td><%= good_code%></td>\r\n    <td><%= goods_name%></td>\r\n    <td><%= good_unit%></td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= curr_amount%></td>\r\n\r\n    <td class=\"\">\r\n        <span class=\"\"><%= amount%></span>\r\n        <!--<label class=\"input-data input-style\">-->\r\n            <!--<input type=\"number\" class=\"input\">-->\r\n        <!--</label>-->\r\n    </td>\r\n\r\n    <td class=\"cost\"><%= cost%></td>\r\n\r\n    <td class=\"reason-cell\">\r\n        <span class=\"\"><%= reason%></span>\r\n        <!--<label class=\"input-data input-style\">-->\r\n            <!--<input type=\"text\" class=\"input\">-->\r\n        <!--</label>-->\r\n    </td>\r\n\r\n    <td><img class=\"icon delete-icon\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
+let iventarization_temlp = ejs.compile("<tr class=\"ivent-item\">\r\n    <td class=\"good-code\"><%= unique_code%></td>\r\n    <td><%= goods_name%></td>\r\n    <td><%= ing_name%></td>\r\n    <td><%= unit_name%></td>\r\n    <td class=\"price-per-unit\"><%= (+unit_price).toFixed(2)%></td>\r\n    <!--                при закупці-->\r\n    <td><%= start_amount%></td>\r\n    <td><%= (+start_cost).toFixed(2)%></td>\r\n    <!--                очікувана-->\r\n    <td><%= expected_amount%></td>\r\n    <td><%= (+expected_cost).toFixed(2)%></td>\r\n    <!--                фактична-->\r\n    <td class=\"curr-amount\">\r\n        <span class=\"curr-amount-text\"></span>\r\n        <label class=\"input-style\">\r\n            <input style=\"width: 100%\" type=\"number\" class=\"input curr-amount-input\" min=\"0\" placeholder=\"фактична кількість\">\r\n        </label>\r\n    </td>\r\n    <td class=\"curr-price\">0.00</td>\r\n</tr>");
 
 Date.prototype.yyyymmdd = function () {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
@@ -19,81 +19,120 @@ Date.prototype.yyyymmdd = function () {
 };
 
 $(function () {
-    let now = new Date().yyyymmdd();
+        let now = new Date().yyyymmdd();
 
-    let $inventory_table = $('#inventory_table');
-    let $ingredients_table = $('#ingredients_table');
-    let $ivent_print = $('#ivent_print');
+        let $inventory_table = $('#inventory_table');
+        let $ingredients_table = $('#ingredients_table');
+        let $ivent_print = $('#ivent_print');
 
-    // $inventory_table.hide();
+        function show_ings_table() {
+            $ingredients_table.show();
+            $inventory_table.hide();
+            $ivent_print.css('visibility', 'hidden');
+        }
 
-    $('#inventory_btn').on('click', function () {
-        $ingredients_table.hide();
-        $inventory_table.show();
-        $ivent_print.css('visibility', 'visible');
+        function show_inv_table() {
+            $ingredients_table.hide();
+            $inventory_table.show();
+            $ivent_print.css('visibility', 'visible');
+        }
 
-        iventarization(function (res) {
-            $('#ivent_goods_container').html('');
-            res.forEach(function (row) {
-                $('#ivent_goods_container').append($(iventarization_temlp(row)));
+        // $inventory_table.hide();
+
+        $('#inventory_btn').on('click', function () {
+            show_inv_table();
+
+            iventarization(function (res) {
+                $('#ivent_goods_container').html('');
+                res.forEach(function (row) {
+                    $('#ivent_goods_container').append($(iventarization_temlp(row)));
+                });
             });
         });
-    });
 
-    // $('#all_items').on('click', function () {
-    //     $ingredients_table.show();
-    //     $inventory_table.hide();
-    //     $ivent_print.css('visibility', 'hidden');
-    // });
+        // $('#all_items').on('click', function () {
+        //     $ingredients_table.show();
+        //     $inventory_table.hide();
+        //     $ivent_print.css('visibility', 'hidden');
+        // });
 
-    let $ings_cont = $("#ingredient_container");
-    let ings_units = [];
+        let $ings_cont = $("#ingredient_container");
+        let ings_units = [];
 
-    get_units(function (data) {
-        ings_units = data;
-        get_ings(null, null, null);
-        add_change_listeners();
-        fill_new_ing_units(ings_units);
-    });
-    add_new_discarding();
-    ivent_listeners();
-
-    $("#search_ings").on('click', function () {
-        let search_name = $("#search_ing_name").val().trim();
-        let search_run_out_date = $("#run_out_date").val();
-        get_ings(search_name, search_run_out_date, null);
-
-        $("#run_out_date").val(null);
-        $("#search_ing_name").val('');
-    });
-
-    $("#run_out_ings").on('click', function () {
-        get_ings(null, null, true);
-    });
-
-    $("#all_items").on('click', function () {
-        $ingredients_table.show();
-        $inventory_table.hide();
-        // $ivent_print.hide();
-        $ivent_print.css('visibility', 'hidden');
-        get_ings(null, null, null);
-    });
-
-    $('#ivent_print').on('click', function () {
-      //  openPrintDialogue();
-        $('#ivent_goods_container').find('.ivent-item').each(function () {
-        //    $(this).find('.input-style').hide();
-            let val = $(this).find('.curr-amount-input').val();
-            $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
+        get_units(function (data) {
+            ings_units = data;
+            get_ings(null, null, null);
+            add_change_listeners();
+            fill_new_ing_units(ings_units);
         });
-        window.print();
 
-        $('#ivent_goods_container').find('.ivent-item').each(function () {
-        //    $(this).find('.input-style').show();
-            $(this).find('.curr-amount-text').text('');
-          //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+        add_new_discarding();
+        ivent_listeners();
+
+        $("#search_ings").on('click', function () {
+            show_ings_table();
+
+            let search_name = $("#search_ing_name").val().trim();
+            let search_run_out_date = $("#run_out_date").val();
+            get_ings(search_name, search_run_out_date, null);
+
+            $("#run_out_date").val(null);
+            $("#search_ing_name").val('');
+            $('#search_personnel_btn').click();
         });
-    });
+
+        $("#run_out_ings").on('click', function () {
+            get_ings(null, null, true);
+        });
+
+        $("#all_items").on('click', function () {
+            show_ings_table();
+            get_ings(null, null, null);
+        });
+
+        $('#ivent_print').on('click', function () {
+            let goods = [];
+
+            $('.ivent-item').each(function () {
+                let good_code = $(this).find('.good-code').text();
+                let curr_amount = $(this).find('.curr-amount-input').val();
+
+               let good = {
+                   good_code: good_code,
+                   curr_amount: curr_amount == '' ? 0 : curr_amount
+               };
+                goods.push(good);
+            });
+            console.log(goods);
+
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'update_goods_amount',
+                    goods: goods
+                },
+
+                success: function (res) {
+                    res = JSON.parse(res);
+                    console.log(res);
+                }
+            });
+
+            //  openPrintDialogue();
+            $('#ivent_goods_container').find('.ivent-item').each(function () {
+                //    $(this).find('.input-style').hide();
+                let val = $(this).find('.curr-amount-input').val();
+                $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
+            });
+            window.print();
+
+            $('#ivent_goods_container').find('.ivent-item').each(function () {
+                //    $(this).find('.input-style').show();
+                $(this).find('.curr-amount-text').text('');
+                //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+            });
+        });
 
         $("#add_ing").on('click', function () {
             add_ing();
@@ -140,7 +179,7 @@ $(function () {
                 },
 
                 success: function (res) {
-                    res = JSON.parse(res);
+                   res = JSON.parse(res);
                     console.log(res);
                     // let array = res.split(",");
                     // console.log(array);
@@ -206,6 +245,7 @@ $(function () {
             let goods = [];
 
             let $good_code = $("#good_code");
+            // let $delivery_num = $("#delivery_code");
             let $amount = $("#good_amount");
             let $reason = $("#reason");
 
@@ -255,6 +295,12 @@ $(function () {
                                 success: function (res) {
                                     console.log(res);
                                     disc_goods = [];
+
+                                    getGoods(function (data) {
+                                        goods = [];
+                                        goods = data;
+                                    });
+                                    $('#discarding_btn').click();
                                 }
                             });
                         } else {
@@ -268,6 +314,7 @@ $(function () {
                     $resp_person.val('');
 
                     $good_code.val('');
+                    // $delivery_num.val('');
                     $amount.val('');
                     $reason.val('');
                     $good_name.text('');
@@ -311,6 +358,7 @@ $(function () {
                 $("#add_good").on('click', function () {
                     let good_elem = {
                         index: disc_goods.length + 1,
+                        // delivery_num: $delivery_num.val(),
                         good_code: $good_code.val(),
                         goods_name: $good_name.text(),
                         good_unit: $good_unit.text(),
@@ -328,6 +376,7 @@ $(function () {
                     //    $("#product_container").prepend($node);
 
                     $good_code.val('');
+                    // $delivery_num.val('');
                     $amount.val('');
                     $reason.val('');
                     $good_name.text('');
@@ -410,7 +459,6 @@ $(function () {
             });
         }
     }
-
 );
 },{"ejs":3}],2:[function(require,module,exports){
 
@@ -1526,7 +1574,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1550,7 +1598,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

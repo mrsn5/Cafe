@@ -29,11 +29,12 @@ add_action('wp_ajax_nopriv_get_all_goods', 'get_all_goods');
 add_action('wp_ajax_get_employee_by_name', 'get_employee_by_name');
 add_action('wp_ajax_nopriv_get_employee_by_name', 'get_employee_by_name');
 
-add_action('wp_ajax_discarding_add', 'discarding_add');
-add_action('wp_ajax_nopriv_discarding_add', 'discarding_add');
-
 add_action('wp_ajax_iventarization', 'iventarization');
 add_action('wp_ajax_nopriv_iventarization', 'iventarization');
+
+add_action('wp_ajax_update_goods_amount', 'update_goods_amount');
+add_action('wp_ajax_nopriv_update_goods_amount', 'update_goods_amount');
+
 
 function ing_units_select()
 {
@@ -215,7 +216,7 @@ function ing_add(){
 function get_all_goods(){
     $conn = DBHelper::connect();
 
-    $sqlQuery = "SELECT unique_code, goods_name, unit_price, curr_amount, unit_name
+    $sqlQuery = "SELECT delivery_num, unique_code, goods_name, unit_price, curr_amount, unit_name
                  FROM goods;";
 
     $goods = array();
@@ -249,50 +250,6 @@ function get_employee_by_name(){
 }
 
 
-function discarding_add(){
-    $conn = DBHelper::connect();
-
-    $sqlQuery =
-        str_replace(
-            "'NULL'", "NULL",
-            "INSERT INTO discarding
-        (discard_date, cost, tab_num)
-        VALUES (
-        '".$_POST['date']."', 
-         ".$_POST['cost'].", 
-        '".$_POST['resp_person']."');");
-
-    try {
-        $conn->query($sqlQuery);
-
-        $last_id = $conn->lastInsertId();
-
-        $goods = $_POST['goods'];
-
-        foreach ($goods as $good) {
-            $sqlQueryGood = str_replace(
-                "'NULL'", "NULL",
-                "INSERT INTO discarding_goods
-                          (discard_code, good_code, amount, reason, cost) 
-                               VALUES (
-                                ".$last_id.",
-                               '" . $good['good_code'] . "',
-                               '" . $good['amount'] . "',
-                               '" . $good['reason'] . "',
-                               '" . $good['cost'] . "');");
-
-            $conn->query($sqlQueryGood);
-        }
-    } catch (Exception $e) {
-        echo 'Exception: ',  $e->getMessage(), "\n";
-        echo $sqlQuery;
-    }
-    echo "ADDED!";
-    DBHelper::disconnect();
-    die;
-}
-
-
 function iventarization(){
     $conn = DBHelper::connect();
 
@@ -300,15 +257,41 @@ function iventarization(){
                                     expected_amount, cost AS expected_cost, ing_name, unit_price
                      FROM goods;";
 
-    $sqlQueryUpdate = "UPDATE goods SET
-                       inventarization_date =  DATE_FORMAT(CURRENT_DATE,'%Y-%m-%d')";
-
     $goods = array();
     foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
         $goods[] = $row;
     }
 
-    $conn->query($sqlQueryUpdate, PDO::FETCH_ASSOC);
+    echo json_encode($goods, JSON_UNESCAPED_UNICODE);
+    DBHelper::disconnect();
+    die;
+}
+
+function update_goods_amount(){
+    $conn = DBHelper::connect();
+
+    $goods = $_POST['goods'];
+
+    $sqlQueryUpdate = '';
+    try {
+        $sqlQueryUpdate = "UPDATE goods SET
+                       inventarization_date =  DATE_FORMAT(CURRENT_DATE,'%Y-%m-%d')";
+
+        $conn->query($sqlQueryUpdate, PDO::FETCH_ASSOC);
+
+        if($goods != null){
+            foreach ($goods as $good) {
+                $sqlQueryUpdate = "UPDATE goods SET
+                       curr_amount = ".$good['curr_amount']."
+                       WHERE unique_code = ".$good['good_code'].";";
+
+                $conn->query($sqlQueryUpdate, PDO::FETCH_ASSOC);
+            }
+        }
+    } catch (Exception $e) {
+        echo 'Exception: ',  $e->getMessage(), "\n";
+        echo $sqlQueryUpdate;
+    }
 
     echo json_encode($goods, JSON_UNESCAPED_UNICODE);
     DBHelper::disconnect();

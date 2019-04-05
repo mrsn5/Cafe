@@ -41,7 +41,7 @@ define("PATH", get_template_directory_uri());
                 </span>
 
                 <div class="input-block search-date">
-                    <span class="label">Отримані в період</span>
+                    <span class="label">Замовлені в період</span>
                     <label>
                         з
                         <input type="date" id="search_date_from">

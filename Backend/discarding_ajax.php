@@ -11,6 +11,9 @@ require_once 'dbhelper.php';
 add_action('wp_ajax_discarding_select', 'discarding_select');
 add_action('wp_ajax_nopriv_discarding_select', 'discarding_select');
 
+add_action('wp_ajax_discarding_add', 'discarding_add');
+add_action('wp_ajax_nopriv_discarding_add', 'discarding_add');
+
 function discarding_select(){
     $conn = DBHelper::connect();
 
@@ -52,6 +55,49 @@ function discarding_select(){
         echo $sqlQuery;
     }
 
+    DBHelper::disconnect();
+    die;
+}
+
+function discarding_add(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery =
+        str_replace(
+            "'NULL'", "NULL",
+            "INSERT INTO discarding
+        (discard_date, cost, tab_num)
+        VALUES (
+        '".$_POST['date']."', 
+         ".$_POST['cost'].", 
+        '".$_POST['resp_person']."');");
+
+    try {
+        $conn->query($sqlQuery);
+
+        $last_id = $conn->lastInsertId();
+
+        $goods = $_POST['goods'];
+
+        foreach ($goods as $good) {
+            $sqlQueryGood = str_replace(
+                "'NULL'", "NULL",
+                "INSERT INTO discarding_goods
+                          (discard_code, good_code, amount, reason, cost) 
+                               VALUES (
+                                ".$last_id.",
+                               '" . $good['good_code'] . "',
+                               '" . $good['amount'] . "',
+                               '" . $good['reason'] . "',
+                               '" . $good['cost'] . "');");
+
+            $conn->query($sqlQueryGood);
+        }
+    } catch (Exception $e) {
+        echo 'Exception: ',  $e->getMessage(), "\n";
+        echo $sqlQuery;
+    }
+    echo "ADDED!";
     DBHelper::disconnect();
     die;
 }
