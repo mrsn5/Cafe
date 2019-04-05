@@ -81,15 +81,6 @@
 
                 <div class="modal-body">
                     <div class="tels-cont">
-<!--                        <div class="tel-row">-->
-<!--                            <div style="display: inline-block" class="editable-cell">-->
-<!--                                <span class="value">088549543</span>-->
-<!--                                <label class="input-data input-style">-->
-<!--                                    <input type="tel" class="input tel-input">-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                            <span  class="glyphicon glyphicon-remove"></span>-->
-<!--                        </div>-->
 
                     </div>
 
@@ -100,7 +91,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-style save-modal-btn" id="save_comment"
+                    <button type="button" class="btn btn-style save-modal-btn" id="save_tells"
                             data-dismiss="modal">SAVE
                     </button>
                     <button type="button" class="btn btn-style close-modal-btn"
@@ -219,8 +210,8 @@
         </div>
         <div class="table-area">
             <div class="show_items_btn">
-                <span class="curr_workers" id="curr_workers">Поточні робітники</span>
-                <span class="fired_workers" id="fired_workers">Звільнені робітники</span>
+                <span class="curr-workers" id="curr_workers">Поточні робітники</span>
+                <span class="fired-workers" id="fired_workers">Звільнені робітники</span>
                 <span class="all_items" id="all_personnel">Всі робітники</span>
             </div>
 
@@ -237,6 +228,8 @@
                     <th>телефон</th>
                     <th>посада</th>
                     <th>зарплатня (грн/міс)</th>
+                    <th>дата прийому</th>
+                    <th>дата звільнення</th>
                 </tr>
                 </thead>
 

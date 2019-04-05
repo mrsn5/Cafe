@@ -11,28 +11,32 @@ add_action( 'wp_ajax_nopriv_personnel_add', 'personnel_add' );
 add_action( 'wp_ajax_personnel_change', 'personnel_change' );
 add_action( 'wp_ajax_nopriv_personnel_change', 'personnel_change' );
 
+add_action( 'wp_ajax_fired_workers_select', 'fired_workers_select' );
+add_action( 'wp_ajax_nopriv_fired_workers_select', 'fired_workers_select' );
+
+
 function select_personnel(){
     $conn = DBHelper::connect();
 
     if ($_POST['position'] != null && $_POST['name'] != null) {
-        $sqlQuery = "SELECT *, workers.tab_num
+        $sqlQuery = "SELECT *
              FROM workers 
              WHERE position LIKE '" . $_POST['position'] . "'
                    AND CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
              
              ORDER BY workers.tab_num;";
     } else if ($_POST['position'] != null) {
-        $sqlQuery = "SELECT *, workers.tab_num
+        $sqlQuery = "SELECT *
              FROM workers 
              WHERE position LIKE '" . $_POST['position'] . "'
              ORDER BY workers.tab_num;";
     } else if ($_POST['name'] != null) {
-        $sqlQuery = "SELECT *, workers.tab_num
+        $sqlQuery = "SELECT *
              FROM workers 
              WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%'
              ORDER BY workers.tab_num;";
     } else {
-        $sqlQuery = "SELECT *, workers.tab_num
+        $sqlQuery = "SELECT *
              FROM workers
              ORDER BY workers.tab_num;";
     }
@@ -60,7 +64,7 @@ function select_personnel(){
 
 
     DBHelper::disconnect();
-    die; // даём понять, что обработчик закончил выполнение
+    die;
 }
 
 function personnel_add() {
@@ -127,12 +131,23 @@ function personnel_change() {
         echo $sqlQuery;
     }
 
-    if (isset($_POST['tel_num'])) {
-        echo "!".$_POST['tel_num'];
-        $sqlQuery ="UPDATE telephones SET tel_num = '" . $_POST['tel_num']. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";
-        echo $sqlQuery;
+    if (isset($_POST['tels'])) {
+        echo "!".$_POST['tels'];
+        $tels = $_POST['tels'];
+
         try {
-            $conn->query($sqlQuery);
+            if($tels != null){
+                $sqlQueryDelTels = "DELETE FROM telephones
+                                    WHERE tab_num = '" . $_POST['tab_num'] . "';";
+                $conn->query($sqlQueryDelTels);
+
+                foreach ($tels as $tel){
+                    $sqlQuery = "INSERT INTO telephones(tel_num, tab_num) VALUES ('". $tel ."', '". $_POST['tab_num'] ."');";
+//                    $sqlQuery ="UPDATE telephones SET tel_num = '" . $tel. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";
+                    $conn->query($sqlQuery);
+                    echo $sqlQuery;
+                }
+            }
         } catch (Exception $e) {
             echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
             echo $sqlQuery;
@@ -142,5 +157,74 @@ function personnel_change() {
     DBHelper::disconnect();
     die;
 }
+
+function personnel_change_tels(){
+    $conn = DBHelper::connect();
+
+    if (isset($_POST['tels'])) {
+        echo "!".$_POST['tels'];
+        $tels = $_POST['tels'];
+
+        try {
+            if($tels != null){
+                $sqlQueryDelTels = "DELETE FROM telephones
+                                    WHERE tab_num = '" . $_POST['tab_num'] . "';";
+                $conn->query($sqlQueryDelTels);
+
+                foreach ($tels as $tel){
+                    $sqlQuery = "INSERT INTO telephones(tel_num, tab_num) VALUES ('". $tel ."', '". $_POST['tab_num'] ."');";
+//                    $sqlQuery ="UPDATE telephones SET tel_num = '" . $tel. "' WHERE tab_num = '" . $_POST['tab_num'] . "';";
+                    $conn->query($sqlQuery);
+                    echo $sqlQuery;
+                }
+            }
+        } catch (Exception $e) {
+            echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+            DBHelper::disconnect();
+            die;
+        }
+    }
+    DBHelper::disconnect();
+    die;
+}
+
+function fired_workers_select(){
+    $conn = DBHelper::connect();
+
+    $sqlQuery = "SELECT *
+                 FROM workers";
+
+    if($_POST['fired'] === 'true'){
+        $sqlQuery = $sqlQuery.' WHERE fire_date IS NOT NULL';
+    }else{
+        $sqlQuery = $sqlQuery.' WHERE fire_date IS NULL';
+    }
+
+    $sqlQuery = $sqlQuery.' ORDER BY tab_num;';
+
+    try {
+        $personnel = array();
+        foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+            $sqlQueryTels = "SELECT tel_num
+                             FROM telephones
+                             WHERE tab_num = ".$row['tab_num'].";";
+            $tels = array();
+            foreach ($conn->query($sqlQueryTels, PDO::FETCH_ASSOC) as $tel) {
+                $tels[] = $tel;
+            }
+
+            $row['tels'] = $tels;
+            $personnel[] = $row;
+        }
+        echo json_encode($personnel, JSON_UNESCAPED_UNICODE);
+    } catch (Exception $e) {
+        echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+        echo $sqlQuery;
+    }
+    DBHelper::disconnect();
+    die;
+}
+
 ?>
 

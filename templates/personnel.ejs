@@ -1,4 +1,14 @@
-<tr class="worker-row">
+<%
+function getValOrNull(param) {
+    if(param != null){
+        return param;
+    }else {
+        return '-';
+    }
+}
+%>
+
+<tr class="worker-row" id="tab_num_<%= tab_num%>">
     <td class="tab_num"><%= tab_num %></td>
     <td class="editable-cell">
         <span class="value first-name"><%= first_name %></span>
@@ -68,6 +78,17 @@
         <span class="value"><%= salary %></span>
         <label class="input-data input-style">
             <input type="number" class="input salary-input">
+        </label>
+    </td>
+
+    <td>
+        <span><%= hire_date %></span>
+    </td>
+
+    <td class="editable-cell">
+        <span class="value"><%= getValOrNull(fire_date) %></span>
+        <label class="input-data input-style">
+            <input type="date" class="input fire-date-input">
         </label>
     </td>
 </tr>
