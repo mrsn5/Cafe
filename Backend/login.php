@@ -18,7 +18,7 @@ add_action('login_head', 'loginLogo');
 function headerSearch() {
     echo '<style type="text/css">
             #adminbarsearch, #wp-admin-bar-wp-logo, #wp-admin-bar-customize, #wp-admin-bar-comments, #wp-admin-bar-new-post, 
-            #wp-admin-bar-new-page, #wp-admin-bar-new-media, #wp-admin-bar-dashboard, #wp-admin-bar-appearance, #wp-admin-bar-edit { 
+            #wp-admin-bar-new-page, #wp-admin-bar-new-media, #wp-admin-bar-dashboard, #wp-admin-bar-appearance, #wp-admin-bar-edit, #wp-admin-bar-updates { 
                 display: none !important; 
             }
             #wp-admin-bar-site-name .ab-sub-wrapper{ 
@@ -34,7 +34,7 @@ add_action('wp_head', 'headerSearch');
 add_action('template_redirect', 'loginRedirect');
 function loginRedirect(){
     if(!is_user_logged_in()) {
-        wp_redirect( get_site_url(). '/wp-login', 302);
+        wp_redirect( get_site_url(). '/wp-login.php', 302);
         exit;
     }
 }
