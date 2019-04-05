@@ -17,6 +17,15 @@ add_action( 'wp_ajax_nopriv_add_new_order', 'add_new_order' );
 add_action( 'wp_ajax_change_portion_state', 'change_portion_state' );
 add_action( 'wp_ajax_nopriv_change_portion_state', 'change_portion_state' );
 
+add_action( 'wp_ajax_delete_order', 'delete_order' );
+add_action( 'wp_ajax_nopriv_delete_order', 'delete_order' );
+
+add_action( 'wp_ajax_close_order', 'close_order' );
+add_action( 'wp_ajax_nopriv_close_order', 'close_order' );
+
+add_action( 'wp_ajax_pay_order', 'pay_order' );
+add_action( 'wp_ajax_nopriv_pay_order', 'pay_order' );
+
 function orders_select(){
     $conn = DBHelper::connect();
 
@@ -34,8 +43,8 @@ function orders_select(){
              WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%')";
         $params[] = "tab_num IN " . $workerQuery;
     }
-    if ($_POST['order_time_from'] != null)   $params[] = "DATE(order_time) >= '" . $_POST['order_time_from'] . "'";
-    if ($_POST['order_time_to'] != null) $params[] = "DATE(order_time) <= '" . $_POST['order_time_to'] . "'";
+    if ($_POST['order_time_from'] != null)   $params[] = "DATE(close_time) >= '" . $_POST['order_time_from'] . "'";
+    if ($_POST['order_time_to'] != null) $params[] = "DATE(close_time) <= '" . $_POST['order_time_to'] . "'";
 
     $whereQuery = join(' AND ', $params);
     if (count($params) > 0) $whereQuery = " WHERE " . $whereQuery;
@@ -213,6 +222,62 @@ function change_portion_state(){
 
         } catch (Exception $e) {
             echo 'Exception: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+        DBHelper::disconnect();
+    }
+    die;
+}
+
+function delete_order(){
+    $unique_num = $_POST['unique_num'];
+
+    if ($unique_num != null) {
+        $conn = DBHelper::connect();
+        $sqlQuery = "DELETE FROM orders WHERE unique_num=$unique_num;";
+
+        try {
+            $conn->query($sqlQuery);
+        } catch (Exception $e) {
+            echo 'Exception: ', $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+        DBHelper::disconnect();
+    }
+    die;
+}
+
+
+function close_order(){
+    $unique_num = $_POST['unique_num'];
+
+    if ($unique_num != null) {
+        $conn = DBHelper::connect();
+        $sqlQuery = "UPDATE orders SET close_time=CURRENT_TIMESTAMP WHERE unique_num=$unique_num;";
+
+        try {
+            $conn->query($sqlQuery);
+            echo "CLL!";
+        } catch (Exception $e) {
+            echo 'Exception: ', $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+        DBHelper::disconnect();
+    }
+    die;
+}
+
+function pay_order(){
+    $unique_num = $_POST['unique_num'];
+
+    if ($unique_num != null) {
+        $conn = DBHelper::connect();
+        $sqlQuery = "UPDATE orders SET is_paid=1 WHERE unique_num=$unique_num;";
+
+        try {
+            $conn->query($sqlQuery);
+        } catch (Exception $e) {
+            echo 'Exception: ', $e->getMessage(), "\n";
             echo $sqlQuery;
         }
         DBHelper::disconnect();

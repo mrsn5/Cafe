@@ -105,8 +105,10 @@ $(function(){
                         url: url_object.template_directory,
                         mode: 'history'
                     }));
+                    $node.find('.is-ready').removeClass('is-ready').attr('style', 'color: rgba(255, 127, 80, 0.6)');
                     $orders_list.append($node);
                 });
+
 
                 var total = 0;
                 for(var i=0; i < res.length; i++) {

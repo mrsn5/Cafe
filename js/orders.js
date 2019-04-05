@@ -77,6 +77,7 @@ $(function () {
     });
 
     getOrders(false);
+    // poll();
 
     getUnsavedOrders();
 
@@ -105,6 +106,76 @@ $(function () {
                         mode: 'orders'
                     }));
 
+
+                    var isEditing = true;
+                    var isPaid = o.is_paid == 1;
+                    $node.find('.edit').on('click', function () {
+                        isEditing = !isEditing;
+                        if (isEditing) {
+                            $node.find(".pay-order").removeClass('hide');
+                            $node.find(".delete-order").addClass('hide');
+                            if (!isPaid)
+                                $node.find('.close-order').attr('style', 'display:none');
+                        } else {
+                            $node.find(".delete-order").removeClass('hide');
+                            $node.find(".pay-order").addClass('hide');
+                            $node.find('.close-order').attr('style', 'display:inline-block');
+                        }
+                    });
+
+                    $node.find('.delete-order').on('click', function () {
+                        $.ajax({
+                            url: url_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'delete_order',
+                                unique_num: o.unique_num
+                            },
+                            success: function (res) {
+                                console.log(res);
+                                console.log("DELETED");
+                                getOrders(false);
+                            }
+                        });
+                    });
+
+                    $node.find('.close-order').on('click', function () {
+                        $.ajax({
+                            url: url_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'close_order',
+                                unique_num: o.unique_num
+                            },
+                            success: function (res) {
+                                console.log(res);
+                                getOrders(false);
+                            }
+                        });
+                    });
+
+                    $node.find('.pay-order').on('click', function () {
+                        $.ajax({
+                            url: url_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'pay_order',
+                                unique_num: o.unique_num
+                            },
+                            success: function (res) {
+                                console.log(res);
+                                console.log("PAYED");
+                                $node.find('.pay-order').attr('style', 'display:none');
+                                $node.find('.close-order').attr('style', 'display:inline-block');
+                            }
+                        });
+                    });
+
+                    if (o.is_paid) {
+                        $node.find('.pay-order').attr('style', 'display:none');
+                        $node.find('.close-order').attr('style', 'display:inline-block');
+                    }
+                    //////////////////////
                     $node.find('.box').on('click', function (e) {
                         var is_served = "FALSE";
                         var unique_num = e.target.id.split('-')[1];
@@ -131,6 +202,9 @@ $(function () {
                             }
                         });
                     });
+
+
+
                     open_orders.append($node);
                 });
             }
@@ -305,5 +379,15 @@ $(function () {
         for (let i = 0; i < order.portions.length; i++)
             order_cost += order.portions[i].price * order.portions[i].quantity;
         $cost_label.text(order_cost);
+    }
+
+
+
+
+    function poll() {
+        setTimeout(function () {
+            getOrders(false);
+            poll();
+        }, 5000);
     }
 });
