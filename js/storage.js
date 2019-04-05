@@ -18,81 +18,120 @@ Date.prototype.yyyymmdd = function () {
 };
 
 $(function () {
-    let now = new Date().yyyymmdd();
+        let now = new Date().yyyymmdd();
 
-    let $inventory_table = $('#inventory_table');
-    let $ingredients_table = $('#ingredients_table');
-    let $ivent_print = $('#ivent_print');
+        let $inventory_table = $('#inventory_table');
+        let $ingredients_table = $('#ingredients_table');
+        let $ivent_print = $('#ivent_print');
 
-    // $inventory_table.hide();
+        function show_ings_table() {
+            $ingredients_table.show();
+            $inventory_table.hide();
+            $ivent_print.css('visibility', 'hidden');
+        }
 
-    $('#inventory_btn').on('click', function () {
-        $ingredients_table.hide();
-        $inventory_table.show();
-        $ivent_print.css('visibility', 'visible');
+        function show_inv_table() {
+            $ingredients_table.hide();
+            $inventory_table.show();
+            $ivent_print.css('visibility', 'visible');
+        }
 
-        iventarization(function (res) {
-            $('#ivent_goods_container').html('');
-            res.forEach(function (row) {
-                $('#ivent_goods_container').append($(iventarization_temlp(row)));
+        // $inventory_table.hide();
+
+        $('#inventory_btn').on('click', function () {
+            show_inv_table();
+
+            iventarization(function (res) {
+                $('#ivent_goods_container').html('');
+                res.forEach(function (row) {
+                    $('#ivent_goods_container').append($(iventarization_temlp(row)));
+                });
             });
         });
-    });
 
-    // $('#all_items').on('click', function () {
-    //     $ingredients_table.show();
-    //     $inventory_table.hide();
-    //     $ivent_print.css('visibility', 'hidden');
-    // });
+        // $('#all_items').on('click', function () {
+        //     $ingredients_table.show();
+        //     $inventory_table.hide();
+        //     $ivent_print.css('visibility', 'hidden');
+        // });
 
-    let $ings_cont = $("#ingredient_container");
-    let ings_units = [];
+        let $ings_cont = $("#ingredient_container");
+        let ings_units = [];
 
-    get_units(function (data) {
-        ings_units = data;
-        get_ings(null, null, null);
-        add_change_listeners();
-        fill_new_ing_units(ings_units);
-    });
-    add_new_discarding();
-    ivent_listeners();
-
-    $("#search_ings").on('click', function () {
-        let search_name = $("#search_ing_name").val().trim();
-        let search_run_out_date = $("#run_out_date").val();
-        get_ings(search_name, search_run_out_date, null);
-
-        $("#run_out_date").val(null);
-        $("#search_ing_name").val('');
-    });
-
-    $("#run_out_ings").on('click', function () {
-        get_ings(null, null, true);
-    });
-
-    $("#all_items").on('click', function () {
-        $ingredients_table.show();
-        $inventory_table.hide();
-        // $ivent_print.hide();
-        $ivent_print.css('visibility', 'hidden');
-        get_ings(null, null, null);
-    });
-
-    $('#ivent_print').on('click', function () {
-      //  openPrintDialogue();
-        $('#ivent_goods_container').find('.ivent-item').each(function () {
-        //    $(this).find('.input-style').hide();
-            let val = $(this).find('.curr-amount-input').val();
-            $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
+        get_units(function (data) {
+            ings_units = data;
+            get_ings(null, null, null);
+            add_change_listeners();
+            fill_new_ing_units(ings_units);
         });
-        window.print();
 
-        $('#ivent_goods_container').find('.ivent-item').each(function () {
-        //    $(this).find('.input-style').show();
-            $(this).find('.curr-amount-text').text('');
-          //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+        add_new_discarding();
+        ivent_listeners();
+
+        $("#search_ings").on('click', function () {
+            show_ings_table();
+
+            let search_name = $("#search_ing_name").val().trim();
+            let search_run_out_date = $("#run_out_date").val();
+            get_ings(search_name, search_run_out_date, null);
+
+            $("#run_out_date").val(null);
+            $("#search_ing_name").val('');
+            $('#search_personnel_btn').click();
         });
-    });
+
+        $("#run_out_ings").on('click', function () {
+            get_ings(null, null, true);
+        });
+
+        $("#all_items").on('click', function () {
+            show_ings_table();
+            get_ings(null, null, null);
+        });
+
+        $('#ivent_print').on('click', function () {
+            let goods = [];
+
+            $('.ivent-item').each(function () {
+                let good_code = $(this).find('.good-code').text();
+                let curr_amount = $(this).find('.curr-amount-input').val();
+
+               let good = {
+                   good_code: good_code,
+                   curr_amount: curr_amount == '' ? 0 : curr_amount
+               };
+                goods.push(good);
+            });
+            console.log(goods);
+
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'update_goods_amount',
+                    goods: goods
+                },
+
+                success: function (res) {
+                    res = JSON.parse(res);
+                    console.log(res);
+                }
+            });
+
+            //  openPrintDialogue();
+            $('#ivent_goods_container').find('.ivent-item').each(function () {
+                //    $(this).find('.input-style').hide();
+                let val = $(this).find('.curr-amount-input').val();
+                $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
+            });
+            window.print();
+
+            $('#ivent_goods_container').find('.ivent-item').each(function () {
+                //    $(this).find('.input-style').show();
+                $(this).find('.curr-amount-text').text('');
+                //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+            });
+        });
 
         $("#add_ing").on('click', function () {
             add_ing();
@@ -139,7 +178,7 @@ $(function () {
                 },
 
                 success: function (res) {
-                    res = JSON.parse(res);
+                   res = JSON.parse(res);
                     console.log(res);
                     // let array = res.split(",");
                     // console.log(array);
@@ -205,6 +244,7 @@ $(function () {
             let goods = [];
 
             let $good_code = $("#good_code");
+            // let $delivery_num = $("#delivery_code");
             let $amount = $("#good_amount");
             let $reason = $("#reason");
 
@@ -254,6 +294,12 @@ $(function () {
                                 success: function (res) {
                                     console.log(res);
                                     disc_goods = [];
+
+                                    getGoods(function (data) {
+                                        goods = [];
+                                        goods = data;
+                                    });
+                                    $('#discarding_btn').click();
                                 }
                             });
                         } else {
@@ -267,6 +313,7 @@ $(function () {
                     $resp_person.val('');
 
                     $good_code.val('');
+                    // $delivery_num.val('');
                     $amount.val('');
                     $reason.val('');
                     $good_name.text('');
@@ -310,6 +357,7 @@ $(function () {
                 $("#add_good").on('click', function () {
                     let good_elem = {
                         index: disc_goods.length + 1,
+                        // delivery_num: $delivery_num.val(),
                         good_code: $good_code.val(),
                         goods_name: $good_name.text(),
                         good_unit: $good_unit.text(),
@@ -327,6 +375,7 @@ $(function () {
                     //    $("#product_container").prepend($node);
 
                     $good_code.val('');
+                    // $delivery_num.val('');
                     $amount.val('');
                     $reason.val('');
                     $good_name.text('');
@@ -409,5 +458,4 @@ $(function () {
             });
         }
     }
-
 );

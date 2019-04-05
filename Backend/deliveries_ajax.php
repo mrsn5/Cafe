@@ -27,21 +27,21 @@ function delivery_select()
 
     if ($_POST['date_from'] != null && $_POST['date_to'] != null && $_POST['is_paid'] != null && $_POST['is_received'] != null) {
         $sqlQuery = $sqlQuery . " WHERE is_received = " . $_POST['is_received'] . " AND purchased = " . $_POST['is_paid'] . "
-                                AND DATE_FORMAT(receiving_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
+                                AND DATE_FORMAT(order_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
 
     } else if ($_POST['date_from'] != null && $_POST['date_to'] != null && $_POST['is_paid'] != null) {
         $sqlQuery = $sqlQuery . " WHERE purchased = " . $_POST['is_paid'] . "
-                     AND DATE_FORMAT(receiving_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
+                     AND DATE_FORMAT(order_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
 
     } else if ($_POST['date_from'] != null && $_POST['date_to'] != null && $_POST['is_received'] != null) {
         $sqlQuery = $sqlQuery . " WHERE is_received = " . $_POST['is_received'] . "
-                     AND DATE_FORMAT(receiving_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
+                     AND DATE_FORMAT(order_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
 
     } else if ($_POST['is_paid'] != null && $_POST['is_received'] != null) {
         $sqlQuery = $sqlQuery . " WHERE is_received = " . $_POST['is_received'] . " AND purchased = " . $_POST['is_paid'] . "";
 
     } else if ($_POST['date_from'] != null && $_POST['date_to'] != null) {
-        $sqlQuery = $sqlQuery . " WHERE DATE_FORMAT(receiving_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
+        $sqlQuery = $sqlQuery . " WHERE DATE_FORMAT(order_date,'%Y-%m-%d') BETWEEN '" . $_POST['date_from'] . "' AND '" . $_POST['date_to'] . "'";
 
     } else if ($_POST['is_paid'] != null) {
         $sqlQuery = $sqlQuery . " WHERE purchased = " . $_POST['is_paid'] . " ";

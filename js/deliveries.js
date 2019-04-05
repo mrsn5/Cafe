@@ -59,6 +59,11 @@ $(function () {
         }
 
         getDeliveries(date_from, date_to, is_paid, is_received);
+
+        $("#search_date_from").val(null);
+        $("#search_date_to").val(null);
+
+        $('#search_orders_btn').click();
     });
 
     $("#save_delivery").on('click', function () {
