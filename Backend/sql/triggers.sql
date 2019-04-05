@@ -208,12 +208,11 @@ BEGIN
 END;
 
 
-
 CREATE TRIGGER afr_ins_dis_good_amount AFTER INSERT ON cafe.discarding_goods
 FOR EACH ROW
 BEGIN
   UPDATE goods
-  SET curr_amount = curr_amount - NEW.amount
+  SET expected_amount = expected_amount - NEW.amount
   WHERE unique_code = NEW.good_code;
 END;
 
@@ -223,16 +222,16 @@ FOR EACH ROW
 BEGIN
   IF NEW.amount <> OLD.amount THEN
       UPDATE goods
-      SET curr_amount = curr_amount - (NEW.amount - OLD.amount)
+      SET expected_amount = expected_amount - (NEW.amount - OLD.amount)
       WHERE unique_code = NEW.good_code;
   END IF;
 
   IF NEW.good_code <> OLD.good_code THEN
       UPDATE goods
-      SET curr_amount = curr_amount + OLD.amount
+      SET expected_amount = expected_amount + OLD.amount
       WHERE unique_code = OLD.good_code;
       UPDATE goods
-      SET curr_amount = curr_amount - NEW.amount
+      SET expected_amount = expected_amount - NEW.amount
       WHERE unique_code = NEW.good_code;
   END IF;
 END;
@@ -241,7 +240,7 @@ CREATE TRIGGER afr_del_dis_good_amount AFTER DELETE ON cafe.discarding_goods
 FOR EACH ROW
 BEGIN
   UPDATE goods
-  SET curr_amount = curr_amount + OLD.amount
+  SET expected_amount = expected_amount + OLD.amount
   WHERE unique_code = OLD.good_code;
 END;
 

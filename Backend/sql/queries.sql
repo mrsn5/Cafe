@@ -308,3 +308,5 @@ WHERE order_num = 5
  AND   is_ready = FALSE
  AND   is_served = FALSE
  AND   discount = NULL;
+ 
+ DELETE FROM portions WHERE unique_num > 100;

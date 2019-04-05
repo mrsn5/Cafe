@@ -48,7 +48,8 @@
                             </div>
                         </div>
 
-                        <input type="number" min="1" class="quantity" value="<%= order.portions[i].quantity%>">
+                        <!---->
+                        <input type="number" min="1" max="99" class="quantity" value="<%= order.portions[i].quantity%>">
                         <span style="padding-right: 30px;" class="price"><span class="dish-price"><%= order.portions[i].price%></span> грн</span>
 
                         <div class="modal fade show-modal" tabindex="-1" role="dialog" aria-hidden="true">
