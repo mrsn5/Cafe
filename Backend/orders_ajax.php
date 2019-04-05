@@ -117,8 +117,6 @@ function orders_select(){
 //    die;
 //}
 
-
-
 function add_new_order(){
     $conn = DBHelper::connect();
     $sqlQuery =
@@ -175,17 +173,14 @@ function change_portion_state(){
     $is_served = $_POST['is_served'];
     $is_ready = $_POST['is_ready'];
     $unique_num = $_POST['unique_num'];
+    $conn = DBHelper::connect();
+
 
     if ($unique_num != null) {
-        $conn = DBHelper::connect();
-
         $sqlQuery = "SELECT * FROM portions WHERE unique_num=$unique_num;";
 
         try {
-
-            foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $p) {
-                $portion = $p;
-            }
+            foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $p) {}
         } catch (Exception $e) {
             echo 'Exception: ',  $e->getMessage(), "\n";
             echo $sqlQuery;
@@ -194,11 +189,6 @@ function change_portion_state(){
         if ($p['special_wishes'] == null) $p['special_wishes'] = 'NULL';
         else $p['special_wishes'] = "'$p[special_wishes]'";
         if ($p['discount'] == null) $p['discount'] = 'NULL';
-
-
-
-
-
 
         $sqlQuery = "UPDATE portions SET ";
         if ($is_served != null) $sqlQuery = $sqlQuery . "is_served=" . $is_served . ' ';
@@ -213,9 +203,7 @@ function change_portion_state(){
         $sqlQuery = str_replace("= NULL", " IS NULL", $sqlQuery);
         echo $sqlQuery;
 
-
         //tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num
-
 
         try {
             $conn->query($sqlQuery);
@@ -224,8 +212,9 @@ function change_portion_state(){
             echo 'Exception: ',  $e->getMessage(), "\n";
             echo $sqlQuery;
         }
-        DBHelper::disconnect();
+
     }
+    DBHelper::disconnect();
     die;
 }
 
@@ -246,7 +235,6 @@ function delete_order(){
     }
     die;
 }
-
 
 function close_order(){
     $unique_num = $_POST['unique_num'];

@@ -69,7 +69,13 @@ END;
 
 
 -- ОНОВЛЕННЯ АТРИБУТУ "НАЯВНІСТЬ ІНГРІДІЄНТІВ" ДЛЯ СТРАВИ --------------------------------------------------------------
-CREATE TRIGGER aft_ins_d_i AFTER INSERT ON cafe.dishes_ingredients
+DROP TRIGGER aft_ins_d_i; -----------------------
+DROP TRIGGER aft_del_d_i;
+DROP TRIGGER aft_upd_d_i;
+
+
+
+CREATE TRIGGER aft_ins_d_i AFTER INSERT ON dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
@@ -82,7 +88,7 @@ BEGIN
   WHERE tech_card_num = NEW.tech_card_num;
 END;
 
-CREATE TRIGGER aft_del_d_i AFTER DELETE ON cafe.dishes_ingredients
+CREATE TRIGGER aft_del_d_i AFTER DELETE ON dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
@@ -96,7 +102,7 @@ BEGIN
 END;
 
 
-CREATE TRIGGER aft_upd_d_i AFTER UPDATE ON cafe.dishes_ingredients
+CREATE TRIGGER aft_upd_d_i AFTER UPDATE ON dishes_ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
@@ -110,7 +116,11 @@ BEGIN
 END;
 
 
-CREATE TRIGGER afr_upd_i AFTER UPDATE ON cafe.ingredients
+DROP TRIGGER afr_upd_i; -----------------------
+DROP TRIGGER afr_del_i;
+
+
+CREATE TRIGGER afr_upd_i AFTER UPDATE ON ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
@@ -126,7 +136,7 @@ BEGIN
 END;
 
 
-CREATE TRIGGER afr_del_i AFTER DELETE ON cafe.ingredients
+CREATE TRIGGER afr_del_i AFTER DELETE ON ingredients
 FOR EACH ROW
 BEGIN
   UPDATE dishes Y
@@ -150,48 +160,51 @@ BEGIN
 END;
 
 
+DROP TRIGGER afr_del_good;
+DROP TRIGGER afr_upd_good;
+DROP TRIGGER afr_ins_good;
 
-CREATE TRIGGER afr_del_good AFTER DELETE ON cafe.goods
+CREATE TRIGGER afr_del_good AFTER DELETE ON goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                       FROM units
                                                       WHERE OLD.unit_name = unit_name))
   WHERE ing_name = OLD.ing_name;
 END;
 
 
-CREATE TRIGGER afr_upd_good AFTER UPDATE ON cafe.goods
+CREATE TRIGGER afr_upd_good AFTER UPDATE ON goods
 FOR EACH ROW
 BEGIN
   IF OLD.ing_name = NEW.ing_name THEN
       UPDATE ingredients
-      SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                           FROM units
-                                                          WHERE OLD.unit_name = unit_name) - NEW.curr_amount * (SELECT SUM(graduation_rule)
+                                                          WHERE OLD.unit_name = unit_name) - NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                                                                     FROM units
                                                                                                     WHERE NEW.unit_name = unit_name))
       WHERE ing_name = OLD.ing_name;
   ELSE
       UPDATE ingredients
-      SET curr_amount = curr_amount - OLD.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE OLD.unit_name = unit_name)
       WHERE ing_name = OLD.ing_name;
       UPDATE ingredients
-      SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE NEW.unit_name = unit_name)
       WHERE ing_name = NEW.ing_name;
   END IF;
 END;
 
-CREATE TRIGGER afr_ins_good AFTER INSERT ON cafe.goods
+CREATE TRIGGER afr_ins_good AFTER INSERT ON goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                      FROM units
                                                      WHERE NEW.unit_name = unit_name)
   WHERE ing_name = NEW.ing_name;
@@ -391,8 +404,114 @@ END;
 
 
 -- ОНОВЛЕННЯ КІЛЬКОСТІ ПРОДУКТУ ПІСЛЯ СТВОРЕННЯ ПОРЦІЙ -----------------------------------------------------------------
-CREATE TRIGGER after_create_portion AFTER INSERT ON cafe.portions
+DROP TRIGGER after_create_portion;
+
+CREATE TRIGGER after_create_portion AFTER UPDATE ON cafe.portions
 FOR EACH ROW
 BEGIN
+  IF NEW.is_ready <> OLD.is_ready THEN
+      IF NEW.is_ready = '1' THEN
+          BEGIN
+          DECLARE ingr VARCHAR(40);
+          DECLARE amo MEDIUMINT UNSIGNED;
+          DECLARE done INTEGER DEFAULT 0;
+          DECLARE IngsCursor CURSOR FOR
+          SELECT ing_name, amount FROM dishes_ingredients WHERE tech_card_num = NEW.tech_card_num;
 
+          DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+          OPEN IngsCursor;
+
+          WHILE done = 0 DO
+              FETCH IngsCursor INTO ingr, amo;
+
+
+              BLOCK2: BEGIN
+              DECLARE exp_amount FLOAT UNSIGNED;
+              DECLARE goods_code MEDIUMINT UNSIGNED;
+              DECLARE grad_rule FLOAT UNSIGNED;
+              DECLARE done2 INTEGER DEFAULT 0;
+              DECLARE GoodsCursor CURSOR FOR
+              SELECT unique_code, expected_amount, graduation_rule
+              FROM (goods INNER JOIN units ON goods.unit_name = units.unit_name)
+                          INNER JOIN deliveries ON goods.delivery_num = deliveries.delivery_num
+              WHERE ing_name = ingr AND is_received = 1
+              ORDER BY order_date;
+
+              DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done2=1;
+              OPEN GoodsCursor;
+
+              WHILE done2 = 0 DO
+              FETCH GoodsCursor INTO goods_code,exp_amount,grad_rule;
+                  IF exp_amount * grad_rule < amo THEN
+                      UPDATE goods
+                      SET expected_amount = 0
+                      WHERE unique_code = goods_code;
+
+                      SET amo = amo - exp_amount * grad_rule;
+                  ELSE
+                      SET exp_amount = exp_amount - amo / grad_rule;
+
+                      UPDATE goods
+                      SET expected_amount = exp_amount
+                      WHERE unique_code = goods_code;
+                      SET done2=1;
+                  END IF;
+
+              END WHILE;
+
+              CLOSE GoodsCursor;
+              END BLOCK2;
+          END WHILE;
+          CLOSE IngsCursor;
+          END;
+      ELSE BEGIN
+              DECLARE ingr VARCHAR(40);
+              DECLARE amo MEDIUMINT UNSIGNED;
+              DECLARE done INTEGER DEFAULT 0;
+              DECLARE IngsCursor CURSOR FOR
+              SELECT ing_name, amount FROM dishes_ingredients WHERE tech_card_num = NEW.tech_card_num;
+
+              DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done=1;
+              OPEN IngsCursor;
+
+              WHILE done = 0 DO
+                  FETCH IngsCursor INTO ingr, amo;
+
+
+                  BLOCK2: BEGIN
+                  DECLARE exp_amount FLOAT UNSIGNED;
+                  DECLARE st_amount FLOAT UNSIGNED;
+                  DECLARE goods_code MEDIUMINT UNSIGNED;
+                  DECLARE grad_rule FLOAT UNSIGNED;
+                  DECLARE done2 INTEGER DEFAULT 0;
+                  DECLARE GoodsCursor CURSOR FOR
+                  SELECT unique_code, expected_amount, graduation_rule, start_amount
+                  FROM (goods INNER JOIN units ON goods.unit_name = units.unit_name)
+                              INNER JOIN deliveries ON goods.delivery_num = deliveries.delivery_num
+                  WHERE ing_name = ingr AND is_received = 1
+                  ORDER BY order_date DESC;
+
+                  DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done2=1;
+                  OPEN GoodsCursor;
+
+                  WHILE done2 = 0 DO
+                  FETCH GoodsCursor INTO goods_code,exp_amount,grad_rule,st_amount;
+
+                  SET exp_amount = exp_amount + amo / grad_rule;
+                  UPDATE goods
+                  SET expected_amount = exp_amount
+                  WHERE unique_code = goods_code;
+                  SET done2=1;
+
+                  END WHILE;
+
+                  CLOSE GoodsCursor;
+                  END BLOCK2;
+              END WHILE;
+              CLOSE IngsCursor;
+              END;
+
+
+      END IF;
+  END IF;
 END;
