@@ -104,6 +104,33 @@ $(function () {
                         url: url_object.template_directory,
                         mode: 'orders'
                     }));
+
+                    $node.find('.box').on('click', function (e) {
+                        var is_served = "FALSE";
+                        var unique_num = e.target.id.split('-')[1];
+                        if(($('#'+e.target.id).is(":checked"))) {
+                            // e.target.parentNode.parentNode.classList.add("gray");
+                            $('.' + e.target.id).addClass('is-served');
+//.removeClass('is-ready')
+                            is_served = "TRUE";
+                        } else {
+                            $('.' + e.target.id).removeClass('is-served');
+                        }
+
+                        $.ajax({
+                            url: url_object.ajax_url,
+                            type: 'POST',
+                            data: {
+                                action: 'change_portion_state',
+                                is_served: is_served,
+                                unique_num:unique_num
+                            },
+                            success: function (res) {
+                                console.log(res);
+                                console.log("UPDATED!")
+                            }
+                        });
+                    });
                     open_orders.append($node);
                 });
             }

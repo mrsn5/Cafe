@@ -14,6 +14,9 @@ add_action( 'wp_ajax_nopriv_orders_select', 'orders_select' );
 add_action( 'wp_ajax_add_new_order', 'add_new_order' );
 add_action( 'wp_ajax_nopriv_add_new_order', 'add_new_order' );
 
+add_action( 'wp_ajax_change_portion_state', 'change_portion_state' );
+add_action( 'wp_ajax_nopriv_change_portion_state', 'change_portion_state' );
+
 function orders_select(){
     $conn = DBHelper::connect();
 
@@ -44,10 +47,10 @@ function orders_select(){
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
 
 
-            $portionsQuery = "SELECT tech_card_num, special_wishes, SUM(price) AS price, discount, is_ready, is_served, COUNT(*) AS quantity
+            $portionsQuery = "SELECT order_num, MIN(unique_num) as unique_num, tech_card_num, special_wishes, SUM(price) AS price, discount, is_ready, is_served, COUNT(*) AS quantity
                               FROM portions 
                               WHERE order_num = " . $row['unique_num'] .
-                             " GROUP BY tech_card_num, special_wishes, price, is_ready, is_served, discount;";
+                             " GROUP BY tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num;";
             $portions = array();
             foreach ($conn->query($portionsQuery, PDO::FETCH_ASSOC) as $p) {
 
@@ -155,5 +158,64 @@ function add_new_order(){
         echo $sqlQuery;
     }
     DBHelper::disconnect();
+    die;
+}
+
+
+function change_portion_state(){
+    $is_served = $_POST['is_served'];
+    $is_ready = $_POST['is_ready'];
+    $unique_num = $_POST['unique_num'];
+
+    if ($unique_num != null) {
+        $conn = DBHelper::connect();
+
+        $sqlQuery = "SELECT * FROM portions WHERE unique_num=$unique_num;";
+
+        try {
+
+            foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $p) {
+                $portion = $p;
+            }
+        } catch (Exception $e) {
+            echo 'Exception: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+
+        if ($p['special_wishes'] == null) $p['special_wishes'] = 'NULL';
+        else $p['special_wishes'] = "'$p[special_wishes]'";
+        if ($p['discount'] == null) $p['discount'] = 'NULL';
+
+
+
+
+
+
+        $sqlQuery = "UPDATE portions SET ";
+        if ($is_served != null) $sqlQuery = $sqlQuery . "is_served=" . $is_served . ' ';
+        if ($is_ready != null) $sqlQuery = $sqlQuery . "is_ready=" . $is_ready . ' ';
+        $sqlQuery = $sqlQuery . " WHERE order_num = $p[order_num] 
+                                   AND   tech_card_num = $p[tech_card_num] 
+                                   AND   special_wishes = $p[special_wishes] 
+                                   AND   price = $p[price] 
+                                   AND   is_ready = $p[is_ready] 
+                                   AND   is_served = $p[is_served] 
+                                   AND   discount = $p[discount];";
+        $sqlQuery = str_replace("= NULL", " IS NULL", $sqlQuery);
+        echo $sqlQuery;
+
+
+        //tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num
+
+
+        try {
+            $conn->query($sqlQuery);
+
+        } catch (Exception $e) {
+            echo 'Exception: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+        DBHelper::disconnect();
+    }
     die;
 }

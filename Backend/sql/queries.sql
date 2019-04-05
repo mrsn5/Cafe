@@ -297,3 +297,14 @@ FROM orders WHERE is_closed = true AND DATE(order_time) >= '2019-03-17' AND DATE
 SELECT *
 FROM workers
 WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%ра%'
+
+
+SELECT *
+FROM cafe.portions
+WHERE order_num = 5
+ AND   tech_card_num = 124720
+ AND   special_wishes = NULL
+ AND   price = 19.00
+ AND   is_ready = FALSE
+ AND   is_served = FALSE
+ AND   discount = NULL;

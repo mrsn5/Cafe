@@ -11,7 +11,7 @@
     <% if (mode !== 'history') { %>
     <div class="table-num">
         <a href=""><img src="<%= url %>/images/hand-2.svg" alt="Money"/></a>
-        <a href=""><img src="<%= url %>/images/hand.svg" alt="Card"/></a>
+        <!--<a href=""><img src="<%= url %>/images/hand.svg" alt="Card"/></a>-->
         <h1><%= order.table_num%></h1>
     </div>
     <% } %>
@@ -33,15 +33,19 @@
             <!-- ITEMS -->
 
             <% for(var i=0; i < order.portions.length; i++) { %>
-            <li class="item">
+            <li class="item item-<%= order.portions[i].unique_num %>">
                 <div class="item-info">
                     <% if (mode !== 'history') { %>
-                    <input type="checkbox" id="box-1">
+                    <input type="checkbox" class="box" id="box-<%= order.portions[i].unique_num %>" <% if ( order.portions[i].is_served == '1') { %>
+                        <%= 'checked'%>
+                        <% }%>>
                     <% } %>
-                    <label for="box-1">
-                        <div class="text <% if ( order.portions[i].is_ready == '1' && order.portions[i].is_served == '0') {%>
+                    <label for="box-<%= order.portions[i].unique_num %>">
+                        <div class="box-<%= order.portions[i].unique_num %> text
+                                <% if ( order.portions[i].is_ready == '1') {%>
                                     <%=" is-ready";%>
-                                <% } else if ( order.portions[i].is_served == '1') { %>
+                                <% } %>
+                                <% if ( order.portions[i].is_served == '1') { %>
                                     <%=" is-served";%>
                                 <% } %>">
                             <span class="name"><%= order.portions[i].dish_name %></span><br/>
