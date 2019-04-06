@@ -38,7 +38,11 @@ function get_ingredients(){
 
     $sqlQuery = "SELECT ing_name, AVG(unit_price / graduation_rule) AS unit_price
                  FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                 GROUP BY ing_name;";
+                 GROUP BY ing_name
+                 UNION 
+                 SELECT ing_name, 0 AS unit_price
+                 FROM ingredients
+                 GROUP BY ing_name";
 
     $dishes = array();
     foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
