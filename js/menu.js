@@ -83,6 +83,8 @@ $(function () {
                 $('.dish-ing-row').each(function () {
                    $(this).remove();
                 });
+
+                dish_ings = [];
             }
         });
     });

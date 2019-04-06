@@ -22,11 +22,9 @@
     <div class="search-area">
         <input type="text" class="search" id="search_products" placeholder="Назва страви">
         <label for="search_products">
-            <img src="<?php echo PATH?>/images/search.svg" class="search-icon">
+            <img src="<?php echo PATH?>/images/search.svg" class="search-icon" id="search_btn">
         </label>
     </div>
-
-
 
 </div>
 

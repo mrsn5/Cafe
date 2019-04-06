@@ -35,13 +35,7 @@ function get_user_role(){
         $roles = ( array )$user->roles;
         echo json_encode($roles, JSON_UNESCAPED_UNICODE);
         die();
-//        if(count($roles) > 0){
-//            $user_role = $roles[0];
-//            echo ($user_role);
-//
-//        }
     }
-    die();
 }
 
 function get_curr_user(){

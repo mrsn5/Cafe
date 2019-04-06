@@ -27,7 +27,7 @@ $(function () {
     getDishes();
 
     function getDishes() {
-        $dishes_container.html('');
+        // $dishes_container.html('');
 
         let action_name = '';
         switch (cat_name) {
@@ -41,27 +41,29 @@ $(function () {
                 action_name = 'cat_select';
         }
 
-        $.ajax({
-            url: url_object.ajax_url,
-            type: 'POST',
-            data: {
-                action: action_name,
-                cat_name: cat_name
-            },
-            success: function (res) {
-                res = JSON.parse(res);
-                console.log(res);
+        select_dishes(action_name);
 
-                res.forEach(function (d) {
-                    var $node = $(dishTempl({
-                        dish: d,
-                        url_object: url_object,
-                        choose_mode: url_params['order_num']
-                    }));
-                    $dishes_container.append($node);
-                });
-            }
-        });
+        // $.ajax({
+        //     url: url_object.ajax_url,
+        //     type: 'POST',
+        //     data: {
+        //         action: action_name,
+        //         cat_name: cat_name
+        //     },
+        //     success: function (res) {
+        //         res = JSON.parse(res);
+        //         console.log(res);
+        //
+        //         res.forEach(function (d) {
+        //             var $node = $(dishTempl({
+        //                 dish: d,
+        //                 url_object: url_object,
+        //                 choose_mode: url_params['order_num']
+        //             }));
+        //             $dishes_container.append($node);
+        //         });
+        //     }
+        // });
 
         $dishes_container.on('click', '.ok-btn', function () {
             //      if(url_params['order_num']) {
@@ -109,6 +111,47 @@ $(function () {
         //     }
         // });
     }
+
+    function select_dishes(action_name, dish_name){
+        $dishes_container.html('');
+
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: action_name,
+                cat_name: cat_name,
+                dish_name: dish_name
+            },
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+
+                res.forEach(function (d) {
+                    var $node = $(dishTempl({
+                        dish: d,
+                        url_object: url_object,
+                        choose_mode: url_params['order_num']
+                    }));
+                    $dishes_container.append($node);
+                });
+            }
+        });
+    }
+
+    $('#search_btn').on('click', function () {
+       let dish_name = $('#search_products').val() === "" ? null : $('#search_products').val();
+        select_dishes('cat_select', dish_name);
+        $('#search_products').val('');
+    });
+
+    $('#search_products').keypress(function(event){
+        let keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            $('#search_btn').click();
+        }
+        event.stopPropagation();
+    });
 
     $dishes_container.on('click', '.toggle-btn', function (event) {
         $(this).parent().find('.toggle-area').slideToggle();

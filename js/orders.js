@@ -202,8 +202,6 @@ $(function () {
             }
 
 
-
-
             $.ajax({
                 url: url_object.ajax_url,
                 type: 'POST',
