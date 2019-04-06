@@ -20,7 +20,6 @@ $role = ((array) $user->roles)[0];
 <div class="header">
 
 </div>
-<?php echo 1 == count((array)(($wpdb->get_results( "SELECT * FROM workers WHERE tab_num='506'")))) ?>
 
 <!-- Tab container -->
 <div class="tab-container">
