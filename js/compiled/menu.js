@@ -367,6 +367,7 @@ $(function () {
         });
     }
 });
+
 },{"./general_functions":1,"./locStorage":2,"ejs":6}],4:[function(require,module,exports){
 (function () {
 	// Basil
