@@ -1,4 +1,143 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+let $ = jQuery;
+$(function(){
+
+    $(".modal-btn").on('click', function () {
+        var modal = $(".modal");
+        modal.modal();
+    });
+
+    //animation for toggle button
+    $('.toggle-btn').off('click').on('click', function(event) {
+        $('.toggle-area').slideToggle();
+        rotateImage($(this).find(".img-cont"));
+    });
+
+    //animation for products list in table
+    $(".main").on("click",".show-products", function (event) {
+        ($(this).parent().next("tr").find(".products-list")).slideToggle();
+        rotateImage(($(this).find("img")));
+    });
+
+    //animation for search button
+    $('.search-btn').on('click', function(event) {
+        $('.search-area').animate({width: 'toggle'});
+    });
+
+    //edit cells event
+    $(document).on ("dblclick", ".editable-cell", function (e) {
+        e.stopPropagation();
+        var currentElem = $(this);
+        update(currentElem);
+    });
+});
+
+function update(currentElem) {
+    var value = currentElem.find(".value");
+    var input = currentElem.find(".input-data");
+    value.hide();
+    input.show();
+
+    var inputElem = input.find(".input");
+    var type = inputElem.attr("type");
+    updateInput(value, inputElem, type);
+    input.focus();
+
+    $(document).on("click", function (e) {
+        if(!input.is(e.target) && input.has(e.target).length === 0){
+            updateValue(value, inputElem, type);
+            value.show();
+            input.hide();
+        }
+    });
+}
+
+function updateInput(value, inputElem, type) {
+    switch (type) {
+        case "checkbox":
+        {
+            inputElem.prop('checked', (value.text().charCodeAt(0) === 0x2713));
+            break;
+        }
+        case "number":
+        {
+            inputElem.val(parseInt(value.text(), 10));
+            break;
+        }
+        default: {
+            inputElem.val(value.text());
+        }
+    }
+}
+
+function updateValue(value, inputElem, type) {
+    switch (type) {
+        case "checkbox":
+        {
+            if(inputElem.is(':checked'))
+                value.html('&#10003;');
+            else
+                value.html('&#10007;');
+            break;
+        }
+        default: {
+            var newVal = inputElem.val();
+            if(newVal !== null )
+                value.text(inputElem.val());
+        }
+    }
+}
+
+function rotateImage($imageEl) {
+    var roratedClass = $imageEl.hasClass("rotated") || "fail";
+    if(roratedClass === "fail"){
+        $imageEl.css({
+            "transform": "rotate(-180deg)"
+        });
+        $imageEl.addClass("rotated");
+    } else {
+        $imageEl.css({
+            "transform": "rotate(0deg)"
+        });
+        $imageEl.removeClass("rotated");
+    }
+}
+
+function decodeUrl() {
+    let search = location.search.substring(1);
+
+    if(search == ''){
+        return {};
+    }
+
+    let url_params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    return url_params;
+}
+
+
+function get_user_role(ajax_url, callback){
+    $.ajax({
+        url: ajax_url,
+        type: 'POST',
+        data: {
+            action: 'get_user_role'
+        },
+
+        success: function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+            callback(res[0]);
+        }
+    });
+}
+
+exports.rotateImage = rotateImage;
+exports.decodeUrl = decodeUrl;
+
+exports.get_user_role = get_user_role;
+
+
+},{}],2:[function(require,module,exports){
 var basil = require("basil.js");
 
 options = {
@@ -14,15 +153,17 @@ exports.set = function(key, value){
 exports.get = function(key){
     return basil.get(key);
 };
-},{"basil.js":3}],2:[function(require,module,exports){
+},{"basil.js":4}],3:[function(require,module,exports){
 let $ = jQuery;
 
 let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let order_templ = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n            <a><img class=\"pay-order\" src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n            <!--<a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>-->\r\n            <a><img class=\"delete-order hide\" src=\"<%= url %>/images/trash.svg\" alt=\"DELETE\"/></a>\r\n            <a><img class=\"close-order\" style=\"display: none\" src=\"<%= url %>/images/cancel.svg\" alt=\"DELETE\"/></a>\r\n        <h1><%= order.table_num%></h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item item-<%= order.portions[i].unique_num %>\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" class=\"box\" id=\"box-<%= order.portions[i].unique_num %>\" <% if ( order.portions[i].is_served == '1') { %>\r\n                        <%= 'checked'%>\r\n                        <% }%>>\r\n                    <% } %>\r\n                    <label for=\"box-<%= order.portions[i].unique_num %>\">\r\n                        <div class=\"box-<%= order.portions[i].unique_num %> text\r\n                                <% if ( order.portions[i].is_ready == '1') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } %>\r\n                                <% if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
+let order_templ = ejs.compile("<li class=\"order-item\">\r\n<div class=\"order-container\">\r\n\r\n    <div class=\"order-num\">\r\n        <h1>#<%= order.unique_num %></h1>\r\n        <% if (mode !== 'history') { %>\r\n        <a class=\"edit\"><img src=\"<%= url %>/images/edit.svg\" alt=\"Edit\"/></a>\r\n        <% } %>\r\n    </div>\r\n\r\n    <% if (mode !== 'history') { %>\r\n    <div class=\"table-num\">\r\n            <a><img class=\"pay-order\" src=\"<%= url %>/images/hand-2.svg\" alt=\"Money\"/></a>\r\n            <!--<a href=\"\"><img src=\"<%= url %>/images/hand.svg\" alt=\"Card\"/></a>-->\r\n            <% if (role == 'administrator') { %>\r\n                <a><img class=\"delete-order hide\" src=\"<%= url %>/images/trash.svg\" alt=\"DELETE\"/></a>\r\n            <% } %>\r\n            <% console.log(role) %>\r\n            <a><img class=\"close-order\" style=\"display: none\" src=\"<%= url %>/images/cancel.svg\" alt=\"close\"/></a>\r\n        <h1><%= order.table_num%></h1>\r\n    </div>\r\n    <% } %>\r\n\r\n    <div class=\"order-time\">\r\n        <%= order.time_c %>\r\n        <!--            - 11.30-->\r\n    </div>\r\n\r\n    <% if (mode === 'history') { %>\r\n    <div class=\"personnel\">\r\n        <%= order.name %>\r\n    </div>\r\n    <% } %>\r\n\r\n\r\n    <div class=\"content\">\r\n        <ul>\r\n            <!-- ITEMS -->\r\n\r\n            <% for(var i=0; i < order.portions.length; i++) { %>\r\n            <li class=\"item item-<%= order.portions[i].unique_num %>\">\r\n                <div class=\"item-info\">\r\n                    <% if (mode !== 'history') { %>\r\n                    <input type=\"checkbox\" class=\"box\" id=\"box-<%= order.portions[i].unique_num %>\" <% if ( order.portions[i].is_served == '1') { %>\r\n                        <%= 'checked'%>\r\n                        <% }%>>\r\n                    <% } %>\r\n                    <label for=\"box-<%= order.portions[i].unique_num %>\">\r\n                        <div class=\"box-<%= order.portions[i].unique_num %> text\r\n                                <% if ( order.portions[i].is_ready == '1') {%>\r\n                                    <%=\" is-ready\";%>\r\n                                <% } %>\r\n                                <% if ( order.portions[i].is_served == '1') { %>\r\n                                    <%=\" is-served\";%>\r\n                                <% } %>\">\r\n                            <span class=\"name\"><%= order.portions[i].dish_name %></span><br/>\r\n                            <% if (order.portions[i].special_wishes != null) { %>\r\n                            <span class=\"comment\">[<%= order.portions[i].special_wishes %>]</span>\r\n                            <% } %>\r\n                        </div>\r\n                    </label>\r\n                </div>\r\n                <span class=\"quantity\"><%= order.portions[i].quantity %></span>\r\n                <span class=\"price\"><%= order.portions[i].price %> грн</span>\r\n            </li>\r\n            <% } %>\r\n\r\n\r\n\r\n            <!--&lt;!&ndash; BREAK LINE&ndash;&gt;-->\r\n            <!--<li><hr></li>-->\r\n\r\n            <!--&lt;!&ndash; DISCOUNT &ndash;&gt;-->\r\n            <!--<li class=\"discount\">-->\r\n                <!--<div class=\"item-info\">-->\r\n                    <!--<div class=\"text\">-->\r\n                        <!--<span>Знижка</span><br/>-->\r\n                    <!--</div>-->\r\n                <!--</div>-->\r\n                <!--<span class=\"quantity\">%</span>-->\r\n                <!--<span class=\"price\"> грн</span>-->\r\n            <!--</li>-->\r\n\r\n\r\n            <!-- BREAK LINE-->\r\n            <li><hr></li>\r\n\r\n            <!-- TOTAL -->\r\n            <li class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><%= order.cost %> грн</span>\r\n            </li>\r\n\r\n        </ul>\r\n    </div>\r\n</div>\r\n</li>");
 let new_order_templ = ejs.compile("<li class=\"order-item\">\r\n    <div class=\"order-container\">\r\n        <div class=\"order-header-panel\">\r\n            <div class=\"order-num\">\r\n                <h2 style=\"visibility: hidden;\" class=\"order-header\">#<span id=\"order_num\"><%= order.unique_num %></span></h2>\r\n            </div>\r\n\r\n            <div class=\"table-num-list\">\r\n                <div class=\"btn-group\">\r\n                    <button class=\"btn btn-secondary dropdown-btn dropdown-btn-val\" type=\"button\">\r\n                        <h2 class=\"order-header\" id=\"table_num\">1</h2>\r\n                    </button>\r\n                    <button class=\"btn btn-secondary dropdown-toggle dropdown-toggle-split dropdown-btn dropdown-btn-img\"\r\n                            type=\"button\" id=\"tableListDropdown\" data-toggle=\"dropdown\" aria-haspopup=\"true\"\r\n                            aria-expanded=\"true\">\r\n                        <img src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">1</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">2</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">3</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">4</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">5</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">6</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">7</h2></a></li>\r\n                        <li><a class=\"dropdown-item\" href=\"#\"><h2 class=\"order-header\">8</h2></a></li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"order-time\"><%= order.order_time %></div>\r\n        </div>\r\n        <div class=\"order-content\">\r\n            <ul>\r\n                <% for(let i = 0; i < order.portions.length; i++) { %>\r\n                    <li class=\"item\">\r\n                        <div class=\"item-info\">\r\n                            <span class=\"item-number\"><%= i+1%></span>\r\n                            <div class=\"text\">\r\n                                <span class=\"name\"><%= order.portions[i].dish_name%></span>\r\n                                <br/>\r\n                                <span class=\"comment\" id=\"comment_text\"></span>\r\n                            </div>\r\n                            <div class=\"comment-icon\">\r\n                                <a class=\"modal-show-btn\" data-toggle=\"modal\" href=\"\" id=\"add_comment_btn\"><img\r\n                                            src=\"<%= url_object.template_directory %>/images/add-comment2.png\"\r\n                                            alt=\"AddComment\"/></a>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <!---->\r\n                        <input type=\"number\" min=\"1\" max=\"99\" class=\"quantity\" value=\"<%= order.portions[i].quantity%>\">\r\n                        <span style=\"padding-right: 30px;\" class=\"price\"><span class=\"dish-price\"><%= order.portions[i].price%></span> грн</span>\r\n\r\n                        <div class=\"modal fade show-modal\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\r\n                            <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n                                <div class=\"modal-content\">\r\n                                    <div class=\"modal-header\">\r\n                                        <h2 class=\"modal-title comment-modal-title\" id=\"modal_comment_title\">\r\n                                            Коментар</h2>\r\n                                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                                            <span aria-hidden=\"true\">&times;</span>\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"modal-body\">\r\n                                        <input type=\"text\" class=\"comment-input-class\" id=\"input_comment\">\r\n                                    </div>\r\n                                    <div class=\"modal-footer\">\r\n                                        <button type=\"button\" class=\"btn btn-style save-modal-btn\" id=\"save_comment\"\r\n                                                data-dismiss=\"modal\">SAVE\r\n                                        </button>\r\n                                        <button type=\"button\" class=\"btn btn-style close-modal-btn\"\r\n                                                data-dismiss=\"modal\">CANCEL\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n                <li class=\"item add-new-item add-dish-btn\">\r\n                    <div class=\"item-info\">\r\n                        <div class=\"add-block\">\r\n                            <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" class=\"add-icon\">\r\n                            <span class=\"add-new-item-text\">Додати страву</span>\r\n                        </div>\r\n\r\n                    </div>\r\n                    <a href=\"#\"><span></span></a>\r\n                </li>\r\n            </ul>\r\n\r\n            <div class=\"total\">\r\n                <span>Всього</span>\r\n                <span class=\"total-price\"><span class=\"order-total-cost\"><%= cost%></span> грн</span>\r\n            </div>\r\n            <div class=\"n-people\">\r\n                <span>Кількість людей</span>\r\n                <label class=\"n-people-input\">\r\n                    <input type=\"number\" id=\"n_people\" min=\"1\" placeholder=\"1\" value=\"<%= order.n_people%>\">\r\n                </label>\r\n            </div>\r\n\r\n            <div class=\"control-buttons\">\r\n                <button class=\"ok-button control-btn btn-style\" id=\"save_order_btn\">Зберегти</button>\r\n                <button class=\"cancel-button control-btn btn-style\" id=\"delete_new_order_btn\">Видалити</button>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n</li>\r\n");
+
+let Gen = require("./general_functions");
 
 Date.prototype.hrsmins = function () {
     let hrs = this.getHours();
@@ -46,6 +187,8 @@ Date.prototype.yyyymmdd = function () {
 
 $(function () {
     let today_date = new Date().yyyymmdd();
+
+
 
     let unsaved_orders = [];
 
@@ -124,7 +267,8 @@ $(function () {
                     var $node = $(order_templ({
                         order: o,
                         url: url_object.template_directory,
-                        mode: 'orders'
+                        mode: 'orders',
+                        role: Gen.get_user_role()
                     }));
                     if(is_closed)
                         $closed_orders.append($node);
@@ -211,6 +355,7 @@ $(function () {
         $node.find('.box').on('click', function (e) {
             var is_served = "FALSE";
             var unique_num = e.target.id.split('-')[1];
+
             if(($('#'+e.target.id).is(":checked"))) {
                 // e.target.parentNode.parentNode.classList.add("gray");
                 $('.' + e.target.id).addClass('is-served');
@@ -219,6 +364,9 @@ $(function () {
             } else {
                 $('.' + e.target.id).removeClass('is-served');
             }
+
+
+
 
             $.ajax({
                 url: url_object.ajax_url,
@@ -418,7 +566,7 @@ $(function () {
         }, 5000);
     }
 });
-},{"./locStorage":1,"ejs":5}],3:[function(require,module,exports){
+},{"./general_functions":1,"./locStorage":2,"ejs":6}],4:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -819,9 +967,9 @@ $(function () {
 
 })();
 
-},{}],4:[function(require,module,exports){
-
 },{}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1762,7 +1910,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":7,"./utils":6,"fs":4,"path":8}],6:[function(require,module,exports){
+},{"../package.json":8,"./utils":7,"fs":5,"path":9}],7:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1928,7 +2076,7 @@ exports.cache = {
   }
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -2012,7 +2160,7 @@ module.exports={
   "version": "2.6.1"
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -2318,7 +2466,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":9}],9:[function(require,module,exports){
+},{"_process":10}],10:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2504,4 +2652,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[2]);
+},{}]},{},[3]);

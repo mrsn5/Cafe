@@ -7,6 +7,8 @@ let ejs = require('ejs');
 let order_templ = ejs.compile(fs.readFileSync("./templates/order.ejs", "utf8"));
 let new_order_templ = ejs.compile(fs.readFileSync("./templates/new_order.ejs", "utf8"));
 
+let Gen = require("./general_functions");
+
 Date.prototype.hrsmins = function () {
     let hrs = this.getHours();
     let mins = this.getMinutes();
@@ -29,6 +31,8 @@ Date.prototype.yyyymmdd = function () {
 
 $(function () {
     let today_date = new Date().yyyymmdd();
+
+
 
     let unsaved_orders = [];
 
@@ -107,7 +111,8 @@ $(function () {
                     var $node = $(order_templ({
                         order: o,
                         url: url_object.template_directory,
-                        mode: 'orders'
+                        mode: 'orders',
+                        role: Gen.get_user_role()
                     }));
                     if(is_closed)
                         $closed_orders.append($node);
@@ -194,6 +199,7 @@ $(function () {
         $node.find('.box').on('click', function (e) {
             var is_served = "FALSE";
             var unique_num = e.target.id.split('-')[1];
+
             if(($('#'+e.target.id).is(":checked"))) {
                 // e.target.parentNode.parentNode.classList.add("gray");
                 $('.' + e.target.id).addClass('is-served');
@@ -202,6 +208,9 @@ $(function () {
             } else {
                 $('.' + e.target.id).removeClass('is-served');
             }
+
+
+
 
             $.ajax({
                 url: url_object.ajax_url,
