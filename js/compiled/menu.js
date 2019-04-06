@@ -161,7 +161,7 @@ let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let category = ejs.compile("<li>\r\n    <a class=\"category-name\"><h2><%= cat_name %></h2></a>\r\n</li>");
+let category = ejs.compile("<li>\r\n    <a style=\"text-decoration: none\" class=\"category-name\"><h2 style=\"text-decoration: none\" ><%= cat_name %></h2></a>\r\n</li>");
 let ing_row = ejs.compile("<tr class=\"product dish-ing-row\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <td>\r\n        <span><%= ing_name%></span>\r\n    </td>\r\n    <td>\r\n        <span><%= ing_amount%></span>\r\n    </td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= gen_price%></td>\r\n    <td><img class=\"icon delete-ing\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
 
 
