@@ -6,6 +6,7 @@
  * Time: 23:55
  */
 
+require_once 'dbhelper.php';
 
 // ADDING NEW USERS ROLES
 remove_role( 'editor' );
@@ -21,9 +22,11 @@ add_role( 'owner', ('Власник' ), array( ) );
 add_role( 'chef', ('Шуф-кухар' ), array( ) );
 
 
-
 add_action( 'wp_ajax_get_user_role', 'get_user_role' );
 add_action( 'wp_ajax_nopriv_get_user_role', 'get_user_role' );
+
+add_action( 'wp_ajax_get_curr_user', 'get_curr_user' );
+add_action( 'wp_ajax_nopriv_get_curr_user', 'get_curr_user' );
 
 function get_user_role(){
     $user_role = null;
@@ -38,6 +41,44 @@ function get_user_role(){
 //
 //        }
     }
+    die();
+}
+
+function get_curr_user(){
+    if( is_user_logged_in() ) {
+        $user_id = get_current_user_id();
+        $tab_num = get_user_meta($user_id, 'tab_num', true);
+
+        $conn = DBHelper::connect();
+
+        try {
+            $sqlQuery = "SELECT CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) AS user_name, tab_num, position
+                     FROM workers
+                     WHERE tab_num = " . $tab_num . ";";
+
+            $user = array();
+            foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+                $user = $row;
+                break;
+            }
+
+            $curr_user = wp_get_current_user();
+            $roles = ( array )$curr_user->roles;
+            $user['user_role'] = $roles[0];
+
+            echo json_encode($user, JSON_UNESCAPED_UNICODE);
+            DBHelper::disconnect();
+            die();
+
+        }catch (Exception $e) {
+            echo 'Exception: ', $e->getMessage(), "\n";
+            echo $sqlQuery;
+            DBHelper::disconnect();
+            die();
+        }
+    }
+
+    die();
 }
 
 

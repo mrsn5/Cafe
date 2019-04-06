@@ -242,10 +242,7 @@ $(function () {
     getUnsavedOrders();
 
     function getOrders(is_closed, tab_num) {
-        if(is_closed)
-            $closed_orders.html('');
-        else
-            open_orders.html("");
+        open_orders.html("");
 
         $.ajax({
             url: url_object.ajax_url,
@@ -270,12 +267,9 @@ $(function () {
                         mode: 'orders',
                         role: Gen.get_user_role()
                     }));
-                    if(is_closed)
-                        $closed_orders.append($node);
-                    else{
-                        addOrderListeners($node, o);
-                        open_orders.append($node);
-                    }
+
+                    addOrderListeners($node, o);
+                    open_orders.append($node);
                 });
             }
         });
@@ -2081,7 +2075,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -2105,7 +2099,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
