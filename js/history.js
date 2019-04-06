@@ -75,6 +75,7 @@ $(function(){
     function orders_today() {
         $("#prompt-label").text("Замовлення на сьогодні");
         var now = new Date().yyyymmdd();
+        console.log(now);
         get_orders(true, now, now);
         $('#date-from-search').val(now);
         $('#date-to-search').val(now);

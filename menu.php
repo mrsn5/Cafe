@@ -1,6 +1,14 @@
 <?php
 /* Template Name: Menu */
 define("PATH", get_template_directory_uri());
+
+//$user_role = null;
+//if( is_user_logged_in() ) {
+//    $user = wp_get_current_user();
+//    $roles = ( array )$user->roles;
+//    if(count($roles) > 0)
+//        $user_role = $roles[0];
+//}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +27,6 @@ define("PATH", get_template_directory_uri());
     <title>Меню</title>
 </head>
 <body>
-
 
 <!--1. Холодные закуски:-->
 <!--рыбные,-->
@@ -55,18 +62,23 @@ define("PATH", get_template_directory_uri());
 
 <div class="header">
     <!--    only for chefs!!!-->
-    <div class="toggle-btn header-btn-style" id="add_dish_btn">
-        Додати страву
-    </div>
+<!--    --><?php //if ($user_role != null && ($user_role == 'кухар' || $user_role == 'шеф-кухар')) {?>
+        <div class="toggle-btn header-btn-style" id="add_dish_btn">
+            Додати страву
+        </div>
     <!---->
+<!--    --><?php //} ?>
 
-    <div class="top-btn header-btn-style category-name" id="top_list">
-        Топ ліст
-    </div>
+<!--    --><?php //if ($user_role != null && ($user_role == 'administrator')) {?>
+        <div class="top-btn header-btn-style category-name" id="top_list">
+            Топ ліст
+        </div>
 
-    <div class="stop-btn header-btn-style category-name" id="stop_list">
-        Стоп ліст
-    </div>
+        <div class="stop-btn header-btn-style category-name" id="stop_list">
+            Стоп ліст
+        </div>
+
+<!--    --><?php //} ?>
 
 </div>
 
@@ -269,4 +281,4 @@ define("PATH", get_template_directory_uri());
 
 
 </body>
-</html></html>
+</html>

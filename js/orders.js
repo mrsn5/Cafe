@@ -82,7 +82,11 @@ $(function () {
     getUnsavedOrders();
 
     function getOrders(is_closed, tab_num) {
-        open_orders.html("");
+        if(is_closed)
+            $closed_orders.html('');
+        else
+            open_orders.html("");
+
         $.ajax({
             url: url_object.ajax_url,
             type: 'POST',
@@ -105,118 +109,113 @@ $(function () {
                         url: url_object.template_directory,
                         mode: 'orders'
                     }));
-
-
-                    var isEditing = true;
-                    var isPaid = o.is_paid == 1;
-                    $node.find('.edit').on('click', function () {
-                        isEditing = !isEditing;
-                        if (isEditing) {
-                            $node.find(".pay-order").removeClass('hide');
-                            $node.find(".delete-order").addClass('hide');
-                            if (!isPaid)
-                                $node.find('.close-order').attr('style', 'display:none');
-                        } else {
-                            $node.find(".delete-order").removeClass('hide');
-                            $node.find(".pay-order").addClass('hide');
-                            $node.find('.close-order').attr('style', 'display:inline-block');
-                        }
-                    });
-
-                    $node.find('.delete-order').on('click', function () {
-                        $.ajax({
-                            url: url_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'delete_order',
-                                unique_num: o.unique_num
-                            },
-                            success: function (res) {
-                                console.log(res);
-                                console.log("DELETED");
-                                getOrders(false);
-                            }
-                        });
-                    });
-
-                    $node.find('.close-order').on('click', function () {
-                        $.ajax({
-                            url: url_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'close_order',
-                                unique_num: o.unique_num
-                            },
-                            success: function (res) {
-                                console.log(res);
-                                getOrders(false);
-                            }
-                        });
-                    });
-
-                    $node.find('.pay-order').on('click', function () {
-                        $.ajax({
-                            url: url_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'pay_order',
-                                unique_num: o.unique_num
-                            },
-                            success: function (res) {
-                                console.log(res);
-                                console.log("PAYED");
-                                $node.find('.pay-order').attr('style', 'display:none');
-                                $node.find('.close-order').attr('style', 'display:inline-block');
-                                isPaid = true;
-                            }
-                        });
-                    });
-
-                    if (o.is_paid == 1) {
-                        $node.find('.pay-order').attr('style', 'display:none');
-                        $node.find('.close-order').attr('style', 'display:inline-block');
+                    if(is_closed)
+                        $closed_orders.append($node);
+                    else{
+                        addOrderListeners($node, o);
+                        open_orders.append($node);
                     }
-                    //////////////////////
-                    $node.find('.box').on('click', function (e) {
-                        var is_served = "FALSE";
-                        var unique_num = e.target.id.split('-')[1];
-
-
-                        if(($('#'+e.target.id).is(":checked"))) {
-                            // e.target.parentNode.parentNode.classList.add("gray");
-                            $('.' + e.target.id).addClass('is-served');
-//.removeClass('is-ready')
-                            is_served = "TRUE";
-                        } else {
-                            $('.' + e.target.id).removeClass('is-served');
-                        }
-
-
-                        function check_rediness() {
-                            // TODO
-                        }
-
-
-                        $.ajax({
-                            url: url_object.ajax_url,
-                            type: 'POST',
-                            data: {
-                                action: 'change_portion_state',
-                                is_served: is_served,
-                                unique_num:unique_num
-                            },
-                            success: function (res) {
-                                console.log(res);
-                                console.log("UPDATED!")
-                            }
-                        });
-                    });
-
-
-
-                    open_orders.append($node);
                 });
             }
+        });
+    }
+
+    function addOrderListeners($node, o) {
+        var isEditing = true;
+        var isPaid = o.is_paid == 1;
+        $node.find('.edit').on('click', function () {
+            isEditing = !isEditing;
+            if (isEditing) {
+                $node.find(".pay-order").removeClass('hide');
+                $node.find(".delete-order").addClass('hide');
+                if (!isPaid)
+                    $node.find('.close-order').attr('style', 'display:none');
+            } else {
+                $node.find(".delete-order").removeClass('hide');
+                $node.find(".pay-order").addClass('hide');
+                $node.find('.close-order').attr('style', 'display:inline-block');
+            }
+        });
+
+        $node.find('.delete-order').on('click', function () {
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'delete_order',
+                    unique_num: o.unique_num
+                },
+                success: function (res) {
+                    console.log(res);
+                    console.log("DELETED");
+                    getOrders(false);
+                }
+            });
+        });
+
+        $node.find('.close-order').on('click', function () {
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'close_order',
+                    unique_num: o.unique_num
+                },
+                success: function (res) {
+                    console.log(res);
+                    getOrders(false);
+                }
+            });
+        });
+
+        $node.find('.pay-order').on('click', function () {
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'pay_order',
+                    unique_num: o.unique_num
+                },
+                success: function (res) {
+                    console.log(res);
+                    console.log("PAYED");
+                    $node.find('.pay-order').attr('style', 'display:none');
+                    $node.find('.close-order').attr('style', 'display:inline-block');
+                    isPaid = true;
+                }
+            });
+        });
+
+        if (o.is_paid == 1) {
+            $node.find('.pay-order').attr('style', 'display:none');
+            $node.find('.close-order').attr('style', 'display:inline-block');
+        }
+        //////////////////////
+        $node.find('.box').on('click', function (e) {
+            var is_served = "FALSE";
+            var unique_num = e.target.id.split('-')[1];
+            if(($('#'+e.target.id).is(":checked"))) {
+                // e.target.parentNode.parentNode.classList.add("gray");
+                $('.' + e.target.id).addClass('is-served');
+//.removeClass('is-ready')
+                is_served = "TRUE";
+            } else {
+                $('.' + e.target.id).removeClass('is-served');
+            }
+
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'change_portion_state',
+                    is_served: is_served,
+                    unique_num:unique_num
+                },
+                success: function (res) {
+                    console.log(res);
+                    console.log("UPDATED!")
+                }
+            });
         });
     }
 
@@ -346,6 +345,8 @@ $(function () {
                                 url: url_object.template_directory,
                                 mode: 'orders'
                             }));
+
+                            addOrderListeners($node, res);
 
                             open_orders.append($node);
                             $parent.remove();

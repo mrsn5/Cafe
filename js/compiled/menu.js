@@ -115,8 +115,26 @@ function decodeUrl() {
 }
 
 
+function get_user_role(ajax_url, callback){
+    $.ajax({
+        url: ajax_url,
+        type: 'POST',
+        data: {
+            action: 'get_user_role'
+        },
+
+        success: function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+            callback(res[0]);
+        }
+    });
+}
+
 exports.rotateImage = rotateImage;
 exports.decodeUrl = decodeUrl;
+
+exports.get_user_role = get_user_role;
 
 
 },{}],2:[function(require,module,exports){
@@ -144,10 +162,22 @@ let Storage = require('./locStorage');
 let ejs = require('ejs');
 
 let category = ejs.compile("<li>\r\n    <a class=\"category-name\"><h2><%= cat_name %></h2></a>\r\n</li>");
-let ing_row = ejs.compile("<tr class=\"product\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <td>\r\n        <span><%= ing_name%></span>\r\n    </td>\r\n    <td>\r\n        <span><%= ing_amount%></span>\r\n    </td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= gen_price%></td>\r\n    <td><img class=\"icon delete-ing\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
+let ing_row = ejs.compile("<tr class=\"product dish-ing-row\">\r\n    <td class=\"index\"><%= index%></td>\r\n    <td>\r\n        <span><%= ing_name%></span>\r\n    </td>\r\n    <td>\r\n        <span><%= ing_amount%></span>\r\n    </td>\r\n    <td><%= unit_price%></td>\r\n    <td><%= gen_price%></td>\r\n    <td><img class=\"icon delete-ing\" src=\"<%= url_object.template_directory%>/images/delete.svg\"></td>\r\n</tr>");
 
 
 $(function () {
+    Gen.get_user_role(url_object.ajax_url, function (user_role) {
+        console.log(user_role);
+        // if(user_role !== 'кухар' || user_role !== 'шеф-кухар'){
+        //     $('#add_dish_btn').hide();
+        // }
+
+        if(user_role !== "administrator"){
+            $('#top_list').hide();
+            $('#stop_list').hide();
+        }
+    });
+
     let url_params = Gen.decodeUrl();
 
     let $categories_container = $("#categories_container");
@@ -195,6 +225,20 @@ $(function () {
             success: function (res) {
                 //   get_personnel(null, null);
                 console.log(res);
+                $("#tech_num").val('');
+                $("#calc_num").val('');
+                $("#dish_name").val('');
+                $("#department").val('');
+                $("#categories_add").val('');
+                $("#weight").val('');
+                $("#calories").val('');
+                $("#cooking_time").val('');
+                $("#price_value").text('0');
+                $('#add_dish_btn').click();
+
+                $('.dish-ing-row').each(function () {
+                   $(this).remove();
+                });
             }
         });
     });
@@ -1836,7 +1880,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1860,7 +1904,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

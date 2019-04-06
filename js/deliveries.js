@@ -60,8 +60,12 @@ $(function () {
 
         getDeliveries(date_from, date_to, is_paid, is_received);
 
-        $("#search_date_from").val(null);
-        $("#search_date_to").val(null);
+        $("#search_date_from").val(now);
+        $("#search_date_to").val(now);
+        $('#is_received_count').prop("checked", true);
+        $('#is_paid_count').prop("checked", true);
+        $('#search_received').prop("checked", false);
+        $('#search_paid').prop("checked", false);
 
         $('#search_orders_btn').click();
     });
