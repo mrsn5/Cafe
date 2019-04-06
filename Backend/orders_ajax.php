@@ -35,7 +35,8 @@ function orders_select(){
     $params = array();
     if ($_POST['unique_num'] != null)  $params[] = "unique_num = " . $_POST['unique_num'];
     if ($_POST['is_closed'] != null)  $params[] = "is_closed = " . $_POST['is_closed'];
-    if ($_POST['tab_num'] != null && $_POST['role'] != 'administrator') $params[] = "tab_num = " . $_POST['tab_num'];
+    if ($_POST['tab_num'] != null && $_POST['role'] != 'administrator'
+        && $_POST['role'] != 'chef' && $_POST['role'] != 'cook' ) $params[] = "tab_num = " . $_POST['tab_num'];
     if ($_POST['name'] != null) {
         $workerQuery =
             "(SELECT tab_num
