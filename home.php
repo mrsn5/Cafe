@@ -41,14 +41,17 @@ $role = ((array) $user->roles)[0];
         </li>
         <?php } ?>
 
+        <?php if($role != 'waiter' && $role != 'cook') { ?>
         <li style="background-image: linear-gradient(20deg, #e134b7, #ffd2f6);">
             <a href="deliveries"><img src="<?php echo PATH?>/images/truck.svg" alt="Deliveries"/></a>
         </li>
+        <?php } ?>
 
-
+        <?php if($role == 'administrator' && $role == 'owner' && $role == 'bookkeeper') { ?>
         <li style="background-image: linear-gradient(150deg, rgb(229,173,255), #9532b5);">
             <a href="personnel"><img src="<?php echo PATH?>/images/waiter.svg" alt="Personnel"/></a>
         </li>
+
         <li style="background-image: linear-gradient(150deg, #ff5a6d, #ff938e);">
             <a href="deliverer"><img src="<?php echo PATH?>/images/farmer.svg" alt="Deliverer"/></a>
         </li>
@@ -58,6 +61,7 @@ $role = ((array) $user->roles)[0];
         <li style="background-image: linear-gradient(150deg, #ff5a6d, #ff938e);">
             <a href="statistics"><img src="<?php echo PATH?>/images/analysis.svg" alt="Statistics"/></a>
         </li>
+        <?php } ?>
     </ul>
 </div>
 
