@@ -209,31 +209,31 @@ define("PATH", get_template_directory_uri());
 <!-- Tab container -->
 <div class="tab-container" style="opacity: 0.9;">
     <ul id="categories_container">
-        <li style="background-image: linear-gradient(180deg, #50c3ff, #046aec);">
-            <a href="orders.html"><h2>Холодні закуски</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(180deg, #ff1e36, #ff938e);">
-            <a href="orders.html"><h2>Гарячі закуски</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(60deg, #ffd53a, #ea7b00);">
-            <a href="orders.html"><h2>Гарніри</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(320deg, #94ffaf, #00bf52);">
-            <a href="orders.html"><h2>Салати</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(20deg, #e134b7, #ffd2f6);">
-            <a href="orders.html"><h2>Перші страви</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(150deg, rgb(229,173,255), #9532b5);">
-            <a href="orders.html"><h2>Другі страви</h2></a>
-        </li>
-
-        <li style="background-image: linear-gradient(30deg, #ffff09, #ffb300);">
-            <a href="orders.html"><h2>Десерти</h2></a>
-        </li>
-        <li style="background-image: linear-gradient(60deg, #00e4ff, #cbeaff);">
-            <a href="orders.html"><h2>Напої</h2></a>
-        </li>
+<!--        <li style="background-image: linear-gradient(180deg, #50c3ff, #046aec);">-->
+<!--            <a href="orders.html"><h2>Холодні закуски</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(180deg, #ff1e36, #ff938e);">-->
+<!--            <a href="orders.html"><h2>Гарячі закуски</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(60deg, #ffd53a, #ea7b00);">-->
+<!--            <a href="orders.html"><h2>Гарніри</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(320deg, #94ffaf, #00bf52);">-->
+<!--            <a href="orders.html"><h2>Салати</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(20deg, #e134b7, #ffd2f6);">-->
+<!--            <a href="orders.html"><h2>Перші страви</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(150deg, rgb(229,173,255), #9532b5);">-->
+<!--            <a href="orders.html"><h2>Другі страви</h2></a>-->
+<!--        </li>-->
+<!---->
+<!--        <li style="background-image: linear-gradient(30deg, #ffff09, #ffb300);">-->
+<!--            <a href="orders.html"><h2>Десерти</h2></a>-->
+<!--        </li>-->
+<!--        <li style="background-image: linear-gradient(60deg, #00e4ff, #cbeaff);">-->
+<!--            <a href="orders.html"><h2>Напої</h2></a>-->
+<!--        </li>-->
 
     </ul>
 </div>
