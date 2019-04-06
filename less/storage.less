@@ -149,14 +149,21 @@ body {
     }
   }
 
+  .ivent-print{
+    display: none;
+  }
+
   .ivent-print-inputs{
     margin-top: 50px;
-    display: none;
+    //display: none;
   }
 
   .ivent-input{
     margin-top: 20px;
     font-size: (@main_font_size + 2);
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
     //display: none;
 
     input{
@@ -165,13 +172,68 @@ body {
     }
   }
 
-  .person-input{
-    width: 50%;
+  .name-block{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .input-style{
+      width: 100%;
+      font-size: 14pt;
+      font-family: @main_font_family;
+      font-weight: normal;
+
+      .input{
+        font-size: 14pt;
+        font-weight: normal;
+      }
+    }
+
+    .input-sign{
+      width: 40%;
+    }
+
+    .input-style + .input-style{
+      margin-left: 30px;
+    }
   }
 
-  .ivent-sign{
-    display: inline-block;
-    margin-left: 30px;
+
+  .ivent-date{
+    .date-block{
+      .date-input{
+        .input{
+          font-size: 14pt;
+          //text-align: right;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  .ivent-print-header{
+    .cafe-name{
+      width: 40%;
+      margin-bottom: 100px;
+
+      .input-style{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .input{
+          font-size: 14pt;
+          font-weight: normal;
+        }
+      }
+    }
+
+    .print-header{
+      text-align: center;
+      font-size: 14pt;
+      font-family: @main_font_family_bold;
+      //margin-left: 50px;
+    }
   }
 }
 
@@ -179,13 +241,19 @@ body {
   background-image: none;
   background-color: white;
 
-
   //body {
-  //  margin: 0;
+  //  margin: 0!important;
+  //  margin-left: 50px!important;
   //  color: #000;
   //  background-color: #fff;
   //}
-  //@page { size: auto;  margin: 0mm; }
+  //@page {
+  //  size: auto;
+  //  margin: 0mm;
+  //  margin-left: 50px!important;
+  //  margin-top: 20px!important;
+  //}
+
 
   .header{
     display: none!important;
@@ -208,11 +276,14 @@ body {
 
   .table-area{
     margin-top: -100px!important;
-    padding-top: 0!important;
+    padding: 0!important;
     margin-left: 0!important;
+    //font-size: 10pt!important;
+    //width: 100%!important;
   }
 
   #inventory_table{
+    //width: 100%!important;
     tr{
       th{
         border: 1px solid @primary_color_gray!important;
@@ -226,9 +297,10 @@ body {
     }
   }
 
-  .ivent-print-inputs{
+  .ivent-print{
     display: block!important;
   }
+  
 
   .colontitle-bottom {
    bottom: 0px;

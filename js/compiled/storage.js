@@ -18,6 +18,16 @@ Date.prototype.yyyymmdd = function () {
     ].join('-');
 };
 
+Date.prototype.printmode = function () {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [(dd > 9 ? '' : '0') + dd,
+        (mm > 9 ? '' : '0') + mm,
+        this.getFullYear()
+    ].join('.');
+};
+
 $(function () {
         let now = new Date().yyyymmdd();
 
@@ -119,18 +129,39 @@ $(function () {
                 }
             });
 
-            //  openPrintDialogue();
-            $('#ivent_goods_container').find('.ivent-item').each(function () {
-                //    $(this).find('.input-style').hide();
-                let val = $(this).find('.curr-amount-input').val();
-                $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
-            });
-            window.print();
+            $.ajax({
+                url: url_object.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'get_curr_user'
+                },
 
-            $('#ivent_goods_container').find('.ivent-item').each(function () {
-                //    $(this).find('.input-style').show();
-                $(this).find('.curr-amount-text').text('');
-                //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+                success: function (res) {
+                    res = JSON.parse(res);
+                    console.log(res);
+
+                    //  openPrintDialogue();
+                    $('#ivent_goods_container').find('.ivent-item').each(function () {
+                        //    $(this).find('.input-style').hide();
+                        let val = $(this).find('.curr-amount-input').val();
+                        $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
+                    });
+
+                    $('#organization').val('Кафе "Алигатор"');
+                    $('#storage').val('Головний склад');
+
+                    $('#ivent_date').val(new Date().printmode());
+                    $('#ivent_person').val(res['user_name']);
+                    $('#ivent_position').val(res['position']);
+
+                    window.print();
+
+                    $('#ivent_goods_container').find('.ivent-item').each(function () {
+                        //    $(this).find('.input-style').show();
+                        $(this).find('.curr-amount-text').text('');
+                        //  $(this).find('.curr-amount').html($(this).find('.curr-amount-input').val());
+                    });
+                }
             });
         });
 
@@ -1574,7 +1605,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1598,7 +1629,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

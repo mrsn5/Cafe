@@ -208,6 +208,22 @@ define("PATH", get_template_directory_uri());
                 </tbody>
             </table>
 
+            <div class="ivent-print ivent-print-header">
+                <div class="cafe-name">
+                    <label class="input-style">
+                        Установа
+                        <input class="input" type="text" id="organization">
+                    </label>
+
+                    <label class="input-style">
+                        Склад
+                        <input class="input" type="text" id="storage">
+                    </label>
+                </div>
+
+                <h3 class="print-header">Інвентаризаційний опис запасів</h3>
+            </div>
+
             <table id="inventory_table">
                 <thead>
                 <tr>
@@ -230,26 +246,40 @@ define("PATH", get_template_directory_uri());
                 </tbody>
             </table>
 
-            <div class="ivent-print-inputs">
+            <div class="ivent-print ivent-print-inputs">
                 <div class="ivent-input ivent-person">
-                    <span>Івентаризацію провів</span>
-                    <label class="input-style person-input">
-                        <input class="input" type="text" id="ivent_person">
-                    </label>
+                    <span>Матеріально відповідальна особа</span>
+                    <div class="ivent-block name-block">
+                        <label class="input-style person-input">
+                            <input class="input" type="text" id="ivent_position">
+                            (посада)
+                        </label>
+
+                        <label class="input-style person-input">
+                            <input class="input" type="text" id="ivent_person">
+                            (прізвище, ініціали)
+                        </label>
+
+                        <label class="input-style input-sign">
+                            <input class="input" type="text" id="ivent_sign">
+                            (підпис)
+                        </label>
+                    </div>
                 </div>
+
 
                 <div class="ivent-input ivent-date">
                     <span>Дата</span>
-                    <label class="input-style date-input">
-                        <input class="input" type="text" id="ivent_date">
-                    </label>
-
-                    <div class="ivent-sign">
-                        <span>Підпис</span>
+                    <div class="ivent-block date-block">
                         <label class="input-style date-input">
-                            <input class="input" type="text" id="ivent_sign">
+                            <input class="input" type="text" id="ivent_date">
                         </label>
+<!--                        <label class="input-style date-input">-->
+<!--                            завершено-->
+<!--                            <input class="input" type="text" id="ivent_date">-->
+<!--                        </label>-->
                     </div>
+
                 </div>
             </div>
 
