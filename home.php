@@ -47,7 +47,7 @@ $role = ((array) $user->roles)[0];
         </li>
         <?php } ?>
 
-        <?php if($role == 'administrator' && $role == 'owner' && $role == 'bookkeeper') { ?>
+        <?php if($role == 'administrator' || $role == 'owner' || $role == 'bookkeeper') { ?>
         <li style="background-image: linear-gradient(150deg, rgb(229,173,255), #9532b5);">
             <a href="personnel"><img src="<?php echo PATH?>/images/waiter.svg" alt="Personnel"/></a>
         </li>
