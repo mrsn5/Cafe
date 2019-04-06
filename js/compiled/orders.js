@@ -197,6 +197,8 @@ $(function () {
                     $node.find('.box').on('click', function (e) {
                         var is_served = "FALSE";
                         var unique_num = e.target.id.split('-')[1];
+
+
                         if(($('#'+e.target.id).is(":checked"))) {
                             // e.target.parentNode.parentNode.classList.add("gray");
                             $('.' + e.target.id).addClass('is-served');
@@ -205,6 +207,12 @@ $(function () {
                         } else {
                             $('.' + e.target.id).removeClass('is-served');
                         }
+
+
+                        function check_rediness() {
+                            // TODO
+                        }
+
 
                         $.ajax({
                             url: url_object.ajax_url,
