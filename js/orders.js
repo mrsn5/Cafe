@@ -32,8 +32,6 @@ Date.prototype.yyyymmdd = function () {
 $(function () {
     let today_date = new Date().yyyymmdd();
 
-
-
     let unsaved_orders = [];
 
     let open_orders = $("#open-orders");
@@ -109,7 +107,7 @@ $(function () {
                         order: o,
                         url: url_object.template_directory,
                         mode: 'orders',
-                        role: Gen.get_user_role()
+                        role: user_object.role
                     }));
 
                     addOrderListeners($node, o);
@@ -334,7 +332,7 @@ $(function () {
                     cost: order['cost'],
                     n_people: order['n_people'],
                     portions: order['portions'],
-                    tab_num: 516
+                    tab_num: user_object.tab_num
                 },
                 success: function (res) {
                     console.log(res);

@@ -188,8 +188,6 @@ Date.prototype.yyyymmdd = function () {
 $(function () {
     let today_date = new Date().yyyymmdd();
 
-
-
     let unsaved_orders = [];
 
     let open_orders = $("#open-orders");
@@ -265,7 +263,7 @@ $(function () {
                         order: o,
                         url: url_object.template_directory,
                         mode: 'orders',
-                        role: Gen.get_user_role()
+                        role: user_object.role
                     }));
 
                     addOrderListeners($node, o);
@@ -490,7 +488,7 @@ $(function () {
                     cost: order['cost'],
                     n_people: order['n_people'],
                     portions: order['portions'],
-                    tab_num: 516
+                    tab_num: user_object.tab_num
                 },
                 success: function (res) {
                     console.log(res);
@@ -2075,7 +2073,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
+      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -2099,7 +2097,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
+  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
