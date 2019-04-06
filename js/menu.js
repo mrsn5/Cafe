@@ -204,6 +204,7 @@ $(function () {
                 action: 'с',
             },
             success: function (res) {
+                console.log(res);
                 res = JSON.parse(res);
                 console.log(res);
                 callback(res);

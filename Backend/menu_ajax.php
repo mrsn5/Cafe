@@ -37,9 +37,9 @@ function get_ingredients(){
     $conn = DBHelper::connect();
 
     $sqlQuery = "SELECT ing_name, COALESCE((SELECT AVG(unit_price / graduation_rule)
-                  FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
-                  WHERE X.ing_name = goods.ing_name
-                  GROUP BY ing_name), 0) AS unit_price
+                                              FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
+                                              WHERE X.ing_name = goods.ing_name
+                                              GROUP BY ing_name), 0) AS unit_price
                   FROM ingredients X;";
 
     $dishes = array();
