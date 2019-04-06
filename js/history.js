@@ -104,7 +104,9 @@ $(function(){
                     var $node = $(order({
                         order: o,
                         url: url_object.template_directory,
-                        mode: 'history'
+                        mode: 'history',
+                        role: null,
+                        is_my_order: null
                     }));
                     $node.find('.is-ready').removeClass('is-ready').attr('style', 'color: rgba(255, 127, 80, 0.6)');
                     $orders_list.append($node);
