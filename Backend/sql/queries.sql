@@ -314,3 +314,11 @@ WHERE order_num = 5
  
  
  UPDATE portions SET is_ready=TRUE  AND is_served=TRUE  WHERE unique_num = 1081;
+
+
+
+SELECT ing_name, COALESCE((SELECT AVG(unit_price / graduation_rule)
+                  FROM goods INNER JOIN units ON goods.unit_name = units.unit_name
+                  WHERE X.ing_name = goods.ing_name
+                  GROUP BY ing_name), 0) AS unit_price
+FROM ingredients X;
