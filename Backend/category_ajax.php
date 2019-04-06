@@ -40,7 +40,14 @@ function cat_select()
                  FROM dishes
                  WHERE tech_card_num IN (SELECT tech_card_num
                                          FROM dishes_categories
-                                         WHERE cat_name LIKE '" . $_POST['cat_name'] . "');";
+                                         WHERE cat_name LIKE '" . $_POST['cat_name'] . "')";
+
+
+    if($_POST['dish_name']){
+        $sqlQuery = $sqlQuery. " AND dish_name LIKE '" . $_POST['dish_name'] . "' ";
+    }
+
+    $sqlQuery = $sqlQuery." ORDER BY dish_name;";
 
     getDishesList($sqlQuery);
 }
@@ -113,7 +120,6 @@ function getDishesList($sqlQuery)
     DBHelper::disconnect();
     die;
 }
-
 
 //function delete_dish(){
 //    if($_POST['tech_card_num']){
