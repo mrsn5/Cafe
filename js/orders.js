@@ -18,7 +18,6 @@ Date.prototype.hrsmins = function () {
     ].join(':');
 };
 
-
 Date.prototype.yyyymmdd = function () {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
     var dd = this.getDate();
@@ -79,12 +78,12 @@ $(function () {
     });
 
     getOrders(false);
-    // poll();
+    poll();
 
     getUnsavedOrders();
 
     function getOrders(is_closed, tab_num) {
-        open_orders.html("");
+        // open_orders.html("");
 
         $.ajax({
             url: url_object.ajax_url,
@@ -114,8 +113,13 @@ $(function () {
                     }));
 
                     addOrderListeners($node, o);
+                    $node.addClass("new"); ///////////////////////////////////////////
                     open_orders.append($node);
                 });
+
+                open_orders.find(".old").remove();
+                open_orders.find(".new").addClass("old").removeClass('new');
+
             }
         });
     }
@@ -367,6 +371,7 @@ $(function () {
 
                             addOrderListeners($node, res);
 
+                            $node.addClass('old'); /////////////////////////////////////////////
                             open_orders.append($node);
                             $parent.remove();
                             unsaved_orders.splice(order_index, 1);
@@ -416,7 +421,8 @@ $(function () {
     function poll() {
         setTimeout(function () {
             getOrders(false);
+            console.log("REFRESHED");
             poll();
-        }, 5000);
+        }, 6000);
     }
 });
