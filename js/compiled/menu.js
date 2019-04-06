@@ -357,7 +357,7 @@ $(function () {
             url: url_object.ajax_url,
             type: 'POST',
             data: {
-                action: 'с',
+                action: 'get_ingredients',
             },
             success: function (res) {
                 res = JSON.parse(res);

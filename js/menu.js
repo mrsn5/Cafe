@@ -201,10 +201,9 @@ $(function () {
             url: url_object.ajax_url,
             type: 'POST',
             data: {
-                action: 'с',
+                action: 'get_ingredients',
             },
             success: function (res) {
-                console.log(res);
                 res = JSON.parse(res);
                 console.log(res);
                 callback(res);
