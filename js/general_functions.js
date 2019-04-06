@@ -114,6 +114,24 @@ function decodeUrl() {
 }
 
 
+function get_user_role(ajax_url, callback){
+    $.ajax({
+        url: ajax_url,
+        type: 'POST',
+        data: {
+            action: 'get_user_role'
+        },
+
+        success: function (res) {
+            res = JSON.parse(res);
+            console.log(res);
+            callback(res[0]);
+        }
+    });
+}
+
 exports.rotateImage = rotateImage;
 exports.decodeUrl = decodeUrl;
+
+exports.get_user_role = get_user_role;
 

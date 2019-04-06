@@ -10,6 +10,18 @@ let ing_row = ejs.compile(fs.readFileSync("./templates/new_dish_ing_row.ejs", "u
 
 
 $(function () {
+    Gen.get_user_role(url_object.ajax_url, function (user_role) {
+        console.log(user_role);
+        // if(user_role !== 'кухар' || user_role !== 'шеф-кухар'){
+        //     $('#add_dish_btn').hide();
+        // }
+
+        if(user_role !== "administrator"){
+            $('#top_list').hide();
+            $('#stop_list').hide();
+        }
+    });
+
     let url_params = Gen.decodeUrl();
 
     let $categories_container = $("#categories_container");
@@ -57,6 +69,20 @@ $(function () {
             success: function (res) {
                 //   get_personnel(null, null);
                 console.log(res);
+                $("#tech_num").val('');
+                $("#calc_num").val('');
+                $("#dish_name").val('');
+                $("#department").val('');
+                $("#categories_add").val('');
+                $("#weight").val('');
+                $("#calories").val('');
+                $("#cooking_time").val('');
+                $("#price_value").text('0');
+                $('#add_dish_btn').click();
+
+                $('.dish-ing-row').each(function () {
+                   $(this).remove();
+                });
             }
         });
     });

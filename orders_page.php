@@ -45,7 +45,7 @@ define("PATH", get_template_directory_uri());
                 <ul id="open-orders">
 
                 </ul>
-                <h3 class="order-list-label">Закриті</h3>
+
                 <!--            </div>-->
                 <!--            <div class="closed-orders order-block">-->
                 <!--                <ul>-->
