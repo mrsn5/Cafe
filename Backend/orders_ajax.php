@@ -36,7 +36,7 @@ function orders_select(){
     if ($_POST['unique_num'] != null)  $params[] = "unique_num = " . $_POST['unique_num'];
     if ($_POST['is_closed'] != null)  $params[] = "is_closed = " . $_POST['is_closed'];
     if ($_POST['tab_num'] != null && $_POST['role'] != 'administrator'
-        && $_POST['role'] != 'chef' && $_POST['role'] != 'cook' ) $params[] = "tab_num = " . $_POST['tab_num'];
+        && $_POST['role'] != 'chef' && $_POST['role'] != 'cook' && $_POST['role'] != 'barman' ) $params[] = "tab_num = " . $_POST['tab_num'];
     if ($_POST['name'] != null) {
         $workerQuery =
             "(SELECT tab_num
@@ -57,14 +57,14 @@ function orders_select(){
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
 
             $portionsQuery = [];
-            if ($_POST['role'] != 'chef' && $_POST['role'] != 'cook') {
+            if ($_POST['role'] != 'chef' && $_POST['role'] != 'cook' && $_POST['role'] != 'barman') {
                 $portionsQuery = "SELECT order_num, MIN(unique_num) as unique_num, tech_card_num, special_wishes, SUM(price) AS price, discount, is_ready, is_served, COUNT(*) AS quantity
                               FROM portions 
                               WHERE order_num = " . $row['unique_num'] .
                     " GROUP BY tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num;";
             } else {
-                $portionsQuery = "SELECT order_num, unique_num, tech_card_num, special_wishes, price, discount, is_ready, is_served, 1 AS quantity
-                              FROM portions 
+                $portionsQuery = "SELECT order_num, unique_num, portions.tech_card_num, special_wishes,portions.price, discount, is_ready, is_served, 1 AS quantity, department
+                              FROM portions INNER JOIN dishes ON dishes.tech_card_num = portions.tech_card_num
                               WHERE order_num = " . $row['unique_num'] . ";";
             }
             $portions = array();
@@ -183,7 +183,7 @@ function change_portion_state(){
     $conn = DBHelper::connect();
 
 
-    if ($unique_num != null && $is_served != null) {
+    if ($unique_num != null && $is_served != null && $is_ready == null) {
         $sqlQuery = "SELECT * FROM portions WHERE unique_num=$unique_num;";
 
         try {
@@ -224,6 +224,8 @@ function change_portion_state(){
     if ($unique_num != null && $is_ready != null) {
         $sqlQuery = "UPDATE portions SET ";
         if ($is_ready != null) $sqlQuery = $sqlQuery . "is_ready=" . $is_ready . ' ';
+        if ($is_ready != null && $is_served != null) $sqlQuery = $sqlQuery . ", " ;
+        if ($is_served != null) $sqlQuery = $sqlQuery . "is_served=" . $is_served . ' ';
         $sqlQuery = $sqlQuery . " WHERE unique_num = $unique_num;";
         echo $sqlQuery;
 

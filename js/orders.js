@@ -105,16 +105,22 @@ $(function () {
                 console.log(res);
                 res.forEach(function (o) {
                     // console.log(url_object.template_directory);
-                    var $node = $(order_templ({
-                        order: o,
-                        url: url_object.template_directory,
-                        mode: 'orders',
-                        role: user_object.role
-                    }));
+                    if (!(user_object.role == 'barman' && o.portions.reduce((p,n)=> ((n.department == 'бар' && o.tab_num == user_object.tab_num)
+                                                    || (n.department == 'бар' && o.tab_num != user_object.tab_num && n.is_served == 0) )?p+1:p,0) == 0) &&
+                        !((user_object.role == 'chef' ||user_object.role == 'cook' ) &&
+                            o.portions.reduce((p,n)=> (n.department == 'кухня' && (n.is_ready == 0 || n.is_served == 0))?p+1:p,0) == 0)) {
+                        var $node = $(order_templ({
+                            order: o,
+                            url: url_object.template_directory,
+                            mode: 'orders',
+                            role: user_object.role,
+                            is_my_order: (user_object.role == 'barman' && o.tab_num != user_object.tab_num)?false:true
+                        }));
 
-                    addOrderListeners($node, o);
-                    $node.addClass("new"); ///////////////////////////////////////////
-                    open_orders.append($node);
+                        addOrderListeners($node, o);
+                        $node.addClass("new"); ///////////////////////////////////////////
+                        open_orders.append($node);
+                    }
                 });
 
                 open_orders.find(".old").remove();
@@ -209,13 +215,28 @@ $(function () {
                 $('.' + e.target.id).removeClass('is-served');
             }
 
-            if (user_object.role == 'chef' || user_object.role == 'cook') {
+            if (user_object.role == 'chef' || user_object.role == 'cook' || (user_object.role == 'barman' && user_object.tab_num != o.tab_num)) {
                 $.ajax({
                     url: url_object.ajax_url,
                     type: 'POST',
                     data: {
                         action: 'change_portion_state',
                         is_ready: is_served,
+                        unique_num: unique_num
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        console.log("UPDATED!")
+                    }
+                });
+            } else if (user_object.role == 'barman') {
+                $.ajax({
+                    url: url_object.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'change_portion_state',
+                        is_ready: is_served,
+                        is_served: is_served,
                         unique_num: unique_num
                     },
                     success: function (res) {
@@ -366,13 +387,15 @@ $(function () {
                                 order: res,
                                 url: url_object.template_directory,
                                 mode: 'orders',
-                                role: user_object.role
+                                role: user_object.role,
+                                is_my_order: (user_object.role == 'barman' && o.tab_num != user_object.tab_num)?false:true
                             }));
 
                             addOrderListeners($node, res);
 
                             $node.addClass('old'); /////////////////////////////////////////////
                             open_orders.append($node);
+                            getOrders(false);
                             $parent.remove();
                             unsaved_orders.splice(order_index, 1);
                             Storage.set('unsaved_orders', unsaved_orders);

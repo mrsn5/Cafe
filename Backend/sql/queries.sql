@@ -310,3 +310,7 @@ WHERE order_num = 5
  AND   discount = NULL;
  
  DELETE FROM portions WHERE unique_num > 100;
+ 
+ 
+ 
+ UPDATE portions SET is_ready=TRUE  AND is_served=TRUE  WHERE unique_num = 1081;

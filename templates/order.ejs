@@ -12,7 +12,7 @@
 
     <% if (mode !== 'history') { %>
     <div class="table-num">
-        <% if (role != 'cook' && role != 'chef') { %>
+        <% if (role != 'cook' && role != 'chef' && !(role == 'barman' && !is_my_order)) { %>
             <a><img class="pay-order" src="<%= url %>/images/hand-2.svg" alt="Money"/></a>
             <!--<a href=""><img src="<%= url %>/images/hand.svg" alt="Card"/></a>-->
             <% if (role == 'administrator') { %>
@@ -29,7 +29,7 @@
         <!--            - 11.30-->
     </div>
 
-    <% if (mode === 'history' || role == 'cook' || role == 'chef') { %> %>
+    <% if (mode === 'history' || role == 'cook' || role == 'chef' || (role == 'barman' && !is_my_order)) { %> %>
     <div class="personnel">
         <%= order.name %>
     </div>
@@ -41,20 +41,24 @@
             <!-- ITEMS -->
 
             <% for(var i=0; i < order.portions.length; i++) { %>
-            <% if (!(order.portions[i].is_ready == '1' && (role == 'chef' || role == 'cook'))) { %>
+            <% if (!(order.portions[i].is_ready == '1' && (role == 'chef' || role == 'cook')) &&
+                    !((role == 'chef' || role == 'cook') && order.portions[i].department == 'бар') &&
+                    !(role == 'barman' && order.portions[i].department == 'кухня') &&
+                    !(role == 'barman' && !is_my_order &&  order.portions[i].is_served == '1')){ %>
                 <li class="item item-<%= order.portions[i].unique_num %>">
                     <div class="item-info">
                         <% if (mode !== 'history') { %>
-                        <input type="checkbox" class="box" id="box-<%= order.portions[i].unique_num %>" <% if ( order.portions[i].is_served == '1') { %>
+                        <input type="checkbox" class="box" id="box-<%= order.portions[i].unique_num %>"
+                        <% if ( order.portions[i].is_served == '1' || (role == 'barman' && order.portions[i].is_ready == '1' )) { %>
                             <%= 'checked'%>
                             <% }%>>
                         <% } %>
                         <label for="box-<%= order.portions[i].unique_num %>">
                             <div class="box-<%= order.portions[i].unique_num %> text
-                                    <% if ( order.portions[i].is_ready == '1') {%>
+                                    <% if ( order.portions[i].is_ready == '1' && role != 'barman') {%>
                                         <%=" is-ready";%>
                                     <% } %>
-                                    <% if ( order.portions[i].is_served == '1') { %>
+                                    <% if ( order.portions[i].is_served == '1' || (role == 'barman' && order.portions[i].is_ready == '1')) { %>
                                         <%=" is-served";%>
                                     <% } %>">
                                 <span class="name"><%= order.portions[i].dish_name %></span><br/>
