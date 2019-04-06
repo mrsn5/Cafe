@@ -72,7 +72,7 @@ $(function () {
             ings_units = data;
             get_ings(null, null, null);
             add_change_listeners();
-            fill_new_ing_units(ings_units);
+            fill_new_ing_units(['г', 'мл', 'шт']);
         });
 
         add_new_discarding();
@@ -146,7 +146,7 @@ $(function () {
                         $(this).find('.curr-amount-text').text(val == '' ? 0 : val);
                     });
 
-                    $('#organization').val('Кафе "Алигатор"');
+                    $('#organization').val('Кафе "Алігатор"');
                     $('#storage').val('Головний склад');
 
                     $('#ivent_date').val(new Date().printmode());
