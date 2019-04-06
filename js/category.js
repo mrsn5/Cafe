@@ -33,9 +33,11 @@ $(function () {
         switch (cat_name) {
             case 'Топ ліст':
                 action_name = 'top_list';
+                $('.search-area').hide();
                 break;
             case 'Стоп ліст':
                 action_name = 'stop_list';
+                $('.search-area').hide();
                 break;
             default:
                 action_name = 'cat_select';
