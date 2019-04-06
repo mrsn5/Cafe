@@ -95,9 +95,12 @@ $(function () {
                 name: null,
                 order_time_from: null,
                 order_time_to: null,
-                tab_num: tab_num
+                tab_num: user_object.tab_num,
+                role: user_object.role
             },
             success: function (res) {
+                console.log(user_object.role);
+
                 console.log(res);
                 res = JSON.parse(res);
                 console.log(res);
@@ -130,7 +133,8 @@ $(function () {
             } else {
                 $node.find(".delete-order").removeClass('hide');
                 $node.find(".pay-order").addClass('hide');
-                $node.find('.close-order').attr('style', 'display:inline-block');
+                if (isPaid || user_object.role == 'administrator' )
+                    $node.find('.close-order').attr('style', 'display:inline-block');
             }
         });
 
@@ -201,22 +205,35 @@ $(function () {
                 $('.' + e.target.id).removeClass('is-served');
             }
 
-
-
-
-            $.ajax({
-                url: url_object.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'change_portion_state',
-                    is_served: is_served,
-                    unique_num:unique_num
-                },
-                success: function (res) {
-                    console.log(res);
-                    console.log("UPDATED!")
-                }
-            });
+            if (user_object.role == 'chef' || user_object.role == 'cook') {
+                $.ajax({
+                    url: url_object.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'change_portion_state',
+                        is_ready: is_served,
+                        unique_num: unique_num
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        console.log("UPDATED!")
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: url_object.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'change_portion_state',
+                        is_served: is_served,
+                        unique_num: unique_num
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        console.log("UPDATED!")
+                    }
+                });
+            }
         });
     }
 
@@ -344,7 +361,8 @@ $(function () {
                             let $node = $(order_templ({
                                 order: res,
                                 url: url_object.template_directory,
-                                mode: 'orders'
+                                mode: 'orders',
+                                role: user_object.role
                             }));
 
                             addOrderListeners($node, res);

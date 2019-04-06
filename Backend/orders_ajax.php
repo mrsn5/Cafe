@@ -35,7 +35,7 @@ function orders_select(){
     $params = array();
     if ($_POST['unique_num'] != null)  $params[] = "unique_num = " . $_POST['unique_num'];
     if ($_POST['is_closed'] != null)  $params[] = "is_closed = " . $_POST['is_closed'];
-    if ($_POST['tab_num'] != null) $params[] = "tab_num = " . $_POST['tab_num'];
+    if ($_POST['tab_num'] != null && $_POST['role'] != 'administrator') $params[] = "tab_num = " . $_POST['tab_num'];
     if ($_POST['name'] != null) {
         $workerQuery =
             "(SELECT tab_num
@@ -55,11 +55,17 @@ function orders_select(){
         $orders = array();
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
 
-
-            $portionsQuery = "SELECT order_num, MIN(unique_num) as unique_num, tech_card_num, special_wishes, SUM(price) AS price, discount, is_ready, is_served, COUNT(*) AS quantity
+            $portionsQuery = [];
+            if ($_POST['role'] != 'chef' && $_POST['role'] != 'cook') {
+                $portionsQuery = "SELECT order_num, MIN(unique_num) as unique_num, tech_card_num, special_wishes, SUM(price) AS price, discount, is_ready, is_served, COUNT(*) AS quantity
                               FROM portions 
                               WHERE order_num = " . $row['unique_num'] .
-                             " GROUP BY tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num;";
+                    " GROUP BY tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num;";
+            } else {
+                $portionsQuery = "SELECT order_num, unique_num, tech_card_num, special_wishes, price, discount, is_ready, is_served, 1 AS quantity
+                              FROM portions 
+                              WHERE order_num = " . $row['unique_num'] . ";";
+            }
             $portions = array();
             foreach ($conn->query($portionsQuery, PDO::FETCH_ASSOC) as $p) {
 
@@ -176,7 +182,7 @@ function change_portion_state(){
     $conn = DBHelper::connect();
 
 
-    if ($unique_num != null) {
+    if ($unique_num != null && $is_served != null) {
         $sqlQuery = "SELECT * FROM portions WHERE unique_num=$unique_num;";
 
         try {
@@ -192,7 +198,6 @@ function change_portion_state(){
 
         $sqlQuery = "UPDATE portions SET ";
         if ($is_served != null) $sqlQuery = $sqlQuery . "is_served=" . $is_served . ' ';
-        if ($is_ready != null) $sqlQuery = $sqlQuery . "is_ready=" . $is_ready . ' ';
         $sqlQuery = $sqlQuery . " WHERE order_num = $p[order_num] 
                                    AND   tech_card_num = $p[tech_card_num] 
                                    AND   special_wishes = $p[special_wishes] 
@@ -201,6 +206,24 @@ function change_portion_state(){
                                    AND   is_served = $p[is_served] 
                                    AND   discount = $p[discount];";
         $sqlQuery = str_replace("= NULL", " IS NULL", $sqlQuery);
+        echo $sqlQuery;
+
+        //tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num
+
+        try {
+            $conn->query($sqlQuery);
+
+        } catch (Exception $e) {
+            echo 'Exception: ',  $e->getMessage(), "\n";
+            echo $sqlQuery;
+        }
+
+    }
+
+    if ($unique_num != null && $is_ready != null) {
+        $sqlQuery = "UPDATE portions SET ";
+        if ($is_ready != null) $sqlQuery = $sqlQuery . "is_ready=" . $is_ready . ' ';
+        $sqlQuery = $sqlQuery . " WHERE unique_num = $unique_num;";
         echo $sqlQuery;
 
         //tech_card_num, special_wishes, price, is_ready, is_served, discount, order_num

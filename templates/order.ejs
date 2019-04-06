@@ -1,22 +1,25 @@
 <li class="order-item">
 <div class="order-container">
 
+    <% if (role != 'cook' && role != 'chef') { %>
     <div class="order-num">
         <h1>#<%= order.unique_num %></h1>
         <% if (mode !== 'history') { %>
         <a class="edit"><img src="<%= url %>/images/edit.svg" alt="Edit"/></a>
         <% } %>
     </div>
+    <% } %>
 
     <% if (mode !== 'history') { %>
     <div class="table-num">
+        <% if (role != 'cook' && role != 'chef') { %>
             <a><img class="pay-order" src="<%= url %>/images/hand-2.svg" alt="Money"/></a>
             <!--<a href=""><img src="<%= url %>/images/hand.svg" alt="Card"/></a>-->
             <% if (role == 'administrator') { %>
                 <a><img class="delete-order hide" src="<%= url %>/images/trash.svg" alt="DELETE"/></a>
             <% } %>
-            <% console.log(role) %>
             <a><img class="close-order" style="display: none" src="<%= url %>/images/cancel.svg" alt="close"/></a>
+        <% } %>
         <h1><%= order.table_num%></h1>
     </div>
     <% } %>
@@ -26,7 +29,7 @@
         <!--            - 11.30-->
     </div>
 
-    <% if (mode === 'history') { %>
+    <% if (mode === 'history' || role == 'cook' || role == 'chef') { %> %>
     <div class="personnel">
         <%= order.name %>
     </div>
@@ -38,31 +41,36 @@
             <!-- ITEMS -->
 
             <% for(var i=0; i < order.portions.length; i++) { %>
-            <li class="item item-<%= order.portions[i].unique_num %>">
-                <div class="item-info">
-                    <% if (mode !== 'history') { %>
-                    <input type="checkbox" class="box" id="box-<%= order.portions[i].unique_num %>" <% if ( order.portions[i].is_served == '1') { %>
-                        <%= 'checked'%>
-                        <% }%>>
-                    <% } %>
-                    <label for="box-<%= order.portions[i].unique_num %>">
-                        <div class="box-<%= order.portions[i].unique_num %> text
-                                <% if ( order.portions[i].is_ready == '1') {%>
-                                    <%=" is-ready";%>
+            <% if (!(order.portions[i].is_ready == '1' && (role == 'chef' || role == 'cook'))) { %>
+                <li class="item item-<%= order.portions[i].unique_num %>">
+                    <div class="item-info">
+                        <% if (mode !== 'history') { %>
+                        <input type="checkbox" class="box" id="box-<%= order.portions[i].unique_num %>" <% if ( order.portions[i].is_served == '1') { %>
+                            <%= 'checked'%>
+                            <% }%>>
+                        <% } %>
+                        <label for="box-<%= order.portions[i].unique_num %>">
+                            <div class="box-<%= order.portions[i].unique_num %> text
+                                    <% if ( order.portions[i].is_ready == '1') {%>
+                                        <%=" is-ready";%>
+                                    <% } %>
+                                    <% if ( order.portions[i].is_served == '1') { %>
+                                        <%=" is-served";%>
+                                    <% } %>">
+                                <span class="name"><%= order.portions[i].dish_name %></span><br/>
+                                <% if (order.portions[i].special_wishes != null) { %>
+                                <span class="comment">[<%= order.portions[i].special_wishes %>]</span>
                                 <% } %>
-                                <% if ( order.portions[i].is_served == '1') { %>
-                                    <%=" is-served";%>
-                                <% } %>">
-                            <span class="name"><%= order.portions[i].dish_name %></span><br/>
-                            <% if (order.portions[i].special_wishes != null) { %>
-                            <span class="comment">[<%= order.portions[i].special_wishes %>]</span>
-                            <% } %>
-                        </div>
-                    </label>
-                </div>
-                <span class="quantity"><%= order.portions[i].quantity %></span>
-                <span class="price"><%= order.portions[i].price %> грн</span>
-            </li>
+                            </div>
+                        </label>
+                    </div>
+
+                    <span class="quantity"><%= order.portions[i].quantity %></span>
+                    <% if (role != 'cook' && role != 'chef') { %>
+                        <span class="price"><%= order.portions[i].price %> грн</span>
+                    <% } %>
+                </li>
+                <% } %>
             <% } %>
 
 
@@ -81,7 +89,7 @@
                 <!--<span class="price"> грн</span>-->
             <!--</li>-->
 
-
+            <% if (role != 'cook' && role != 'chef') { %>
             <!-- BREAK LINE-->
             <li><hr></li>
 
@@ -90,7 +98,7 @@
                 <span>Всього</span>
                 <span class="total-price"><%= order.cost %> грн</span>
             </li>
-
+            <% } %>
         </ul>
     </div>
 </div>
