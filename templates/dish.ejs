@@ -3,6 +3,21 @@
         return "not-available";
     }
 } %>
+<% function isInMenuStyleAdd(ing) {
+    if (ing.is_in_menu == 1) {
+        return "none";
+    } else {
+        return "inline-block";
+    }
+} %>
+
+<% function isInMenuStyleDel(ing) {
+    if (ing.is_in_menu == 1) {
+        return "inline-block";
+    } else {
+        return "none";
+    }
+} %>
 
 <li class="dish">
     <div class="container">
@@ -10,14 +25,21 @@
             <span class="announce label label-danger">Недоступна</span>
         <% } %>
 
-        <!--    only for chefs & barmen-->
-        <span class="delete-label" id="delete_dish">
-        <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish">
-    </span>
+        <span style="display: <%= isInMenuStyleAdd(dish) %>" class="announce-menu label label-danger">Не в меню</span>
 
-            <div class="tech-card-num">
-                <span id="tech_card_num"><%= dish.tech_card_num%></span>
-            </div>
+        <!--    only for chefs & barmen-->
+        <% if(user_role == 'chef' || user_role == 'barman') { %>
+            <span style="display: <%= isInMenuStyleDel(dish) %>" class="delete-label" id="delete_dish_from_menu">
+                <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish from menu">
+            </span>
+            <span style="display: <%= isInMenuStyleAdd(dish) %>" class="add-label" id="add_dish_to_menu">
+                <img src="<%= url_object.template_directory %>/images/add-icon.png" alt="add dish to menu">
+            </span>
+        <% } %>
+
+        <div class="tech-card-num">
+            <span id="tech_card_num"><%= dish.tech_card_num %></span>
+        </div>
         <div class="top-panel">
             <!--<div class="img-cont">-->
             <!--<div class="image-wrap">-->
@@ -87,7 +109,7 @@
             </h3>
         </div>
 
-        <% if (choose_mode && dish.is_ing_available == 1) { %>
+        <% if (choose_mode && dish.is_ing_available == 1 && dish.is_in_menu == 1) { %>
             <div class="button-cont">
                 <button class="ok-btn btn-style">ДОДАТИ</button>
             </div>

@@ -31,9 +31,22 @@
 <div class="content">
     <div class="path-section">
         <ul class="breadcrumb">
-            <li><a id="menu_link" href="">Меню</a></li>
+            <li><a id="menu_link" href="">меню</a></li>
             <li id="category_name">Перші страви</li>
         </ul>
+
+        <div class="btn-container">
+            <div class="show_items_btn">
+                <span class="in-menu" id="in_menu">В меню</span>
+            </div>
+            <div class="show_items_btn">
+                <span class="not-in-menu" id="not_in_menu">Не в меню</span>
+            </div>
+            <div class="show_items_btn">
+                <span class="all-dishes" id="all_dishes">Всі страви</span>
+            </div>
+        </div>
+
     </div>
 
     <div class="row dishes-list">

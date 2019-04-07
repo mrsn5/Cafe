@@ -44,6 +44,7 @@
     padding: 10px 16px;
     list-style: none;
     background-color: @gray_tone_2;
+    margin-bottom: 0;
 
     li{
       display: inline;
@@ -64,5 +65,31 @@
     padding: 8px;
     color: @gray_tone_5;
     content: "\0276F";
+  }
+
+  .btn-container{
+    text-align: right;
+  }
+  .show_items_btn{
+    display: inline-block;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: right;
+    font-family: @header_font;
+
+    span {
+      display: inline-block;
+      background-color: @primary_color_yellow;
+      padding: 5px;
+    }
+    span:hover{
+      cursor: pointer;
+      background-color: @yellow_tone_3;
+    }
+
+    span + span{
+      margin-left: 10px;
+    }
   }
 }

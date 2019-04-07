@@ -29,8 +29,12 @@ Date.prototype.yyyymmdd = function () {
 };
 
 $(function () {
+    let tab_num = user_object.tab_num;
+
     let today_date = new Date().yyyymmdd();
 
+    console.log(tab_num);
+    let unsaved_orders_key = tab_num;
     let unsaved_orders = [];
 
     let open_orders = $("#open-orders");
@@ -69,7 +73,7 @@ $(function () {
                     let dish_i = unsaved_orders[order_i].portions.findIndex(p => p.dish_name == dish_name);
                     if (dish_i > -1) {
                         unsaved_orders[order_i].portions[dish_i].special_wishes = new_comment;
-                        Storage.set('unsaved_orders', unsaved_orders);
+                        Storage.set(unsaved_orders_key, unsaved_orders);
                     }
                 }
             }
@@ -125,7 +129,6 @@ $(function () {
 
                 open_orders.find(".old").remove();
                 open_orders.find(".new").addClass("old").removeClass('new');
-
             }
         });
     }
@@ -263,7 +266,7 @@ $(function () {
     }
 
     function getUnsavedOrders() {
-        unsaved_orders = Storage.get('unsaved_orders') ? Storage.get('unsaved_orders') : [];
+        unsaved_orders = Storage.get(unsaved_orders_key) ? Storage.get(unsaved_orders_key) : [];
 
         unsaved_orders.forEach(function (order) {
             let order_cost = 0;
@@ -299,7 +302,7 @@ $(function () {
         })));
 
         unsaved_orders.push(new_order);
-        Storage.set('unsaved_orders', unsaved_orders);
+        Storage.set(unsaved_orders_key, unsaved_orders);
     }
 
     function getLastOrderId() {
@@ -324,7 +327,7 @@ $(function () {
         if (orderIndex > -1) {
             unsaved_orders[orderIndex].n_people = n_people;
         }
-        Storage.set('unsaved_orders', unsaved_orders);
+        Storage.set(unsaved_orders_key, unsaved_orders);
     });
 
     $unsaved_orders_cont.on('input', '.quantity', function () {
@@ -343,7 +346,7 @@ $(function () {
             }
 
             let $total_cost = $(this).parents('.order-container').find('.order-total-cost');
-            Storage.set('unsaved_orders', unsaved_orders);
+            Storage.set(unsaved_orders_key, unsaved_orders);
             updateOrderCost(unsaved_orders[orderIndex], $total_cost);
         }
     });
@@ -398,7 +401,7 @@ $(function () {
                             getOrders(false);
                             $parent.remove();
                             unsaved_orders.splice(order_index, 1);
-                            Storage.set('unsaved_orders', unsaved_orders);
+                            Storage.set(unsaved_orders_key, unsaved_orders);
                         });
                     }
                 }
@@ -411,7 +414,7 @@ $(function () {
         let order_num = $parent.find('#order_num').text();
         let order_index = unsaved_orders.findIndex(o => o.unique_num == order_num);
         unsaved_orders.splice(order_index, 1);
-        Storage.set('unsaved_orders', unsaved_orders);
+        Storage.set(unsaved_orders_key, unsaved_orders);
         $parent.remove();
     });
 

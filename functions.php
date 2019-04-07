@@ -73,6 +73,11 @@ function load_my_scripts(){
                     array('ajax_url' => admin_url('admin-ajax.php'), 'template_directory' => get_stylesheet_directory_uri(),
                         'orders_page_url' => get_permalink(get_page_by_title( 'Orders' )),
                         'menu_page_url' => get_permalink(get_page_by_title( 'Menu' ))));
+                wp_localize_script('category-ajax-script', 'user_object',
+                    array(
+                        'role' => ((array)( wp_get_current_user()->roles )[0])[0],
+                        'tab_num' => get_the_author_meta( 'tab_num',  wp_get_current_user()->ID )
+                    ));
                 break;
             case 'deliverer.php':
                 wp_enqueue_script('deliverer-ajax-script', get_template_directory_uri() . '/js/compiled/deliverer.js', array('jquery'), '1.0.0', true);

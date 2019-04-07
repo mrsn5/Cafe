@@ -21,8 +21,8 @@ add_action('wp_ajax_nopriv_top_list', 'top_list');
 add_action('wp_ajax_stop_list', 'stop_list');
 add_action('wp_ajax_nopriv_stop_list', 'stop_list');
 
-//add_action('wp_ajax_delete_dish', 'delete_dish');
-//add_action('wp_ajax_nopriv_delete_dish', 'delete_dish');
+add_action('wp_ajax_update_dish_in_menu_prop', 'update_dish_in_menu_prop');
+add_action('wp_ajax_nopriv_update_dish_in_menu_prop', 'update_dish_in_menu_prop');
 
 //$category_name = '';
 //
@@ -43,8 +43,12 @@ function cat_select()
                                          WHERE cat_name LIKE '" . $_POST['cat_name'] . "')";
 
 
-    if($_POST['dish_name']){
+    if($_POST['dish_name'] != null){
         $sqlQuery = $sqlQuery. " AND dish_name LIKE '" . $_POST['dish_name'] . "' ";
+    }
+
+    if($_POST['in_menu'] != null){
+        $sqlQuery = $sqlQuery. " AND is_in_menu = '" . $_POST['in_menu'] . "' ";
     }
 
     $sqlQuery = $sqlQuery." ORDER BY dish_name;";
@@ -121,23 +125,24 @@ function getDishesList($sqlQuery)
     die;
 }
 
-//function delete_dish(){
-//    if($_POST['tech_card_num']){
-//        $conn = DBHelper::connect();
-//
-//        $sqlQuery = "DELETE FROM dishes
-//                     WHERE tech_card_num = ".$_POST['tech_card_num'].";";
-//
-//        try {
-//            $conn->query($sqlQuery, PDO::FETCH_ASSOC);
-//        }catch (Exception $e) {
-//            echo($e);
-//            DBHelper::disconnect();
-//            die();
-//        }
-//
-//        echo 'Dish '.$_POST['tech_card_num'].' deleted';
-//        DBHelper::disconnect();
-//        die;
-//    }
-//}
+function update_dish_in_menu_prop(){
+    if($_POST['tech_card_num']){
+        $conn = DBHelper::connect();
+
+        $sqlQuery = "UPDATE dishes SET
+                     is_in_menu = ".$_POST['in_menu']."
+                     WHERE tech_card_num = ".$_POST['tech_card_num'].";";
+
+        try {
+            $conn->query($sqlQuery, PDO::FETCH_ASSOC);
+        }catch (Exception $e) {
+            echo($e);
+            DBHelper::disconnect();
+            die();
+        }
+
+        echo 'Dish '.$_POST['tech_card_num'].' updated';
+        DBHelper::disconnect();
+        die;
+    }
+}
