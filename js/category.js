@@ -83,7 +83,7 @@ $(function () {
                     url: url_object.ajax_url,
                     type: 'POST',
                     data: {
-                        action: 'update_dish_in_menu_prop',
+                        action: 'update_dish',
                         tech_card_num: tech_card_num,
                         in_menu:0
                     },
@@ -108,7 +108,7 @@ $(function () {
                     url: url_object.ajax_url,
                     type: 'POST',
                     data: {
-                        action: 'update_dish_in_menu_prop',
+                        action: 'update_dish',
                         tech_card_num: tech_card_num,
                         in_menu:1
                     },
@@ -121,6 +121,58 @@ $(function () {
                         // $parent.remove();
                     }
                 });
+            }
+        });
+
+        let isEditing = false;
+        $dishes_container.on('click', '#edit_dish', function () {
+            let $parent = $(this).parents('.dish');
+            let tech_card_num = $parent.find('#tech_card_num').text();
+
+            isEditing = !isEditing;
+            $parent.find(".editable-item").each(function () {
+                let $edit_input = $(this).find(".edit-input input");
+                let $edit_val = $(this).find(".val");
+                console.log($edit_val.text());
+
+                if (isEditing) {
+                    $edit_input.attr('style', 'display:inline-block');
+                    $edit_input.val(+($edit_val.text()));
+                    $edit_val.attr('style', 'display:none');
+                } else {
+                    $edit_val.attr('style', 'display:inline-block');
+                    $edit_val.innerText = '';
+                    $edit_val.text($edit_input.val());
+                    $edit_input.attr('style', 'display:none');
+                }
+            });
+
+            if(!isEditing){
+                updateDish(tech_card_num,
+                    $parent.find('.dish-weight').text(),
+                    $parent.find('.dish-calories').text(),
+                    $parent.find('.dish-cooking-time').text(),
+                    $parent.find('.dish-price-span').text());
+            }
+        });
+    }
+
+    function updateDish(tech_card_num, weight, calories, cooking_time, price) {
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'update_dish',
+                tech_card_num:tech_card_num,
+                weight: weight,
+                calories: calories,
+                cooking_time: cooking_time,
+                price: price
+            },
+            success: function (res) {
+                console.log(res);
+                // console.log("DELETED");
+                // getOrders(false);
             }
         });
     }

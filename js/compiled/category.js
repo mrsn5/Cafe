@@ -7,7 +7,7 @@ let Storage = require('./locStorage');
 
 let ejs = require('ejs');
 
-let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n<% function isInMenuStyleAdd(ing) {\r\n    if (ing.is_in_menu == 1) {\r\n        return \"none\";\r\n    } else {\r\n        return \"inline-block\";\r\n    }\r\n} %>\r\n\r\n<% function isInMenuStyleDel(ing) {\r\n    if (ing.is_in_menu == 1) {\r\n        return \"inline-block\";\r\n    } else {\r\n        return \"none\";\r\n    }\r\n} %>\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <span style=\"display: <%= isInMenuStyleAdd(dish) %>\" class=\"announce-menu label label-danger\">Не в меню</span>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <% if(user_role == 'chef' || user_role == 'barman') { %>\r\n            <span style=\"display: <%= isInMenuStyleDel(dish) %>\" class=\"delete-label\" id=\"delete_dish_from_menu\">\r\n                <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish from menu\">\r\n            </span>\r\n            <span style=\"display: <%= isInMenuStyleAdd(dish) %>\" class=\"add-label\" id=\"add_dish_to_menu\">\r\n                <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" alt=\"add dish to menu\">\r\n            </span>\r\n        <% } %>\r\n\r\n        <div class=\"tech-card-num\">\r\n            <span id=\"tech_card_num\"><%= dish.tech_card_num %></span>\r\n        </div>\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) { %>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <% } %>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span><%= dish.weight %> г</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n                            <span><span class=\"dish-price-span\"><%= dish.price %></span> грн</span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span><%= dish.calories %> ккал</span>\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span><%= dish.cooking_time %> хв</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n\r\n                            <span class=\"ing-amount\">\r\n                                <%= dish.ings[i].amount %>\r\n                                <%= dish.ings[i].units %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\"\r\n                     src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <% if (choose_mode && dish.is_ing_available == 1 && dish.is_in_menu == 1) { %>\r\n            <div class=\"button-cont\">\r\n                <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</li>");
+let dishTempl = ejs.compile("<% function setIngStyle(ing) {\r\n    if (!ing.is_available) {\r\n        return \"not-available\";\r\n    }\r\n} %>\r\n<% function isInMenuStyleAdd(ing) {\r\n    if (ing.is_in_menu == 1) {\r\n        return \"none\";\r\n    } else {\r\n        return \"inline-block\";\r\n    }\r\n} %>\r\n<% function isInMenuStyleDel(ing) {\r\n    if (ing.is_in_menu == 1) {\r\n        return \"inline-block\";\r\n    } else {\r\n        return \"none\";\r\n    }\r\n} %>\r\n\r\n\r\n\r\n<li class=\"dish\">\r\n    <div class=\"container\">\r\n        <% if(dish.is_ing_available == 0) { %>\r\n            <span class=\"announce label label-danger\">Недоступна</span>\r\n        <% } %>\r\n\r\n        <span style=\"display: <%= isInMenuStyleAdd(dish) %>\" class=\"announce-menu label label-danger\">Не в меню</span>\r\n\r\n        <!--    only for chefs & barmen-->\r\n        <div class=\"dish-btns-container\">\r\n            <% if(user_role == 'chef' || user_role == 'barman' || user_role == 'bookkeeper' || user_role == 'owner') { %>\r\n                <span class=\"edit-label\" id=\"edit_dish\">\r\n                <img src=\"<%= url_object.template_directory %>/images/edit.svg\" alt=\"edit dish\">\r\n                </span>\r\n            <% } %>\r\n\r\n            <% if(user_role == 'chef' || user_role == 'barman') { %>\r\n                <span style=\"display: <%= isInMenuStyleDel(dish) %>\" class=\"delete-label\" id=\"delete_dish_from_menu\">\r\n                <img src=\"<%= url_object.template_directory %>/images/trash.svg\" alt=\"delete dish from menu\">\r\n                </span>\r\n                <span style=\"display: <%= isInMenuStyleAdd(dish) %>\" class=\"add-label\" id=\"add_dish_to_menu\">\r\n                <img src=\"<%= url_object.template_directory %>/images/add-icon.png\" alt=\"add dish to menu\">\r\n                </span>\r\n            <% } %>\r\n        </div>\r\n\r\n\r\n        <div class=\"tech-card-num\">\r\n            <span id=\"tech_card_num\"><%= dish.tech_card_num %></span>\r\n        </div>\r\n        <div class=\"top-panel\">\r\n            <!--<div class=\"img-cont\">-->\r\n            <!--<div class=\"image-wrap\">-->\r\n            <!--<img src=\"<%= url_object.template_directory %>/images/food/borsch1.jpg\">-->\r\n            <!--</div>-->\r\n            <!--</div>-->\r\n            <div class=\"inf-block\">\r\n                <h1 class=\"name\"><%= dish.dish_name %></h1>\r\n                <% if(dish.expiration_date) { %>\r\n                    <h3 class=\"exp-date\"><%= dish.expiration_date %></h3>\r\n                <% } %>\r\n                <!--<ul>-->\r\n                <div class=\"details\">\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon weight\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-weight.png\">\r\n                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>\r\n                                    class=\"editable-item\"\r\n                                    <% } %>\r\n                            >\r\n                                <span class=\"val dish-weight\"><%= dish.weight %> </span>\r\n\r\n                            <label class=\"edit-input\">\r\n                                <input type=\"number\" class=\"dish-weight-input\" min=\"0\">\r\n                            </label>\r\n                            г\r\n                            </span>\r\n\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon price\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-price.png\">\r\n\r\n                            <span\r\n                            <% if(user_role == 'owner' || user_role == 'bookkeeper') { %>\r\n                                 class=\"editable-item\"\r\n                            <% } %>\r\n                            >\r\n                                <span class=\"dish-price-span val\"><%= dish.price %></span>\r\n                                 <label class=\"edit-input\">\r\n                                    <input type=\"number\" class=\"dish-price-input\" min=\"0\">\r\n                                 </label>\r\n                                грн\r\n                            </span>\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div class=\"inf-details-block\">\r\n                        <div>\r\n                            <img class=\"inf-icon calories\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-calories.png\">\r\n                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>\r\n                                    class=\"editable-item\"\r\n                                    <% } %>\r\n                            >\r\n                                <span class=\"val dish-calories\"><%= dish.calories %></span>\r\n                                <label class=\"edit-input\">\r\n                                    <input type=\"number\" class=\"dish-calories-input\"  min=\"0\">\r\n                                </label>\r\n                                ккал\r\n                            </span>\r\n\r\n                        </div>\r\n                        <div>\r\n                            <img class=\"inf-icon timer\"\r\n                                 src=\"<%= url_object.template_directory %>/images/icon-timer.png\">\r\n                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>\r\n                                    class=\"editable-item\"\r\n                                    <% } %>\r\n                            >\r\n                                <span class=\"val dish-cooking-time\"><%= dish.cooking_time %></span>\r\n                                <label class=\"edit-input\">\r\n                                    <input type=\"number\" class=\"dish-cooking-time-input\" min=\"0\">\r\n                                 </label>\r\n                                хв\r\n                            </span>\r\n\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <!--</ul>-->\r\n            </div>\r\n        </div>\r\n\r\n        <hr class=\"separator\">\r\n\r\n        <div class=\"ingredient-cont\">\r\n            <ul class=\"ing-list toggle-area\">\r\n                <% for(var i = 0; i < dish.ings.length; i++) { %>\r\n                    <li class=\"<%= setIngStyle(dish.ings[i]) %>\">\r\n                        <div class=\"ingredient\">\r\n                            <span class=\"ing-name\">\r\n                                <%= dish.ings[i].ing_name %>\r\n                            </span>\r\n\r\n                            <span class=\"ing-amount\">\r\n                                <%= dish.ings[i].amount %>\r\n                                <%= dish.ings[i].units %>\r\n                            </span>\r\n                        </div>\r\n                    </li>\r\n                <% } %>\r\n            </ul>\r\n            <h3 class=\"show-ings toggle-btn\">\r\n                інгредієнти\r\n                <img class=\"img-cont image-transition\"\r\n                     src=\"<%= url_object.template_directory %>/images/drop_down_icon.png\">\r\n            </h3>\r\n        </div>\r\n\r\n        <% if (choose_mode && dish.is_ing_available == 1 && dish.is_in_menu == 1) { %>\r\n            <div class=\"button-cont\">\r\n                <button class=\"ok-btn btn-style\">ДОДАТИ</button>\r\n            </div>\r\n        <% } %>\r\n    </div>\r\n</li>");
 
 let cat_name = Storage.get('cat_name');
 let action_name = '';
@@ -84,7 +84,7 @@ $(function () {
                     url: url_object.ajax_url,
                     type: 'POST',
                     data: {
-                        action: 'update_dish_in_menu_prop',
+                        action: 'update_dish',
                         tech_card_num: tech_card_num,
                         in_menu:0
                     },
@@ -109,7 +109,7 @@ $(function () {
                     url: url_object.ajax_url,
                     type: 'POST',
                     data: {
-                        action: 'update_dish_in_menu_prop',
+                        action: 'update_dish',
                         tech_card_num: tech_card_num,
                         in_menu:1
                     },
@@ -122,6 +122,58 @@ $(function () {
                         // $parent.remove();
                     }
                 });
+            }
+        });
+
+        let isEditing = false;
+        $dishes_container.on('click', '#edit_dish', function () {
+            let $parent = $(this).parents('.dish');
+            let tech_card_num = $parent.find('#tech_card_num').text();
+
+            isEditing = !isEditing;
+            $parent.find(".editable-item").each(function () {
+                let $edit_input = $(this).find(".edit-input input");
+                let $edit_val = $(this).find(".val");
+                console.log($edit_val.text());
+
+                if (isEditing) {
+                    $edit_input.attr('style', 'display:inline-block');
+                    $edit_input.val(+($edit_val.text()));
+                    $edit_val.attr('style', 'display:none');
+                } else {
+                    $edit_val.attr('style', 'display:inline-block');
+                    $edit_val.innerText = '';
+                    $edit_val.text($edit_input.val());
+                    $edit_input.attr('style', 'display:none');
+                }
+            });
+
+            if(!isEditing){
+                updateDish(tech_card_num,
+                    $parent.find('.dish-weight').text(),
+                    $parent.find('.dish-calories').text(),
+                    $parent.find('.dish-cooking-time').text(),
+                    $parent.find('.dish-price-span').text());
+            }
+        });
+    }
+
+    function updateDish(tech_card_num, weight, calories, cooking_time, price) {
+        $.ajax({
+            url: url_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'update_dish',
+                tech_card_num:tech_card_num,
+                weight: weight,
+                calories: calories,
+                cooking_time: cooking_time,
+                price: price
+            },
+            success: function (res) {
+                console.log(res);
+                // console.log("DELETED");
+                // getOrders(false);
             }
         });
     }

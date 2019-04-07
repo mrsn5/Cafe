@@ -10,7 +10,6 @@
         return "inline-block";
     }
 } %>
-
 <% function isInMenuStyleDel(ing) {
     if (ing.is_in_menu == 1) {
         return "inline-block";
@@ -18,6 +17,8 @@
         return "none";
     }
 } %>
+
+
 
 <li class="dish">
     <div class="container">
@@ -28,14 +29,23 @@
         <span style="display: <%= isInMenuStyleAdd(dish) %>" class="announce-menu label label-danger">Не в меню</span>
 
         <!--    only for chefs & barmen-->
-        <% if(user_role == 'chef' || user_role == 'barman') { %>
-            <span style="display: <%= isInMenuStyleDel(dish) %>" class="delete-label" id="delete_dish_from_menu">
+        <div class="dish-btns-container">
+            <% if(user_role == 'chef' || user_role == 'barman' || user_role == 'bookkeeper' || user_role == 'owner') { %>
+                <span class="edit-label" id="edit_dish">
+                <img src="<%= url_object.template_directory %>/images/edit.svg" alt="edit dish">
+                </span>
+            <% } %>
+
+            <% if(user_role == 'chef' || user_role == 'barman') { %>
+                <span style="display: <%= isInMenuStyleDel(dish) %>" class="delete-label" id="delete_dish_from_menu">
                 <img src="<%= url_object.template_directory %>/images/trash.svg" alt="delete dish from menu">
-            </span>
-            <span style="display: <%= isInMenuStyleAdd(dish) %>" class="add-label" id="add_dish_to_menu">
+                </span>
+                <span style="display: <%= isInMenuStyleAdd(dish) %>" class="add-label" id="add_dish_to_menu">
                 <img src="<%= url_object.template_directory %>/images/add-icon.png" alt="add dish to menu">
-            </span>
-        <% } %>
+                </span>
+            <% } %>
+        </div>
+
 
         <div class="tech-card-num">
             <span id="tech_card_num"><%= dish.tech_card_num %></span>
@@ -57,12 +67,34 @@
                         <div>
                             <img class="inf-icon weight"
                                  src="<%= url_object.template_directory %>/images/icon-weight.png">
-                            <span><%= dish.weight %> г</span>
+                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>
+                                    class="editable-item"
+                                    <% } %>
+                            >
+                                <span class="val dish-weight"><%= dish.weight %> </span>
+
+                            <label class="edit-input">
+                                <input type="number" class="dish-weight-input" min="0">
+                            </label>
+                            г
+                            </span>
+
                         </div>
                         <div>
                             <img class="inf-icon price"
                                  src="<%= url_object.template_directory %>/images/icon-price.png">
-                            <span><span class="dish-price-span"><%= dish.price %></span> грн</span>
+
+                            <span
+                            <% if(user_role == 'owner' || user_role == 'bookkeeper') { %>
+                                 class="editable-item"
+                            <% } %>
+                            >
+                                <span class="dish-price-span val"><%= dish.price %></span>
+                                 <label class="edit-input">
+                                    <input type="number" class="dish-price-input" min="0">
+                                 </label>
+                                грн
+                            </span>
                         </div>
                     </div>
 
@@ -70,12 +102,32 @@
                         <div>
                             <img class="inf-icon calories"
                                  src="<%= url_object.template_directory %>/images/icon-calories.png">
-                            <span><%= dish.calories %> ккал</span>
+                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>
+                                    class="editable-item"
+                                    <% } %>
+                            >
+                                <span class="val dish-calories"><%= dish.calories %></span>
+                                <label class="edit-input">
+                                    <input type="number" class="dish-calories-input"  min="0">
+                                </label>
+                                ккал
+                            </span>
+
                         </div>
                         <div>
                             <img class="inf-icon timer"
                                  src="<%= url_object.template_directory %>/images/icon-timer.png">
-                            <span><%= dish.cooking_time %> хв</span>
+                            <span  <% if(user_role == 'chef' || user_role == 'barman') { %>
+                                    class="editable-item"
+                                    <% } %>
+                            >
+                                <span class="val dish-cooking-time"><%= dish.cooking_time %></span>
+                                <label class="edit-input">
+                                    <input type="number" class="dish-cooking-time-input" min="0">
+                                 </label>
+                                хв
+                            </span>
+
                         </div>
                     </div>
                 </div>

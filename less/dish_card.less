@@ -35,34 +35,55 @@
     text-transform: uppercase;
   }
 
-  .delete-label{
+  .edit-input{
+    input{
+      display: none;
+      max-width: 50px;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+
+    //font-size: ;
+  }
+
+  .dish-btns-container{
     position: absolute;
     right: 5px;
     top: 5px;
-    img{
-      width: 30px;
-      height: 30px;
+
+    .delete-label{
+      img{
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .delete-label:hover{
+      cursor: pointer;
+      border:2px solid @primary_color_red;
+    }
+
+    .add-label{
+      img{
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .add-label:hover{
+      cursor: pointer;
+      border:2px solid @primary_color_green;
+    }
+
+    .edit-label{
+      img{
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .edit-label:hover{
+      cursor: pointer;
     }
   }
-  .delete-label:hover{
-    cursor: pointer;
-    border:2px solid @primary_color_red;
-  }
-
-  .add-label{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    img{
-      width: 30px;
-      height: 30px;
-    }
-  }
-  .add-label:hover{
-    cursor: pointer;
-    border:2px solid @primary_color_green;
-  }
-
 }
 
 

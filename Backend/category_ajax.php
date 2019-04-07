@@ -21,8 +21,8 @@ add_action('wp_ajax_nopriv_top_list', 'top_list');
 add_action('wp_ajax_stop_list', 'stop_list');
 add_action('wp_ajax_nopriv_stop_list', 'stop_list');
 
-add_action('wp_ajax_update_dish_in_menu_prop', 'update_dish_in_menu_prop');
-add_action('wp_ajax_nopriv_update_dish_in_menu_prop', 'update_dish_in_menu_prop');
+add_action('wp_ajax_update_dish', 'update_dish');
+add_action('wp_ajax_nopriv_update_dish', 'update_dish');
 
 //$category_name = '';
 //
@@ -125,14 +125,26 @@ function getDishesList($sqlQuery)
     die;
 }
 
-function update_dish_in_menu_prop(){
+
+
+function update_dish(){
     if($_POST['tech_card_num']){
         $conn = DBHelper::connect();
 
-        $sqlQuery = "UPDATE dishes SET
-                     is_in_menu = ".$_POST['in_menu']."
-                     WHERE tech_card_num = ".$_POST['tech_card_num'].";";
+        $sqlQuery = "UPDATE dishes SET ";
 
+        $params = array();
+        if (isset($_POST['weight'])) $params[] =  " weight = '" . $_POST['weight'] . "' ";
+        if (isset($_POST['calories'])) $params[] = " calories = '" . $_POST['calories'] . "' ";
+        if (isset($_POST['cooking_time'])) $params[] = " cooking_time = '" . $_POST['cooking_time'] . "' ";
+        if (isset($_POST['price'])) $params[] = " price = '" . $_POST['price'] . "' ";
+        if (isset($_POST['in_menu'])) $params[] = " is_in_menu = " . $_POST['in_menu'] . " ";
+
+        $queryRest = join(', ', $params);
+        $sqlQuery = $sqlQuery.$queryRest;
+
+        $sqlQuery = $sqlQuery." WHERE tech_card_num = '".$_POST['tech_card_num']."';";
+        echo $sqlQuery;
         try {
             $conn->query($sqlQuery, PDO::FETCH_ASSOC);
         }catch (Exception $e) {
@@ -140,7 +152,6 @@ function update_dish_in_menu_prop(){
             DBHelper::disconnect();
             die();
         }
-
         echo 'Dish '.$_POST['tech_card_num'].' updated';
         DBHelper::disconnect();
         die;
