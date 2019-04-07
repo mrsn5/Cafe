@@ -4,7 +4,7 @@
 
     <div class="order-num">
         <h1>#<%= order.unique_num %></h1>
-        <% if (mode !== 'history' && (mode == 'orders' && role != 'chef' && role != 'cook')) { %>
+        <% if (mode !== 'history' && (mode == 'orders' && role == 'administrator')) { %>
         <a class="edit"><img src="<%= url %>/images/edit.svg" alt="Edit"/></a>
         <% } %>
     </div>
