@@ -168,7 +168,7 @@ CREATE TRIGGER afr_del_good AFTER DELETE ON goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
                                                       FROM units
                                                       WHERE OLD.unit_name = unit_name))
   WHERE ing_name = OLD.ing_name;
@@ -180,20 +180,20 @@ FOR EACH ROW
 BEGIN
   IF OLD.ing_name = NEW.ing_name THEN
       UPDATE ingredients
-      SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
                                                           FROM units
-                                                          WHERE OLD.unit_name = unit_name) - NEW.expected_amount * (SELECT SUM(graduation_rule)
+                                                          WHERE OLD.unit_name = unit_name) - NEW.curr_amount * (SELECT SUM(graduation_rule)
                                                                                                     FROM units
                                                                                                     WHERE NEW.unit_name = unit_name))
       WHERE ing_name = OLD.ing_name;
   ELSE
       UPDATE ingredients
-      SET curr_amount = curr_amount - OLD.expected_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - OLD.curr_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE OLD.unit_name = unit_name)
       WHERE ing_name = OLD.ing_name;
       UPDATE ingredients
-      SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE NEW.unit_name = unit_name)
       WHERE ing_name = NEW.ing_name;
@@ -204,7 +204,7 @@ CREATE TRIGGER afr_ins_good AFTER INSERT ON goods
 FOR EACH ROW
 BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
                                                      FROM units
                                                      WHERE NEW.unit_name = unit_name)
   WHERE ing_name = NEW.ing_name;

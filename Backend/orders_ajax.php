@@ -41,7 +41,7 @@ function orders_select(){
         $workerQuery =
             "(SELECT tab_num
              FROM workers 
-             WHERE CONCAT(first_name, ' ', surname, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%')";
+             WHERE CONCAT(surname, ' ', first_name, ' ', COALESCE (father_name, '')) LIKE '%" . $_POST['name'] . "%')";
         $params[] = "tab_num IN " . $workerQuery;
     }
     if ($_POST['order_time_from'] != null)   $params[] = "DATE(close_time) >= '" . $_POST['order_time_from'] . "'";

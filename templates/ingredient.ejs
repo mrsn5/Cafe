@@ -36,6 +36,7 @@ function getValOrNull(param) {
                     <div class="name">назва</div>
                     <div class="date">вжити з</div>
                     <div class="date">вжити до</div>
+                    <div class="number">поточна кількість</div>
                     <div class="date">дата останньої інвентаризації</div>
                 </li>
 
@@ -47,6 +48,7 @@ function getValOrNull(param) {
                     <div class="name"><%= ing.goods[i].goods_name%></div>
                     <div class="date"><%= getValOrNull(ing.goods[i].production_date)%></div>
                     <div class="date"><%= getValOrNull(ing.goods[i].expiration_date)%></div>
+                    <div class="name"><%= ing.goods[i].curr_amount%></div>
                     <div class="date"><%= getValOrNull(ing.goods[i].inventarization_date)%></div>
                 </li>
                 <%}%>

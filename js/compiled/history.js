@@ -40,13 +40,16 @@ $(function(){
     $('#date-to-search').val(now);
 
     $container_search.on('click', "#search-button", function(){
-        get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()))
+        get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()));
+        $('#date-from-search').val(now);
+        $('#date-to-search').val(now);
+        $('#searched-name').val('');
     });
 
     $container_search.on('click', "#search_discards", function(){
         get_discardings($('#discarding_date').val(), $('#resp_person').val().trim() === ''? null: $('#resp_person').val().trim());
 
-        $('#discarding_date').val('');
+        $('#discarding_date').val(null);
         $('#resp_person').val('');
     });
 
@@ -105,7 +108,9 @@ $(function(){
                     var $node = $(order({
                         order: o,
                         url: url_object.template_directory,
-                        mode: 'history'
+                        mode: 'history',
+                        role: null,
+                        is_my_order: null
                     }));
                     $node.find('.is-ready').removeClass('is-ready').attr('style', 'color: rgba(255, 127, 80, 0.6)');
                     $orders_list.append($node);
@@ -1263,7 +1268,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1287,7 +1292,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

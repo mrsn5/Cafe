@@ -46,28 +46,6 @@ $(function () {
 
         select_dishes(action_name);
 
-        // $.ajax({
-        //     url: url_object.ajax_url,
-        //     type: 'POST',
-        //     data: {
-        //         action: action_name,
-        //         cat_name: cat_name
-        //     },
-        //     success: function (res) {
-        //         res = JSON.parse(res);
-        //         console.log(res);
-        //
-        //         res.forEach(function (d) {
-        //             var $node = $(dishTempl({
-        //                 dish: d,
-        //                 url_object: url_object,
-        //                 choose_mode: url_params['order_num']
-        //             }));
-        //             $dishes_container.append($node);
-        //         });
-        //     }
-        // });
-
         $dishes_container.on('click', '.ok-btn', function () {
             //      if(url_params['order_num']) {
             let $parent = $(this).parents('.dish');
@@ -1832,7 +1810,7 @@ module.exports={
   "_args": [
     [
       "ejs@2.6.1",
-      "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe"
+      "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe"
     ]
   ],
   "_from": "ejs@2.6.1",
@@ -1856,7 +1834,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
   "_spec": "2.6.1",
-  "_where": "D:\\PROGRAMS\\wamp\\www\\Cafe\\wordpress\\wp-content\\themes\\Cafe",
+  "_where": "C:\\Server\\data\\htdocs\\cafeProject\\wp-content\\themes\\cafe",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",

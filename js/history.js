@@ -39,13 +39,16 @@ $(function(){
     $('#date-to-search').val(now);
 
     $container_search.on('click', "#search-button", function(){
-        get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()))
+        get_orders(true, $('#date-from-search').val(), $('#date-to-search').val(), ($('#searched-name').val().trim() === ''? null:$('#searched-name').val().trim()));
+        $('#date-from-search').val(now);
+        $('#date-to-search').val(now);
+        $('#searched-name').val('');
     });
 
     $container_search.on('click', "#search_discards", function(){
         get_discardings($('#discarding_date').val(), $('#resp_person').val().trim() === ''? null: $('#resp_person').val().trim());
 
-        $('#discarding_date').val('');
+        $('#discarding_date').val(null);
         $('#resp_person').val('');
     });
 

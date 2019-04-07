@@ -45,28 +45,6 @@ $(function () {
 
         select_dishes(action_name);
 
-        // $.ajax({
-        //     url: url_object.ajax_url,
-        //     type: 'POST',
-        //     data: {
-        //         action: action_name,
-        //         cat_name: cat_name
-        //     },
-        //     success: function (res) {
-        //         res = JSON.parse(res);
-        //         console.log(res);
-        //
-        //         res.forEach(function (d) {
-        //             var $node = $(dishTempl({
-        //                 dish: d,
-        //                 url_object: url_object,
-        //                 choose_mode: url_params['order_num']
-        //             }));
-        //             $dishes_container.append($node);
-        //         });
-        //     }
-        // });
-
         $dishes_container.on('click', '.ok-btn', function () {
             //      if(url_params['order_num']) {
             let $parent = $(this).parents('.dish');

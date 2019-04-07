@@ -111,7 +111,7 @@ function ingredient_select()
     try {
         $ings = array();
         foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
-            $sqlQueryGoods = "SELECT delivery_num, unique_code, goods_name, production_date, expiration_date, inventarization_date
+            $sqlQueryGoods = "SELECT delivery_num, unique_code, goods_name, production_date, expiration_date, inventarization_date, curr_amount
                               FROM goods
                               WHERE ing_name = '" . $row['ing_name'] . "';";
 
