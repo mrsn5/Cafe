@@ -23,27 +23,13 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `categories` (`cat_name`) VALUES('алкогольні напої');
-INSERT INTO `categories` (`cat_name`) VALUES('вегетаріанські страви');
 INSERT INTO `categories` (`cat_name`) VALUES('гарніри');
 INSERT INTO `categories` (`cat_name`) VALUES('гарячі закуски');
-INSERT INTO `categories` (`cat_name`) VALUES('гарячі напої');
-INSERT INTO `categories` (`cat_name`) VALUES('гострі страви');
 INSERT INTO `categories` (`cat_name`) VALUES('десерти');
 INSERT INTO `categories` (`cat_name`) VALUES('другі страви');
-INSERT INTO `categories` (`cat_name`) VALUES('жарені страви');
-INSERT INTO `categories` (`cat_name`) VALUES('запечені страви');
-INSERT INTO `categories` (`cat_name`) VALUES("м'ясні страви");
 INSERT INTO `categories` (`cat_name`) VALUES('напої');
-INSERT INTO `categories` (`cat_name`) VALUES('паста');
 INSERT INTO `categories` (`cat_name`) VALUES('перші страви');
-INSERT INTO `categories` (`cat_name`) VALUES('рибні страви');
-INSERT INTO `categories` (`cat_name`) VALUES('салати');
-INSERT INTO `categories` (`cat_name`) VALUES('соуси');
-INSERT INTO `categories` (`cat_name`) VALUES('супи');
-INSERT INTO `categories` (`cat_name`) VALUES('фрукти');
-INSERT INTO `categories` (`cat_name`) VALUES('хлібобулочні вироби');
 INSERT INTO `categories` (`cat_name`) VALUES('холодні закуски');
-INSERT INTO `categories` (`cat_name`) VALUES('холодні напої');
 
 DROP TABLE IF EXISTS `deliveries`;
 CREATE TABLE IF NOT EXISTS `deliveries` (
