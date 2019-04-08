@@ -282,7 +282,8 @@ function update_goods_amount(){
         if($goods != null){
             foreach ($goods as $good) {
                 $sqlQueryUpdate = "UPDATE goods SET
-                       curr_amount = ".$good['curr_amount']."
+                       curr_amount = ".$good['curr_amount'].",
+                       expected_amount = ".$good['curr_amount']."
                        WHERE unique_code = ".$good['good_code'].";";
 
                 $conn->query($sqlQueryUpdate, PDO::FETCH_ASSOC);

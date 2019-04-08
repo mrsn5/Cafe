@@ -360,7 +360,7 @@ DROP TRIGGER IF EXISTS `afr_del_good`;
 DELIMITER $$
 CREATE TRIGGER `afr_del_good` AFTER DELETE ON `goods` FOR EACH ROW BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                       FROM units
                                                       WHERE OLD.unit_name = unit_name))
   WHERE ing_name = OLD.ing_name;
@@ -380,7 +380,7 @@ DROP TRIGGER IF EXISTS `afr_ins_good`;
 DELIMITER $$
 CREATE TRIGGER `afr_ins_good` AFTER INSERT ON `goods` FOR EACH ROW BEGIN
   UPDATE ingredients
-  SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+  SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                      FROM units
                                                      WHERE NEW.unit_name = unit_name)
   WHERE ing_name = NEW.ing_name;
@@ -401,20 +401,20 @@ DELIMITER $$
 CREATE TRIGGER `afr_upd_good` AFTER UPDATE ON `goods` FOR EACH ROW BEGIN
   IF OLD.ing_name = NEW.ing_name THEN
       UPDATE ingredients
-      SET curr_amount = curr_amount - (OLD.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - (OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                           FROM units
-                                                          WHERE OLD.unit_name = unit_name) - NEW.curr_amount * (SELECT SUM(graduation_rule)
+                                                          WHERE OLD.unit_name = unit_name) - NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                                                                     FROM units
                                                                                                     WHERE NEW.unit_name = unit_name))
       WHERE ing_name = OLD.ing_name;
   ELSE
       UPDATE ingredients
-      SET curr_amount = curr_amount - OLD.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount - OLD.expected_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE OLD.unit_name = unit_name)
       WHERE ing_name = OLD.ing_name;
       UPDATE ingredients
-      SET curr_amount = curr_amount + NEW.curr_amount * (SELECT SUM(graduation_rule)
+      SET curr_amount = curr_amount + NEW.expected_amount * (SELECT SUM(graduation_rule)
                                                          FROM units
                                                          WHERE NEW.unit_name = unit_name)
       WHERE ing_name = NEW.ing_name;
@@ -458,11 +458,11 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
   PRIMARY KEY (`ing_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('картопля', 'г', 0);
+INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('картопля', 'г', 30000);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('ошийок', 'г', 9500);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('буряк', 'г', 20000);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('капуста білокачана', 'г', 10000);
-INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('помідори', 'г', 0);
+INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('помідори', 'г', 5000);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('фасоль стручкова', 'г', 1000);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('цибуля городня', 'г', 10000);
 INSERT INTO `ingredients` (`ing_name`, `units`, `curr_amount`) VALUES('кабачки', 'г', 2000);
