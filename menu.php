@@ -142,7 +142,7 @@ define("PATH", get_template_directory_uri());
                 <div class="inputs-row">
                     <div class="field inline-field">
                         <input type="number" name="tab" id="weight" placeholder="123">
-                        <label class="required-label" for="weight">Вага порції (г)</label>
+                        <label class="required-label" for="weight">Вага порції</label>
                     </div>
 
                     <div class="field inline-field">
