@@ -1,6 +1,5 @@
 # Cafe
-Database project based on Wordpress 
-Node.js, PHP, JavaScript, HTML, LESS, EJS, MYSQL
+Database project based on Wordpress. Node.js, PHP, JavaScript, HTML, LESS, EJS, MYSQL
 
 ### Relational model
 ![RM](https://github.com/mrsn5/Cafe/blob/master/images/readme/RM.png?raw=true)
