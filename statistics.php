@@ -178,7 +178,7 @@ define("PATH", get_template_directory_uri());
                     <div class="results">
                         <h1>
                             <img class="image" alt="" src="<?php echo PATH ?>/images/clock.svg">
-                            <span id="average_client_time">0</span> год
+                            <span id="average_client_time">0</span> хв
                         </h1>
                     </div>
                 </div>

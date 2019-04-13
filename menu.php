@@ -166,8 +166,8 @@ define("PATH", get_template_directory_uri());
                     <tr>
                         <th class="number-col"></th>
                         <th class="name-col">назва</th>
-                        <th class="amount-col">кількість (г)</th>
-                        <th class="gen-price-col">середня вартість (грн/г)</th>
+                        <th class="amount-col">кількість</th>
+                        <th class="gen-price-col">середня вартість (грн/од)</th>
                         <th class="gen-price-col">загальна вартість</th>
                         <th class="img-col"></th>
                         <!--<th class="img-col"></th>-->
